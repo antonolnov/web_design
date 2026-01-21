@@ -110,23 +110,17 @@ export default function StatsBlob() {
                 >
                   <defs>
                     <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#69c0ff" />
+                      <stop offset="0%" stopColor="#40a9ff" />
                       <stop offset="100%" stopColor="#1890ff" />
                     </linearGradient>
-                    <filter id="blobShadow" x="-50%" y="-50%" width="200%" height="200%">
-                      <feDropShadow dx="0" dy="8" stdDeviation="15" floodColor="#1890ff" floodOpacity="0.3"/>
-                    </filter>
                   </defs>
 
                   <motion.path
                     fill="url(#blobGradient)"
-                    filter="url(#blobShadow)"
+                    style={{ filter: 'drop-shadow(0 10px 30px rgba(24,144,255,0.35))' }}
                     animate={{ d: blobPaths }}
                     transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
                   />
-
-                  {/* White highlight */}
-                  <ellipse cx="70" cy="60" rx="28" ry="20" fill="rgba(255,255,255,0.4)" />
                 </svg>
 
                 {/* AI text */}
