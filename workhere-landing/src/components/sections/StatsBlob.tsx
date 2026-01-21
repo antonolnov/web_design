@@ -23,11 +23,8 @@ export default function StatsBlob() {
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 50, damping: 20 });
   const rotation = useTransform(smoothProgress, [0, 1], [0, 360]);
   
-  // Blob transforms
-  const blobRotateY = useTransform(smoothProgress, [0, 0.5, 1], [-15, 10, -15]);
   const blobScale = useTransform(smoothProgress, [0, 0.5, 1], [0.9, 1.05, 0.95]);
   
-  // AI text reveal
   const aiOpacity = useTransform(smoothProgress, [0.1, 0.25], [0, 1]);
   const aiScale = useTransform(smoothProgress, [0.1, 0.25], [0.5, 1]);
 
@@ -47,13 +44,12 @@ export default function StatsBlob() {
         background: 'linear-gradient(180deg, #f0f7ff 0%, #e8f4ff 50%, #ffffff 100%)',
       }}
     >
-      {/* Background glow */}
+      {/* Simple background glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div 
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(24,144,255,0.08) 0%, transparent 60%)',
-            filter: 'blur(40px)',
+            background: 'radial-gradient(circle, rgba(24,144,255,0.1) 0%, transparent 70%)',
           }}
         />
       </div>
@@ -65,128 +61,72 @@ export default function StatsBlob() {
         >
           <div className="relative">
             
-            {/* Blob */}
+            {/* Blob container */}
             <motion.div
               className="relative cursor-pointer"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
-              style={{
-                rotateY: blobRotateY,
-                scale: blobScale,
-              }}
+              style={{ scale: blobScale }}
             >
-              {/* Glow */}
+              {/* Soft glow behind blob */}
+              <div
+                className="absolute rounded-full pointer-events-none"
+                style={{
+                  width: 200,
+                  height: 200,
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  background: 'radial-gradient(circle, rgba(24,144,255,0.25) 0%, transparent 70%)',
+                  filter: 'blur(30px)',
+                }}
+              />
+
+              {/* Outer ring - very subtle */}
               <motion.div
                 className="absolute rounded-full pointer-events-none"
                 style={{
-                  width: 300,
-                  height: 300,
+                  width: 170,
+                  height: 170,
                   left: '50%',
                   top: '50%',
-                  x: '-50%',
-                  y: '-50%',
-                  background: 'radial-gradient(circle, rgba(24,144,255,0.4) 0%, rgba(24,144,255,0.15) 40%, transparent 60%)',
-                  filter: 'blur(40px)',
+                  transform: 'translate(-50%, -50%)',
+                  border: '1px solid rgba(24,144,255,0.15)',
                 }}
-                animate={{
-                  scale: isHovered ? 1.3 : [1, 1.15, 1],
-                  opacity: isHovered ? 0.8 : [0.5, 0.7, 0.5],
-                }}
-                transition={{ duration: isHovered ? 0.3 : 3, repeat: isHovered ? 0 : Infinity }}
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
               />
 
-              {/* Electric effect */}
-              {[...Array(12)].map((_, i) => (
-                <motion.div
-                  key={`bolt-${i}`}
-                  className="absolute pointer-events-none"
-                  style={{
-                    left: '50%',
-                    top: '50%',
-                    width: 2,
-                    height: 35 + (i % 3) * 15,
-                    transformOrigin: 'center top',
-                    rotate: i * 30,
-                    background: 'linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(24,144,255,0.6) 50%, transparent 100%)',
-                    borderRadius: 2,
-                  }}
-                  animate={{
-                    opacity: [0, 0.7, 0],
-                    scaleY: [0.5, 1, 0.5],
-                  }}
-                  transition={{
-                    duration: 0.25,
-                    repeat: Infinity,
-                    delay: (i % 5) * 0.3,
-                    repeatDelay: 1.5,
-                  }}
-                />
-              ))}
-
-              {/* Rings */}
-              {[0, 1].map((ring) => (
-                <motion.div
-                  key={`ring-${ring}`}
-                  className="absolute rounded-full pointer-events-none"
-                  style={{
-                    width: 160 + ring * 30,
-                    height: 160 + ring * 30,
-                    left: '50%',
-                    top: '50%',
-                    x: '-50%',
-                    y: '-50%',
-                    border: `${1.5 - ring * 0.5}px solid rgba(24,144,255,${0.2 - ring * 0.05})`,
-                  }}
-                  animate={{ rotate: ring % 2 === 0 ? 360 : -360 }}
-                  transition={{ duration: 15 + ring * 5, repeat: Infinity, ease: 'linear' }}
-                />
-              ))}
-
-              {/* Shadow */}
-              <div
-                className="absolute rounded-[50%] bg-black/15 pointer-events-none"
-                style={{
-                  width: 120,
-                  height: 20,
-                  left: '50%',
-                  bottom: -30,
-                  transform: 'translateX(-50%)',
-                  filter: 'blur(12px)',
-                }}
-              />
-
-              {/* Blob SVG - clean, no dark elements */}
+              {/* Clean blob */}
               <motion.div
                 className="relative"
                 style={{ width: 150, height: 150 }}
-                animate={{ rotate: isHovered ? [0, 8, -4, 0] : 0 }}
-                transition={{ duration: 0.5 }}
+                animate={{ rotate: isHovered ? [0, 5, -3, 0] : 0 }}
+                transition={{ duration: 0.4 }}
               >
                 <svg 
                   viewBox="0 0 200 200" 
-                  className="w-full h-full" 
-                  style={{ filter: 'drop-shadow(0 12px 35px rgba(24,144,255,0.35))' }}
+                  className="w-full h-full"
                 >
                   <defs>
-                    <linearGradient id="blobGrad" x1="20%" y1="0%" x2="80%" y2="100%">
+                    <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#69c0ff" />
                       <stop offset="100%" stopColor="#1890ff" />
                     </linearGradient>
-                    <radialGradient id="shineTop" cx="35%" cy="30%" r="40%">
-                      <stop offset="0%" stopColor="rgba(255,255,255,0.5)" />
-                      <stop offset="100%" stopColor="transparent" />
-                    </radialGradient>
+                    <filter id="blobShadow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feDropShadow dx="0" dy="8" stdDeviation="15" floodColor="#1890ff" floodOpacity="0.3"/>
+                    </filter>
                   </defs>
 
-                  {/* Main blob shape */}
                   <motion.path
-                    fill="url(#blobGrad)"
+                    fill="url(#blobGradient)"
+                    filter="url(#blobShadow)"
                     animate={{ d: blobPaths }}
                     transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
                   />
 
-                  {/* Simple white highlight at top */}
-                  <ellipse cx="70" cy="65" rx="30" ry="22" fill="url(#shineTop)" />
+                  {/* White highlight */}
+                  <ellipse cx="70" cy="60" rx="28" ry="20" fill="rgba(255,255,255,0.4)" />
                 </svg>
 
                 {/* AI text */}
@@ -194,68 +134,51 @@ export default function StatsBlob() {
                   className="absolute inset-0 flex items-center justify-center"
                   style={{ opacity: aiOpacity, scale: aiScale }}
                 >
-                  <motion.span
+                  <span
                     className="text-white font-black text-5xl tracking-tight"
-                    style={{ textShadow: '0 3px 20px rgba(0,0,0,0.4)' }}
-                    animate={isHovered ? {
-                      textShadow: ['0 0 20px #fff', '0 0 40px #fff', '0 0 20px #fff'],
-                      scale: [1, 1.1, 1],
-                    } : {}}
-                    transition={{ duration: 0.6, repeat: isHovered ? Infinity : 0 }}
+                    style={{ textShadow: '0 2px 15px rgba(0,0,0,0.3)' }}
                   >
                     AI
-                  </motion.span>
+                  </span>
                 </motion.div>
 
-                {/* Hover particles */}
-                {isHovered && [...Array(10)].map((_, i) => (
+                {/* Hover effect */}
+                {isHovered && [...Array(8)].map((_, i) => (
                   <motion.div
                     key={`p-${i}`}
                     className="absolute w-1.5 h-1.5 rounded-full bg-white pointer-events-none"
-                    style={{ left: '50%', top: '50%', boxShadow: '0 0 8px #fff' }}
-                    initial={{ x: 0, y: 0, scale: 0 }}
+                    style={{ left: '50%', top: '50%' }}
+                    initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
                     animate={{
-                      x: Math.cos(i * 36 * Math.PI / 180) * 80,
-                      y: Math.sin(i * 36 * Math.PI / 180) * 80,
+                      x: Math.cos(i * 45 * Math.PI / 180) * 70,
+                      y: Math.sin(i * 45 * Math.PI / 180) * 70,
                       scale: [0, 1, 0],
-                      opacity: [0, 1, 0],
+                      opacity: [0, 0.8, 0],
                     }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 0.7 }}
                   />
                 ))}
               </motion.div>
             </motion.div>
 
-            {/* Orbiting cards - FIXED: no rotation on cards */}
+            {/* Orbiting cards */}
             {stats.map((stat) => (
               <motion.div
                 key={stat.value}
                 className="absolute"
-                style={{ 
-                  left: '50%', 
-                  top: '50%',
-                }}
+                style={{ left: '50%', top: '50%' }}
               >
-                <motion.div
-                  style={{ rotate: rotation }}
-                >
-                  <div
-                    style={{
-                      transform: `rotate(${stat.angle}deg) translateY(-${orbitRadius}px)`,
-                    }}
-                  >
-                    {/* Counter-rotate to keep card upright */}
+                <motion.div style={{ rotate: rotation }}>
+                  <div style={{ transform: `rotate(${stat.angle}deg) translateY(-${orbitRadius}px)` }}>
                     <motion.div
-                      style={{
-                        rotate: useTransform(rotation, (r) => -r - stat.angle),
-                      }}
+                      style={{ rotate: useTransform(rotation, (r) => -r - stat.angle) }}
                     >
                       <div
-                        className="rounded-2xl p-4 text-center bg-white shadow-lg"
+                        className="rounded-2xl p-4 text-center bg-white"
                         style={{
                           minWidth: '110px',
                           transform: 'translate(-50%, -50%)',
-                          boxShadow: '0 10px 40px rgba(0,0,0,0.08)',
+                          boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
                         }}
                       >
                         <div 
@@ -273,15 +196,16 @@ export default function StatsBlob() {
               </motion.div>
             ))}
 
-            {/* Orbit ring */}
+            {/* Orbit path */}
             <div 
-              className="absolute rounded-full border border-dashed border-[#1890ff]/10 pointer-events-none"
+              className="absolute rounded-full border border-dashed pointer-events-none"
               style={{
                 width: orbitRadius * 2,
                 height: orbitRadius * 2,
                 left: '50%',
                 top: '50%',
                 transform: 'translate(-50%, -50%)',
+                borderColor: 'rgba(24,144,255,0.1)',
               }}
             />
           </div>
