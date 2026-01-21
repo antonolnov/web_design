@@ -13,7 +13,6 @@ import {
   Key,
 } from 'lucide-react';
 import Container from '../ui/Container';
-import TextReveal from '../ui/TextReveal';
 
 const securityFeatures = [
   {
@@ -69,24 +68,68 @@ export default function Security() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="security" className="py-24 bg-white">
-      <Container>
+    <section 
+      id="security" 
+      className="relative py-24 overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, #0f172a 0%, #1e3a5f 40%, #1890ff 100%)',
+      }}
+    >
+      {/* Subtle grid pattern */}
+      <div 
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+        }}
+      />
+      
+      {/* Subtle floating particles - minimal */}
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 rounded-full bg-white/20"
+          style={{
+            left: `${15 + i * 15}%`,
+            top: `${20 + (i % 3) * 25}%`,
+          }}
+          animate={{
+            y: [0, -10, 0],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 4 + i,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      ))}
+
+      <Container className="relative z-10">
         <div ref={ref} className="text-center mb-16">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            className="inline-block px-4 py-1.5 mb-4 text-sm font-medium text-[#1890ff] bg-[#e6f4ff] rounded-full"
+            className="inline-flex items-center gap-2 px-4 py-2 mb-6 text-sm font-medium text-white/90 bg-white/10 border border-white/20 rounded-full backdrop-blur-sm"
           >
+            <Shield size={16} />
             Безопасность
           </motion.span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            <TextReveal>Данные под надёжной защитой</TextReveal>
-          </h2>
+          
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.1 }}
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4"
+          >
+            Данные под надёжной защитой
+          </motion.h2>
+          
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.3 }}
-            className="text-lg text-gray-600 max-w-2xl mx-auto"
+            transition={{ delay: 0.2 }}
+            className="text-lg text-white/60 max-w-2xl mx-auto"
           >
             Гибкие роли, аудит действий, выбор режима поставки — SaaS или on-premise
           </motion.p>
@@ -98,17 +141,18 @@ export default function Security() {
             {securityFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, x: -30 }}
+                initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: 0.2 + index * 0.1 }}
-                className="flex gap-4 p-5 bg-gray-50 rounded-[20px] hover:bg-white hover:shadow-lg border border-transparent hover:border-[#1890ff]/10 transition-all"
+                transition={{ delay: 0.3 + index * 0.1 }}
+                whileHover={{ x: 4, transition: { duration: 0.2 } }}
+                className="flex gap-4 p-5 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
               >
-                <div className="w-12 h-12 bg-[#e6f4ff] rounded-[12px] flex items-center justify-center flex-shrink-0">
-                  <feature.icon className="text-[#1890ff]" size={22} />
+                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <feature.icon className="text-[#69c0ff]" size={22} />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">{feature.title}</h4>
-                  <p className="text-gray-600 text-sm">{feature.description}</p>
+                  <h4 className="font-semibold text-white mb-1">{feature.title}</h4>
+                  <p className="text-white/50 text-sm leading-relaxed">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -116,35 +160,41 @@ export default function Security() {
 
           {/* Deployment Options */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ delay: 0.4 }}
-            className="bg-gradient-to-br from-[#1890ff] to-[#0d6edb] rounded-[32px] p-8 text-white"
+            className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20"
           >
             <div className="flex items-center gap-3 mb-6">
-              <Server className="text-white/80" size={24} />
-              <span className="font-semibold">Режимы поставки</span>
+              <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
+                <Server className="text-[#69c0ff]" size={20} />
+              </div>
+              <span className="font-semibold text-white text-lg">Режимы поставки</span>
             </div>
             
-            <div className="space-y-6">
+            <div className="space-y-4">
               {deploymentOptions.map((option, index) => (
-                <div
+                <motion.div
                   key={option.title}
-                  className="bg-white/10 backdrop-blur-sm rounded-[16px] p-5"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.5 + index * 0.1 }}
+                  whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
+                  className="bg-white/5 rounded-2xl p-5 border border-white/10 hover:border-white/20 transition-all"
                 >
-                  <h4 className="font-bold text-lg mb-2">{option.title}</h4>
-                  <p className="text-white/70 text-sm mb-3">{option.description}</p>
+                  <h4 className="font-bold text-white text-lg mb-2">{option.title}</h4>
+                  <p className="text-white/50 text-sm mb-3">{option.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {option.features.map((f) => (
                       <span
                         key={f}
-                        className="px-3 py-1 bg-white/10 rounded-full text-xs"
+                        className="px-3 py-1.5 bg-white/10 rounded-full text-xs text-white/70"
                       >
                         {f}
                       </span>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
@@ -152,27 +202,35 @@ export default function Security() {
 
         {/* Data Quality */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-gray-50 rounded-[32px] p-8"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.6 }}
+          className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10"
         >
           <div className="flex items-center gap-3 mb-6">
-            <Shield className="text-[#1890ff]" size={24} />
-            <h3 className="text-xl font-bold text-gray-900">Качество данных и "антихаос"</h3>
+            <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
+              <Shield className="text-[#69c0ff]" size={20} />
+            </div>
+            <h3 className="text-xl font-bold text-white">Качество данных и контроль</h3>
           </div>
           
           <div className="grid md:grid-cols-2 gap-6">
             {qualityFeatures.map((feature, index) => (
-              <div key={feature.title} className="flex gap-4">
-                <div className="w-10 h-10 bg-white rounded-[10px] flex items-center justify-center flex-shrink-0 shadow-sm">
-                  <feature.icon className="text-[#1890ff]" size={18} />
+              <motion.div 
+                key={feature.title} 
+                className="flex gap-4"
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.7 + index * 0.1 }}
+              >
+                <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <feature.icon className="text-[#69c0ff]" size={18} />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-1">{feature.title}</h4>
-                  <p className="text-gray-600 text-sm">{feature.description}</p>
+                  <h4 className="font-semibold text-white mb-1">{feature.title}</h4>
+                  <p className="text-white/50 text-sm leading-relaxed">{feature.description}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
