@@ -2,10 +2,11 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import { ArrowRight, Database, Users, Zap, Shield } from 'lucide-react';
+import { ArrowRight, Database, Users, Zap, Shield, Sparkles } from 'lucide-react';
 import Container from '../ui/Container';
 import MagneticButton from '../ui/MagneticButton';
 import TextReveal from '../ui/TextReveal';
+import AIBadge from '../ui/AIBadge';
 
 const features = [
   { icon: Database, label: 'Единая база кандидатов' },
@@ -58,11 +59,21 @@ export default function Hero() {
 
       <Container className="relative z-10">
         <motion.div style={{ opacity }} className="max-w-5xl mx-auto text-center">
-          {/* Badge */}
+          {/* AI Badge - Interactive element */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            className="flex justify-center mb-6"
+          >
+            <AIBadge />
+          </motion.div>
+
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-[#1890ff]/10 mb-8 border border-[#1890ff]/10"
           >
             <span className="relative flex h-2 w-2">
