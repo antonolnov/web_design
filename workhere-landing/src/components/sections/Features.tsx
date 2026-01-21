@@ -561,13 +561,6 @@ export default function Features() {
       <section id="features" className="py-16 bg-white">
         <Container>
           <div ref={titleRef} className="text-center">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              className="inline-block px-4 py-1.5 mb-4 text-sm font-medium text-[#1890ff] bg-[#e6f4ff] rounded-full"
-            >
-              Возможности платформы
-            </motion.span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               <TextReveal>Всё для эффективного найма</TextReveal>
             </h2>
