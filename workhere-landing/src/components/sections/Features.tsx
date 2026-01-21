@@ -402,18 +402,35 @@ function APIVisual() {
   );
 }
 
-// Единая тема для всех заставок
-const sectionTheme = {
-  bg: 'from-[#0c1929] via-[#0f2744] to-[#0c1929]',
-  accent: '#1890ff',
-  glow: 'rgba(24, 144, 255, 0.5)',
-};
+// Разные темы для каждой заставки
+const sectionThemes = [
+  {
+    bg: 'from-[#0c1929] via-[#0f2744] to-[#0c1929]',
+    accent: '#1890ff',
+    glow: 'rgba(24, 144, 255, 0.5)',
+  },
+  {
+    bg: 'from-[#1a0a2e] via-[#2d1b4e] to-[#1a0a2e]',
+    accent: '#a855f7',
+    glow: 'rgba(168, 85, 247, 0.5)',
+  },
+  {
+    bg: 'from-[#042f2e] via-[#0d4f4a] to-[#042f2e]',
+    accent: '#14b8a6',
+    glow: 'rgba(20, 184, 166, 0.5)',
+  },
+  {
+    bg: 'from-[#1c1917] via-[#44403c] to-[#1c1917]',
+    accent: '#f97316',
+    glow: 'rgba(249, 115, 22, 0.5)',
+  },
+];
 
 // Анимированный экран-заставка с заголовком
 function SectionTitleScreen({ title, icon: Icon, index }: { title: string; icon: React.ComponentType<{ size?: number; className?: string }>; index: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-10%' });
-  const theme = sectionTheme;
+  const theme = sectionThemes[index % sectionThemes.length];
   
   return (
     <section 
@@ -572,8 +589,6 @@ function SectionTitleScreen({ title, icon: Icon, index }: { title: string; icon:
         transition={{ duration: 1, delay: 0.5 }}
       />
       
-      {/* Bottom transition to light content - soft and extended */}
-      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white via-white/60 to-transparent" />
     </section>
   );
 }
@@ -632,7 +647,7 @@ const blocks = [
   },
 ];
 
-function FeatureBlock({ block, index, isLast }: { block: typeof blocks[0]; index: number; isLast: boolean }) {
+function FeatureBlock({ block, index }: { block: typeof blocks[0]; index: number }) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const activeContent = block.tabs[activeTabIndex];
   const ref = useRef(null);
@@ -788,10 +803,6 @@ function FeatureBlock({ block, index, isLast }: { block: typeof blocks[0]; index
         </div>
       </div>
       
-      {/* Bottom gradient for last block to transition to dark Pipeline */}
-      {isLast && (
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent via-gray-100/50 to-gray-200/80" />
-      )}
     </section>
   );
 }
@@ -823,7 +834,7 @@ export default function Features() {
       {blocks.map((block, index) => (
         <div key={block.badge}>
           <SectionTitleScreen title={block.badge} icon={block.icon} index={index} />
-          <FeatureBlock block={block} index={index} isLast={index === blocks.length - 1} />
+          <FeatureBlock block={block} index={index} />
         </div>
       ))}
     </>

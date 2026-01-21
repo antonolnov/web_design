@@ -69,10 +69,7 @@ export default function Security() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="security" className="py-24 bg-white relative">
-      {/* Top gradient transition from dark section */}
-      <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-gray-100 to-transparent" />
-      
+    <section id="security" className="py-24 bg-white">
       <Container>
         <div ref={ref} className="text-center mb-16">
           <motion.span

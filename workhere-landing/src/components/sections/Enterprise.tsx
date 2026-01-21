@@ -34,8 +34,6 @@ export default function Enterprise() {
         background: 'linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)',
       }}
     >
-      {/* Top gradient transition - soft blend from Pipeline */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#0c1929] via-[#0c1929]/80 to-transparent" />
       
       {/* Grid pattern */}
       <motion.div className="absolute inset-0 opacity-[0.05]" style={{ y: backgroundY }}>
@@ -139,8 +137,6 @@ export default function Enterprise() {
         </motion.div>
       </Container>
       
-      {/* Bottom gradient transition - soft blend to Security */}
-      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white via-white/60 to-transparent" />
     </section>
   );
 }
