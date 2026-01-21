@@ -402,107 +402,242 @@ function APIVisual() {
   );
 }
 
+// Цветовые темы для каждого блока
+const sectionThemes = [
+  { // База кандидатов
+    bg: 'from-[#0a1628] via-[#1a365d] to-[#1e40af]',
+    accent: '#3b82f6',
+    glow: 'rgba(59, 130, 246, 0.5)',
+  },
+  { // Автоматизация
+    bg: 'from-[#1a0a2e] via-[#312e81] to-[#4c1d95]',
+    accent: '#8b5cf6',
+    glow: 'rgba(139, 92, 246, 0.5)',
+  },
+  { // Аналитика
+    bg: 'from-[#0a2818] via-[#14532d] to-[#166534]',
+    accent: '#22c55e',
+    glow: 'rgba(34, 197, 94, 0.5)',
+  },
+  { // Интеграции
+    bg: 'from-[#2a1a0a] via-[#7c2d12] to-[#c2410c]',
+    accent: '#f97316',
+    glow: 'rgba(249, 115, 22, 0.5)',
+  },
+];
+
 // Анимированный экран-заставка с заголовком
 function SectionTitleScreen({ title, icon: Icon, index }: { title: string; icon: React.ComponentType<{ size?: number; className?: string }>; index: number }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-20%' });
+  const isInView = useInView(ref, { once: true, margin: '-10%' });
+  const theme = sectionThemes[index] || sectionThemes[0];
   
   return (
     <section 
       ref={ref}
-      className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
-      style={{
-        background: 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)',
-      }}
+      className={`relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br ${theme.bg}`}
     >
-      {/* Animated background elements */}
+      {/* Animated grid background */}
+      <div className="absolute inset-0 opacity-20">
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `linear-gradient(${theme.accent}20 1px, transparent 1px), linear-gradient(90deg, ${theme.accent}20 1px, transparent 1px)`,
+            backgroundSize: '60px 60px',
+          }}
+        />
+      </div>
+      
+      {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(5)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-[#1890ff]/5"
+            className="absolute rounded-full"
             style={{
-              width: 100 + i * 80,
-              height: 100 + i * 80,
-              left: '50%',
-              top: '50%',
-              x: '-50%',
-              y: '-50%',
+              width: Math.random() * 6 + 2,
+              height: Math.random() * 6 + 2,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              background: theme.accent,
+              boxShadow: `0 0 ${10 + Math.random() * 20}px ${theme.glow}`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.3, 0.8, 0.3],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Animated circles/waves */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        {[...Array(4)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full border"
+            style={{
+              width: 200 + i * 150,
+              height: 200 + i * 150,
+              borderColor: `${theme.accent}${20 - i * 4}`,
             }}
             initial={{ scale: 0, opacity: 0 }}
-            animate={isInView ? { 
+            animate={isInView ? {
               scale: [0, 1.2, 1],
-              opacity: [0, 0.3, 0.1],
+              opacity: [0, 0.6, 0.2],
             } : {}}
-            transition={{ 
-              duration: 1.2,
-              delay: i * 0.1,
+            transition={{
+              duration: 1.5,
+              delay: i * 0.15,
               ease: 'easeOut',
             }}
           />
         ))}
       </div>
       
+      {/* Glowing orbs */}
+      <motion.div
+        className="absolute w-[600px] h-[600px] rounded-full"
+        style={{
+          background: `radial-gradient(circle, ${theme.glow} 0%, transparent 70%)`,
+          filter: 'blur(60px)',
+        }}
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: 'easeInOut',
+        }}
+      />
+      
       {/* Main content */}
       <div className="relative z-10 text-center px-4">
-        {/* Animated icon */}
+        {/* Animated icon with glow */}
         <motion.div
-          initial={{ scale: 0, rotate: -180 }}
-          animate={isInView ? { scale: 1, rotate: 0 } : {}}
+          initial={{ scale: 0, rotate: -180, opacity: 0 }}
+          animate={isInView ? { scale: 1, rotate: 0, opacity: 1 } : {}}
           transition={{ 
             type: 'spring',
             stiffness: 200,
             damping: 15,
             delay: 0.2,
           }}
-          className="inline-flex items-center justify-center w-20 h-20 mb-8 bg-gradient-to-br from-[#1890ff] to-[#40a9ff] rounded-3xl shadow-lg shadow-[#1890ff]/30"
+          className="relative inline-flex items-center justify-center w-28 h-28 mb-10"
         >
-          <Icon size={40} className="text-white" />
+          {/* Icon glow */}
+          <motion.div
+            className="absolute inset-0 rounded-3xl"
+            style={{
+              background: theme.accent,
+              filter: 'blur(30px)',
+            }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.5, 0.8, 0.5],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+          <div 
+            className="relative w-full h-full rounded-3xl flex items-center justify-center"
+            style={{
+              background: `linear-gradient(135deg, ${theme.accent}, ${theme.accent}99)`,
+              boxShadow: `0 20px 60px ${theme.glow}`,
+            }}
+          >
+            <Icon size={56} className="text-white" />
+          </div>
         </motion.div>
         
-        {/* Animated title */}
-        <div className="overflow-hidden">
+        {/* Animated title with letter animation */}
+        <div className="overflow-hidden mb-6">
           <motion.h2
-            initial={{ y: 100, opacity: 0 }}
+            initial={{ y: 120, opacity: 0 }}
             animate={isInView ? { y: 0, opacity: 1 } : {}}
             transition={{ 
               duration: 0.8,
               delay: 0.4,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900"
+            className="text-5xl md:text-6xl lg:text-8xl font-bold text-white tracking-tight"
+            style={{
+              textShadow: `0 0 60px ${theme.glow}`,
+            }}
           >
             {title}
           </motion.h2>
         </div>
         
-        {/* Animated line */}
+        {/* Animated underline */}
         <motion.div
-          initial={{ scaleX: 0 }}
-          animate={isInView ? { scaleX: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mx-auto mt-8 h-1 w-24 bg-gradient-to-r from-transparent via-[#1890ff] to-transparent rounded-full"
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={isInView ? { scaleX: 1, opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="mx-auto h-1.5 w-32 rounded-full"
+          style={{
+            background: `linear-gradient(90deg, transparent, ${theme.accent}, transparent)`,
+            boxShadow: `0 0 20px ${theme.glow}`,
+          }}
         />
         
         {/* Scroll indicator */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 1, duration: 0.5 }}
-          className="mt-12"
+          transition={{ delay: 1.2, duration: 0.5 }}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2"
         >
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="inline-flex flex-col items-center text-gray-400"
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+            className="flex flex-col items-center text-white/60"
           >
-            <span className="text-sm mb-2">Листайте вниз</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 5v14M5 12l7 7 7-7" />
-            </svg>
+            <span className="text-sm mb-3 uppercase tracking-widest">Scroll</span>
+            <motion.div
+              className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-1.5"
+            >
+              <motion.div
+                className="w-1.5 h-3 rounded-full bg-white/60"
+                animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}
+                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              />
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
+      
+      {/* Corner decorations */}
+      <motion.div
+        className="absolute top-0 left-0 w-64 h-64"
+        style={{
+          background: `radial-gradient(circle at top left, ${theme.accent}30 0%, transparent 70%)`,
+        }}
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={isInView ? { opacity: 1, scale: 1 } : {}}
+        transition={{ duration: 1, delay: 0.3 }}
+      />
+      <motion.div
+        className="absolute bottom-0 right-0 w-96 h-96"
+        style={{
+          background: `radial-gradient(circle at bottom right, ${theme.accent}20 0%, transparent 70%)`,
+        }}
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={isInView ? { opacity: 1, scale: 1 } : {}}
+        transition={{ duration: 1, delay: 0.5 }}
+      />
     </section>
   );
 }
