@@ -41,8 +41,9 @@ export default function Header() {
     >
       <Container>
         <nav className="flex items-center justify-between h-20">
-          {/* Logo */}
+          {/* Logo - замените /logo.svg на путь к вашему логотипу */}
           <a href="#" className="flex items-center gap-2">
+            {/* Вариант 1: Иконка + текст (текущий) */}
             <div className="w-10 h-10 bg-[#1890ff] rounded-[12px] flex items-center justify-center">
               <svg
                 width="24"
@@ -63,6 +64,14 @@ export default function Header() {
               </svg>
             </div>
             <span className="text-xl font-bold text-gray-900">WorkHere</span>
+            
+            {/* Вариант 2: Ваш логотип (раскомментируйте и удалите вариант 1)
+            <img 
+              src="/web_design/logo.svg" 
+              alt="WorkHere" 
+              className="h-10 w-auto"
+            />
+            */}
           </a>
 
           {/* Desktop Navigation */}
