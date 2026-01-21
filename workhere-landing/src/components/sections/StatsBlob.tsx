@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Building2, Users, Sparkles, TrendingUp } from 'lucide-react';
 import Container from '../ui/Container';
@@ -14,308 +14,368 @@ const stats = [
 
 export default function StatsBlob() {
   const containerRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [ripples, setRipples] = useState<number[]>([]);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
 
   // Smooth spring for orbit rotation
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 50, damping: 20 });
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 30, damping: 25 });
   
-  // Orbit rotation based on scroll (multiple rotations)
-  const orbitRotation = useTransform(smoothProgress, [0, 1], [0, 360]);
-  
-  // Background gradient movement
-  const gradientX = useTransform(smoothProgress, [0, 0.5, 1], ['0%', '50%', '100%']);
-  const gradientY = useTransform(smoothProgress, [0, 0.5, 1], ['0%', '30%', '0%']);
-  
-  // Blob scale and glow
-  const blobScale = useTransform(smoothProgress, [0, 0.3, 0.7, 1], [0.6, 1.1, 1.1, 0.6]);
-  const blobGlow = useTransform(smoothProgress, [0, 0.5, 1], [0.3, 1, 0.3]);
+  // Orbit rotation - full 360 degrees over scroll
+  const orbitAngle = useTransform(smoothProgress, [0, 1], [0, 360]);
+
+  const handleBlobHover = () => {
+    setIsHovered(true);
+    setRipples(prev => [...prev, Date.now()]);
+    setTimeout(() => {
+      setRipples(prev => prev.slice(1));
+    }, 1500);
+  };
 
   return (
     <section 
       ref={containerRef} 
-      className="relative py-40 overflow-hidden"
-      style={{ minHeight: '100vh' }}
+      className="relative py-32 overflow-hidden"
+      style={{ 
+        minHeight: '100vh',
+        perspective: '1200px',
+        perspectiveOrigin: '50% 50%',
+      }}
     >
-      {/* Dynamic gradient background */}
-      <motion.div 
+      {/* Deep gradient background - creates depth */}
+      <div 
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(ellipse 80% 50% at 50% 50%, rgba(24,144,255,0.15) 0%, transparent 50%),
-            radial-gradient(ellipse 60% 40% at 30% 30%, rgba(24,144,255,0.1) 0%, transparent 40%),
-            radial-gradient(ellipse 50% 50% at 70% 70%, rgba(64,169,255,0.08) 0%, transparent 40%),
-            linear-gradient(180deg, #f0f7ff 0%, #ffffff 50%, #f8fafc 100%)
+            radial-gradient(ellipse 100% 80% at 50% 100%, rgba(24,144,255,0.08) 0%, transparent 50%),
+            radial-gradient(ellipse 80% 60% at 50% 50%, rgba(24,144,255,0.12) 0%, transparent 40%),
+            radial-gradient(ellipse 120% 100% at 50% 0%, #e8f4ff 0%, #f0f7ff 30%, #f8fafc 60%, #ffffff 100%)
           `,
         }}
       />
 
-      {/* Animated gradient waves */}
+      {/* Depth layers - soft blurred shapes in background */}
       <motion.div
-        className="absolute inset-0 opacity-60"
-        style={{ x: gradientX, y: gradientY }}
-      >
-        <div 
-          className="absolute w-[200%] h-[200%] -left-1/2 -top-1/2"
-          style={{
-            background: `
-              radial-gradient(circle at 30% 40%, rgba(24,144,255,0.2) 0%, transparent 30%),
-              radial-gradient(circle at 70% 60%, rgba(64,169,255,0.15) 0%, transparent 25%),
-              radial-gradient(circle at 50% 80%, rgba(24,144,255,0.1) 0%, transparent 35%)
-            `,
-          }}
-        />
-      </motion.div>
+        className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(24,144,255,0.06) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+        }}
+        animate={{
+          x: [0, 30, 0],
+          y: [0, -20, 0],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div
+        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(64,169,255,0.05) 0%, transparent 70%)',
+          filter: 'blur(50px)',
+        }}
+        animate={{
+          x: [0, -25, 0],
+          y: [0, 25, 0],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+      />
 
-      {/* Grid pattern overlay */}
+      {/* Subtle grid for tech feel */}
       <div 
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage: `
             linear-gradient(#1890ff 1px, transparent 1px),
             linear-gradient(90deg, #1890ff 1px, transparent 1px)
           `,
-          backgroundSize: '60px 60px',
+          backgroundSize: '80px 80px',
         }}
       />
 
-      {/* Floating particles */}
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-[#1890ff] rounded-full"
-          style={{
-            left: `${10 + (i * 4.5) % 80}%`,
-            top: `${15 + (i * 7) % 70}%`,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            opacity: [0.2, 0.6, 0.2],
-            scale: [1, 1.5, 1],
-          }}
-          transition={{
-            duration: 3 + (i % 3),
-            repeat: Infinity,
-            delay: i * 0.2,
-          }}
-        />
-      ))}
-
       <Container className="relative z-10">
-        <div className="flex items-center justify-center" style={{ minHeight: '500px' }}>
-          
-          {/* Central Tech Blob */}
-          <motion.div
+        <div 
+          className="flex items-center justify-center" 
+          style={{ 
+            minHeight: '600px',
+            transformStyle: 'preserve-3d',
+          }}
+        >
+          {/* 3D Scene Container */}
+          <div 
             className="relative"
-            style={{ scale: blobScale }}
+            style={{ 
+              transformStyle: 'preserve-3d',
+              transform: 'rotateX(10deg)',
+            }}
           >
-            {/* Outer glow rings */}
-            {[1, 2, 3].map((ring) => (
+            {/* Main Blob with hover effect */}
+            <motion.div
+              className="relative cursor-pointer"
+              onMouseEnter={handleBlobHover}
+              onMouseLeave={() => setIsHovered(false)}
+              animate={{
+                scale: isHovered ? 1.08 : 1,
+              }}
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              style={{ transformStyle: 'preserve-3d' }}
+            >
+              {/* Outer glow - depth effect */}
               <motion.div
-                key={ring}
-                className="absolute rounded-full border border-[#1890ff]"
+                className="absolute rounded-full"
                 style={{
-                  width: 200 + ring * 60,
-                  height: 200 + ring * 60,
+                  width: 320,
+                  height: 320,
                   left: '50%',
                   top: '50%',
                   x: '-50%',
                   y: '-50%',
-                  opacity: useTransform(blobGlow, (v) => v * (0.3 - ring * 0.08)),
+                  background: 'radial-gradient(circle, rgba(24,144,255,0.3) 0%, transparent 70%)',
+                  filter: 'blur(40px)',
+                  transform: 'translateZ(-50px)',
                 }}
-                animate={{ rotate: ring % 2 === 0 ? 360 : -360 }}
-                transition={{ duration: 20 + ring * 5, repeat: Infinity, ease: 'linear' }}
+                animate={{
+                  scale: isHovered ? 1.3 : 1,
+                  opacity: isHovered ? 1 : 0.6,
+                }}
+                transition={{ duration: 0.4 }}
               />
-            ))}
 
-            {/* Main blob with gradient */}
-            <motion.div
-              className="relative w-52 h-52 rounded-full"
-              style={{
-                background: `
-                  radial-gradient(circle at 30% 30%, #40a9ff 0%, #1890ff 50%, #0d6edb 100%)
-                `,
-                boxShadow: `
-                  0 0 60px rgba(24,144,255,0.4),
-                  0 0 120px rgba(24,144,255,0.2),
-                  inset 0 0 60px rgba(255,255,255,0.1)
-                `,
-              }}
-            >
-              {/* Inner shimmer effect */}
-              <motion.div
-                className="absolute inset-4 rounded-full"
+              {/* Shadow for 3D depth */}
+              <div
+                className="absolute rounded-full bg-black/10"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%, rgba(255,255,255,0.1) 100%)',
+                  width: 200,
+                  height: 40,
+                  left: '50%',
+                  bottom: -60,
+                  transform: 'translateX(-50%) rotateX(90deg)',
+                  filter: 'blur(20px)',
                 }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
               />
 
-              {/* Tech circuit pattern */}
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 200 200">
-                <motion.circle
-                  cx="100" cy="100" r="60"
-                  fill="none"
-                  stroke="rgba(255,255,255,0.2)"
-                  strokeWidth="1"
-                  strokeDasharray="10 5"
-                  animate={{ rotate: 360 }}
-                  style={{ transformOrigin: 'center' }}
-                  transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-                />
-                <motion.circle
-                  cx="100" cy="100" r="40"
-                  fill="none"
-                  stroke="rgba(255,255,255,0.15)"
-                  strokeWidth="1"
-                  strokeDasharray="5 10"
-                  animate={{ rotate: -360 }}
-                  style={{ transformOrigin: 'center' }}
-                  transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-                />
-              </svg>
-
-              {/* Center content */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div
-                  className="text-center text-white"
-                  animate={{ scale: [1, 1.02, 1] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                >
-                  <div className="text-3xl font-bold tracking-wide">WorkHere</div>
-                </motion.div>
-              </div>
-
-              {/* Pulse effect */}
+              {/* Main sphere */}
               <motion.div
-                className="absolute inset-0 rounded-full border-2 border-white/30"
-                animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              />
-            </motion.div>
+                className="relative w-56 h-56 rounded-full"
+                style={{
+                  background: `
+                    radial-gradient(circle at 35% 25%, rgba(255,255,255,0.4) 0%, transparent 40%),
+                    radial-gradient(circle at 50% 50%, #40a9ff 0%, #1890ff 40%, #0d6edb 80%, #0050b3 100%)
+                  `,
+                  boxShadow: isHovered 
+                    ? `
+                      0 0 80px rgba(24,144,255,0.6),
+                      0 0 160px rgba(24,144,255,0.3),
+                      inset 0 0 80px rgba(255,255,255,0.2),
+                      inset -20px -20px 60px rgba(0,0,0,0.2)
+                    `
+                    : `
+                      0 0 60px rgba(24,144,255,0.4),
+                      0 20px 60px rgba(0,0,0,0.15),
+                      inset 0 0 60px rgba(255,255,255,0.1),
+                      inset -15px -15px 40px rgba(0,0,0,0.15)
+                    `,
+                  transform: 'translateZ(0)',
+                }}
+                animate={{
+                  boxShadow: isHovered 
+                    ? `
+                      0 0 100px rgba(24,144,255,0.7),
+                      0 0 200px rgba(24,144,255,0.4),
+                      inset 0 0 100px rgba(255,255,255,0.3),
+                      inset -20px -20px 60px rgba(0,0,0,0.2)
+                    `
+                    : `
+                      0 0 60px rgba(24,144,255,0.4),
+                      0 20px 60px rgba(0,0,0,0.15),
+                      inset 0 0 60px rgba(255,255,255,0.1),
+                      inset -15px -15px 40px rgba(0,0,0,0.15)
+                    `,
+                }}
+                transition={{ duration: 0.4 }}
+              >
+                {/* Animated highlight */}
+                <motion.div
+                  className="absolute inset-0 rounded-full overflow-hidden"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                >
+                  <div 
+                    className="absolute w-1/2 h-full"
+                    style={{
+                      background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%)',
+                    }}
+                  />
+                </motion.div>
 
-            {/* Orbiting cards container */}
-            <motion.div
-              className="absolute"
-              style={{
-                width: 500,
-                height: 500,
-                left: '50%',
-                top: '50%',
-                x: '-50%',
-                y: '-50%',
-                rotate: orbitRotation,
-              }}
-            >
-              {stats.map((stat, index) => {
-                const baseAngle = index * 90; // 4 cards, 90 degrees apart
-                const orbitRadius = 200;
-                
-                return (
+                {/* Inner glow on hover */}
+                <motion.div
+                  className="absolute inset-4 rounded-full"
+                  style={{
+                    background: 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)',
+                  }}
+                  animate={{
+                    scale: isHovered ? [1, 1.2, 1] : 1,
+                    opacity: isHovered ? [0.5, 1, 0.5] : 0.3,
+                  }}
+                  transition={{ duration: 1, repeat: isHovered ? Infinity : 0 }}
+                />
+
+                {/* Center text */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.span
+                    className="text-white font-bold text-3xl tracking-wide"
+                    style={{ textShadow: '0 2px 20px rgba(0,0,0,0.3)' }}
+                    animate={{
+                      scale: isHovered ? 1.05 : 1,
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    WorkHere
+                  </motion.span>
+                </div>
+
+                {/* Power ripples on hover */}
+                {ripples.map((id) => (
                   <motion.div
-                    key={stat.label || stat.value}
-                    className="absolute"
+                    key={id}
+                    className="absolute inset-0 rounded-full border-2 border-white/50"
+                    initial={{ scale: 1, opacity: 0.8 }}
+                    animate={{ scale: 2.5, opacity: 0 }}
+                    transition={{ duration: 1.2, ease: 'easeOut' }}
+                  />
+                ))}
+
+                {/* Energy particles on hover */}
+                {isHovered && [...Array(12)].map((_, i) => (
+                  <motion.div
+                    key={`particle-${i}`}
+                    className="absolute w-2 h-2 bg-white rounded-full"
                     style={{
                       left: '50%',
                       top: '50%',
-                      x: '-50%',
-                      y: '-50%',
+                      boxShadow: '0 0 10px rgba(255,255,255,0.8)',
+                    }}
+                    initial={{ x: 0, y: 0, scale: 0 }}
+                    animate={{
+                      x: Math.cos(i * 30 * Math.PI / 180) * 150,
+                      y: Math.sin(i * 30 * Math.PI / 180) * 150,
+                      scale: [0, 1, 0],
+                      opacity: [0, 1, 0],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      delay: i * 0.05,
+                      ease: 'easeOut',
+                    }}
+                  />
+                ))}
+              </motion.div>
+            </motion.div>
+
+            {/* 3D Orbiting Cards */}
+            {stats.map((stat, index) => {
+              const baseAngle = index * 90; // 4 cards, 90° apart
+              const orbitRadius = 220;
+              
+              return (
+                <motion.div
+                  key={stat.value}
+                  className="absolute pointer-events-none"
+                  style={{
+                    left: '50%',
+                    top: '50%',
+                    width: 0,
+                    height: 0,
+                    transformStyle: 'preserve-3d',
+                  }}
+                >
+                  <motion.div
+                    style={{
+                      transformStyle: 'preserve-3d',
+                      rotateY: useTransform(orbitAngle, (angle) => angle + baseAngle),
                     }}
                   >
                     <motion.div
+                      className="absolute"
                       style={{
-                        transform: `rotate(${baseAngle}deg) translateX(${orbitRadius}px)`,
+                        transform: `translateX(${orbitRadius}px) translateZ(0px)`,
+                        transformStyle: 'preserve-3d',
                       }}
                     >
-                      {/* Counter-rotate to keep cards upright */}
+                      {/* Card with 3D depth and smooth z-based visibility */}
                       <motion.div
-                        style={{ rotate: useTransform(orbitRotation, (r) => -r - baseAngle) }}
+                        className="pointer-events-auto"
+                        style={{
+                          // Counter-rotate to keep card facing forward
+                          rotateY: useTransform(orbitAngle, (angle) => -(angle + baseAngle)),
+                          // Smooth opacity based on position (behind = hidden)
+                          opacity: useTransform(orbitAngle, (angle) => {
+                            const cardAngle = (angle + baseAngle) % 360;
+                            // Smooth sine-based opacity: 1 at front (0°), 0 at back (180°)
+                            const normalizedAngle = cardAngle * Math.PI / 180;
+                            return 0.3 + 0.7 * (Math.cos(normalizedAngle) + 1) / 2;
+                          }),
+                          // Scale based on z-position
+                          scale: useTransform(orbitAngle, (angle) => {
+                            const cardAngle = (angle + baseAngle) % 360;
+                            const normalizedAngle = cardAngle * Math.PI / 180;
+                            return 0.75 + 0.25 * (Math.cos(normalizedAngle) + 1) / 2;
+                          }),
+                          // Z-index simulation via filter
+                          filter: useTransform(orbitAngle, (angle) => {
+                            const cardAngle = (angle + baseAngle) % 360;
+                            const normalizedAngle = cardAngle * Math.PI / 180;
+                            const blur = (1 - (Math.cos(normalizedAngle) + 1) / 2) * 2;
+                            return `blur(${blur}px)`;
+                          }),
+                        }}
                       >
-                        {/* Card with 3D depth and visibility based on position */}
                         <motion.div
-                          className="bg-white rounded-[20px] p-5 shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-100 min-w-[110px] text-center"
+                          className="bg-white/95 backdrop-blur-sm rounded-[20px] p-5 border border-white/50 min-w-[120px] text-center"
                           style={{
-                            opacity: useTransform(
-                              orbitRotation,
-                              (r) => {
-                                const currentAngle = (r + baseAngle) % 360;
-                                // Fade out when behind the blob (180-270 degrees range)
-                                if (currentAngle > 150 && currentAngle < 300) {
-                                  return 0.3;
-                                }
-                                return 1;
-                              }
-                            ),
-                            scale: useTransform(
-                              orbitRotation,
-                              (r) => {
-                                const currentAngle = (r + baseAngle) % 360;
-                                // Scale down when behind
-                                if (currentAngle > 150 && currentAngle < 300) {
-                                  return 0.8;
-                                }
-                                return 1;
-                              }
-                            ),
+                            boxShadow: '0 10px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5)',
                           }}
-                          whileHover={{ scale: 1.1, boxShadow: '0 20px 60px rgba(24,144,255,0.2)' }}
+                          whileHover={{ 
+                            scale: 1.1, 
+                            boxShadow: '0 20px 60px rgba(24,144,255,0.25), 0 0 0 1px rgba(24,144,255,0.3)',
+                          }}
                         >
-                          <div className="w-10 h-10 mx-auto mb-2 bg-[#e6f4ff] rounded-[10px] flex items-center justify-center">
-                            <stat.icon className="text-[#1890ff]" size={20} />
+                          <div className="w-11 h-11 mx-auto mb-2 bg-gradient-to-br from-[#e6f4ff] to-[#bae0ff] rounded-[12px] flex items-center justify-center shadow-inner">
+                            <stat.icon className="text-[#1890ff]" size={22} />
                           </div>
-                          <div className="text-xl font-bold text-gray-900">{stat.value}</div>
+                          <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
                           {stat.label && (
-                            <div className="text-xs text-gray-500 mt-1">{stat.label}</div>
+                            <div className="text-xs text-gray-500 mt-0.5">{stat.label}</div>
                           )}
                         </motion.div>
                       </motion.div>
                     </motion.div>
                   </motion.div>
-                );
-              })}
-            </motion.div>
+                </motion.div>
+              );
+            })}
 
-            {/* Energy particles orbiting */}
-            {[...Array(8)].map((_, i) => (
-              <motion.div
-                key={`energy-${i}`}
-                className="absolute w-2 h-2 bg-[#1890ff] rounded-full"
-                style={{
-                  left: '50%',
-                  top: '50%',
-                  boxShadow: '0 0 10px rgba(24,144,255,0.8)',
-                }}
-                animate={{
-                  x: [
-                    Math.cos((i * 45) * Math.PI / 180) * 130,
-                    Math.cos((i * 45 + 180) * Math.PI / 180) * 130,
-                    Math.cos((i * 45 + 360) * Math.PI / 180) * 130,
-                  ],
-                  y: [
-                    Math.sin((i * 45) * Math.PI / 180) * 130,
-                    Math.sin((i * 45 + 180) * Math.PI / 180) * 130,
-                    Math.sin((i * 45 + 360) * Math.PI / 180) * 130,
-                  ],
-                  opacity: [0.3, 1, 0.3],
-                  scale: [1, 1.5, 1],
-                }}
-                transition={{
-                  duration: 4 + i * 0.5,
-                  repeat: Infinity,
-                  ease: 'linear',
-                  delay: i * 0.3,
-                }}
-              />
-            ))}
-          </motion.div>
+            {/* Orbit path indicator */}
+            <div 
+              className="absolute rounded-full border border-[#1890ff]/10 pointer-events-none"
+              style={{
+                width: 440,
+                height: 440,
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%) rotateX(75deg)',
+              }}
+            />
+          </div>
         </div>
       </Container>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+      {/* Bottom fade for smooth transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white via-white/80 to-transparent" />
     </section>
   );
 }
