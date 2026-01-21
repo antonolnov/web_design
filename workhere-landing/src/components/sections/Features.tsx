@@ -470,10 +470,9 @@ function FeatureBlock({ block, index }: { block: typeof blocks[0]; index: number
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-12"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 text-sm font-medium text-[#1890ff] bg-[#e6f4ff] rounded-full">
-            <block.icon size={16} />
-            {block.badge}
-          </span>
+          <div className="inline-flex items-center justify-center w-12 h-12 mb-4 bg-[#e6f4ff] rounded-2xl">
+            <block.icon size={24} className="text-[#1890ff]" />
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">{block.title}</h2>
           <p className="text-gray-600 max-w-xl mx-auto">{block.subtitle}</p>
         </motion.div>
