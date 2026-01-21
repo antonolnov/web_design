@@ -28,7 +28,8 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-gradient-to-b from-[#f0f7ff] via-white to-white"
+      className="relative min-h-screen flex items-center pt-20 overflow-hidden"
+      style={{ background: 'linear-gradient(180deg, #f0f7ff 0%, #f5f9ff 50%, #f0f7ff 100%)' }}
     >
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
