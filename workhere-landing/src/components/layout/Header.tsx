@@ -41,37 +41,12 @@ export default function Header() {
     >
       <Container>
         <nav className="flex items-center justify-between h-20">
-          {/* Logo - замените /logo.svg на путь к вашему логотипу */}
-          <a href="#" className="flex items-center gap-2">
-            {/* Вариант 1: Иконка + текст (текущий) */}
-            <div className="w-10 h-10 bg-[#1890ff] rounded-[12px] flex items-center justify-center">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 2L4 6V12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12V6L12 2Z"
-                  fill="white"
-                  fillOpacity="0.3"
-                />
-                <path
-                  d="M12 6L8 8V12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12V8L12 6Z"
-                  fill="white"
-                />
-              </svg>
-            </div>
-            <span className="text-xl font-bold text-gray-900">WorkHere</span>
-            
-            {/* Вариант 2: Ваш логотип (раскомментируйте и удалите вариант 1)
-            <img 
-              src="/web_design/logo.svg" 
-              alt="WorkHere" 
-              className="h-10 w-auto"
-            />
-            */}
+          {/* Logo */}
+          <a href="#" className="flex items-center">
+            <span className="text-2xl font-bold">
+              <span className="bg-[#1890ff] text-white px-2 py-1 rounded-l-[8px]">Work</span>
+              <span className="text-gray-900 px-1">Here</span>
+            </span>
           </a>
 
           {/* Desktop Navigation */}
