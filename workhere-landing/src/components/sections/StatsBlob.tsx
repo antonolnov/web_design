@@ -106,18 +106,22 @@ export default function StatsBlob() {
               >
                 <svg 
                   viewBox="0 0 200 200" 
-                  className="w-full h-full"
+                  className="w-full h-full overflow-visible"
+                  style={{ overflow: 'visible' }}
                 >
                   <defs>
                     <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#40a9ff" />
                       <stop offset="100%" stopColor="#1890ff" />
                     </linearGradient>
+                    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feDropShadow dx="0" dy="8" stdDeviation="12" floodColor="#1890ff" floodOpacity="0.3"/>
+                    </filter>
                   </defs>
 
                   <motion.path
                     fill="url(#blobGradient)"
-                    style={{ filter: 'drop-shadow(0 10px 30px rgba(24,144,255,0.35))' }}
+                    filter="url(#softShadow)"
                     animate={{ d: blobPaths }}
                     transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
                   />
