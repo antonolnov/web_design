@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import {
   Database,
@@ -402,6 +402,111 @@ function APIVisual() {
   );
 }
 
+// Анимированный экран-заставка с заголовком
+function SectionTitleScreen({ title, icon: Icon, index }: { title: string; icon: React.ComponentType<{ size?: number; className?: string }>; index: number }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-20%' });
+  
+  return (
+    <section 
+      ref={ref}
+      className="relative min-h-[60vh] flex items-center justify-center overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)',
+      }}
+    >
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-[#1890ff]/5"
+            style={{
+              width: 100 + i * 80,
+              height: 100 + i * 80,
+              left: '50%',
+              top: '50%',
+              x: '-50%',
+              y: '-50%',
+            }}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={isInView ? { 
+              scale: [0, 1.2, 1],
+              opacity: [0, 0.3, 0.1],
+            } : {}}
+            transition={{ 
+              duration: 1.2,
+              delay: i * 0.1,
+              ease: 'easeOut',
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Main content */}
+      <div className="relative z-10 text-center px-4">
+        {/* Animated icon */}
+        <motion.div
+          initial={{ scale: 0, rotate: -180 }}
+          animate={isInView ? { scale: 1, rotate: 0 } : {}}
+          transition={{ 
+            type: 'spring',
+            stiffness: 200,
+            damping: 15,
+            delay: 0.2,
+          }}
+          className="inline-flex items-center justify-center w-20 h-20 mb-8 bg-gradient-to-br from-[#1890ff] to-[#40a9ff] rounded-3xl shadow-lg shadow-[#1890ff]/30"
+        >
+          <Icon size={40} className="text-white" />
+        </motion.div>
+        
+        {/* Animated title */}
+        <div className="overflow-hidden">
+          <motion.h2
+            initial={{ y: 100, opacity: 0 }}
+            animate={isInView ? { y: 0, opacity: 1 } : {}}
+            transition={{ 
+              duration: 0.8,
+              delay: 0.4,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900"
+          >
+            {title}
+          </motion.h2>
+        </div>
+        
+        {/* Animated line */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mx-auto mt-8 h-1 w-24 bg-gradient-to-r from-transparent via-[#1890ff] to-transparent rounded-full"
+        />
+        
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 1, duration: 0.5 }}
+          className="mt-12"
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+            className="inline-flex flex-col items-center text-gray-400"
+          >
+            <span className="text-sm mb-2">Листайте вниз</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 5v14M5 12l7 7 7-7" />
+            </svg>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // Конфигурация блоков
 const blocks = [
   {
@@ -577,7 +682,10 @@ export default function Features() {
       </section>
 
       {blocks.map((block, index) => (
-        <FeatureBlock key={block.badge} block={block} index={index} />
+        <div key={block.badge}>
+          <SectionTitleScreen title={block.badge} icon={block.icon} index={index} />
+          <FeatureBlock block={block} index={index} />
+        </div>
       ))}
     </>
   );
