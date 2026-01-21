@@ -1,286 +1,193 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import {
   BarChart3,
   TrendingUp,
-  PieChart,
+  Clock,
   Users,
-  Timer,
   Target,
-  Download,
-  Calendar,
+  FileDown,
 } from 'lucide-react';
 import Container from '../ui/Container';
-import SectionTitle from '../ui/SectionTitle';
-import Card from '../ui/Card';
+import TextReveal from '../ui/TextReveal';
 
 const metrics = [
-  { label: 'Откликов', value: '2,847', change: '+23%', up: true },
-  { label: 'Средний срок', value: '18 дн', change: '-5 дней', up: true },
-  { label: 'Конверсия', value: '4.2%', change: '+0.8%', up: true },
-  { label: 'Cost per hire', value: '₽45K', change: '-12%', up: true },
-];
-
-const chartData = [
-  { month: 'Янв', value: 65 },
-  { month: 'Фев', value: 78 },
-  { month: 'Мар', value: 52 },
-  { month: 'Апр', value: 91 },
-  { month: 'Май', value: 84 },
-  { month: 'Июн', value: 110 },
+  { label: 'Time-to-first-contact', value: '2.4ч', change: '-35%', positive: true },
+  { label: 'Time-to-interview', value: '5.2 дн', change: '-18%', positive: true },
+  { label: 'Time-to-offer', value: '14 дн', change: '-22%', positive: true },
+  { label: 'Time-to-hire', value: '21 дн', change: '-28%', positive: true },
 ];
 
 const reports = [
   {
     icon: BarChart3,
-    title: 'Воронка по вакансиям',
-    description: 'Анализ конверсии на каждом этапе для всех открытых позиций.',
-  },
-  {
-    icon: Users,
-    title: 'Эффективность рекрутеров',
-    description: 'Сравнение показателей команды: скорость, качество, объём.',
-  },
-  {
-    icon: PieChart,
-    title: 'Источники кандидатов',
-    description: 'ROI каналов привлечения: job-борды, рефералы, карьерный сайт.',
-  },
-  {
-    icon: Timer,
-    title: 'Time-to-hire',
-    description: 'Среднее время закрытия по типам вакансий и подразделениям.',
-  },
-  {
-    icon: Target,
-    title: 'Quality of hire',
-    description: 'Оценка качества найма: испытательный срок, retention, performance.',
+    title: 'Воронка подбора',
+    description: 'Конверсия этапов, время на стадиях, узкие места по вакансиям и рекрутерам',
   },
   {
     icon: TrendingUp,
-    title: 'Прогнозы и тренды',
-    description: 'AI-предсказания загрузки и рекомендации по оптимизации.',
+    title: 'Эффективность источников',
+    description: 'Откуда приходят кандидаты, какие источники дают наймы, ROI каналов',
+  },
+  {
+    icon: Users,
+    title: 'Отчёты по рекрутерам',
+    description: 'Активность, нагрузка, результативность каждого члена команды',
+  },
+  {
+    icon: Target,
+    title: 'Причины отказов',
+    description: 'Классификация и статистика: почему кандидаты отваливаются',
   },
 ];
 
+const chartData = [
+  { month: 'Янв', hires: 8, interviews: 45 },
+  { month: 'Фев', hires: 12, interviews: 62 },
+  { month: 'Мар', hires: 15, interviews: 78 },
+  { month: 'Апр', hires: 11, interviews: 55 },
+  { month: 'Май', hires: 18, interviews: 92 },
+  { month: 'Июн', hires: 22, interviews: 110 },
+];
+
 export default function Analytics() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+
   return (
     <section id="analytics" className="py-24 bg-gray-50">
       <Container>
-        <SectionTitle
-          badge="Аналитика"
-          title="Данные для принятия решений"
-          subtitle="Мощные дашборды и отчёты. Отслеживайте все метрики рекрутинга в реальном времени."
-        />
+        <div ref={ref} className="text-center mb-16">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            className="inline-block px-4 py-1.5 mb-4 text-sm font-medium text-[#1890ff] bg-[#e6f4ff] rounded-full"
+          >
+            Аналитика и отчёты
+          </motion.span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <TextReveal>Принимайте решения на основе данных</TextReveal>
+          </h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            className="text-lg text-gray-600 max-w-2xl mx-auto"
+          >
+            Отслеживайте все метрики рекрутинга в реальном времени. 
+            Экспортируйте отчёты в Excel или подключите к BI-системе.
+          </motion.p>
+        </div>
 
         {/* Dashboard Preview */}
         <motion.div
-          className="bg-white rounded-[24px] p-6 lg:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.08)] mb-16"
           initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="bg-white rounded-[32px] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.08)] border border-gray-100 mb-12"
         >
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div>
               <h3 className="text-xl font-bold text-gray-900">Обзор рекрутинга</h3>
-              <p className="text-gray-500">Данные за последние 30 дней</p>
+              <p className="text-gray-500">Данные за последние 6 месяцев</p>
             </div>
-            <div className="flex items-center gap-3">
-              <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-[12px] text-sm font-medium text-gray-700 hover:bg-gray-200 transition-colors">
-                <Calendar size={16} />
-                Июнь 2024
-              </button>
-              <button className="flex items-center gap-2 px-4 py-2 bg-[#1890ff] rounded-[12px] text-sm font-medium text-white hover:bg-[#0d6edb] transition-colors">
-                <Download size={16} />
-                Экспорт
-              </button>
-            </div>
+            <button className="inline-flex items-center gap-2 px-4 py-2 bg-[#1890ff] text-white rounded-[12px] font-medium hover:bg-[#0d6edb] transition-colors">
+              <FileDown size={18} />
+              Экспорт отчёта
+            </button>
           </div>
 
-          {/* Metrics Row */}
+          {/* Metrics Grid */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {metrics.map((metric, index) => (
               <motion.div
                 key={metric.label}
-                className="bg-gray-50 rounded-[16px] p-5"
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.3 + index * 0.1 }}
+                className="bg-gray-50 rounded-[16px] p-5"
               >
-                <div className="text-sm text-gray-500 mb-2">{metric.label}</div>
+                <div className="flex items-center gap-2 mb-2">
+                  <Clock size={16} className="text-gray-400" />
+                  <span className="text-sm text-gray-500">{metric.label}</span>
+                </div>
                 <div className="flex items-end justify-between">
-                  <div className="text-2xl font-bold text-gray-900">{metric.value}</div>
-                  <div
-                    className={`text-sm font-medium ${
-                      metric.up ? 'text-green-500' : 'text-red-500'
-                    }`}
-                  >
+                  <span className="text-2xl font-bold text-gray-900">{metric.value}</span>
+                  <span className={`text-sm font-medium ${metric.positive ? 'text-green-500' : 'text-red-500'}`}>
                     {metric.change}
-                  </div>
+                  </span>
                 </div>
               </motion.div>
             ))}
           </div>
 
           {/* Chart */}
-          <div className="grid lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <div className="flex items-center justify-between mb-4">
-                <h4 className="font-semibold text-gray-900">Динамика наймов</h4>
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-[#1890ff]" />
-                    <span className="text-sm text-gray-500">2024</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-gray-300" />
-                    <span className="text-sm text-gray-500">2023</span>
-                  </div>
+          <div className="bg-gray-50 rounded-[16px] p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h4 className="font-semibold text-gray-900">Динамика наймов</h4>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#1890ff]" />
+                  <span className="text-sm text-gray-500">Наймы</span>
                 </div>
-              </div>
-              <div className="h-64 flex items-end gap-4">
-                {chartData.map((item, index) => (
-                  <motion.div
-                    key={item.month}
-                    className="flex-1 flex flex-col items-center gap-2"
-                    initial={{ opacity: 0, scaleY: 0 }}
-                    whileInView={{ opacity: 1, scaleY: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
-                    style={{ originY: 1 }}
-                  >
-                    <div
-                      className="w-full bg-gradient-to-t from-[#1890ff] to-[#40a9ff] rounded-t-[8px] relative group cursor-pointer"
-                      style={{ height: `${item.value * 2}px` }}
-                    >
-                      <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                        {item.value} наймов
-                      </div>
-                    </div>
-                    <span className="text-sm text-gray-500">{item.month}</span>
-                  </motion.div>
-                ))}
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-[#91d5ff]" />
+                  <span className="text-sm text-gray-500">Интервью</span>
+                </div>
               </div>
             </div>
-
-            {/* Pie Chart Placeholder */}
-            <div>
-              <h4 className="font-semibold text-gray-900 mb-4">Источники</h4>
-              <div className="relative w-48 h-48 mx-auto mb-4">
-                <svg viewBox="0 0 100 100" className="transform -rotate-90">
-                  <motion.circle
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    fill="transparent"
-                    stroke="#1890ff"
-                    strokeWidth="20"
-                    strokeDasharray="125.6 251.2"
-                    initial={{ strokeDashoffset: 251.2 }}
-                    whileInView={{ strokeDashoffset: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, ease: 'easeOut' }}
-                  />
-                  <motion.circle
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    fill="transparent"
-                    stroke="#40a9ff"
-                    strokeWidth="20"
-                    strokeDasharray="75.4 251.2"
-                    strokeDashoffset="-125.6"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5, duration: 0.5 }}
-                  />
-                  <motion.circle
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    fill="transparent"
-                    stroke="#91d5ff"
-                    strokeWidth="20"
-                    strokeDasharray="50.24 251.2"
-                    strokeDashoffset="-201"
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.7, duration: 0.5 }}
-                  />
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center flex-col">
-                  <div className="text-2xl font-bold text-gray-900">847</div>
-                  <div className="text-xs text-gray-500">Всего</div>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-[#1890ff]" />
-                    <span className="text-gray-600">HeadHunter</span>
+            
+            <div className="h-48 flex items-end gap-4">
+              {chartData.map((item, index) => (
+                <motion.div
+                  key={item.month}
+                  className="flex-1 flex flex-col items-center gap-2"
+                  initial={{ scaleY: 0 }}
+                  animate={isInView ? { scaleY: 1 } : {}}
+                  transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
+                  style={{ originY: 1 }}
+                >
+                  <div className="w-full flex gap-1 items-end justify-center h-40">
+                    <motion.div
+                      className="w-6 bg-[#91d5ff] rounded-t-[4px]"
+                      style={{ height: `${item.interviews}%` }}
+                      whileHover={{ scale: 1.1 }}
+                    />
+                    <motion.div
+                      className="w-6 bg-[#1890ff] rounded-t-[4px]"
+                      style={{ height: `${item.hires * 4}%` }}
+                      whileHover={{ scale: 1.1 }}
+                    />
                   </div>
-                  <span className="font-medium text-gray-900">50%</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-[#40a9ff]" />
-                    <span className="text-gray-600">Рефералы</span>
-                  </div>
-                  <span className="font-medium text-gray-900">30%</span>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-[#91d5ff]" />
-                    <span className="text-gray-600">Карьерный сайт</span>
-                  </div>
-                  <span className="font-medium text-gray-900">20%</span>
-                </div>
-              </div>
+                  <span className="text-sm text-gray-500">{item.month}</span>
+                </motion.div>
+              ))}
             </div>
           </div>
         </motion.div>
 
         {/* Reports Grid */}
-        <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8 }}
-        >
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {reports.map((report, index) => (
             <motion.div
               key={report.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-white rounded-[20px] p-6 border border-gray-100 hover:border-[#1890ff]/20 hover:shadow-lg transition-all group cursor-pointer"
             >
-              <Card className="h-full group cursor-pointer">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#e6f4ff] rounded-[12px] flex items-center justify-center flex-shrink-0 group-hover:bg-[#1890ff] transition-colors">
-                    <report.icon
-                      className="text-[#1890ff] group-hover:text-white transition-colors"
-                      size={24}
-                    />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-2 group-hover:text-[#1890ff] transition-colors">
-                      {report.title}
-                    </h4>
-                    <p className="text-gray-600 text-sm leading-relaxed">{report.description}</p>
-                  </div>
-                </div>
-              </Card>
+              <div className="w-12 h-12 bg-[#e6f4ff] rounded-[12px] flex items-center justify-center mb-4 group-hover:bg-[#1890ff] transition-colors">
+                <report.icon className="text-[#1890ff] group-hover:text-white transition-colors" size={22} />
+              </div>
+              <h4 className="font-bold text-gray-900 mb-2">{report.title}</h4>
+              <p className="text-gray-600 text-sm">{report.description}</p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </Container>
     </section>
   );

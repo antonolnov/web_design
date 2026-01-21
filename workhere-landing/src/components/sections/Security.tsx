@@ -1,253 +1,179 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import {
   Shield,
   Lock,
-  Server,
-  Eye,
-  FileCheck,
   Users,
+  Eye,
+  Server,
+  FileCheck,
+  History,
   Key,
-  AlertTriangle,
-  CheckCircle2,
 } from 'lucide-react';
 import Container from '../ui/Container';
-import SectionTitle from '../ui/SectionTitle';
+import TextReveal from '../ui/TextReveal';
 
 const securityFeatures = [
   {
-    icon: Lock,
-    title: 'Шифрование данных',
-    description: 'AES-256 шифрование всех данных at rest и in transit. TLS 1.3 для всех соединений.',
-  },
-  {
-    icon: Server,
-    title: 'Надёжная инфраструктура',
-    description: 'Серверы в сертифицированных дата-центрах Tier III. Географически распределённые бэкапы.',
+    icon: Users,
+    title: 'Роли и права доступа',
+    description: 'Гибкая система ролей: рекрутеры, руководители, наблюдатели, заказчики с гостевым доступом',
   },
   {
     icon: Eye,
-    title: 'Контроль доступа',
-    description: 'Гибкие роли и права доступа. SSO через SAML 2.0 и OAuth. Двухфакторная аутентификация.',
+    title: 'Разграничение доступа',
+    description: 'Доступ к кандидатам/вакансиям по командам и проектам. "Видит всё" vs "только свои"',
   },
+  {
+    icon: History,
+    title: 'Аудит действий',
+    description: 'Полный лог: входы, важные операции, экспорт данных. Кто, когда и что изменил',
+  },
+  {
+    icon: Lock,
+    title: 'Защита данных',
+    description: 'Шифрование данных, резервное копирование, соответствие 152-ФЗ',
+  },
+];
+
+const deploymentOptions = [
+  {
+    title: 'SaaS',
+    description: 'Облачное решение с мгновенным стартом',
+    features: ['Быстрое развёртывание', 'Автоматические обновления', 'Отказоустойчивость'],
+  },
+  {
+    title: 'On-Premise',
+    description: 'Установка на серверах заказчика',
+    features: ['Полный контроль данных', 'Интеграция с инфраструктурой', 'Кастомизация'],
+  },
+];
+
+const qualityFeatures = [
   {
     icon: FileCheck,
-    title: 'Соответствие стандартам',
-    description: 'Соответствие 152-ФЗ, GDPR. Регулярные аудиты безопасности и пентесты.',
-  },
-  {
-    icon: Users,
-    title: 'Аудит действий',
-    description: 'Полный лог всех действий пользователей. Отслеживание изменений и экспорта данных.',
+    title: 'Нормализация контактов',
+    description: 'Телефоны в едином формате, автоматическая чистка данных',
   },
   {
     icon: Key,
-    title: 'API безопасность',
-    description: 'Rate limiting, IP whitelist, токены с ограниченным сроком. Webhook signatures.',
+    title: 'Контроль дублей',
+    description: 'Режимы импорта: пропускать, обновлять, создавать с пометкой',
   },
 ];
 
-const certifications = [
-  { name: '152-ФЗ', description: 'Персональные данные' },
-  { name: 'GDPR', description: 'Европейский регламент' },
-  { name: 'ISO 27001', description: 'Информационная безопасность' },
-  { name: 'SOC 2', description: 'Аудит безопасности' },
-];
-
 export default function Security() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+
   return (
     <section id="security" className="py-24 bg-white">
       <Container>
-        <SectionTitle
-          badge="Безопасность"
-          title="Ваши данные под надёжной защитой"
-          subtitle="Enterprise-уровень безопасности для компаний любого размера. Соответствие всем требованиям регуляторов."
-        />
-
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-          {/* Security Visual */}
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8 }}
+        <div ref={ref} className="text-center mb-16">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            className="inline-block px-4 py-1.5 mb-4 text-sm font-medium text-[#1890ff] bg-[#e6f4ff] rounded-full"
           >
-            <div className="relative w-full max-w-md mx-auto">
-              {/* Central Shield */}
-              <motion.div
-                className="w-48 h-48 mx-auto bg-gradient-to-br from-[#1890ff] to-[#0d6edb] rounded-[32px] flex items-center justify-center shadow-[0_20px_60px_rgba(24,144,255,0.3)]"
-                animate={{
-                  boxShadow: [
-                    '0 20px 60px rgba(24,144,255,0.3)',
-                    '0 20px 80px rgba(24,144,255,0.5)',
-                    '0 20px 60px rgba(24,144,255,0.3)',
-                  ],
-                }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <Shield className="text-white" size={80} />
-              </motion.div>
-
-              {/* Orbiting Elements */}
-              <motion.div
-                className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-[16px] shadow-lg flex items-center justify-center"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <Lock className="text-[#1890ff]" size={28} />
-              </motion.div>
-
-              <motion.div
-                className="absolute top-1/2 -left-8 -translate-y-1/2 w-14 h-14 bg-white rounded-[14px] shadow-lg flex items-center justify-center"
-                animate={{ x: [0, -10, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              >
-                <Key className="text-[#1890ff]" size={24} />
-              </motion.div>
-
-              <motion.div
-                className="absolute top-1/2 -right-8 -translate-y-1/2 w-14 h-14 bg-white rounded-[14px] shadow-lg flex items-center justify-center"
-                animate={{ x: [0, 10, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-              >
-                <Eye className="text-[#1890ff]" size={24} />
-              </motion.div>
-
-              <motion.div
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-16 h-16 bg-white rounded-[16px] shadow-lg flex items-center justify-center"
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-              >
-                <Server className="text-[#1890ff]" size={28} />
-              </motion.div>
-
-              {/* Connection Lines */}
-              <svg
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                viewBox="0 0 300 300"
-              >
-                <motion.path
-                  d="M150 50 L150 100"
-                  stroke="#1890ff"
-                  strokeWidth="2"
-                  strokeDasharray="5,5"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  whileInView={{ pathLength: 1, opacity: 0.3 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1 }}
-                />
-                <motion.path
-                  d="M50 150 L100 150"
-                  stroke="#1890ff"
-                  strokeWidth="2"
-                  strokeDasharray="5,5"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  whileInView={{ pathLength: 1, opacity: 0.3 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, delay: 0.2 }}
-                />
-                <motion.path
-                  d="M200 150 L250 150"
-                  stroke="#1890ff"
-                  strokeWidth="2"
-                  strokeDasharray="5,5"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  whileInView={{ pathLength: 1, opacity: 0.3 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, delay: 0.4 }}
-                />
-                <motion.path
-                  d="M150 200 L150 250"
-                  stroke="#1890ff"
-                  strokeWidth="2"
-                  strokeDasharray="5,5"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  whileInView={{ pathLength: 1, opacity: 0.3 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, delay: 0.6 }}
-                />
-              </svg>
-            </div>
-          </motion.div>
-
-          {/* Features List */}
-          <motion.div
-            className="space-y-6"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8 }}
+            Безопасность
+          </motion.span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <TextReveal>Данные под надёжной защитой</TextReveal>
+          </h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            className="text-lg text-gray-600 max-w-2xl mx-auto"
           >
+            Гибкие роли, аудит действий, выбор режима поставки — SaaS или on-premise
+          </motion.p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8 mb-16">
+          {/* Security Features */}
+          <div className="space-y-4">
             {securityFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
-                className="flex gap-4 p-4 rounded-[16px] hover:bg-gray-50 transition-colors"
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                initial={{ opacity: 0, x: -30 }}
+                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: 0.2 + index * 0.1 }}
+                className="flex gap-4 p-5 bg-gray-50 rounded-[20px] hover:bg-white hover:shadow-lg border border-transparent hover:border-[#1890ff]/10 transition-all"
               >
                 <div className="w-12 h-12 bg-[#e6f4ff] rounded-[12px] flex items-center justify-center flex-shrink-0">
-                  <feature.icon className="text-[#1890ff]" size={24} />
+                  <feature.icon className="text-[#1890ff]" size={22} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 mb-1">{feature.title}</h4>
-                  <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
+                  <h4 className="font-semibold text-gray-900 mb-1">{feature.title}</h4>
+                  <p className="text-gray-600 text-sm">{feature.description}</p>
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Deployment Options */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.4 }}
+            className="bg-gradient-to-br from-[#1890ff] to-[#0d6edb] rounded-[32px] p-8 text-white"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <Server className="text-white/80" size={24} />
+              <span className="font-semibold">Режимы поставки</span>
+            </div>
+            
+            <div className="space-y-6">
+              {deploymentOptions.map((option, index) => (
+                <div
+                  key={option.title}
+                  className="bg-white/10 backdrop-blur-sm rounded-[16px] p-5"
+                >
+                  <h4 className="font-bold text-lg mb-2">{option.title}</h4>
+                  <p className="text-white/70 text-sm mb-3">{option.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {option.features.map((f) => (
+                      <span
+                        key={f}
+                        className="px-3 py-1 bg-white/10 rounded-full text-xs"
+                      >
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
 
-        {/* Certifications */}
+        {/* Data Quality */}
         <motion.div
-          className="bg-gray-50 rounded-[24px] p-8 lg:p-12"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="bg-gray-50 rounded-[32px] p-8"
         >
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Сертификации и соответствие стандартам
-              </h3>
-              <p className="text-gray-600 mb-6">
-                WorkHere соответствует всем требованиям регуляторов для обработки персональных данных. 
-                Мы регулярно проходим независимый аудит безопасности.
-              </p>
-              <div className="flex items-center gap-4 p-4 bg-white rounded-[16px] border border-[#1890ff]/20">
-                <div className="w-10 h-10 bg-[#e6f4ff] rounded-full flex items-center justify-center">
-                  <AlertTriangle className="text-[#1890ff]" size={20} />
+          <div className="flex items-center gap-3 mb-6">
+            <Shield className="text-[#1890ff]" size={24} />
+            <h3 className="text-xl font-bold text-gray-900">Качество данных и "антихаос"</h3>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            {qualityFeatures.map((feature, index) => (
+              <div key={feature.title} className="flex gap-4">
+                <div className="w-10 h-10 bg-white rounded-[10px] flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <feature.icon className="text-[#1890ff]" size={18} />
                 </div>
-                <div className="text-sm">
-                  <div className="font-semibold text-gray-900">Инцидентов безопасности: 0</div>
-                  <div className="text-gray-500">За всё время работы платформы</div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-1">{feature.title}</h4>
+                  <p className="text-gray-600 text-sm">{feature.description}</p>
                 </div>
               </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              {certifications.map((cert, index) => (
-                <motion.div
-                  key={cert.name}
-                  className="bg-white rounded-[16px] p-6 text-center shadow-sm hover:shadow-md transition-shadow"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  whileHover={{ y: -5 }}
-                >
-                  <div className="w-12 h-12 mx-auto mb-3 bg-[#e6f4ff] rounded-full flex items-center justify-center">
-                    <CheckCircle2 className="text-[#1890ff]" size={24} />
-                  </div>
-                  <div className="text-xl font-bold text-gray-900 mb-1">{cert.name}</div>
-                  <div className="text-sm text-gray-500">{cert.description}</div>
-                </motion.div>
-              ))}
-            </div>
+            ))}
           </div>
         </motion.div>
       </Container>

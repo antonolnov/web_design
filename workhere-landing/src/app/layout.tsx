@@ -9,36 +9,27 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'WorkHere — Современная ATS для эффективного найма',
-  icons: {
-    icon: '/web_design/icon.svg',
-  },
+  title: 'WorkHere — ATS-платформа для управления наймом',
   description:
-    'WorkHere — единая платформа для управления подбором персонала. Автоматизируйте рутину, управляйте воронкой, анализируйте эффективность. 14 дней бесплатно.',
+    'WorkHere — единая система для рекрутинга. Кандидаты, вакансии, воронки, коммуникации, аналитика — всё в одном месте. Автоматизируйте рутину.',
   keywords: [
     'ATS',
     'рекрутинг',
     'подбор персонала',
     'HR',
-    'автоматизация найма',
+    'система управления кандидатами',
     'воронка подбора',
-    'управление кандидатами',
+    'автоматизация найма',
   ],
   authors: [{ name: 'WorkHere' }],
   openGraph: {
     type: 'website',
     locale: 'ru_RU',
     url: 'https://workhere.ru',
-    title: 'WorkHere — Современная ATS для эффективного найма',
+    title: 'WorkHere — ATS-платформа для управления наймом',
     description:
-      'Единая платформа для управления подбором персонала. Автоматизируйте рутину, управляйте воронкой, анализируйте эффективность.',
+      'Единая система для рекрутинга. Кандидаты, вакансии, воронки, аналитика — всё в одном месте.',
     siteName: 'WorkHere',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'WorkHere — Современная ATS для эффективного найма',
-    description:
-      'Единая платформа для управления подбором персонала. Автоматизируйте рутину, управляйте воронкой, анализируйте эффективность.',
   },
   robots: {
     index: true,
@@ -53,7 +44,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru" className={inter.variable}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased overflow-x-hidden">{children}</body>
     </html>
   );
 }

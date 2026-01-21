@@ -1,173 +1,175 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ArrowRight, Link2, RefreshCw, Puzzle, Webhook } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { Link2, MessageSquare, Calendar, Code, Webhook, RefreshCw } from 'lucide-react';
 import Container from '../ui/Container';
-import SectionTitle from '../ui/SectionTitle';
-import Card from '../ui/Card';
-import Button from '../ui/Button';
+import TextReveal from '../ui/TextReveal';
 
 const integrationCategories = [
   {
-    name: 'Job-борды',
-    integrations: ['HeadHunter', 'SuperJob', 'Работа.ру', 'Avito', 'LinkedIn'],
-    color: '#1890ff',
+    title: 'Job-сайты',
+    items: ['HH.ru', 'SuperJob', 'Avito Работа', 'Работа.ру'],
+    description: 'Импорт откликов, публикация вакансий, синхронизация статусов',
   },
   {
-    name: 'Коммуникации',
-    integrations: ['Email', 'Telegram', 'WhatsApp', 'Slack', 'Teams'],
-    color: '#40a9ff',
+    title: 'Мессенджеры',
+    items: ['Telegram', 'WhatsApp', 'Email'],
+    description: 'Переписка с кандидатами прямо из карточки',
   },
   {
-    name: 'Календари',
-    integrations: ['Google Calendar', 'Outlook', 'Яндекс', 'Calendly', 'Zoom'],
-    color: '#69c0ff',
+    title: 'Календари',
+    items: ['Google Calendar', 'Outlook', 'Яндекс'],
+    description: 'Синхронизация интервью, напоминания участникам',
   },
   {
-    name: 'HR-системы',
-    integrations: ['1C', 'SAP', 'Битрикс24', 'AmoCRM', 'Salesforce'],
-    color: '#91d5ff',
+    title: 'Телефония',
+    items: ['Mango Office', 'Sipuni', 'Zadarma'],
+    description: 'Звонки из системы, запись разговоров, лог вызовов',
   },
 ];
 
 const apiFeatures = [
   {
+    icon: Code,
+    title: 'REST API',
+    description: 'Полный доступ к данным: кандидаты, вакансии, события',
+  },
+  {
     icon: Webhook,
-    title: 'Webhooks',
-    description: 'Получайте уведомления о событиях в реальном времени в вашу систему.',
+    title: 'Вебхуки',
+    description: 'Отправка событий во внешние системы в реальном времени',
   },
   {
     icon: RefreshCw,
     title: 'Синхронизация',
-    description: 'Двусторонняя синхронизация данных с вашими внутренними системами.',
-  },
-  {
-    icon: Puzzle,
-    title: 'Кастомизация',
-    description: 'Гибкий API для создания любых интеграций под ваши задачи.',
+    description: 'Двусторонний обмен данными с CRM, BI, DWH',
   },
 ];
 
 export default function Integrations() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+
   return (
     <section id="integrations" className="py-24 bg-white">
       <Container>
-        <SectionTitle
-          badge="Интеграции"
-          title="Работает с вашими инструментами"
-          subtitle="50+ готовых интеграций с популярными сервисами. Открытый API для кастомных решений."
-        />
+        <div ref={ref} className="text-center mb-16">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            className="inline-block px-4 py-1.5 mb-4 text-sm font-medium text-[#1890ff] bg-[#e6f4ff] rounded-full"
+          >
+            Интеграции
+          </motion.span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <TextReveal>Все источники в одном окне</TextReveal>
+          </h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+            className="text-lg text-gray-600 max-w-2xl mx-auto"
+          >
+            Интеграции с джоб-сайтами, мессенджерами, календарями и телефонией. 
+            Открытый API для кастомных решений.
+          </motion.p>
+        </div>
 
-        {/* Integration Grid */}
-        <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8 }}
-        >
-          {integrationCategories.map((category, categoryIndex) => (
+        {/* Integration Cards */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {integrationCategories.map((category, index) => (
             <motion.div
-              key={category.name}
+              key={category.title}
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: categoryIndex * 0.1, duration: 0.5 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.2 + index * 0.1 }}
+              className="bg-gray-50 rounded-[24px] p-6 hover:bg-white hover:shadow-lg hover:border-[#1890ff]/20 border border-transparent transition-all"
             >
-              <Card className="h-full">
-                <div
-                  className="w-12 h-12 rounded-[12px] flex items-center justify-center mb-4"
-                  style={{ backgroundColor: `${category.color}20` }}
-                >
-                  <Link2 style={{ color: category.color }} size={24} />
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-[#e6f4ff] rounded-[10px] flex items-center justify-center">
+                  <Link2 className="text-[#1890ff]" size={20} />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-4">{category.name}</h3>
-                <div className="space-y-3">
-                  {category.integrations.map((integration) => (
-                    <motion.div
-                      key={integration}
-                      className="flex items-center gap-3 p-3 bg-gray-50 rounded-[12px] hover:bg-[#e6f4ff] transition-colors cursor-pointer group"
-                      whileHover={{ x: 5 }}
-                    >
-                      <div className="w-8 h-8 bg-white rounded-[8px] shadow-sm flex items-center justify-center">
-                        <span className="text-xs font-bold text-gray-400">
-                          {integration.charAt(0)}
-                        </span>
-                      </div>
-                      <span className="text-sm font-medium text-gray-700 group-hover:text-[#1890ff]">
-                        {integration}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </Card>
+                <h3 className="font-bold text-gray-900">{category.title}</h3>
+              </div>
+              
+              <div className="flex flex-wrap gap-2 mb-4">
+                {category.items.map((item) => (
+                  <span
+                    key={item}
+                    className="px-3 py-1 bg-white rounded-full text-sm text-gray-600 border border-gray-100"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+              
+              <p className="text-sm text-gray-500">{category.description}</p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* API Section */}
         <motion.div
-          className="bg-gray-900 rounded-[24px] p-8 lg:p-12 overflow-hidden relative"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true }}
           transition={{ duration: 0.8 }}
+          className="bg-gray-900 rounded-[32px] p-8 lg:p-12 overflow-hidden relative"
         >
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-10">
-            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#1890ff" strokeWidth="0.5" />
-              </pattern>
-              <rect width="100" height="100" fill="url(#grid)" />
-            </svg>
+            <div
+              className="w-full h-full"
+              style={{
+                backgroundImage: `radial-gradient(circle at 1px 1px, #1890ff 1px, transparent 0)`,
+                backgroundSize: '32px 32px',
+              }}
+            />
           </div>
 
           <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <span className="inline-block px-4 py-1.5 mb-4 text-sm font-medium text-[#1890ff] bg-[#1890ff]/20 rounded-full">
-                REST API
+                Открытая платформа
               </span>
-              <h3 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-                Открытый API для любых интеграций
+              <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+                API для любых интеграций
               </h3>
-              <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-                Полноценный REST API с подробной документацией. Создавайте кастомные интеграции, 
-                автоматизируйте процессы, стройте отчёты в ваших BI-системах.
+              <p className="text-gray-400 mb-8">
+                Подключайте WorkHere к вашим внутренним системам. 
+                REST API, вебхуки, выгрузки в BI — всё документировано.
               </p>
 
-              <div className="grid sm:grid-cols-3 gap-6 mb-8">
+              <div className="space-y-4">
                 {apiFeatures.map((feature, index) => (
                   <motion.div
                     key={feature.title}
-                    className="text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-start gap-4"
                   >
-                    <div className="w-12 h-12 bg-[#1890ff]/20 rounded-[12px] flex items-center justify-center mx-auto mb-3">
-                      <feature.icon className="text-[#1890ff]" size={24} />
+                    <div className="w-10 h-10 bg-[#1890ff]/20 rounded-[10px] flex items-center justify-center flex-shrink-0">
+                      <feature.icon className="text-[#1890ff]" size={20} />
                     </div>
-                    <h4 className="font-semibold text-white mb-1">{feature.title}</h4>
-                    <p className="text-sm text-gray-500">{feature.description}</p>
+                    <div>
+                      <h4 className="font-semibold text-white mb-1">{feature.title}</h4>
+                      <p className="text-gray-400 text-sm">{feature.description}</p>
+                    </div>
                   </motion.div>
                 ))}
               </div>
-
-              <Button href="#api-docs">
-                Документация API
-                <ArrowRight className="ml-2" size={18} />
-              </Button>
             </div>
 
             {/* Code Preview */}
             <motion.div
-              className="bg-gray-800 rounded-[16px] p-6 font-mono text-sm overflow-hidden"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.8 }}
+              transition={{ delay: 0.3 }}
+              className="bg-gray-800 rounded-[16px] p-6 font-mono text-sm"
             >
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-3 h-3 rounded-full bg-red-500" />
@@ -175,31 +177,25 @@ export default function Integrations() {
                 <div className="w-3 h-3 rounded-full bg-green-500" />
               </div>
               <pre className="text-gray-300 overflow-x-auto">
-                <code>
-                  <span className="text-[#1890ff]">GET</span>{' '}
-                  <span className="text-gray-500">/api/v1/candidates</span>
-                  {'\n\n'}
-                  <span className="text-gray-500">{'{'}</span>
-                  {'\n'}
-                  {'  '}<span className="text-[#40a9ff]">&quot;data&quot;</span>: [{'\n'}
-                  {'    '}{'{'}{'\n'}
-                  {'      '}<span className="text-[#40a9ff]">&quot;id&quot;</span>:{' '}
-                  <span className="text-yellow-400">&quot;c_123456&quot;</span>,{'\n'}
-                  {'      '}<span className="text-[#40a9ff]">&quot;name&quot;</span>:{' '}
-                  <span className="text-yellow-400">&quot;Анна Михайлова&quot;</span>,{'\n'}
-                  {'      '}<span className="text-[#40a9ff]">&quot;position&quot;</span>:{' '}
-                  <span className="text-yellow-400">&quot;Senior Developer&quot;</span>,{'\n'}
-                  {'      '}<span className="text-[#40a9ff]">&quot;stage&quot;</span>:{' '}
-                  <span className="text-yellow-400">&quot;interview&quot;</span>,{'\n'}
-                  {'      '}<span className="text-[#40a9ff]">&quot;score&quot;</span>:{' '}
-                  <span className="text-green-400">92</span>{'\n'}
-                  {'    '}{'}'}{'\n'}
-                  {'  '}],{'\n'}
-                  {'  '}<span className="text-[#40a9ff]">&quot;meta&quot;</span>: {'{'}{' '}
-                  <span className="text-[#40a9ff]">&quot;total&quot;</span>:{' '}
-                  <span className="text-green-400">156</span> {'}'}{'\n'}
-                  <span className="text-gray-500">{'}'}</span>
-                </code>
+{`GET /api/v1/candidates
+
+{
+  "data": [
+    {
+      "id": "cand_123",
+      "name": "Анна Михайлова",
+      "email": "anna@example.com",
+      "stage": "interview",
+      "vacancy_id": "vac_456",
+      "source": "hh.ru",
+      "created_at": "2024-01-15"
+    }
+  ],
+  "meta": {
+    "total": 1250,
+    "page": 1
+  }
+}`}
               </pre>
             </motion.div>
           </div>
