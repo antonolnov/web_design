@@ -313,15 +313,63 @@ function ReportsVisual() {
   );
 }
 
+// Логотипы джоб-сайтов
+function HHLogo() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-10 h-10">
+      <circle cx="20" cy="20" r="20" fill="#D6001C"/>
+      <text x="20" y="26" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold" fontFamily="Arial">hh</text>
+    </svg>
+  );
+}
+
+function AvitoLogo() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-10 h-10">
+      <circle cx="12" cy="28" r="11" fill="#00CF5D"/>
+      <circle cx="28" cy="18" r="9" fill="#00AAFF"/>
+      <circle cx="10" cy="12" r="6" fill="#965EEB"/>
+      <circle cx="32" cy="32" r="6" fill="#FF6163"/>
+    </svg>
+  );
+}
+
+function SuperJobLogo() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-10 h-10">
+      <rect width="40" height="40" rx="4" fill="#00A87E"/>
+      <text x="20" y="24" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold" fontFamily="Arial" transform="rotate(-45 20 20)">SuperJob</text>
+    </svg>
+  );
+}
+
+function RabotaRuLogo() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-10 h-10">
+      <defs>
+        <linearGradient id="rabotaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#4DA3E8"/>
+          <stop offset="100%" stopColor="#2B7DC9"/>
+        </linearGradient>
+      </defs>
+      <rect width="40" height="40" rx="8" fill="url(#rabotaGrad)"/>
+      <circle cx="18" cy="20" r="10" fill="none" stroke="white" strokeWidth="4"/>
+      <path d="M28 10 L28 30" stroke="white" strokeWidth="4" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
 function JobSitesVisual() {
+  const sites = [
+    { name: 'HH.ru', count: '12 вакансий', logo: HHLogo },
+    { name: 'Avito', count: '8 вакансий', logo: AvitoLogo },
+    { name: 'SuperJob', count: '5 вакансий', logo: SuperJobLogo },
+    { name: 'Работа.ру', count: '3 вакансии', logo: RabotaRuLogo },
+  ];
+  
   return (
     <div className="grid grid-cols-2 gap-3">
-      {[
-        { name: 'HH.ru', count: '12 вакансий', color: 'bg-red-500' },
-        { name: 'Avito', count: '8 вакансий', color: 'bg-green-500' },
-        { name: 'SuperJob', count: '5 вакансий', color: 'bg-blue-500' },
-        { name: 'Работа.ру', count: '3 вакансии', color: 'bg-purple-500' },
-      ].map((site, i) => (
+      {sites.map((site, i) => (
         <motion.div
           key={i}
           initial={{ y: 20, opacity: 0 }}
@@ -329,9 +377,7 @@ function JobSitesVisual() {
           transition={{ delay: i * 0.1 }}
           className="bg-white rounded-xl shadow p-4 flex items-center gap-3"
         >
-          <div className={`w-10 h-10 ${site.color} rounded-lg flex items-center justify-center text-white font-bold text-xs`}>
-            {site.name.slice(0, 2)}
-          </div>
+          <site.logo />
           <div>
             <div className="font-medium text-sm">{site.name}</div>
             <div className="text-xs text-gray-500">{site.count}</div>
@@ -365,18 +411,47 @@ function CalendarVisual() {
   );
 }
 
+// Логотипы мессенджеров
+function TelegramLogo() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-10 h-10">
+      <circle cx="20" cy="20" r="20" fill="#26A5E4"/>
+      <path d="M10 20 L28 12 L24 28 L18 22 Z" fill="white"/>
+      <path d="M18 22 L17 27 L21 24" fill="#B0D4F1"/>
+    </svg>
+  );
+}
+
+function WhatsAppLogo() {
+  return (
+    <svg viewBox="0 0 40 40" className="w-10 h-10">
+      <circle cx="20" cy="20" r="20" fill="#25D366"/>
+      <path d="M20 10 C14.5 10 10 14.5 10 20 C10 22 10.5 23.8 11.5 25.3 L10 30 L15 28.5 C16.4 29.3 18.1 30 20 30 C25.5 30 30 25.5 30 20 C30 14.5 25.5 10 20 10 Z" fill="white"/>
+      <path d="M16 17 C16 16.5 16.5 16 17 16 C17.5 16 18 16.2 18.3 16.8 L19 18 C19.2 18.4 19 18.8 18.7 19 L18 19.5 C18 19.5 18.5 21 20 22.5 C21.5 24 23 24.5 23 24.5 L23.5 23.8 C23.7 23.5 24.1 23.3 24.5 23.5 L26 24.2 C26.5 24.5 26.5 25 26.5 25.5 C26.5 26 26 27 25 27 C23.5 27 20 26 17.5 23.5 C15 21 14 17.5 14 16 C14 15 15 14.5 15.5 14.5" fill="#25D366"/>
+    </svg>
+  );
+}
+
+function EmailLogo() {
+  return (
+    <div className="w-10 h-10 rounded-lg bg-blue-500 flex items-center justify-center">
+      <Mail className="text-white" size={20} />
+    </div>
+  );
+}
+
 function MessengersVisual() {
+  const messengers = [
+    { name: 'Email', logo: EmailLogo, status: 'Подключено', connected: true },
+    { name: 'Telegram', logo: TelegramLogo, status: 'Подключено', connected: true },
+    { name: 'WhatsApp', logo: WhatsAppLogo, status: 'Подключено', connected: true },
+  ];
+
   return (
     <div className="space-y-3">
-      {[
-        { name: 'Email', icon: Mail, status: 'Подключено', connected: true },
-        { name: 'Telegram', icon: MessageSquare, status: 'Подключено', connected: true },
-        { name: 'WhatsApp', icon: Phone, status: 'Настроить', connected: false },
-      ].map((m, i) => (
+      {messengers.map((m, i) => (
         <div key={i} className="bg-white rounded-xl shadow p-4 flex items-center gap-3">
-          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${m.connected ? 'bg-green-100' : 'bg-gray-100'}`}>
-            <m.icon className={m.connected ? 'text-green-500' : 'text-gray-400'} size={20} />
-          </div>
+          <m.logo />
           <div className="flex-1">
             <div className="font-medium text-sm">{m.name}</div>
             <div className={`text-xs ${m.connected ? 'text-green-500' : 'text-gray-400'}`}>{m.status}</div>
