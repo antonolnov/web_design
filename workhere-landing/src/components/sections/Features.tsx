@@ -420,9 +420,9 @@ const sectionThemes = [
     glow: 'rgba(20, 184, 166, 0.5)',
   },
   {
-    bg: 'from-[#1c1917] via-[#44403c] to-[#1c1917]',
-    accent: '#f97316',
-    glow: 'rgba(249, 115, 22, 0.5)',
+    bg: 'from-[#0f172a] via-[#1e3a5f] to-[#0f172a]',
+    accent: '#fbbf24',
+    glow: 'rgba(251, 191, 36, 0.5)',
   },
 ];
 
