@@ -533,9 +533,6 @@ function SectionTitleScreen({ title, icon: Icon, index }: { title: string; icon:
               ease: [0.16, 1, 0.3, 1],
             }}
             className="text-5xl md:text-6xl lg:text-8xl font-bold text-white tracking-tight"
-            style={{
-              textShadow: `0 0 60px ${theme.glow}`,
-            }}
           >
             {title}
           </motion.h2>
