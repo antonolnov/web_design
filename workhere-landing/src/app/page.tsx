@@ -1,5 +1,6 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import FloatingCTA from '@/components/ui/FloatingCTA';
 import Hero from '@/components/sections/Hero';
 import Clients from '@/components/sections/Clients';
 import Features from '@/components/sections/Features';
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <>
       <Header />
+      <FloatingCTA />
       <main>
         <Hero />
         <Clients />
