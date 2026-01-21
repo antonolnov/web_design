@@ -402,35 +402,18 @@ function APIVisual() {
   );
 }
 
-// Цветовые темы для каждого блока
-const sectionThemes = [
-  { // База кандидатов
-    bg: 'from-[#0a1628] via-[#1a365d] to-[#1e40af]',
-    accent: '#3b82f6',
-    glow: 'rgba(59, 130, 246, 0.5)',
-  },
-  { // Автоматизация
-    bg: 'from-[#1a0a2e] via-[#312e81] to-[#4c1d95]',
-    accent: '#8b5cf6',
-    glow: 'rgba(139, 92, 246, 0.5)',
-  },
-  { // Аналитика
-    bg: 'from-[#0a2818] via-[#14532d] to-[#166534]',
-    accent: '#22c55e',
-    glow: 'rgba(34, 197, 94, 0.5)',
-  },
-  { // Интеграции
-    bg: 'from-[#2a1a0a] via-[#7c2d12] to-[#c2410c]',
-    accent: '#f97316',
-    glow: 'rgba(249, 115, 22, 0.5)',
-  },
-];
+// Единая тема для всех заставок
+const sectionTheme = {
+  bg: 'from-[#0c1929] via-[#0f2744] to-[#0c1929]',
+  accent: '#1890ff',
+  glow: 'rgba(24, 144, 255, 0.5)',
+};
 
 // Анимированный экран-заставка с заголовком
 function SectionTitleScreen({ title, icon: Icon, index }: { title: string; icon: React.ComponentType<{ size?: number; className?: string }>; index: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-10%' });
-  const theme = sectionThemes[index] || sectionThemes[0];
+  const theme = sectionTheme;
   
   return (
     <section 
@@ -646,206 +629,160 @@ const blocks = [
   },
 ];
 
-// Цвета для блоков функций
-const blockThemes = [
-  { bg: 'from-slate-900 via-blue-900 to-slate-800', accent: '#3b82f6', card: 'bg-blue-500/10 border-blue-500/20' },
-  { bg: 'from-slate-900 via-purple-900 to-slate-800', accent: '#8b5cf6', card: 'bg-purple-500/10 border-purple-500/20' },
-  { bg: 'from-slate-900 via-emerald-900 to-slate-800', accent: '#10b981', card: 'bg-emerald-500/10 border-emerald-500/20' },
-  { bg: 'from-slate-900 via-orange-900 to-slate-800', accent: '#f97316', card: 'bg-orange-500/10 border-orange-500/20' },
-];
-
 function FeatureBlock({ block, index }: { block: typeof blocks[0]; index: number }) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const activeContent = block.tabs[activeTabIndex];
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-10%' });
-  const theme = blockThemes[index] || blockThemes[0];
 
   return (
     <section 
       ref={ref} 
-      className={`min-h-screen flex flex-col justify-center relative overflow-hidden bg-gradient-to-br ${theme.bg}`}
+      className="min-h-screen flex flex-col justify-center relative py-20"
+      style={{
+        background: index % 2 === 0 
+          ? 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)' 
+          : 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)',
+      }}
     >
-      {/* Animated background grid */}
-      <div className="absolute inset-0 opacity-10">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(${theme.accent}40 1px, transparent 1px)`,
-            backgroundSize: '40px 40px',
-          }}
-        />
-      </div>
-      
-      {/* Floating orbs */}
+      {/* Subtle decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full"
+        <div 
+          className="absolute top-0 right-0 w-[800px] h-[800px] opacity-30"
           style={{
-            background: `radial-gradient(circle, ${theme.accent}20 0%, transparent 70%)`,
-            top: '10%',
-            right: '-10%',
+            background: 'radial-gradient(circle, #1890ff10 0%, transparent 70%)',
+            transform: 'translate(30%, -30%)',
           }}
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 8, repeat: Infinity }}
         />
-        <motion.div
-          className="absolute w-[400px] h-[400px] rounded-full"
+        <div 
+          className="absolute bottom-0 left-0 w-[600px] h-[600px] opacity-20"
           style={{
-            background: `radial-gradient(circle, ${theme.accent}15 0%, transparent 70%)`,
-            bottom: '10%',
-            left: '-5%',
+            background: 'radial-gradient(circle, #1890ff10 0%, transparent 70%)',
+            transform: 'translate(-30%, 30%)',
           }}
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2] }}
-          transition={{ duration: 6, repeat: Infinity }}
         />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">{block.title}</h2>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto">{block.subtitle}</p>
+          <div className="inline-flex items-center justify-center w-14 h-14 mb-6 bg-gradient-to-br from-[#1890ff] to-[#40a9ff] rounded-2xl shadow-lg shadow-[#1890ff]/20">
+            <block.icon size={28} className="text-white" />
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">{block.title}</h2>
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto">{block.subtitle}</p>
         </motion.div>
 
-        {/* Creative Tab Navigation - Cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
-        >
-          {block.tabs.map((tab, i) => (
-            <motion.button
-              key={tab.id}
-              onClick={() => setActiveTabIndex(i)}
-              className={`relative px-6 py-4 rounded-2xl font-medium transition-all duration-300 border ${
-                activeTabIndex === i
-                  ? 'bg-white text-gray-900 border-white shadow-2xl scale-105'
-                  : `${theme.card} text-white/80 hover:text-white hover:scale-102 border`
-              }`}
-              whileHover={{ scale: activeTabIndex === i ? 1.05 : 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <span className="relative z-10">{tab.label}</span>
-              {activeTabIndex === i && (
-                <motion.div
-                  layoutId={`tab-bg-${index}`}
-                  className="absolute inset-0 bg-white rounded-2xl"
-                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                />
-              )}
-            </motion.button>
-          ))}
-        </motion.div>
-
-        {/* Content Area - Fixed Height */}
-        <div className="min-h-[500px] flex items-center">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeContent.id}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.4, ease: 'easeOut' }}
-              className="w-full grid lg:grid-cols-2 gap-8 lg:gap-16 items-center"
-            >
-              {/* Text Content */}
-              <div className="order-2 lg:order-1">
-                <motion.h3 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6"
+        {/* Main content area with sidebar navigation */}
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+          
+          {/* Left sidebar - Vertical tabs */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: 0.2 }}
+            className="lg:w-72 flex-shrink-0"
+          >
+            <div className="lg:sticky lg:top-24 space-y-2">
+              {block.tabs.map((tab, i) => (
+                <motion.button
+                  key={tab.id}
+                  onClick={() => setActiveTabIndex(i)}
+                  className={`w-full text-left p-4 rounded-2xl transition-all duration-300 group ${
+                    activeTabIndex === i
+                      ? 'bg-[#1890ff] text-white shadow-xl shadow-[#1890ff]/25'
+                      : 'bg-white hover:bg-gray-50 text-gray-700 shadow-sm hover:shadow-md border border-gray-100'
+                  }`}
+                  whileHover={{ x: activeTabIndex === i ? 0 : 4 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  {activeContent.title}
-                </motion.h3>
-                <motion.p 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 }}
-                  className="text-lg text-white/70 mb-8"
-                >
-                  {activeContent.description}
-                </motion.p>
-                <ul className="space-y-4">
-                  {activeContent.features.map((feature, i) => (
-                    <motion.li
-                      key={feature}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 + i * 0.08 }}
-                      className="flex items-center gap-4"
-                    >
-                      <div 
-                        className="w-8 h-8 rounded-lg flex items-center justify-center"
-                        style={{ background: `${theme.accent}30` }}
-                      >
-                        <CheckCircle style={{ color: theme.accent }} size={18} />
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className={`text-xs font-medium uppercase tracking-wider mb-1 ${
+                        activeTabIndex === i ? 'text-white/70' : 'text-gray-400'
+                      }`}>
+                        0{i + 1}
                       </div>
-                      <span className="text-white/90 text-lg">{feature}</span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
+                      <div className="font-semibold">{tab.label}</div>
+                    </div>
+                    <motion.div
+                      animate={{ x: activeTabIndex === i ? 0 : -5, opacity: activeTabIndex === i ? 1 : 0 }}
+                      className="text-white"
+                    >
+                      →
+                    </motion.div>
+                  </div>
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
 
-              {/* Visual - Larger with background */}
-              <motion.div 
-                className="order-1 lg:order-2"
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.5 }}
+          {/* Right content area - Fixed height */}
+          <div className="flex-1 min-h-[550px]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeContent.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+                className="h-full"
               >
-                <div 
-                  className="relative p-6 rounded-3xl border backdrop-blur-sm"
-                  style={{ 
-                    background: `linear-gradient(135deg, ${theme.accent}10 0%, ${theme.accent}05 100%)`,
-                    borderColor: `${theme.accent}30`,
-                  }}
-                >
-                  {/* Glow effect */}
-                  <div 
-                    className="absolute -inset-1 rounded-3xl opacity-50 blur-xl"
-                    style={{ background: `${theme.accent}20` }}
-                  />
-                  <div className="relative transform scale-110">
-                    <activeContent.visual />
+                <div className="bg-white rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden h-full">
+                  <div className="grid lg:grid-cols-2 h-full">
+                    {/* Visual area - takes more space */}
+                    <div className="bg-gradient-to-br from-[#f0f7ff] via-[#e6f4ff] to-[#d6ebff] p-8 lg:p-12 flex items-center justify-center min-h-[300px] lg:min-h-full">
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2, duration: 0.5 }}
+                        className="w-full max-w-md transform hover:scale-105 transition-transform duration-500"
+                      >
+                        <activeContent.visual />
+                      </motion.div>
+                    </div>
+
+                    {/* Text content */}
+                    <div className="p-8 lg:p-12 flex flex-col justify-center">
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                      >
+                        <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+                          {activeContent.title}
+                        </h3>
+                        <p className="text-gray-500 mb-8 text-lg leading-relaxed">
+                          {activeContent.description}
+                        </p>
+                        <ul className="space-y-4">
+                          {activeContent.features.map((feature, i) => (
+                            <motion.li
+                              key={feature}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: 0.2 + i * 0.08 }}
+                              className="flex items-center gap-3"
+                            >
+                              <div className="w-6 h-6 rounded-full bg-[#e6f4ff] flex items-center justify-center flex-shrink-0">
+                                <CheckCircle className="text-[#1890ff]" size={14} />
+                              </div>
+                              <span className="text-gray-700">{feature}</span>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
-            </motion.div>
-          </AnimatePresence>
+            </AnimatePresence>
+          </div>
         </div>
-
-        {/* Progress Dots */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.5 }}
-          className="flex justify-center gap-3 mt-12"
-        >
-          {block.tabs.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveTabIndex(i)}
-              className="group relative"
-            >
-              <motion.div
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  activeTabIndex === i ? 'w-10' : 'w-2 group-hover:w-4'
-                }`}
-                style={{ 
-                  background: activeTabIndex === i ? theme.accent : 'rgba(255,255,255,0.3)',
-                  boxShadow: activeTabIndex === i ? `0 0 20px ${theme.accent}` : 'none',
-                }}
-              />
-            </button>
-          ))}
-        </motion.div>
       </div>
     </section>
   );
