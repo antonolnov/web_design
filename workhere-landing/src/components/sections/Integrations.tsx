@@ -83,7 +83,7 @@ export default function Integrations() {
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-4">{category.name}</h3>
                 <div className="space-y-3">
-                  {category.integrations.map((integration, index) => (
+                  {category.integrations.map((integration) => (
                     <motion.div
                       key={integration}
                       className="flex items-center gap-3 p-3 bg-gray-50 rounded-[12px] hover:bg-[#e6f4ff] transition-colors cursor-pointer group"
