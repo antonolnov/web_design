@@ -572,8 +572,8 @@ function SectionTitleScreen({ title, icon: Icon, index }: { title: string; icon:
         transition={{ duration: 1, delay: 0.5 }}
       />
       
-      {/* Bottom transition to light content */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
+      {/* Bottom transition to light content - soft and extended */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white via-white/60 to-transparent" />
     </section>
   );
 }
@@ -790,7 +790,7 @@ function FeatureBlock({ block, index, isLast }: { block: typeof blocks[0]; index
       
       {/* Bottom gradient for last block to transition to dark Pipeline */}
       {isLast && (
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-[#0c1929]/20" />
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent via-gray-100/50 to-gray-200/80" />
       )}
     </section>
   );

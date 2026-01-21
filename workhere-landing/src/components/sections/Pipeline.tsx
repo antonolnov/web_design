@@ -93,8 +93,8 @@ export default function Pipeline() {
         background: 'linear-gradient(180deg, #0c1929 0%, #0f2744 50%, #0c1929 100%)',
       }}
     >
-      {/* Top transition gradient */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white to-transparent z-[1]" />
+      {/* Top transition gradient - soft and extended */}
+      <div className="absolute top-0 left-0 right-0 h-48 bg-gradient-to-b from-white via-white/50 to-transparent z-[1]" />
       
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden">
