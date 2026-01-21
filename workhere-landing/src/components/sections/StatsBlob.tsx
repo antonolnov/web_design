@@ -155,47 +155,38 @@ export default function StatsBlob() {
                 }}
               />
 
-              {/* Blob SVG */}
+              {/* Blob SVG - clean, no dark elements */}
               <motion.div
                 className="relative"
                 style={{ width: 150, height: 150 }}
-                animate={{ rotate: isHovered ? [0, 10, -5, 0] : 0 }}
+                animate={{ rotate: isHovered ? [0, 8, -4, 0] : 0 }}
                 transition={{ duration: 0.5 }}
               >
                 <svg 
                   viewBox="0 0 200 200" 
                   className="w-full h-full" 
-                  style={{ filter: 'drop-shadow(0 15px 40px rgba(24,144,255,0.4))' }}
+                  style={{ filter: 'drop-shadow(0 12px 35px rgba(24,144,255,0.35))' }}
                 >
                   <defs>
-                    <linearGradient id="blobGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#91d5ff" />
-                      <stop offset="50%" stopColor="#40a9ff" />
+                    <linearGradient id="blobGrad" x1="20%" y1="0%" x2="80%" y2="100%">
+                      <stop offset="0%" stopColor="#69c0ff" />
                       <stop offset="100%" stopColor="#1890ff" />
                     </linearGradient>
-                    <radialGradient id="shine" cx="30%" cy="30%" r="50%">
-                      <stop offset="0%" stopColor="rgba(255,255,255,0.6)" />
+                    <radialGradient id="shineTop" cx="35%" cy="30%" r="40%">
+                      <stop offset="0%" stopColor="rgba(255,255,255,0.5)" />
                       <stop offset="100%" stopColor="transparent" />
                     </radialGradient>
                   </defs>
 
+                  {/* Main blob shape */}
                   <motion.path
                     fill="url(#blobGrad)"
                     animate={{ d: blobPaths }}
                     transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
                   />
 
-                  {/* White highlight only */}
-                  <ellipse cx="65" cy="60" rx="35" ry="28" fill="url(#shine)" />
-
-                  {/* Subtle inner ring */}
-                  <motion.ellipse
-                    cx="100" cy="100" rx="50" ry="16"
-                    fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1"
-                    animate={{ rotate: 360 }}
-                    style={{ transformOrigin: 'center' }}
-                    transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-                  />
+                  {/* Simple white highlight at top */}
+                  <ellipse cx="70" cy="65" rx="30" ry="22" fill="url(#shineTop)" />
                 </svg>
 
                 {/* AI text */}
