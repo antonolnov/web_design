@@ -10,6 +10,9 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'WorkHere — Современная ATS для эффективного найма',
+  icons: {
+    icon: '/web_design/icon.svg',
+  },
   description:
     'WorkHere — единая платформа для управления подбором персонала. Автоматизируйте рутину, управляйте воронкой, анализируйте эффективность. 14 дней бесплатно.',
   keywords: [

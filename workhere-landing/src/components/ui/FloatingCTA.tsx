@@ -2,20 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, X } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function FloatingCTA() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Показываем кнопку после прокрутки 500px
-      const scrolled = window.scrollY > 500;
-      setIsVisible(scrolled);
+      // Показываем кнопку после прокрутки 400px
+      setIsVisible(window.scrollY > 400);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -23,94 +21,41 @@ export default function FloatingCTA() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
-          initial={{ opacity: 0, y: 100, scale: 0.8 }}
+          className="fixed bottom-8 right-8 z-50"
+          initial={{ opacity: 0, y: 60, scale: 0.8 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 100, scale: 0.8 }}
+          exit={{ opacity: 0, y: 60, scale: 0.8 }}
           transition={{ 
             type: 'spring', 
-            stiffness: 260, 
-            damping: 20 
+            stiffness: 300, 
+            damping: 25,
+            mass: 0.8
           }}
         >
-          {/* Minimize button */}
-          {!isMinimized && (
-            <motion.button
-              onClick={() => setIsMinimized(true)}
-              className="w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-white transition-all"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-              transition={{ delay: 0.2 }}
-              aria-label="Скрыть"
-            >
-              <X size={14} />
-            </motion.button>
-          )}
-
+          {/* Glow effect behind button */}
+          <div className="absolute inset-0 bg-[#1890ff] rounded-full blur-xl opacity-40 scale-110" />
+          
           {/* Main CTA Button */}
-          <AnimatePresence mode="wait">
-            {isMinimized ? (
-              <motion.button
-                key="minimized"
-                onClick={() => setIsMinimized(false)}
-                className="w-14 h-14 bg-[#1890ff] rounded-full shadow-[0_8px_30px_rgba(24,144,255,0.4)] flex items-center justify-center text-white hover:bg-[#0d6edb] transition-colors"
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                exit={{ scale: 0, rotate: 180 }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label="Запросить демо"
-              >
-                <ArrowRight size={24} />
-              </motion.button>
-            ) : (
-              <motion.a
-                key="expanded"
-                href="#demo"
-                className="group flex items-center gap-3 px-6 py-4 bg-[#1890ff] text-white font-semibold rounded-full shadow-[0_8px_30px_rgba(24,144,255,0.4)] hover:bg-[#0d6edb] transition-colors"
-                initial={{ scale: 0, x: 50 }}
-                animate={{ scale: 1, x: 0 }}
-                exit={{ scale: 0, x: 50 }}
-                whileHover={{ scale: 1.05, boxShadow: '0 12px 40px rgba(24,144,255,0.5)' }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span>Запросить демо</span>
-                <motion.div
-                  className="flex items-center justify-center"
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ 
-                    duration: 1.5, 
-                    repeat: Infinity, 
-                    ease: 'easeInOut' 
-                  }}
-                >
-                  <ArrowRight size={20} />
-                </motion.div>
-              </motion.a>
-            )}
-          </AnimatePresence>
-
-          {/* Pulse effect behind button */}
-          {!isMinimized && (
+          <motion.a
+            href="#demo"
+            className="relative flex items-center gap-3 px-8 py-5 bg-gradient-to-r from-[#1890ff] to-[#0d6edb] text-white font-bold text-lg rounded-full shadow-[0_10px_40px_rgba(24,144,255,0.5)] hover:shadow-[0_15px_50px_rgba(24,144,255,0.6)] transition-shadow"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <span>Запросить демо</span>
             <motion.div
-              className="absolute bottom-0 right-0 w-full h-full bg-[#1890ff] rounded-full -z-10"
-              animate={{
-                scale: [1, 1.5, 1.5],
-                opacity: [0.4, 0, 0],
+              className="flex items-center justify-center bg-white/20 rounded-full p-1"
+              animate={{ x: [0, 4, 0] }}
+              transition={{ 
+                duration: 1.5, 
+                repeat: Infinity, 
+                ease: 'easeInOut',
+                repeatType: 'loop'
               }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeOut',
-              }}
-              style={{ 
-                width: '100%', 
-                height: '56px',
-                borderRadius: '9999px'
-              }}
-            />
-          )}
+            >
+              <ArrowRight size={20} />
+            </motion.div>
+          </motion.a>
         </motion.div>
       )}
     </AnimatePresence>
