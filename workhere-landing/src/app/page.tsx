@@ -1,6 +1,5 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import SmoothScroll from '@/components/ui/SmoothScroll';
 import FloatingCTA from '@/components/ui/FloatingCTA';
 import Hero from '@/components/sections/Hero';
 import StatsBlob from '@/components/sections/StatsBlob';
@@ -16,7 +15,7 @@ import CTA from '@/components/sections/CTA';
 
 export default function Home() {
   return (
-    <SmoothScroll>
+    <>
       <Header />
       <FloatingCTA />
       <main>
@@ -33,6 +32,6 @@ export default function Home() {
         <CTA />
       </main>
       <Footer />
-    </SmoothScroll>
+    </>
   );
 }
