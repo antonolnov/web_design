@@ -5,11 +5,8 @@ import Hero from '@/components/sections/Hero';
 import StatsBlob from '@/components/sections/StatsBlob';
 import Features from '@/components/sections/Features';
 import ProductShowcase from '@/components/sections/ProductShowcase';
-import TabbedFeatures from '@/components/sections/TabbedFeatures';
 import Pipeline from '@/components/sections/Pipeline';
-import Analytics from '@/components/sections/Analytics';
 import Enterprise from '@/components/sections/Enterprise';
-import APISection from '@/components/sections/APISection';
 import Security from '@/components/sections/Security';
 import CTA from '@/components/sections/CTA';
 
@@ -23,11 +20,8 @@ export default function Home() {
         <StatsBlob />
         <Features />
         <ProductShowcase />
-        <TabbedFeatures />
         <Pipeline />
-        <Analytics />
         <Enterprise />
-        <APISection />
         <Security />
         <CTA />
       </main>
