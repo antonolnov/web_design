@@ -571,6 +571,9 @@ function SectionTitleScreen({ title, icon: Icon, index }: { title: string; icon:
         animate={isInView ? { opacity: 1, scale: 1 } : {}}
         transition={{ duration: 1, delay: 0.5 }}
       />
+      
+      {/* Bottom transition to light content */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent" />
     </section>
   );
 }
@@ -629,7 +632,7 @@ const blocks = [
   },
 ];
 
-function FeatureBlock({ block, index }: { block: typeof blocks[0]; index: number }) {
+function FeatureBlock({ block, index, isLast }: { block: typeof blocks[0]; index: number; isLast: boolean }) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const activeContent = block.tabs[activeTabIndex];
   const ref = useRef(null);
@@ -784,6 +787,11 @@ function FeatureBlock({ block, index }: { block: typeof blocks[0]; index: number
           </div>
         </div>
       </div>
+      
+      {/* Bottom gradient for last block to transition to dark Pipeline */}
+      {isLast && (
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-[#0c1929]/20" />
+      )}
     </section>
   );
 }
@@ -815,7 +823,7 @@ export default function Features() {
       {blocks.map((block, index) => (
         <div key={block.badge}>
           <SectionTitleScreen title={block.badge} icon={block.icon} index={index} />
-          <FeatureBlock block={block} index={index} />
+          <FeatureBlock block={block} index={index} isLast={index === blocks.length - 1} />
         </div>
       ))}
     </>

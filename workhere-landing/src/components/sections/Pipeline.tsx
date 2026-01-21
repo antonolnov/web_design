@@ -68,13 +68,13 @@ const features = [
   },
   {
     icon: UserCheck,
-    title: 'Талент-пулы',
-    description: 'Сохраняйте кандидатов "на будущее" с тегами и автоматическим напоминанием',
+    title: 'Кадровый резерв',
+    description: 'Сохраняйте перспективных кандидатов "на будущее" с тегами и напоминаниями',
   },
   {
     icon: Clock,
-    title: 'Time-in-stage',
-    description: 'Выявляйте узкие места: где кандидаты застревают дольше всего',
+    title: 'Время на этапах',
+    description: 'Выявляйте узкие места: на каком этапе кандидаты задерживаются дольше всего',
   },
 ];
 
@@ -88,11 +88,14 @@ export default function Pipeline() {
     <section 
       id="funnel" 
       ref={ref}
-      className="min-h-screen relative overflow-hidden"
+      className="relative overflow-hidden py-20 lg:py-24"
       style={{
         background: 'linear-gradient(180deg, #0c1929 0%, #0f2744 50%, #0c1929 100%)',
       }}
     >
+      {/* Top transition gradient */}
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-white to-transparent z-[1]" />
+      
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Grid */}
@@ -138,7 +141,7 @@ export default function Pipeline() {
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
