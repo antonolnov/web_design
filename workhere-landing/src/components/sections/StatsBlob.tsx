@@ -169,12 +169,12 @@ export default function StatsBlob() {
                 >
                   <defs>
                     <linearGradient id="blobGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#69c0ff" />
-                      <stop offset="50%" stopColor="#1890ff" />
-                      <stop offset="100%" stopColor="#0050b3" />
+                      <stop offset="0%" stopColor="#91d5ff" />
+                      <stop offset="50%" stopColor="#40a9ff" />
+                      <stop offset="100%" stopColor="#1890ff" />
                     </linearGradient>
-                    <radialGradient id="shine" cx="30%" cy="25%" r="35%">
-                      <stop offset="0%" stopColor="rgba(255,255,255,0.7)" />
+                    <radialGradient id="shine" cx="30%" cy="30%" r="50%">
+                      <stop offset="0%" stopColor="rgba(255,255,255,0.6)" />
                       <stop offset="100%" stopColor="transparent" />
                     </radialGradient>
                   </defs>
@@ -185,21 +185,16 @@ export default function StatsBlob() {
                     transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
                   />
 
+                  {/* White highlight only */}
+                  <ellipse cx="65" cy="60" rx="35" ry="28" fill="url(#shine)" />
+
+                  {/* Subtle inner ring */}
                   <motion.ellipse
-                    cx="100" cy="100" rx="55" ry="18"
-                    fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1.5"
+                    cx="100" cy="100" rx="50" ry="16"
+                    fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1"
                     animate={{ rotate: 360 }}
                     style={{ transformOrigin: 'center' }}
-                    transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-                  />
-
-                  <ellipse cx="60" cy="55" rx="30" ry="24" fill="url(#shine)" />
-
-                  <motion.circle
-                    cx="100" cy="100" r="18"
-                    fill="rgba(255,255,255,0.15)"
-                    animate={{ r: [18, 28, 18], opacity: [0.15, 0.3, 0.15] }}
-                    transition={{ duration: 2, repeat: Infinity }}
+                    transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
                   />
                 </svg>
 
