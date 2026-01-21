@@ -522,54 +522,14 @@ function SectionTitleScreen({ title, icon: Icon, index }: { title: string; icon:
       
       {/* Main content */}
       <div className="relative z-10 text-center px-4">
-        {/* Animated icon with glow */}
-        <motion.div
-          initial={{ scale: 0, rotate: -180, opacity: 0 }}
-          animate={isInView ? { scale: 1, rotate: 0, opacity: 1 } : {}}
-          transition={{ 
-            type: 'spring',
-            stiffness: 200,
-            damping: 15,
-            delay: 0.2,
-          }}
-          className="relative inline-flex items-center justify-center w-28 h-28 mb-10"
-        >
-          {/* Icon glow */}
-          <motion.div
-            className="absolute inset-0 rounded-3xl"
-            style={{
-              background: theme.accent,
-              filter: 'blur(30px)',
-            }}
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.5, 0.8, 0.5],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
-          <div 
-            className="relative w-full h-full rounded-3xl flex items-center justify-center"
-            style={{
-              background: `linear-gradient(135deg, ${theme.accent}, ${theme.accent}99)`,
-              boxShadow: `0 20px 60px ${theme.glow}`,
-            }}
-          >
-            <Icon size={56} className="text-white" />
-          </div>
-        </motion.div>
-        
-        {/* Animated title with letter animation */}
+        {/* Animated title */}
         <div className="overflow-hidden mb-6">
           <motion.h2
             initial={{ y: 120, opacity: 0 }}
             animate={isInView ? { y: 0, opacity: 1 } : {}}
             transition={{ 
               duration: 0.8,
-              delay: 0.4,
+              delay: 0.2,
               ease: [0.16, 1, 0.3, 1],
             }}
             className="text-5xl md:text-6xl lg:text-8xl font-bold text-white tracking-tight"
@@ -585,36 +545,29 @@ function SectionTitleScreen({ title, icon: Icon, index }: { title: string; icon:
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={isInView ? { scaleX: 1, opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.7 }}
-          className="mx-auto h-1.5 w-32 rounded-full"
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mx-auto h-1.5 w-32 rounded-full mb-12"
           style={{
             background: `linear-gradient(90deg, transparent, ${theme.accent}, transparent)`,
             boxShadow: `0 0 20px ${theme.glow}`,
           }}
         />
         
-        {/* Scroll indicator */}
+        {/* Scroll indicator - below title */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 1.2, duration: 0.5 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
+          transition={{ delay: 0.8, duration: 0.5 }}
         >
           <motion.div
-            animate={{ y: [0, 12, 0] }}
+            animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-            className="flex flex-col items-center text-white/60"
+            className="flex flex-col items-center text-gray-400"
           >
-            <span className="text-sm mb-3 uppercase tracking-widest">Scroll</span>
-            <motion.div
-              className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-1.5"
-            >
-              <motion.div
-                className="w-1.5 h-3 rounded-full bg-white/60"
-                animate={{ y: [0, 12, 0], opacity: [1, 0.3, 1] }}
-                transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-              />
-            </motion.div>
+            <span className="text-sm mb-2">Листайте вниз</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 5v14M5 12l7 7 7-7" />
+            </svg>
           </motion.div>
         </motion.div>
       </div>
