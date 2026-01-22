@@ -6,25 +6,19 @@
     <title>WorkHere — ATS/CRM Demo</title>
     <style>
         /* ==============================================
-           WORHERE CRM DEMO WITH HERO BACKGROUND
+           WORHERE CRM DEMO WITH DYNAMIC WAVE BACKGROUND
            ============================================== */
         
         :root {
-            --wh-blue: #1890ff;
-            --wh-blue-light: #40a9ff;
-            --wh-blue-dark: #096dd9;
-            --center-accent: #ff3b8d;
-            --center-accent-soft: #ff6bab;
-            --bg-base: #f8f9fc;
-            --bg-warm: #fff5f8;
-            --text-dark: #1a1a2e;
+            --wh-orange: #E3711B;
+            --wh-orange-light: #f59542;
+            --wh-orange-dark: #c45a0a;
+            --bg-cream: #fffdf9;
+            --bg-white: #ffffff;
+            --text-dark: #1a1a1a;
             --text-muted: #64748b;
-            --intensity: 0.9;
+            --intensity: 1;
             --speed: 1;
-            --cycle-1: calc(28s / var(--speed));
-            --cycle-2: calc(35s / var(--speed));
-            --cycle-3: calc(22s / var(--speed));
-            --cycle-4: calc(40s / var(--speed));
         }
         
         * {
@@ -65,7 +59,7 @@
         }
         
         .navbar__logo-work {
-            background: var(--wh-blue);
+            background: #1890ff;
             color: white;
             padding: 4px 8px;
             border-radius: 4px;
@@ -97,9 +91,7 @@
             background: rgba(255,255,255,0.1);
         }
         
-        .navbar__spacer {
-            flex: 1;
-        }
+        .navbar__spacer { flex: 1; }
         
         .navbar__user {
             display: flex;
@@ -112,7 +104,7 @@
         .navbar__avatar {
             width: 32px;
             height: 32px;
-            background: var(--wh-blue);
+            background: var(--wh-orange);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -164,13 +156,11 @@
             cursor: pointer;
         }
         
-        .sidebar__item:hover {
-            background: #f1f5f9;
-        }
+        .sidebar__item:hover { background: #f1f5f9; }
         
         .sidebar__item--active {
-            background: rgba(24, 144, 255, 0.1);
-            color: var(--wh-blue);
+            background: rgba(227, 113, 27, 0.1);
+            color: var(--wh-orange);
         }
         
         .sidebar__icon {
@@ -184,7 +174,7 @@
         
         .sidebar__badge {
             margin-left: auto;
-            background: var(--wh-blue);
+            background: var(--wh-orange);
             color: white;
             font-size: 11px;
             font-weight: 600;
@@ -203,9 +193,7 @@
             border-radius: 6px;
         }
         
-        .sidebar__vacancy:hover {
-            background: #f8fafc;
-        }
+        .sidebar__vacancy:hover { background: #f8fafc; }
         
         .sidebar__vacancy-dot {
             width: 8px;
@@ -227,167 +215,353 @@
         }
         
         /* ==============================================
-           HERO SECTION WITH ANIMATED BACKGROUND
+           HERO SECTION - DYNAMIC WAVE BACKGROUND
+           Height: 1.5x (480px), Width: 60% narrower center
            ============================================== */
         .hero {
             position: relative;
-            height: 320px;
+            height: 480px;
+            overflow: hidden;
+            background: var(--bg-cream);
+        }
+        
+        /* === WAVE CONTAINER === */
+        .hero__waves {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+        
+        /* === LEFT SIDE WAVES === */
+        .hero__wave-left {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 35%;
             overflow: hidden;
         }
         
-        /* Hero Background Layers */
-        .hero__bg {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-        }
-        
-        .hero__base {
-            position: absolute;
-            inset: 0;
-            background: 
-                radial-gradient(ellipse 120% 100% at 50% 30%, var(--bg-warm) 0%, transparent 60%),
-                linear-gradient(180deg, #ffffff 0%, var(--bg-base) 100%);
-        }
-        
-        .hero__center {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse 70% 80% at 50% 40%, 
-                rgba(255, 59, 141, calc(0.28 * var(--intensity))) 0%,
-                rgba(255, 107, 171, calc(0.12 * var(--intensity))) 40%,
-                transparent 70%
-            );
-        }
-        
-        .hero__edges {
-            position: absolute;
-            inset: 0;
-        }
-        
-        .hero__edges::before {
-            content: '';
-            position: absolute;
-            width: 60%;
-            height: 80%;
-            top: -40%;
-            left: -20%;
-            background: radial-gradient(ellipse at center, var(--wh-blue) 0%, transparent 70%);
-            filter: blur(60px);
-            opacity: calc(0.18 * var(--intensity));
-        }
-        
-        .hero__edges::after {
-            content: '';
-            position: absolute;
-            width: 50%;
-            height: 70%;
-            bottom: -30%;
-            right: -10%;
-            background: radial-gradient(ellipse at center, var(--wh-blue-light) 0%, transparent 70%);
-            filter: blur(60px);
-            opacity: calc(0.15 * var(--intensity));
-        }
-        
-        .hero__blobs {
-            position: absolute;
-            inset: -20%;
-            filter: blur(45px);
-        }
-        
-        .hero__blob {
+        .hero__wave-left .wave-blob {
             position: absolute;
             border-radius: 50%;
+            filter: blur(40px);
             will-change: transform;
         }
         
-        .hero__blob--1 {
-            width: 35%;
-            height: 50%;
+        .hero__wave-left .wave-blob--1 {
+            width: 200px;
+            height: 300px;
+            top: -50px;
+            left: -60px;
+            background: radial-gradient(ellipse at 60% 40%, var(--wh-orange) 0%, rgba(227, 113, 27, 0.6) 40%, transparent 70%);
+            animation: waveFloat1 8s ease-in-out infinite;
+        }
+        
+        .hero__wave-left .wave-blob--2 {
+            width: 180px;
+            height: 250px;
+            top: 30%;
+            left: -30px;
+            background: radial-gradient(ellipse at 50% 50%, var(--wh-orange-light) 0%, rgba(245, 149, 66, 0.5) 50%, transparent 70%);
+            animation: waveFloat2 10s ease-in-out infinite;
+        }
+        
+        .hero__wave-left .wave-blob--3 {
+            width: 160px;
+            height: 220px;
+            bottom: -40px;
+            left: -40px;
+            background: radial-gradient(ellipse at 40% 60%, var(--wh-orange-dark) 0%, rgba(196, 90, 10, 0.5) 45%, transparent 70%);
+            animation: waveFloat3 12s ease-in-out infinite;
+        }
+        
+        .hero__wave-left .wave-blob--4 {
+            width: 120px;
+            height: 180px;
             top: 15%;
-            left: 25%;
-            background: radial-gradient(ellipse at 40% 40%, 
-                rgba(255, 59, 141, calc(0.32 * var(--intensity))) 0%,
-                rgba(255, 107, 171, calc(0.12 * var(--intensity))) 50%,
-                transparent 70%
-            );
-            animation: drift1 var(--cycle-1) ease-in-out infinite;
+            left: 50px;
+            background: radial-gradient(ellipse at 50% 50%, rgba(227, 113, 27, 0.7) 0%, transparent 60%);
+            animation: waveFloat4 9s ease-in-out infinite;
         }
         
-        .hero__blob--2 {
-            width: 30%;
-            height: 45%;
-            top: 20%;
-            right: 20%;
-            background: radial-gradient(ellipse at 60% 50%, 
-                rgba(255, 107, 171, calc(0.25 * var(--intensity))) 0%,
-                transparent 60%
-            );
-            animation: drift2 var(--cycle-2) ease-in-out infinite;
+        .hero__wave-left .wave-blob--5 {
+            width: 140px;
+            height: 200px;
+            bottom: 20%;
+            left: 30px;
+            background: radial-gradient(ellipse at 50% 50%, rgba(245, 149, 66, 0.6) 0%, transparent 60%);
+            animation: waveFloat5 11s ease-in-out infinite;
         }
         
-        .hero__blob--3 {
-            width: 25%;
-            height: 40%;
-            top: -10%;
-            left: 10%;
-            background: radial-gradient(ellipse at 30% 60%, 
-                rgba(24, 144, 255, calc(0.18 * var(--intensity))) 0%,
-                transparent 60%
-            );
-            animation: drift3 var(--cycle-3) ease-in-out infinite;
-        }
-        
-        .hero__blob--4 {
-            width: 30%;
-            height: 50%;
-            bottom: -15%;
-            right: 15%;
-            background: radial-gradient(ellipse at 70% 40%, 
-                rgba(64, 169, 255, calc(0.15 * var(--intensity))) 0%,
-                transparent 55%
-            );
-            animation: drift4 var(--cycle-4) ease-in-out infinite;
-        }
-        
-        .hero__grain {
+        /* === RIGHT SIDE WAVES === */
+        .hero__wave-right {
             position: absolute;
-            inset: 0;
-            opacity: 0.03;
-            pointer-events: none;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-size: 200px 200px;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 35%;
+            overflow: hidden;
         }
         
-        @keyframes drift1 {
-            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            25% { transform: translate(3%, -2%) scale(1.02) rotate(1deg); }
-            50% { transform: translate(-2%, 3%) scale(0.98) rotate(-1deg); }
-            75% { transform: translate(-3%, -1%) scale(1.01) rotate(0.5deg); }
+        .hero__wave-right .wave-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            will-change: transform;
         }
         
-        @keyframes drift2 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(-4%, 2%) scale(1.03); }
-            66% { transform: translate(2%, -3%) scale(0.97); }
+        .hero__wave-right .wave-blob--1 {
+            width: 200px;
+            height: 280px;
+            top: -40px;
+            right: -50px;
+            background: radial-gradient(ellipse at 40% 50%, var(--wh-orange) 0%, rgba(227, 113, 27, 0.6) 40%, transparent 70%);
+            animation: waveFloat1 9s ease-in-out infinite reverse;
         }
         
-        @keyframes drift3 {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(5%, 4%) rotate(2deg); }
+        .hero__wave-right .wave-blob--2 {
+            width: 170px;
+            height: 240px;
+            top: 35%;
+            right: -20px;
+            background: radial-gradient(ellipse at 50% 50%, var(--wh-orange-light) 0%, rgba(245, 149, 66, 0.55) 45%, transparent 70%);
+            animation: waveFloat2 11s ease-in-out infinite reverse;
         }
         
-        @keyframes drift4 {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            40% { transform: translate(-3%, -2%) scale(1.04); }
-            80% { transform: translate(2%, 3%) scale(0.96); }
+        .hero__wave-right .wave-blob--3 {
+            width: 150px;
+            height: 210px;
+            bottom: -30px;
+            right: -30px;
+            background: radial-gradient(ellipse at 60% 40%, var(--wh-orange-dark) 0%, rgba(196, 90, 10, 0.5) 40%, transparent 70%);
+            animation: waveFloat3 10s ease-in-out infinite reverse;
+        }
+        
+        .hero__wave-right .wave-blob--4 {
+            width: 130px;
+            height: 170px;
+            top: 20%;
+            right: 40px;
+            background: radial-gradient(ellipse at 50% 50%, rgba(227, 113, 27, 0.65) 0%, transparent 60%);
+            animation: waveFloat5 8s ease-in-out infinite reverse;
+        }
+        
+        .hero__wave-right .wave-blob--5 {
+            width: 140px;
+            height: 190px;
+            bottom: 25%;
+            right: 20px;
+            background: radial-gradient(ellipse at 50% 50%, rgba(245, 149, 66, 0.55) 0%, transparent 60%);
+            animation: waveFloat4 12s ease-in-out infinite reverse;
+        }
+        
+        /* === FRAGMENTED WAVE PIECES === */
+        .wave-fragment {
+            position: absolute;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            filter: blur(25px);
+            will-change: transform;
+        }
+        
+        .hero__wave-left .wave-fragment--1 {
+            width: 80px;
+            height: 100px;
+            top: 10%;
+            left: 80px;
+            background: rgba(227, 113, 27, 0.5);
+            animation: fragmentDrift1 7s ease-in-out infinite;
+        }
+        
+        .hero__wave-left .wave-fragment--2 {
+            width: 60px;
+            height: 80px;
+            top: 50%;
+            left: 100px;
+            background: rgba(245, 149, 66, 0.45);
+            animation: fragmentDrift2 9s ease-in-out infinite;
+        }
+        
+        .hero__wave-left .wave-fragment--3 {
+            width: 70px;
+            height: 90px;
+            bottom: 15%;
+            left: 70px;
+            background: rgba(196, 90, 10, 0.4);
+            animation: fragmentDrift3 8s ease-in-out infinite;
+        }
+        
+        .hero__wave-right .wave-fragment--1 {
+            width: 75px;
+            height: 95px;
+            top: 15%;
+            right: 70px;
+            background: rgba(227, 113, 27, 0.5);
+            animation: fragmentDrift1 8s ease-in-out infinite reverse;
+        }
+        
+        .hero__wave-right .wave-fragment--2 {
+            width: 65px;
+            height: 85px;
+            top: 55%;
+            right: 90px;
+            background: rgba(245, 149, 66, 0.45);
+            animation: fragmentDrift2 10s ease-in-out infinite reverse;
+        }
+        
+        .hero__wave-right .wave-fragment--3 {
+            width: 70px;
+            height: 85px;
+            bottom: 20%;
+            right: 60px;
+            background: rgba(196, 90, 10, 0.4);
+            animation: fragmentDrift3 7s ease-in-out infinite reverse;
+        }
+        
+        /* === CENTER SAFE ZONE (white/cream) === */
+        .hero__center-safe {
+            position: absolute;
+            left: 30%;
+            right: 30%;
+            top: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                rgba(255, 253, 249, 0.7) 10%,
+                var(--bg-cream) 25%,
+                var(--bg-white) 50%,
+                var(--bg-cream) 75%,
+                rgba(255, 253, 249, 0.7) 90%,
+                transparent 100%
+            );
+            z-index: 5;
+        }
+        
+        /* Soft gradient fade from edges to center */
+        .hero__fade-left {
+            position: absolute;
+            left: 20%;
+            top: 0;
+            bottom: 0;
+            width: 15%;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 253, 249, 0.95) 100%);
+            z-index: 4;
+        }
+        
+        .hero__fade-right {
+            position: absolute;
+            right: 20%;
+            top: 0;
+            bottom: 0;
+            width: 15%;
+            background: linear-gradient(270deg, transparent 0%, rgba(255, 253, 249, 0.95) 100%);
+            z-index: 4;
+        }
+        
+        /* === ANIMATIONS === */
+        @keyframes waveFloat1 {
+            0%, 100% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+            }
+            25% {
+                transform: translate(15px, 20px) scale(1.05) rotate(3deg);
+            }
+            50% {
+                transform: translate(-10px, -15px) scale(0.95) rotate(-2deg);
+            }
+            75% {
+                transform: translate(20px, -10px) scale(1.02) rotate(1deg);
+            }
+        }
+        
+        @keyframes waveFloat2 {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(-20px, 25px) scale(1.08);
+            }
+            66% {
+                transform: translate(15px, -20px) scale(0.92);
+            }
+        }
+        
+        @keyframes waveFloat3 {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(25px, 15px) rotate(5deg);
+            }
+        }
+        
+        @keyframes waveFloat4 {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            40% {
+                transform: translate(-15px, -20px) scale(1.1);
+            }
+            80% {
+                transform: translate(10px, 15px) scale(0.9);
+            }
+        }
+        
+        @keyframes waveFloat5 {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            30% {
+                transform: translate(20px, -15px);
+            }
+            70% {
+                transform: translate(-15px, 20px);
+            }
+        }
+        
+        @keyframes fragmentDrift1 {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translate(10px, -15px) rotate(15deg) scale(1.1);
+            }
+            50% {
+                transform: translate(-5px, 10px) rotate(-10deg) scale(0.9);
+            }
+            75% {
+                transform: translate(15px, 5px) rotate(5deg) scale(1.05);
+            }
+        }
+        
+        @keyframes fragmentDrift2 {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(-20px, 15px) rotate(-20deg);
+            }
+        }
+        
+        @keyframes fragmentDrift3 {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(15px, -10px) scale(1.15);
+            }
+            66% {
+                transform: translate(-10px, 20px) scale(0.85);
+            }
         }
         
         @media (prefers-reduced-motion: reduce) {
-            .hero__blob { animation: none !important; }
+            .wave-blob, .wave-fragment {
+                animation: none !important;
+            }
         }
         
-        /* Hero Content */
+        /* === CONTENT === */
         .hero__content {
             position: relative;
             z-index: 10;
@@ -398,32 +572,36 @@
             justify-content: center;
             text-align: center;
             padding: 24px;
+            /* Center content within narrower zone */
+            max-width: 500px;
+            margin: 0 auto;
         }
         
         .hero__badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 59, 141, 0.1);
-            color: var(--center-accent);
-            padding: 6px 14px;
+            background: rgba(227, 113, 27, 0.12);
+            color: var(--wh-orange);
+            padding: 8px 16px;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 500;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
         
         .hero__title {
-            font-size: 2.5rem;
+            font-size: 2.75rem;
             font-weight: 700;
             color: var(--text-dark);
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            line-height: 1.2;
         }
         
         .hero__subtitle {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-muted);
-            max-width: 500px;
+            max-width: 400px;
         }
         
         /* ==============================================
@@ -446,13 +624,11 @@
             transition: all 0.15s;
         }
         
-        .tab:hover {
-            color: var(--text-dark);
-        }
+        .tab:hover { color: var(--text-dark); }
         
         .tab--active {
-            color: var(--wh-blue);
-            border-bottom-color: var(--wh-blue);
+            color: var(--wh-orange);
+            border-bottom-color: var(--wh-orange);
         }
         
         .tab__badge {
@@ -467,8 +643,8 @@
         }
         
         .tab--active .tab__badge {
-            background: rgba(24, 144, 255, 0.1);
-            color: var(--wh-blue);
+            background: rgba(227, 113, 27, 0.12);
+            color: var(--wh-orange);
         }
         
         /* ==============================================
@@ -480,7 +656,7 @@
             padding: 24px;
             overflow-x: auto;
             background: #f8fafc;
-            min-height: 400px;
+            min-height: 350px;
         }
         
         .kanban__column {
@@ -530,8 +706,8 @@
         }
         
         .card:hover {
-            border-color: var(--wh-blue);
-            box-shadow: 0 2px 8px rgba(24, 144, 255, 0.12);
+            border-color: var(--wh-orange);
+            box-shadow: 0 2px 8px rgba(227, 113, 27, 0.15);
         }
         
         .card__name {
@@ -570,21 +746,12 @@
            RESPONSIVE
            ============================================== */
         @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
-            
-            .main {
-                margin-left: 0;
-            }
-            
-            .hero__title {
-                font-size: 1.75rem;
-            }
-            
-            .kanban__column {
-                flex: 0 0 260px;
-            }
+            .sidebar { display: none; }
+            .main { margin-left: 0; }
+            .hero__title { font-size: 1.75rem; }
+            .hero__wave-left, .hero__wave-right { width: 30%; }
+            .hero__center-safe { left: 25%; right: 25%; }
+            .kanban__column { flex: 0 0 260px; }
         }
     </style>
 </head>
@@ -661,21 +828,43 @@
     
     <!-- Main Content -->
     <main class="main">
-        <!-- Hero Section with Animated Background -->
+        <!-- Hero Section with Dynamic Wave Background -->
         <section class="hero">
-            <div class="hero__bg">
-                <div class="hero__base"></div>
-                <div class="hero__center"></div>
-                <div class="hero__edges"></div>
-                <div class="hero__blobs">
-                    <div class="hero__blob hero__blob--1"></div>
-                    <div class="hero__blob hero__blob--2"></div>
-                    <div class="hero__blob hero__blob--3"></div>
-                    <div class="hero__blob hero__blob--4"></div>
+            <!-- Wave effects on edges -->
+            <div class="hero__waves">
+                <!-- LEFT SIDE -->
+                <div class="hero__wave-left">
+                    <div class="wave-blob wave-blob--1"></div>
+                    <div class="wave-blob wave-blob--2"></div>
+                    <div class="wave-blob wave-blob--3"></div>
+                    <div class="wave-blob wave-blob--4"></div>
+                    <div class="wave-blob wave-blob--5"></div>
+                    <div class="wave-fragment wave-fragment--1"></div>
+                    <div class="wave-fragment wave-fragment--2"></div>
+                    <div class="wave-fragment wave-fragment--3"></div>
                 </div>
-                <div class="hero__grain"></div>
+                
+                <!-- RIGHT SIDE -->
+                <div class="hero__wave-right">
+                    <div class="wave-blob wave-blob--1"></div>
+                    <div class="wave-blob wave-blob--2"></div>
+                    <div class="wave-blob wave-blob--3"></div>
+                    <div class="wave-blob wave-blob--4"></div>
+                    <div class="wave-blob wave-blob--5"></div>
+                    <div class="wave-fragment wave-fragment--1"></div>
+                    <div class="wave-fragment wave-fragment--2"></div>
+                    <div class="wave-fragment wave-fragment--3"></div>
+                </div>
             </div>
             
+            <!-- Fade transitions -->
+            <div class="hero__fade-left"></div>
+            <div class="hero__fade-right"></div>
+            
+            <!-- Safe white center zone -->
+            <div class="hero__center-safe"></div>
+            
+            <!-- Content -->
             <div class="hero__content">
                 <div class="hero__badge">
                     <span>🧠</span>
@@ -719,14 +908,6 @@
                             <span class="card__date">Вчера</span>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card__name">Дмитрий Козлов</div>
-                        <div class="card__position">Fullstack Developer</div>
-                        <div class="card__footer">
-                            <span class="card__source">Реферал</span>
-                            <span class="card__date">2 дня</span>
-                        </div>
-                    </div>
                 </div>
             </div>
             
@@ -742,14 +923,6 @@
                         <div class="card__footer">
                             <span class="card__source">hh.ru</span>
                             <span class="card__date">3 дня</span>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card__name">Андрей Новиков</div>
-                        <div class="card__position">Vue.js Developer</div>
-                        <div class="card__footer">
-                            <span class="card__source">Telegram</span>
-                            <span class="card__date">4 дня</span>
                         </div>
                     </div>
                 </div>
