@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Генератор PDF коммерческого предложения WorkHere
-Профессиональный визуальный дизайн
+2 страницы: титул + контент
 """
 
 from weasyprint import HTML, CSS
@@ -33,8 +33,8 @@ def generate_pdf():
             body {
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
                 color: #1a1a2e;
-                font-size: 10pt;
-                line-height: 1.5;
+                font-size: 9pt;
+                line-height: 1.4;
             }
             
             /* ===== СТРАНИЦА 1: ТИТУЛ ===== */
@@ -48,6 +48,7 @@ def generate_pdf():
                 text-align: center;
                 position: relative;
                 overflow: hidden;
+                page-break-after: always;
             }
             
             .cover::before {
@@ -132,10 +133,10 @@ def generate_pdf():
                 letter-spacing: 1px;
             }
             
-            /* ===== СТРАНИЦЫ КОНТЕНТА ===== */
+            /* ===== СТРАНИЦА 2: ВЕСЬ КОНТЕНТ ===== */
             .page {
-                padding: 45px 50px;
-                min-height: 297mm;
+                padding: 32px 40px;
+                height: 297mm;
                 background: #f8fafc;
                 position: relative;
             }
@@ -146,116 +147,146 @@ def generate_pdf():
                 top: 0;
                 left: 0;
                 right: 0;
-                height: 5px;
+                height: 4px;
                 background: #2196F3;
             }
             
-            .section-title {
-                font-size: 16pt;
-                font-weight: 700;
-                color: #1a1a2e;
-                margin-bottom: 18px;
+            /* Header */
+            .page-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 16px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            
+            .mini-logo {
                 display: flex;
                 align-items: center;
-                gap: 12px;
-                page-break-after: avoid;
+                font-weight: 700;
+                font-size: 12pt;
+            }
+            
+            .mini-logo .work {
+                background: #2196F3;
+                color: white;
+                padding: 3px 6px;
+                border-radius: 4px;
+            }
+            
+            .mini-logo .here {
+                color: #1a1a2e;
+                padding: 3px 6px;
+            }
+            
+            /* Intro */
+            .intro-text {
+                font-size: 10pt;
+                color: #4a5568;
+                line-height: 1.5;
+                margin-bottom: 16px;
+                padding: 12px 16px;
+                background: white;
+                border-radius: 10px;
+                border-left: 3px solid #2196F3;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            }
+            
+            /* Section titles */
+            .section-title {
+                font-size: 11pt;
+                font-weight: 700;
+                color: #1a1a2e;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
             }
             
             .section-title .icon {
-                width: 34px;
-                height: 34px;
+                width: 24px;
+                height: 24px;
                 background: #2196F3;
-                border-radius: 8px;
+                border-radius: 6px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 color: white;
-                font-size: 15pt;
-            }
-            
-            .intro-text {
                 font-size: 11pt;
-                color: #4a5568;
-                line-height: 1.7;
-                margin-bottom: 28px;
-                padding: 18px 22px;
-                background: white;
-                border-radius: 12px;
-                border-left: 4px solid #2196F3;
-                box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-                page-break-inside: avoid;
             }
             
-            /* Карточки аудитории */
+            /* Two column layout */
+            .two-columns {
+                display: flex;
+                gap: 16px;
+                margin-bottom: 14px;
+            }
+            
+            .column {
+                flex: 1;
+            }
+            
+            /* Audience cards */
             .audience-grid {
                 display: flex;
-                gap: 14px;
-                margin-bottom: 28px;
-                page-break-inside: avoid;
+                gap: 10px;
+                margin-bottom: 14px;
             }
             
             .audience-card {
                 flex: 1;
                 background: white;
-                border-radius: 14px;
-                padding: 20px;
-                box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-                border-top: 4px solid #2196F3;
-                page-break-inside: avoid;
+                border-radius: 10px;
+                padding: 12px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+                border-top: 3px solid #2196F3;
             }
             
             .audience-card:nth-child(2) { border-color: #1976D2; }
             .audience-card:nth-child(3) { border-color: #0d47a1; }
             
             .audience-card h3 {
-                font-size: 11pt;
+                font-size: 9pt;
                 font-weight: 700;
                 color: #1a1a2e;
-                margin-bottom: 8px;
+                margin-bottom: 4px;
             }
             
             .audience-card p {
-                font-size: 9pt;
+                font-size: 8pt;
                 color: #64748b;
-                line-height: 1.5;
+                line-height: 1.4;
             }
             
-            /* Таблица проблем */
-            .problems-section {
-                page-break-inside: avoid;
-                margin-bottom: 28px;
-            }
-            
+            /* Problems table */
             .problems-table {
                 width: 100%;
                 background: white;
-                border-radius: 14px;
+                border-radius: 10px;
                 overflow: hidden;
-                box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+                margin-bottom: 14px;
             }
             
             .problems-table th {
                 background: #1a1a2e;
                 color: white;
                 font-weight: 600;
-                padding: 14px 18px;
+                padding: 8px 12px;
                 text-align: left;
-                font-size: 10pt;
+                font-size: 8pt;
             }
             
             .problems-table td {
-                padding: 12px 18px;
+                padding: 6px 12px;
                 border-bottom: 1px solid #f1f5f9;
-                font-size: 9.5pt;
+                font-size: 8pt;
             }
             
-            .problems-table tr:last-child td {
-                border-bottom: none;
-            }
+            .problems-table tr:last-child td { border-bottom: none; }
             
-            .problem-cell {
-                color: #64748b;
-            }
+            .problem-cell { color: #64748b; }
             
             .solution-cell {
                 color: #1a1a2e;
@@ -266,43 +297,38 @@ def generate_pdf():
                 content: '✓';
                 color: #2196F3;
                 font-weight: bold;
-                margin-right: 8px;
+                margin-right: 6px;
             }
             
-            /* Функционал - карточки */
-            .features-section {
-                page-break-inside: avoid;
-                margin-bottom: 28px;
-            }
-            
+            /* Features grid */
             .features-grid {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 14px;
+                gap: 10px;
+                margin-bottom: 14px;
             }
             
             .feature-card {
-                width: calc(50% - 7px);
+                width: calc(25% - 8px);
                 background: white;
-                border-radius: 14px;
-                padding: 20px;
-                box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-                page-break-inside: avoid;
+                border-radius: 10px;
+                padding: 12px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.04);
             }
             
             .feature-card h4 {
-                font-size: 10pt;
+                font-size: 8.5pt;
                 font-weight: 700;
                 color: #1a1a2e;
-                margin-bottom: 10px;
+                margin-bottom: 6px;
                 display: flex;
                 align-items: center;
-                gap: 8px;
+                gap: 6px;
             }
             
             .feature-card h4 .dot {
-                width: 8px;
-                height: 8px;
+                width: 6px;
+                height: 6px;
                 border-radius: 50%;
                 background: #2196F3;
             }
@@ -313,10 +339,10 @@ def generate_pdf():
             }
             
             .feature-card li {
-                font-size: 9pt;
+                font-size: 7.5pt;
                 color: #4a5568;
-                padding: 3px 0;
-                padding-left: 14px;
+                padding: 2px 0;
+                padding-left: 10px;
                 position: relative;
             }
             
@@ -325,29 +351,26 @@ def generate_pdf():
                 position: absolute;
                 left: 0;
                 color: #2196F3;
+                font-size: 7pt;
             }
             
-            /* Интеграции */
-            .integrations-section {
-                page-break-inside: avoid;
-                margin-bottom: 28px;
-            }
-            
+            /* Integrations */
             .integrations {
                 display: flex;
-                gap: 10px;
+                gap: 8px;
                 flex-wrap: wrap;
+                margin-bottom: 14px;
             }
             
             .integration-tag {
                 background: white;
                 border-radius: 50px;
-                padding: 10px 18px;
-                font-size: 9pt;
+                padding: 6px 14px;
+                font-size: 8pt;
                 font-weight: 600;
                 color: #1a1a2e;
-                box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-                border: 2px solid #e2e8f0;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+                border: 1px solid #e2e8f0;
             }
             
             .integration-tag span {
@@ -355,51 +378,38 @@ def generate_pdf():
                 font-weight: 400;
             }
             
-            /* AI блок */
+            /* AI block */
             .ai-block {
                 background: linear-gradient(135deg, #2196F3, #1976D2);
-                border-radius: 16px;
-                padding: 26px;
+                border-radius: 12px;
+                padding: 16px 20px;
                 color: white;
-                margin-bottom: 28px;
-                position: relative;
-                overflow: hidden;
-                page-break-inside: avoid;
+                margin-bottom: 14px;
+                display: flex;
+                gap: 20px;
             }
             
-            .ai-block::before {
-                content: '🔍';
-                position: absolute;
-                right: 24px;
-                top: 50%;
-                transform: translateY(-50%);
-                font-size: 50pt;
-                opacity: 0.2;
+            .ai-block-content {
+                flex: 1;
             }
             
             .ai-block h3 {
-                font-size: 13pt;
+                font-size: 11pt;
                 font-weight: 700;
-                margin-bottom: 10px;
-            }
-            
-            .ai-block p {
-                font-size: 10pt;
-                opacity: 0.95;
-                max-width: 85%;
-                line-height: 1.6;
+                margin-bottom: 6px;
             }
             
             .ai-block ul {
                 list-style: none;
                 padding: 0;
-                margin-top: 12px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px 16px;
             }
             
             .ai-block li {
-                font-size: 9.5pt;
-                padding: 4px 0;
-                padding-left: 20px;
+                font-size: 8pt;
+                padding-left: 14px;
                 position: relative;
                 opacity: 0.95;
             }
@@ -411,97 +421,67 @@ def generate_pdf():
                 font-weight: bold;
             }
             
-            /* Цена */
-            .pricing-section {
-                page-break-inside: avoid;
+            /* Bottom section: price + CTA */
+            .bottom-section {
+                display: flex;
+                gap: 16px;
             }
             
             .pricing {
+                flex: 1;
                 background: white;
-                border-radius: 16px;
-                padding: 28px;
+                border-radius: 12px;
+                padding: 20px;
                 text-align: center;
-                box-shadow: 0 4px 24px rgba(33, 150, 243, 0.15);
+                box-shadow: 0 4px 16px rgba(33, 150, 243, 0.12);
                 border: 2px solid #2196F3;
-                margin-bottom: 24px;
             }
             
             .pricing h3 {
-                font-size: 11pt;
+                font-size: 9pt;
                 color: #64748b;
                 font-weight: 500;
-                margin-bottom: 6px;
+                margin-bottom: 4px;
             }
             
             .pricing .price {
-                font-size: 34pt;
+                font-size: 28pt;
                 font-weight: 800;
                 color: #1a1a2e;
             }
             
             .pricing .price span {
-                font-size: 14pt;
+                font-size: 12pt;
                 font-weight: 400;
                 color: #64748b;
             }
             
             .pricing .period {
-                font-size: 11pt;
+                font-size: 9pt;
                 color: #64748b;
             }
             
-            /* CTA */
             .cta {
+                flex: 1;
                 background: #2196F3;
-                border-radius: 14px;
-                padding: 26px;
+                border-radius: 12px;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
                 text-align: center;
                 color: white;
             }
             
             .cta h3 {
-                font-size: 15pt;
+                font-size: 13pt;
                 font-weight: 700;
-                margin-bottom: 6px;
+                margin-bottom: 4px;
             }
             
             .cta p {
-                font-size: 11pt;
-                opacity: 0.9;
-            }
-            
-            /* Мини-лого в контенте */
-            .page-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 28px;
-                padding-bottom: 18px;
-                border-bottom: 1px solid #e2e8f0;
-            }
-            
-            .mini-logo {
-                display: flex;
-                align-items: center;
-                font-weight: 700;
-                font-size: 14pt;
-            }
-            
-            .mini-logo .work {
-                background: #2196F3;
-                color: white;
-                padding: 4px 8px;
-                border-radius: 4px;
-            }
-            
-            .mini-logo .here {
-                color: #1a1a2e;
-                padding: 4px 8px;
-            }
-            
-            .page-number {
                 font-size: 9pt;
-                color: #94a3b8;
+                opacity: 0.9;
             }
         </style>
     </head>
@@ -519,151 +499,133 @@ def generate_pdf():
             <div class="cover-badge">Автоматизация • Аналитика • Интеграции</div>
         </div>
         
-        <!-- СТРАНИЦА 2: ПРОБЛЕМЫ И АУДИТОРИЯ -->
+        <!-- СТРАНИЦА 2: ВЕСЬ КОНТЕНТ -->
         <div class="page">
             <div class="page-header">
                 <div class="mini-logo"><span class="work">Work</span><span class="here">Here</span></div>
-                <div class="page-number">02</div>
             </div>
             
             <p class="intro-text">
                 <strong>WorkHere</strong> — единое пространство для ведения вакансий, кандидатов и коммуникаций. 
-                Система ускоряет закрытие вакансий за счёт автоматизации рутины, единой базы кандидатов и прозрачной аналитики воронки найма.
+                Ускоряет закрытие вакансий за счёт автоматизации, единой базы и аналитики воронки.
             </p>
             
             <div class="section-title">
                 <div class="icon">👥</div>
-                Для кого создан WorkHere
+                Для кого
             </div>
             
             <div class="audience-grid">
                 <div class="audience-card">
                     <h3>HR-директора</h3>
-                    <p>Полная прозрачность воронки, контроль качества работы команды, детальная аналитика и отчётность</p>
+                    <p>Прозрачность воронки, контроль качества, аналитика</p>
                 </div>
                 <div class="audience-card">
                     <h3>Рекрутеры</h3>
-                    <p>Быстрый поиск по базе, единое хранилище кандидатов, автоматизация рутинных задач</p>
+                    <p>Быстрый поиск, единая база, автоматизация рутины</p>
                 </div>
                 <div class="audience-card">
                     <h3>HR-универсалы</h3>
-                    <p>Интеграции с 1С и внешними системами, передача данных о новых сотрудниках</p>
+                    <p>Интеграции с 1С, передача данных о сотрудниках</p>
                 </div>
             </div>
             
-            <div class="problems-section">
-                <div class="section-title">
-                    <div class="icon">🎯</div>
-                    Какие проблемы решаем
-                </div>
-                
-                <table class="problems-table">
-                    <tr>
-                        <th style="width: 45%">Проблема</th>
-                        <th>Решение WorkHere</th>
-                    </tr>
-                    <tr>
-                        <td class="problem-cell">Кандидаты в почте, таблицах, мессенджерах — теряются</td>
-                        <td class="solution-cell">Единая база с полной историей</td>
-                    </tr>
-                    <tr>
-                        <td class="problem-cell">Нет контроля этапов и конверсии</td>
-                        <td class="solution-cell">Воронка с аналитикой каждого шага</td>
-                    </tr>
-                    <tr>
-                        <td class="problem-cell">Много ручной рутины</td>
-                        <td class="solution-cell">Автоматизация и напоминания</td>
-                    </tr>
-                    <tr>
-                        <td class="problem-cell">Дубли кандидатов в разных источниках</td>
-                        <td class="solution-cell">Автодедупликация и объединение</td>
-                    </tr>
-                    <tr>
-                        <td class="problem-cell">Долгий поиск подходящих кандидатов</td>
-                        <td class="solution-cell">ИИ-поиск по базе и работным сайтам</td>
-                    </tr>
-                    <tr>
-                        <td class="problem-cell">Сложно интегрировать с 1С</td>
-                        <td class="solution-cell">Готовые интеграции и открытый API</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        
-        <!-- СТРАНИЦА 3: ФУНКЦИОНАЛ И ЦЕНА -->
-        <div class="page">
-            <div class="page-header">
-                <div class="mini-logo"><span class="work">Work</span><span class="here">Here</span></div>
-                <div class="page-number">03</div>
+            <div class="section-title">
+                <div class="icon">🎯</div>
+                Проблемы → Решения
             </div>
             
-            <div class="features-section">
-                <div class="section-title">
-                    <div class="icon">⚡</div>
-                    Ключевой функционал
+            <table class="problems-table">
+                <tr>
+                    <th style="width: 50%">Проблема</th>
+                    <th>Решение</th>
+                </tr>
+                <tr>
+                    <td class="problem-cell">Кандидаты в почте, таблицах, мессенджерах</td>
+                    <td class="solution-cell">Единая база с полной историей</td>
+                </tr>
+                <tr>
+                    <td class="problem-cell">Нет контроля этапов и конверсии</td>
+                    <td class="solution-cell">Воронка с аналитикой</td>
+                </tr>
+                <tr>
+                    <td class="problem-cell">Много ручной рутины</td>
+                    <td class="solution-cell">Автоматизация и напоминания</td>
+                </tr>
+                <tr>
+                    <td class="problem-cell">Дубли кандидатов</td>
+                    <td class="solution-cell">Автодедупликация</td>
+                </tr>
+                <tr>
+                    <td class="problem-cell">Долгий поиск кандидатов</td>
+                    <td class="solution-cell">ИИ-поиск по базе и job-сайтам</td>
+                </tr>
+            </table>
+            
+            <div class="section-title">
+                <div class="icon">⚡</div>
+                Функционал
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4><span class="dot"></span>Подбор</h4>
+                    <ul>
+                        <li>Воронка/канбан</li>
+                        <li>Карточка кандидата</li>
+                        <li>Напоминания</li>
+                    </ul>
                 </div>
-                
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <h4><span class="dot"></span>Управление подбором</h4>
-                        <ul>
-                            <li>Воронка/канбан с гибкими стадиями</li>
-                            <li>Карточка кандидата с историей</li>
-                            <li>Задачи и напоминания</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <h4><span class="dot"></span>Прозрачность</h4>
-                        <ul>
-                            <li>История всех действий</li>
-                            <li>Согласования с менеджерами</li>
-                            <li>Командная работа</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <h4><span class="dot"></span>Аналитика</h4>
-                        <ul>
-                            <li>Конверсия этапов</li>
-                            <li>Скорость закрытия</li>
-                            <li>Эффективность источников</li>
-                        </ul>
-                    </div>
-                    <div class="feature-card">
-                        <h4><span class="dot"></span>Дедупликация</h4>
-                        <ul>
-                            <li>Поиск дублей по телефону/email</li>
-                            <li>Объединение карточек</li>
-                            <li>Чистая база данных</li>
-                        </ul>
-                    </div>
+                <div class="feature-card">
+                    <h4><span class="dot"></span>Прозрачность</h4>
+                    <ul>
+                        <li>История действий</li>
+                        <li>Согласования</li>
+                        <li>Командная работа</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4><span class="dot"></span>Аналитика</h4>
+                    <ul>
+                        <li>Конверсия этапов</li>
+                        <li>Скорость закрытия</li>
+                        <li>Источники</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4><span class="dot"></span>Дедупликация</h4>
+                    <ul>
+                        <li>Поиск дублей</li>
+                        <li>Объединение</li>
+                        <li>Чистая база</li>
+                    </ul>
                 </div>
             </div>
             
-            <div class="integrations-section">
-                <div class="section-title">
-                    <div class="icon">🔗</div>
-                    Интеграции
-                </div>
-                
-                <div class="integrations">
-                    <div class="integration-tag">Джоб-сайты <span>— автоимпорт</span></div>
-                    <div class="integration-tag">Мессенджеры <span>— история чатов</span></div>
-                    <div class="integration-tag">1С <span>— обмен данными</span></div>
-                    <div class="integration-tag">API <span>— любые системы</span></div>
-                </div>
+            <div class="section-title">
+                <div class="icon">🔗</div>
+                Интеграции
+            </div>
+            
+            <div class="integrations">
+                <div class="integration-tag">Джоб-сайты <span>— автоимпорт</span></div>
+                <div class="integration-tag">Мессенджеры <span>— история</span></div>
+                <div class="integration-tag">1С <span>— обмен</span></div>
+                <div class="integration-tag">API <span>— любые системы</span></div>
             </div>
             
             <div class="ai-block">
-                <h3>🧠 ИИ-поиск кандидатов</h3>
-                <p>Интеллектуальный модуль поиска, который экономит часы работы рекрутера:</p>
-                <ul>
-                    <li>Поиск по собственной базе кандидатов по смыслу, а не только по ключевым словам</li>
-                    <li>Поиск на работных сайтах — находит релевантных кандидатов по открытым резюме</li>
-                    <li>Умное ранжирование результатов — лучшие кандидаты в топе выдачи</li>
-                </ul>
+                <div class="ai-block-content">
+                    <h3>🧠 ИИ-поиск кандидатов</h3>
+                    <ul>
+                        <li>Поиск по базе по смыслу, не по словам</li>
+                        <li>Поиск на работных сайтах</li>
+                        <li>Умное ранжирование</li>
+                    </ul>
+                </div>
             </div>
             
-            <div class="pricing-section">
+            <div class="bottom-section">
                 <div class="pricing">
                     <h3>Базовая лицензия</h3>
                     <div class="price">20 000 <span>₽</span></div>
@@ -672,7 +634,7 @@ def generate_pdf():
                 
                 <div class="cta">
                     <h3>Готовы ускорить подбор?</h3>
-                    <p>Свяжитесь с нами для демонстрации системы</p>
+                    <p>Свяжитесь для демонстрации</p>
                 </div>
             </div>
         </div>
