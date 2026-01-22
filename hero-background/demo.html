@@ -146,7 +146,6 @@ const vsSource = `
     }
 `;
 
-// Two-layer effect: soft blobs + displacement glass
 const fsSource = `
     precision highp float;
     
@@ -154,7 +153,6 @@ const fsSource = `
     uniform float uTime;
     uniform vec2 uResolution;
     
-    // Noise
     vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
     
     float snoise(vec2 v) {
@@ -179,44 +177,75 @@ const fsSource = `
         return 130.0 * dot(m, g);
     }
     
-    // Soft blob function
-    float blob(vec2 uv, vec2 center, float radius, float softness) {
-        float d = length(uv - center);
-        return smoothstep(radius + softness, radius - softness, d);
+    // Elongated brush stroke shape
+    float brushStroke(vec2 uv, vec2 start, vec2 end, float width, float time, float seed) {
+        // Direction and length
+        vec2 dir = end - start;
+        float len = length(dir);
+        vec2 normDir = dir / len;
+        
+        // Perpendicular
+        vec2 perp = vec2(-normDir.y, normDir.x);
+        
+        // Project point onto line
+        vec2 toPoint = uv - start;
+        float along = dot(toPoint, normDir);
+        float across = dot(toPoint, perp);
+        
+        // Parametric position along stroke (0 to 1)
+        float t = along / len;
+        
+        // Width variation along stroke - thicker in middle
+        float widthMod = sin(t * 3.14159) * 0.6 + 0.4;
+        
+        // Organic edge wobble
+        float edgeWobble = snoise(vec2(t * 8.0 + seed, time * 0.3)) * 0.15;
+        edgeWobble += snoise(vec2(t * 15.0 + seed * 2.0, time * 0.2)) * 0.08;
+        
+        float currentWidth = width * widthMod + edgeWobble * width;
+        
+        // Distance from stroke center
+        float dist = abs(across) - currentWidth;
+        
+        // Soft ends
+        float endFade = smoothstep(0.0, 0.1, t) * smoothstep(1.0, 0.9, t);
+        
+        // Final shape
+        float shape = smoothstep(0.02, -0.02, dist) * endFade;
+        
+        // Return shape and t for fold calculation
+        return shape;
     }
     
-    // Animated blob center
-    vec2 animatedCenter(vec2 base, float seed, float time) {
-        float x = base.x + sin(time * 0.3 + seed) * 0.08 + sin(time * 0.5 + seed * 2.0) * 0.04;
-        float y = base.y + cos(time * 0.25 + seed * 1.5) * 0.1 + cos(time * 0.4 + seed * 3.0) * 0.05;
-        return vec2(x, y);
-    }
-    
-    // Glass displacement - sharp wavy distortion
-    vec2 glassDisplacement(vec2 uv, float time) {
-        // Multiple layers of sharp waves
-        float scale1 = 3.0;
-        float scale2 = 6.0;
-        float scale3 = 12.0;
+    // Get fold value along stroke
+    float strokeFolds(vec2 uv, vec2 start, vec2 end, float time, float seed) {
+        vec2 dir = end - start;
+        float len = length(dir);
+        vec2 normDir = dir / len;
         
-        // Stretched vertically for fabric-like folds
-        vec2 stretchedUV = vec2(uv.x, uv.y * 2.5);
+        vec2 toPoint = uv - start;
+        float along = dot(toPoint, normDir);
+        float t = along / len;
         
-        // Wave layers with different speeds
-        float wave1 = snoise(stretchedUV * scale1 + vec2(time * 0.2, time * 0.15));
-        float wave2 = snoise(stretchedUV * scale2 + vec2(time * 0.15, time * 0.25));
-        float wave3 = snoise(stretchedUV * scale3 + vec2(time * 0.1, time * 0.2));
+        // Folds perpendicular to stroke direction (across the width)
+        vec2 perp = vec2(-normDir.y, normDir.x);
+        float across = dot(toPoint, perp);
         
-        // Combine with decreasing amplitude
-        float dx = wave1 * 0.06 + wave2 * 0.025 + wave3 * 0.01;
-        float dy = wave1 * 0.03 + wave2 * 0.015 + wave3 * 0.008;
+        // Multiple fold frequencies - creates fabric-like pattern
+        float foldSpeed = time * 0.4;
         
-        // Add some sharper distortion
-        float sharp = snoise(stretchedUV * 4.0 + time * 0.3);
-        sharp = pow(abs(sharp), 0.5) * sign(sharp); // Make it sharper
-        dx += sharp * 0.04;
+        // Main folds - perpendicular to stroke, moving along it
+        float fold1 = sin((t * 25.0 - foldSpeed) + seed) * 0.5;
+        float fold2 = sin((t * 40.0 - foldSpeed * 1.3) + seed * 1.5) * 0.3;
+        float fold3 = sin((t * 60.0 - foldSpeed * 0.8) + seed * 2.0) * 0.15;
         
-        return vec2(dx, dy);
+        // Add some noise for organic feel
+        float noiseFold = snoise(vec2(t * 10.0, time * 0.5 + seed)) * 0.2;
+        
+        float folds = fold1 + fold2 + fold3 + noiseFold;
+        
+        // Normalize to 0-1
+        return folds * 0.5 + 0.5;
     }
     
     void main() {
@@ -226,80 +255,84 @@ const fsSource = `
         
         float time = uTime * 0.8;
         
-        // === LAYER 1: Soft animated blobs (background) ===
-        float blobField = 0.0;
-        
-        // Left side blobs
-        blobField += blob(aspectUV, animatedCenter(vec2(-0.1 * aspect, 0.3), 1.0, time), 0.5, 0.3);
-        blobField += blob(aspectUV, animatedCenter(vec2(0.05 * aspect, 0.6), 2.0, time), 0.4, 0.25);
-        blobField += blob(aspectUV, animatedCenter(vec2(-0.05 * aspect, 0.8), 3.0, time), 0.35, 0.2);
-        blobField += blob(aspectUV, animatedCenter(vec2(0.1 * aspect, 0.2), 4.0, time), 0.3, 0.2);
-        blobField += blob(aspectUV, animatedCenter(vec2(0.0, 0.5), 5.0, time), 0.45, 0.3);
-        
-        // Right side blobs
-        blobField += blob(aspectUV, animatedCenter(vec2(1.1 * aspect, 0.4), 6.0, time), 0.5, 0.3);
-        blobField += blob(aspectUV, animatedCenter(vec2(0.95 * aspect, 0.7), 7.0, time), 0.4, 0.25);
-        blobField += blob(aspectUV, animatedCenter(vec2(1.05 * aspect, 0.2), 8.0, time), 0.35, 0.2);
-        blobField += blob(aspectUV, animatedCenter(vec2(0.9 * aspect, 0.85), 9.0, time), 0.3, 0.2);
-        blobField += blob(aspectUV, animatedCenter(vec2(1.0 * aspect, 0.5), 10.0, time), 0.45, 0.3);
-        
-        blobField = clamp(blobField, 0.0, 1.0);
-        
-        // === LAYER 2: Glass displacement ===
-        vec2 displacement = glassDisplacement(uv, time);
-        
-        // Apply displacement to blob sampling
-        vec2 displacedUV = aspectUV + displacement * 2.0;
-        
-        // Re-sample blobs with displacement
-        float displacedBlobs = 0.0;
-        
-        // Left side - displaced
-        displacedBlobs += blob(displacedUV, animatedCenter(vec2(-0.1 * aspect, 0.3), 1.0, time), 0.5, 0.3);
-        displacedBlobs += blob(displacedUV, animatedCenter(vec2(0.05 * aspect, 0.6), 2.0, time), 0.4, 0.25);
-        displacedBlobs += blob(displacedUV, animatedCenter(vec2(-0.05 * aspect, 0.8), 3.0, time), 0.35, 0.2);
-        displacedBlobs += blob(displacedUV, animatedCenter(vec2(0.1 * aspect, 0.2), 4.0, time), 0.3, 0.2);
-        displacedBlobs += blob(displacedUV, animatedCenter(vec2(0.0, 0.5), 5.0, time), 0.45, 0.3);
-        
-        // Right side - displaced
-        displacedBlobs += blob(displacedUV, animatedCenter(vec2(1.1 * aspect, 0.4), 6.0, time), 0.5, 0.3);
-        displacedBlobs += blob(displacedUV, animatedCenter(vec2(0.95 * aspect, 0.7), 7.0, time), 0.4, 0.25);
-        displacedBlobs += blob(displacedUV, animatedCenter(vec2(1.05 * aspect, 0.2), 8.0, time), 0.35, 0.2);
-        displacedBlobs += blob(displacedUV, animatedCenter(vec2(0.9 * aspect, 0.85), 9.0, time), 0.3, 0.2);
-        displacedBlobs += blob(displacedUV, animatedCenter(vec2(1.0 * aspect, 0.5), 10.0, time), 0.45, 0.3);
-        
-        displacedBlobs = clamp(displacedBlobs, 0.0, 1.0);
-        
-        // === Combine with color ===
-        vec3 darkColor = vec3(0.6, 0.18, 0.02);
-        vec3 midColor = vec3(0.89, 0.44, 0.11);  // #E3711B
-        vec3 lightColor = vec3(1.0, 0.75, 0.55);
-        vec3 highlightColor = vec3(1.0, 0.95, 0.92);
+        // Colors
+        vec3 darkColor = vec3(0.55, 0.15, 0.0);
+        vec3 midColor = vec3(0.89, 0.44, 0.11);
+        vec3 lightColor = vec3(1.0, 0.72, 0.5);
+        vec3 highlightColor = vec3(1.0, 0.93, 0.88);
         vec3 white = vec3(1.0);
         
-        // Use displacement gradient for fold lighting
-        float foldLight = displacement.x * 5.0 + 0.5;
-        foldLight = clamp(foldLight, 0.0, 1.0);
+        vec3 finalColor = white;
         
-        // Color based on blob intensity and fold lighting
-        vec3 blobColor = mix(darkColor, midColor, displacedBlobs);
-        blobColor = mix(blobColor, lightColor, foldLight * displacedBlobs);
-        blobColor = mix(blobColor, highlightColor, pow(foldLight, 3.0) * displacedBlobs);
-        blobColor = mix(blobColor, white, pow(foldLight, 5.0) * displacedBlobs * 0.5);
+        // Define brush strokes - LEFT SIDE
+        // Stroke 1 - main large
+        vec2 l1Start = vec2(-0.15 * aspect, -0.1 + sin(time * 0.2) * 0.05);
+        vec2 l1End = vec2(0.25 * aspect + sin(time * 0.15) * 0.03, 1.1);
+        float l1Shape = brushStroke(aspectUV, l1Start, l1End, 0.18, time, 1.0);
+        float l1Folds = strokeFolds(aspectUV, l1Start, l1End, time, 1.0);
         
-        // Final color - blend blobs over white background
-        vec3 color = mix(white, blobColor, displacedBlobs);
+        // Stroke 2 - secondary
+        vec2 l2Start = vec2(0.0 * aspect, -0.05 + sin(time * 0.25 + 1.0) * 0.04);
+        vec2 l2End = vec2(0.18 * aspect + sin(time * 0.18) * 0.02, 1.05);
+        float l2Shape = brushStroke(aspectUV, l2Start, l2End, 0.12, time, 2.0);
+        float l2Folds = strokeFolds(aspectUV, l2Start, l2End, time, 2.0);
         
-        // Center fade for text
+        // Stroke 3 - thin accent
+        vec2 l3Start = vec2(0.08 * aspect, 0.1 + sin(time * 0.22 + 2.0) * 0.03);
+        vec2 l3End = vec2(0.22 * aspect + sin(time * 0.2) * 0.025, 0.95);
+        float l3Shape = brushStroke(aspectUV, l3Start, l3End, 0.08, time, 3.0);
+        float l3Folds = strokeFolds(aspectUV, l3Start, l3End, time, 3.0);
+        
+        // RIGHT SIDE
+        // Stroke 4 - main large
+        vec2 r1Start = vec2(1.15 * aspect, -0.1 + sin(time * 0.2 + 3.0) * 0.05);
+        vec2 r1End = vec2(0.75 * aspect + sin(time * 0.15 + 1.0) * 0.03, 1.1);
+        float r1Shape = brushStroke(aspectUV, r1Start, r1End, 0.18, time, 4.0);
+        float r1Folds = strokeFolds(aspectUV, r1Start, r1End, time, 4.0);
+        
+        // Stroke 5 - secondary
+        vec2 r2Start = vec2(1.0 * aspect, -0.05 + sin(time * 0.25 + 4.0) * 0.04);
+        vec2 r2End = vec2(0.82 * aspect + sin(time * 0.18 + 2.0) * 0.02, 1.05);
+        float r2Shape = brushStroke(aspectUV, r2Start, r2End, 0.12, time, 5.0);
+        float r2Folds = strokeFolds(aspectUV, r2Start, r2End, time, 5.0);
+        
+        // Stroke 6 - thin accent
+        vec2 r3Start = vec2(0.92 * aspect, 0.1 + sin(time * 0.22 + 5.0) * 0.03);
+        vec2 r3End = vec2(0.78 * aspect + sin(time * 0.2 + 3.0) * 0.025, 0.95);
+        float r3Shape = brushStroke(aspectUV, r3Start, r3End, 0.08, time, 6.0);
+        float r3Folds = strokeFolds(aspectUV, r3Start, r3End, time, 6.0);
+        
+        // Combine strokes with fold-based coloring
+        float totalShape = 0.0;
+        vec3 strokeColor = white;
+        
+        // Helper function inline - blend stroke with folds
+        #define BLEND_STROKE(shape, folds) { \
+            if (shape > 0.01) { \
+                vec3 foldColor = mix(darkColor, midColor, smoothstep(0.2, 0.5, folds)); \
+                foldColor = mix(foldColor, lightColor, smoothstep(0.5, 0.75, folds)); \
+                foldColor = mix(foldColor, highlightColor, smoothstep(0.75, 0.9, folds)); \
+                foldColor = mix(foldColor, white, smoothstep(0.9, 1.0, folds) * 0.7); \
+                strokeColor = mix(strokeColor, foldColor, shape * 0.95); \
+                totalShape = max(totalShape, shape); \
+            } \
+        }
+        
+        BLEND_STROKE(l1Shape, l1Folds)
+        BLEND_STROKE(l2Shape, l2Folds)
+        BLEND_STROKE(l3Shape, l3Folds)
+        BLEND_STROKE(r1Shape, r1Folds)
+        BLEND_STROKE(r2Shape, r2Folds)
+        BLEND_STROKE(r3Shape, r3Folds)
+        
+        finalColor = strokeColor;
+        
+        // Center fade for text readability
         float centerDist = length(uv - vec2(0.5));
-        float centerMask = smoothstep(0.15, 0.55, centerDist);
-        color = mix(white, color, centerMask);
+        float centerMask = smoothstep(0.15, 0.5, centerDist);
+        finalColor = mix(white, finalColor, centerMask);
         
-        // Subtle grain
-        float grain = snoise(uv * 500.0 + time * 10.0) * 0.015;
-        color += grain;
-        
-        gl_FragColor = vec4(color, 1.0);
+        gl_FragColor = vec4(finalColor, 1.0);
     }
 `;
 
