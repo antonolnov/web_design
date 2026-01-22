@@ -6,10 +6,9 @@
     <title>WorkHere — ATS/CRM Demo</title>
     <style>
         :root {
-            --wh-orange: #E3711B;
-            --wh-orange-light: #f5923d;
-            --wh-orange-dark: #c45a0a;
-            --wh-orange-pale: #ffecd9;
+            --accent: #E3711B;
+            --accent-light: #ff8c42;
+            --accent-pink: #ff6b9d;
             --text-dark: #1a1a1a;
             --text-muted: #64748b;
         }
@@ -25,9 +24,7 @@
         /* NAVBAR */
         .navbar {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 56px;
             background: #1a1a2e;
             display: flex;
@@ -68,7 +65,7 @@
             font-size: 14px;
         }
         
-        .navbar__link:hover, .navbar__link--active {
+        .navbar__link--active {
             color: white;
             background: rgba(255,255,255,0.1);
         }
@@ -86,7 +83,7 @@
         .navbar__avatar {
             width: 32px;
             height: 32px;
-            background: var(--wh-orange);
+            background: var(--accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -98,9 +95,7 @@
         /* SIDEBAR */
         .sidebar {
             position: fixed;
-            top: 56px;
-            left: 0;
-            bottom: 0;
+            top: 56px; left: 0; bottom: 0;
             width: 220px;
             background: white;
             border-right: 1px solid #e2e8f0;
@@ -130,12 +125,12 @@
         
         .sidebar__item--active {
             background: rgba(227, 113, 27, 0.1);
-            color: var(--wh-orange);
+            color: var(--accent);
         }
         
         .sidebar__badge {
             margin-left: auto;
-            background: var(--wh-orange);
+            background: var(--accent);
             color: white;
             font-size: 11px;
             padding: 2px 8px;
@@ -149,90 +144,56 @@
         }
         
         /* ==============================================
-           HERO WITH FLOWING RIBBONS
+           HERO - LIQUID AURORA EFFECT
            ============================================== */
         .hero {
             position: relative;
-            height: 420px;
-            background: #fffcf8;
+            height: 450px;
+            background: linear-gradient(180deg, #fff 0%, #fffaf5 100%);
             overflow: hidden;
         }
         
-        /* SVG Ribbons Container */
-        .hero__ribbons {
+        /* Liquid blobs container */
+        .hero__liquid {
             position: absolute;
             inset: 0;
             z-index: 1;
         }
         
-        .hero__ribbons svg {
+        .hero__liquid svg {
             position: absolute;
             width: 100%;
             height: 100%;
         }
         
-        /* Ribbon paths */
-        .ribbon {
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        /* Liquid blob shapes */
+        .liquid-blob {
+            filter: url(#liquid-filter);
         }
         
-        .ribbon--1 {
-            stroke: var(--wh-orange);
-            stroke-width: 60;
+        .liquid-blob--left-1 {
+            fill: url(#gradient-orange-1);
             opacity: 0.9;
         }
         
-        .ribbon--2 {
-            stroke: var(--wh-orange-light);
-            stroke-width: 45;
-            opacity: 0.85;
-        }
-        
-        .ribbon--3 {
-            stroke: var(--wh-orange-dark);
-            stroke-width: 35;
+        .liquid-blob--left-2 {
+            fill: url(#gradient-orange-2);
             opacity: 0.8;
         }
         
-        .ribbon--4 {
-            stroke: var(--wh-orange);
-            stroke-width: 50;
+        .liquid-blob--right-1 {
+            fill: url(#gradient-orange-1);
+            opacity: 0.85;
+        }
+        
+        .liquid-blob--right-2 {
+            fill: url(#gradient-orange-2);
             opacity: 0.75;
         }
         
-        .ribbon--5 {
-            stroke: var(--wh-orange-light);
-            stroke-width: 40;
+        .liquid-blob--bottom {
+            fill: url(#gradient-orange-3);
             opacity: 0.7;
-        }
-        
-        /* Animated gradient overlay on ribbons */
-        .ribbon-glow {
-            fill: none;
-            stroke: url(#ribbonGradient);
-            stroke-width: 80;
-            opacity: 0.3;
-            filter: blur(20px);
-        }
-        
-        /* Center safe zone */
-        .hero__center {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 450px;
-            height: 280px;
-            background: radial-gradient(ellipse at center, 
-                #fffcf8 0%, 
-                #fffcf8 60%, 
-                rgba(255, 252, 248, 0.95) 80%,
-                rgba(255, 252, 248, 0.8) 100%
-            );
-            z-index: 10;
-            border-radius: 20px;
         }
         
         /* Content */
@@ -252,14 +213,13 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: var(--wh-orange-pale);
-            color: var(--wh-orange);
+            background: rgba(227, 113, 27, 0.1);
+            color: var(--accent);
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 16px;
-            border: 1px solid rgba(227, 113, 27, 0.2);
         }
         
         .hero__title {
@@ -292,8 +252,8 @@
         }
         
         .tab--active {
-            color: var(--wh-orange);
-            border-bottom-color: var(--wh-orange);
+            color: var(--accent);
+            border-bottom-color: var(--accent);
         }
         
         .tab__badge {
@@ -305,8 +265,8 @@
         }
         
         .tab--active .tab__badge {
-            background: var(--wh-orange-pale);
-            color: var(--wh-orange);
+            background: rgba(227, 113, 27, 0.15);
+            color: var(--accent);
         }
         
         /* KANBAN */
@@ -353,34 +313,12 @@
             cursor: pointer;
         }
         
-        .card:hover {
-            border-color: var(--wh-orange);
-        }
+        .card:hover { border-color: var(--accent); }
         
-        .card__name {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        
-        .card__position {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-        
-        .card__footer {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-        
-        .card__source {
-            background: #f1f5f9;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
+        .card__name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .card__position { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+        .card__footer { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
+        .card__source { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -393,11 +331,10 @@
             <a class="navbar__link navbar__link--active">Вакансии</a>
             <a class="navbar__link">Кандидаты</a>
             <a class="navbar__link">Аналитика</a>
-            <a class="navbar__link">Настройки</a>
         </div>
         <div class="navbar__spacer"></div>
         <div class="navbar__user">
-            <span>Иван Петров</span>
+            Иван Петров
             <div class="navbar__avatar">ИП</div>
         </div>
     </nav>
@@ -408,177 +345,137 @@
         <div class="sidebar__item sidebar__item--active">💼 Вакансии <span class="sidebar__badge">12</span></div>
         <div class="sidebar__item">👥 Кандидаты</div>
         <div class="sidebar__item">📅 Календарь</div>
-        <div class="sidebar__item">📈 Отчёты</div>
-        <div class="sidebar__title" style="margin-top: 20px;">Мои вакансии</div>
+        <div class="sidebar__title" style="margin-top: 16px;">Мои вакансии</div>
         <div class="sidebar__item">🟢 Frontend-разработчик</div>
         <div class="sidebar__item">🟢 Product Manager</div>
         <div class="sidebar__item">🟡 UX/UI Дизайнер</div>
-        <div class="sidebar__item">🔴 DevOps Engineer</div>
     </aside>
     
     <main class="main">
         <section class="hero">
-            <!-- Animated SVG Ribbons -->
-            <div class="hero__ribbons">
-                <svg viewBox="0 0 1200 420" preserveAspectRatio="none">
+            <div class="hero__liquid">
+                <svg viewBox="0 0 1200 450" preserveAspectRatio="xMidYMid slice">
                     <defs>
-                        <linearGradient id="ribbonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#E3711B;stop-opacity:1" />
-                            <stop offset="50%" style="stop-color:#f5923d;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#E3711B;stop-opacity:1" />
+                        <!-- Gradients -->
+                        <linearGradient id="gradient-orange-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#E3711B"/>
+                            <stop offset="50%" style="stop-color:#ff8c42"/>
+                            <stop offset="100%" style="stop-color:#ffb088"/>
                         </linearGradient>
                         
-                        <filter id="glow">
-                            <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                        <linearGradient id="gradient-orange-2" x1="100%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff9f5a"/>
+                            <stop offset="50%" style="stop-color:#E3711B"/>
+                            <stop offset="100%" style="stop-color:#c45a0a"/>
+                        </linearGradient>
+                        
+                        <linearGradient id="gradient-orange-3" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#ffb088"/>
+                            <stop offset="100%" style="stop-color:#E3711B"/>
+                        </linearGradient>
+                        
+                        <!-- Liquid distortion filter -->
+                        <filter id="liquid-filter" x="-50%" y="-50%" width="200%" height="200%">
+                            <feTurbulence 
+                                type="fractalNoise" 
+                                baseFrequency="0.015" 
+                                numOctaves="3" 
+                                result="noise"
+                                seed="1">
+                                <animate 
+                                    attributeName="baseFrequency" 
+                                    dur="20s" 
+                                    values="0.015;0.02;0.015" 
+                                    repeatCount="indefinite"/>
+                            </feTurbulence>
+                            
+                            <feDisplacementMap 
+                                in="SourceGraphic" 
+                                in2="noise" 
+                                scale="35" 
+                                xChannelSelector="R" 
+                                yChannelSelector="G">
+                                <animate 
+                                    attributeName="scale" 
+                                    dur="8s" 
+                                    values="35;50;35" 
+                                    repeatCount="indefinite"/>
+                            </feDisplacementMap>
+                        </filter>
+                        
+                        <!-- Glow filter -->
+                        <filter id="glow-filter" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="15" result="blur"/>
                             <feMerge>
-                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="blur"/>
                                 <feMergeNode in="SourceGraphic"/>
                             </feMerge>
                         </filter>
                     </defs>
                     
-                    <!-- LEFT RIBBONS -->
-                    <path class="ribbon ribbon--1" filter="url(#glow)">
-                        <animate 
-                            attributeName="d" 
-                            dur="6s" 
-                            repeatCount="indefinite"
-                            values="
-                                M -50,50 Q 80,100 120,180 T 180,320 Q 200,400 150,450;
-                                M -50,80 Q 100,60 140,150 T 200,280 Q 220,380 170,450;
-                                M -50,30 Q 60,120 100,200 T 160,350 Q 180,420 130,450;
-                                M -50,50 Q 80,100 120,180 T 180,320 Q 200,400 150,450
-                            "
-                            calcMode="spline"
-                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
-                        />
-                    </path>
+                    <!-- LEFT LIQUID BLOBS -->
+                    <g filter="url(#glow-filter)">
+                        <ellipse class="liquid-blob liquid-blob--left-1" cx="80" cy="180" rx="180" ry="220">
+                            <animate attributeName="cx" dur="12s" values="80;120;60;80" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/>
+                            <animate attributeName="cy" dur="10s" values="180;220;160;180" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/>
+                            <animate attributeName="rx" dur="14s" values="180;200;170;180" repeatCount="indefinite"/>
+                            <animate attributeName="ry" dur="11s" values="220;240;210;220" repeatCount="indefinite"/>
+                        </ellipse>
+                        
+                        <ellipse class="liquid-blob liquid-blob--left-2" cx="150" cy="320" rx="140" ry="160">
+                            <animate attributeName="cx" dur="10s" values="150;180;130;150" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/>
+                            <animate attributeName="cy" dur="13s" values="320;350;300;320" repeatCount="indefinite"/>
+                            <animate attributeName="rx" dur="9s" values="140;160;130;140" repeatCount="indefinite"/>
+                        </ellipse>
+                        
+                        <ellipse class="liquid-blob liquid-blob--left-1" cx="50" cy="80" rx="120" ry="100" style="opacity: 0.7">
+                            <animate attributeName="cx" dur="11s" values="50;80;40;50" repeatCount="indefinite"/>
+                            <animate attributeName="cy" dur="9s" values="80;110;60;80" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
                     
-                    <path class="ribbon ribbon--2" filter="url(#glow)">
-                        <animate 
-                            attributeName="d" 
-                            dur="8s" 
-                            repeatCount="indefinite"
-                            values="
-                                M -30,150 Q 50,80 100,120 T 220,200 Q 280,280 250,380;
-                                M -30,120 Q 70,150 130,100 T 250,180 Q 300,250 270,360;
-                                M -30,180 Q 40,100 80,140 T 200,220 Q 260,300 230,400;
-                                M -30,150 Q 50,80 100,120 T 220,200 Q 280,280 250,380
-                            "
-                            calcMode="spline"
-                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
-                        />
-                    </path>
+                    <!-- RIGHT LIQUID BLOBS -->
+                    <g filter="url(#glow-filter)">
+                        <ellipse class="liquid-blob liquid-blob--right-1" cx="1120" cy="200" rx="170" ry="210">
+                            <animate attributeName="cx" dur="11s" values="1120;1080;1140;1120" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/>
+                            <animate attributeName="cy" dur="13s" values="200;240;180;200" repeatCount="indefinite"/>
+                            <animate attributeName="rx" dur="10s" values="170;190;160;170" repeatCount="indefinite"/>
+                            <animate attributeName="ry" dur="12s" values="210;230;200;210" repeatCount="indefinite"/>
+                        </ellipse>
+                        
+                        <ellipse class="liquid-blob liquid-blob--right-2" cx="1050" cy="350" rx="130" ry="140">
+                            <animate attributeName="cx" dur="9s" values="1050;1020;1070;1050" repeatCount="indefinite"/>
+                            <animate attributeName="cy" dur="11s" values="350;380;330;350" repeatCount="indefinite"/>
+                        </ellipse>
+                        
+                        <ellipse class="liquid-blob liquid-blob--right-1" cx="1150" cy="60" rx="110" ry="90" style="opacity: 0.7">
+                            <animate attributeName="cx" dur="10s" values="1150;1120;1160;1150" repeatCount="indefinite"/>
+                            <animate attributeName="cy" dur="8s" values="60;90;50;60" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
                     
-                    <path class="ribbon ribbon--3">
-                        <animate 
-                            attributeName="d" 
-                            dur="7s" 
-                            repeatCount="indefinite"
-                            values="
-                                M -20,280 Q 60,220 100,260 T 200,340 Q 250,400 220,450;
-                                M -20,250 Q 80,280 120,240 T 220,320 Q 270,380 240,450;
-                                M -20,300 Q 50,240 90,280 T 180,360 Q 230,420 200,450;
-                                M -20,280 Q 60,220 100,260 T 200,340 Q 250,400 220,450
-                            "
-                            calcMode="spline"
-                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
-                        />
-                    </path>
+                    <!-- BOTTOM LIQUID STRIP -->
+                    <g filter="url(#glow-filter)">
+                        <ellipse class="liquid-blob liquid-blob--bottom" cx="600" cy="480" rx="500" ry="80">
+                            <animate attributeName="cy" dur="10s" values="480;460;490;480" repeatCount="indefinite"/>
+                            <animate attributeName="rx" dur="15s" values="500;520;490;500" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
                     
-                    <!-- RIGHT RIBBONS -->
-                    <path class="ribbon ribbon--4" filter="url(#glow)">
-                        <animate 
-                            attributeName="d" 
-                            dur="7s" 
-                            repeatCount="indefinite"
-                            values="
-                                M 1250,80 Q 1120,50 1080,130 T 1000,280 Q 960,380 1020,450;
-                                M 1250,50 Q 1140,100 1100,100 T 1020,250 Q 980,350 1040,450;
-                                M 1250,100 Q 1100,70 1060,160 T 980,310 Q 940,400 1000,450;
-                                M 1250,80 Q 1120,50 1080,130 T 1000,280 Q 960,380 1020,450
-                            "
-                            calcMode="spline"
-                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
-                        />
-                    </path>
-                    
-                    <path class="ribbon ribbon--5" filter="url(#glow)">
-                        <animate 
-                            attributeName="d" 
-                            dur="9s" 
-                            repeatCount="indefinite"
-                            values="
-                                M 1250,200 Q 1150,150 1100,200 T 980,300 Q 920,380 960,450;
-                                M 1250,170 Q 1130,200 1080,170 T 960,270 Q 900,350 940,450;
-                                M 1250,230 Q 1160,180 1120,230 T 1000,330 Q 940,400 980,450;
-                                M 1250,200 Q 1150,150 1100,200 T 980,300 Q 920,380 960,450
-                            "
-                            calcMode="spline"
-                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
-                        />
-                    </path>
-                    
-                    <path class="ribbon ribbon--2">
-                        <animate 
-                            attributeName="d" 
-                            dur="8s" 
-                            repeatCount="indefinite"
-                            values="
-                                M 1250,320 Q 1130,280 1080,320 T 1000,380 Q 960,420 1000,450;
-                                M 1250,290 Q 1150,330 1100,290 T 1020,360 Q 980,400 1020,450;
-                                M 1250,350 Q 1120,300 1060,350 T 980,400 Q 940,440 980,450;
-                                M 1250,320 Q 1130,280 1080,320 T 1000,380 Q 960,420 1000,450
-                            "
-                            calcMode="spline"
-                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
-                        />
-                    </path>
-                    
-                    <!-- TOP RIBBONS -->
-                    <path class="ribbon ribbon--3" filter="url(#glow)">
-                        <animate 
-                            attributeName="d" 
-                            dur="10s" 
-                            repeatCount="indefinite"
-                            values="
-                                M 300,-30 Q 380,40 500,20 T 700,60 Q 800,100 900,-30;
-                                M 320,-30 Q 400,60 520,30 T 720,80 Q 820,120 920,-30;
-                                M 280,-30 Q 360,30 480,10 T 680,50 Q 780,90 880,-30;
-                                M 300,-30 Q 380,40 500,20 T 700,60 Q 800,100 900,-30
-                            "
-                            calcMode="spline"
-                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
-                        />
-                    </path>
-                    
-                    <!-- BOTTOM RIBBONS -->
-                    <path class="ribbon ribbon--1">
-                        <animate 
-                            attributeName="d" 
-                            dur="9s" 
-                            repeatCount="indefinite"
-                            values="
-                                M 250,450 Q 350,380 500,420 T 750,380 Q 850,340 950,450;
-                                M 270,450 Q 370,360 520,400 T 770,360 Q 870,320 970,450;
-                                M 230,450 Q 330,400 480,440 T 730,400 Q 830,360 930,450;
-                                M 250,450 Q 350,380 500,420 T 750,380 Q 850,340 950,450
-                            "
-                            calcMode="spline"
-                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
-                        />
-                    </path>
+                    <!-- TOP ACCENT -->
+                    <g filter="url(#glow-filter)">
+                        <ellipse class="liquid-blob liquid-blob--left-2" cx="300" cy="-30" rx="200" ry="70" style="opacity: 0.5">
+                            <animate attributeName="cx" dur="14s" values="300;350;280;300" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse class="liquid-blob liquid-blob--right-2" cx="900" cy="-20" rx="180" ry="60" style="opacity: 0.5">
+                            <animate attributeName="cx" dur="12s" values="900;860;920;900" repeatCount="indefinite"/>
+                        </ellipse>
+                    </g>
                 </svg>
             </div>
             
-            <!-- Center safe zone -->
-            <div class="hero__center"></div>
-            
-            <!-- Content -->
             <div class="hero__content">
-                <div class="hero__badge">
-                    🧠 ИИ-поиск кандидатов
-                </div>
+                <div class="hero__badge">🧠 ИИ-поиск кандидатов</div>
                 <h1 class="hero__title">Frontend-разработчик</h1>
                 <p class="hero__subtitle">Отдел разработки • Москва • от 250 000 ₽</p>
             </div>
@@ -599,18 +496,12 @@
                     <div class="card">
                         <div class="card__name">Алексей Смирнов</div>
                         <div class="card__position">Senior Frontend Developer</div>
-                        <div class="card__footer">
-                            <span class="card__source">hh.ru</span>
-                            <span>Сегодня</span>
-                        </div>
+                        <div class="card__footer"><span class="card__source">hh.ru</span><span>Сегодня</span></div>
                     </div>
                     <div class="card">
                         <div class="card__name">Мария Иванова</div>
                         <div class="card__position">React Developer</div>
-                        <div class="card__footer">
-                            <span class="card__source">LinkedIn</span>
-                            <span>Вчера</span>
-                        </div>
+                        <div class="card__footer"><span class="card__source">LinkedIn</span><span>Вчера</span></div>
                     </div>
                 </div>
             </div>
@@ -620,10 +511,7 @@
                     <div class="card">
                         <div class="card__name">Екатерина Волкова</div>
                         <div class="card__position">Frontend Developer</div>
-                        <div class="card__footer">
-                            <span class="card__source">hh.ru</span>
-                            <span>3 дня</span>
-                        </div>
+                        <div class="card__footer"><span class="card__source">hh.ru</span><span>3 дня</span></div>
                     </div>
                 </div>
             </div>
@@ -633,10 +521,7 @@
                     <div class="card">
                         <div class="card__name">Ольга Петрова</div>
                         <div class="card__position">Senior React Dev</div>
-                        <div class="card__footer">
-                            <span class="card__source">LinkedIn</span>
-                            <span>5 дней</span>
-                        </div>
+                        <div class="card__footer"><span class="card__source">LinkedIn</span><span>5 дней</span></div>
                     </div>
                 </div>
             </div>
@@ -646,14 +531,27 @@
                     <div class="card">
                         <div class="card__name">Николай Федоров</div>
                         <div class="card__position">Senior Frontend Dev</div>
-                        <div class="card__footer">
-                            <span class="card__source">Реферал</span>
-                            <span>2 нед</span>
-                        </div>
+                        <div class="card__footer"><span class="card__source">Реферал</span><span>2 нед</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+    
+    <script>
+        // Animate turbulence seed for more organic movement
+        const turbulence = document.querySelector('feTurbulence');
+        let seed = 1;
+        
+        function animateTurbulence() {
+            seed += 0.02;
+            if (turbulence) {
+                turbulence.setAttribute('seed', seed);
+            }
+            requestAnimationFrame(animateTurbulence);
+        }
+        
+        animateTurbulence();
+    </script>
 </body>
 </html>
