@@ -62,7 +62,6 @@
 const canvas = document.getElementById('glcanvas');
 const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
 
-// Vertex shader
 const vsSource = `
     attribute vec4 aPosition;
     varying vec2 vUv;
@@ -72,7 +71,6 @@ const vsSource = `
     }
 `;
 
-// Fragment shader - liquid fabric effect
 const fsSource = `
     precision highp float;
     
@@ -80,7 +78,7 @@ const fsSource = `
     uniform float uTime;
     uniform vec2 uResolution;
     
-    // Simplex 2D noise
+    // Simplex noise
     vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
     
     float snoise(vec2 v) {
@@ -88,17 +86,13 @@ const fsSource = `
                           -0.577350269189626, 0.024390243902439);
         vec2 i  = floor(v + dot(v, C.yy));
         vec2 x0 = v - i + dot(i, C.xx);
-        vec2 i1;
-        i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+        vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
         vec4 x12 = x0.xyxy + C.xxzz;
         x12.xy -= i1;
         i = mod(i, 289.0);
-        vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0))
-            + i.x + vec3(0.0, i1.x, 1.0));
-        vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
-            dot(x12.zw,x12.zw)), 0.0);
-        m = m*m;
-        m = m*m;
+        vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+        vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+        m = m*m; m = m*m;
         vec3 x = 2.0 * fract(p * C.www) - 1.0;
         vec3 h = abs(x) - 0.5;
         vec3 ox = floor(x + 0.5);
@@ -110,62 +104,62 @@ const fsSource = `
         return 130.0 * dot(m, g);
     }
     
-    // Fractal Brownian Motion
-    float fbm(vec2 p, float time) {
-        float value = 0.0;
-        float amplitude = 0.5;
-        float frequency = 1.0;
+    // Anisotropic noise - stretched vertically for fabric folds
+    float fabricNoise(vec2 p, float time, float stretch) {
+        // Stretch coordinates to create directional folds
+        vec2 stretched = vec2(p.x, p.y * stretch);
         
-        // Flow direction
-        vec2 flow = vec2(time * 0.15, time * 0.1);
+        // Flow animation
+        vec2 flow = vec2(time * 0.1, time * 0.25);
         
-        for (int i = 0; i < 6; i++) {
-            value += amplitude * snoise(p * frequency + flow);
-            flow *= 1.2;
-            amplitude *= 0.5;
-            frequency *= 2.0;
-        }
-        return value;
+        // Layer 1: Main large folds
+        float n1 = snoise(stretched * 1.2 + flow) * 0.6;
+        
+        // Layer 2: Secondary folds
+        float n2 = snoise(stretched * 2.5 + flow * 1.3 + vec2(10.0, 0.0)) * 0.3;
+        
+        // Layer 3: Fine detail (less of it)
+        float n3 = snoise(stretched * 5.0 + flow * 0.8 + vec2(20.0, 5.0)) * 0.1;
+        
+        return n1 + n2 + n3;
     }
     
-    // Warped noise for fabric folds
-    float warpedNoise(vec2 p, float time) {
-        vec2 q = vec2(
-            fbm(p + vec2(0.0, 0.0), time),
-            fbm(p + vec2(5.2, 1.3), time)
-        );
+    // Domain warping for organic flow
+    float warpedFabric(vec2 p, float time) {
+        // First warp
+        float warp1 = snoise(vec2(p.x * 0.8, p.y * 2.5) + time * 0.15);
+        float warp2 = snoise(vec2(p.x * 0.8 + 5.0, p.y * 2.5) + time * 0.12);
         
-        vec2 r = vec2(
-            fbm(p + 4.0 * q + vec2(1.7, 9.2), time * 0.8),
-            fbm(p + 4.0 * q + vec2(8.3, 2.8), time * 0.8)
-        );
+        vec2 warped = p + vec2(warp1, warp2) * 0.15;
         
-        return fbm(p + 3.0 * r, time * 0.5);
+        // Main fabric texture - strongly anisotropic
+        float fabric = fabricNoise(warped, time, 3.5);
+        
+        // Add second layer of warping for more organic feel
+        float warp3 = snoise(vec2(warped.x * 1.5, warped.y * 4.0) + time * 0.2);
+        fabric += warp3 * 0.15;
+        
+        return fabric;
     }
     
-    // Shape mask - organic blob
+    // Organic shape mask
     float shapeMask(vec2 uv, float side, float time) {
-        // Adjust coordinates based on side
         vec2 p = side > 0.0 ? uv : vec2(1.0 - uv.x, uv.y);
         
-        // Base shape - extends from edge
-        float baseShape = smoothstep(0.5, 0.0, p.x);
-        
-        // Add organic wobble to edge
+        // Wobbling edge
         float wobble = 0.0;
-        wobble += snoise(vec2(p.y * 3.0, time * 0.3)) * 0.15;
-        wobble += snoise(vec2(p.y * 6.0, time * 0.5 + 10.0)) * 0.08;
-        wobble += snoise(vec2(p.y * 12.0, time * 0.4 + 20.0)) * 0.04;
+        wobble += snoise(vec2(p.y * 2.0, time * 0.2)) * 0.12;
+        wobble += snoise(vec2(p.y * 4.0, time * 0.35 + 10.0)) * 0.08;
+        wobble += snoise(vec2(p.y * 8.0, time * 0.25 + 20.0)) * 0.05;
         
-        // Vertical variation
-        float verticalShape = sin(p.y * 3.14159) * 0.3 + 0.7;
+        // Vertical variation - bulge in middle
+        float verticalShape = sin(p.y * 3.14159);
+        verticalShape = pow(verticalShape, 0.7) * 0.4 + 0.6;
         
-        float edge = 0.35 + wobble * verticalShape;
-        float mask = smoothstep(edge + 0.08, edge - 0.05, p.x);
+        float edge = 0.32 + wobble * verticalShape;
         
-        // Add some holes/variations
-        float holes = snoise(p * 8.0 + time * 0.2) * 0.5 + 0.5;
-        mask *= smoothstep(0.1, 0.3, holes);
+        // Soft edge
+        float mask = smoothstep(edge + 0.12, edge - 0.02, p.x);
         
         return mask;
     }
@@ -173,116 +167,100 @@ const fsSource = `
     void main() {
         vec2 uv = vUv;
         float aspect = uResolution.x / uResolution.y;
-        vec2 p = vec2(uv.x * aspect, uv.y);
         
-        // Base color - orange #E3711B
-        vec3 baseColor = vec3(0.89, 0.44, 0.11);
-        vec3 lightColor = vec3(1.0, 0.85, 0.75);
-        vec3 darkColor = vec3(0.7, 0.25, 0.05);
+        // Colors - orange palette
+        vec3 darkColor = vec3(0.6, 0.18, 0.02);      // Deep dark orange
+        vec3 midColor = vec3(0.89, 0.44, 0.11);       // #E3711B base
+        vec3 lightColor = vec3(1.0, 0.7, 0.5);        // Light orange
+        vec3 highlightColor = vec3(1.0, 0.92, 0.88);  // Almost white
         vec3 white = vec3(1.0);
         
-        // Time
-        float time = uTime * 0.5;
+        float time = uTime * 0.6;
         
-        // Left shape
+        // Shape masks
         float leftMask = shapeMask(uv, 1.0, time);
-        
-        // Right shape  
         float rightMask = shapeMask(uv, -1.0, time + 5.0);
         
-        // Fabric texture for left
-        vec2 leftP = p * 2.5;
-        float leftNoise = warpedNoise(leftP, time);
+        // Fabric texture - left side
+        vec2 leftP = vec2(uv.x * aspect * 1.5, uv.y * 1.2);
+        float leftFabric = warpedFabric(leftP, time);
         
-        // Fabric texture for right
-        vec2 rightP = vec2((1.0 - uv.x) * aspect, uv.y) * 2.5;
-        float rightNoise = warpedNoise(rightP, time + 3.0);
+        // Fabric texture - right side
+        vec2 rightP = vec2((1.0 - uv.x) * aspect * 1.5, uv.y * 1.2);
+        float rightFabric = warpedFabric(rightP, time + 3.0);
         
-        // Convert noise to fabric folds (-1 to 1 range)
-        float leftFolds = leftNoise * 0.5 + 0.5;
-        float rightFolds = rightNoise * 0.5 + 0.5;
+        // Normalize and add contrast
+        leftFabric = leftFabric * 0.5 + 0.5;
+        rightFabric = rightFabric * 0.5 + 0.5;
         
-        // Apply color based on folds
-        // Peaks are light, valleys are dark
-        vec3 leftFabricColor = mix(darkColor, baseColor, leftFolds);
-        leftFabricColor = mix(leftFabricColor, lightColor, pow(leftFolds, 2.0));
+        // Increase contrast with power curve
+        leftFabric = pow(leftFabric, 0.8);
+        rightFabric = pow(rightFabric, 0.8);
         
-        // Add bright highlights on peaks
-        float leftHighlight = pow(max(0.0, leftFolds - 0.6) * 2.5, 2.0);
-        leftFabricColor = mix(leftFabricColor, white, leftHighlight * 0.7);
+        // Color mapping with more contrast
+        // Dark valleys
+        vec3 leftColor = mix(darkColor, midColor, smoothstep(0.0, 0.45, leftFabric));
+        // Light areas
+        leftColor = mix(leftColor, lightColor, smoothstep(0.45, 0.7, leftFabric));
+        // Bright highlights on peaks
+        float leftHighlight = smoothstep(0.7, 0.9, leftFabric);
+        leftColor = mix(leftColor, highlightColor, leftHighlight);
+        // Extra white on very top peaks
+        float leftPeak = smoothstep(0.85, 1.0, leftFabric);
+        leftColor = mix(leftColor, white, leftPeak * 0.8);
         
-        vec3 rightFabricColor = mix(darkColor, baseColor, rightFolds);
-        rightFabricColor = mix(rightFabricColor, lightColor, pow(rightFolds, 2.0));
+        // Same for right
+        vec3 rightColor = mix(darkColor, midColor, smoothstep(0.0, 0.45, rightFabric));
+        rightColor = mix(rightColor, lightColor, smoothstep(0.45, 0.7, rightFabric));
+        float rightHighlight = smoothstep(0.7, 0.9, rightFabric);
+        rightColor = mix(rightColor, highlightColor, rightHighlight);
+        float rightPeak = smoothstep(0.85, 1.0, rightFabric);
+        rightColor = mix(rightColor, white, rightPeak * 0.8);
         
-        float rightHighlight = pow(max(0.0, rightFolds - 0.6) * 2.5, 2.0);
-        rightFabricColor = mix(rightFabricColor, white, rightHighlight * 0.7);
-        
-        // Combine with masks
+        // Combine
         vec3 color = white;
+        color = mix(color, leftColor, leftMask * 0.95);
+        color = mix(color, rightColor, rightMask * 0.95);
         
-        // Apply left fabric
-        color = mix(color, leftFabricColor, leftMask * 0.95);
-        
-        // Apply right fabric
-        color = mix(color, rightFabricColor, rightMask * 0.95);
-        
-        // Soft center fade for text readability
-        float centerDist = length(uv - vec2(0.5)) * 2.0;
-        float centerMask = smoothstep(0.3, 0.9, centerDist);
+        // Center fade for text
+        float centerDist = length(uv - vec2(0.5));
+        float centerMask = smoothstep(0.25, 0.7, centerDist);
         color = mix(white, color, centerMask);
-        
-        // Subtle vignette
-        float vignette = 1.0 - pow(centerDist * 0.5, 2.0) * 0.1;
-        color *= vignette;
         
         gl_FragColor = vec4(color, 1.0);
     }
 `;
 
-// Compile shader
 function compileShader(gl, source, type) {
     const shader = gl.createShader(type);
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.error('Shader compile error:', gl.getShaderInfoLog(shader));
-        gl.deleteShader(shader);
+        console.error('Shader error:', gl.getShaderInfoLog(shader));
         return null;
     }
     return shader;
 }
 
-// Create program
-function createProgram(gl, vsSource, fsSource) {
-    const vertexShader = compileShader(gl, vsSource, gl.VERTEX_SHADER);
-    const fragmentShader = compileShader(gl, fsSource, gl.FRAGMENT_SHADER);
-    
-    const program = gl.createProgram();
-    gl.attachShader(program, vertexShader);
-    gl.attachShader(program, fragmentShader);
-    gl.linkProgram(program);
-    
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        console.error('Program link error:', gl.getProgramInfoLog(program));
-        return null;
-    }
-    return program;
+function createProgram(gl, vs, fs) {
+    const v = compileShader(gl, vs, gl.VERTEX_SHADER);
+    const f = compileShader(gl, fs, gl.FRAGMENT_SHADER);
+    const p = gl.createProgram();
+    gl.attachShader(p, v);
+    gl.attachShader(p, f);
+    gl.linkProgram(p);
+    return p;
 }
 
-// Initialize
 const program = createProgram(gl, vsSource, fsSource);
 const positionBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-    -1, -1, 1, -1, -1, 1,
-    -1, 1, 1, -1, 1, 1
-]), gl.STATIC_DRAW);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]), gl.STATIC_DRAW);
 
-const positionLocation = gl.getAttribLocation(program, 'aPosition');
-const timeLocation = gl.getUniformLocation(program, 'uTime');
-const resolutionLocation = gl.getUniformLocation(program, 'uResolution');
+const posLoc = gl.getAttribLocation(program, 'aPosition');
+const timeLoc = gl.getUniformLocation(program, 'uTime');
+const resLoc = gl.getUniformLocation(program, 'uResolution');
 
-// Resize
 function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -291,29 +269,22 @@ function resize() {
 resize();
 window.addEventListener('resize', resize);
 
-// Animation loop
-let startTime = Date.now();
-
+let start = Date.now();
 function render() {
-    const time = (Date.now() - startTime) / 1000;
+    const time = (Date.now() - start) / 1000;
     
-    gl.clearColor(1, 1, 1, 1);
+    gl.clearColor(1,1,1,1);
     gl.clear(gl.COLOR_BUFFER_BIT);
-    
     gl.useProgram(program);
-    
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    gl.enableVertexAttribArray(positionLocation);
-    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-    
-    gl.uniform1f(timeLocation, time);
-    gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
-    
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+    gl.uniform1f(timeLoc, time);
+    gl.uniform2f(resLoc, canvas.width, canvas.height);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     
     requestAnimationFrame(render);
 }
-
 render();
 </script>
 </body>
