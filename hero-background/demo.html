@@ -3,60 +3,316 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WorkHere AI</title>
+    <title>WorkHere — ATS/CRM</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #fff;
-            overflow: hidden;
+            background: #f0f2f5;
+            color: #1a1a1a;
         }
+        
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 56px;
+            background: #1a1a2e;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            z-index: 1000;
+        }
+        
+        .navbar__logo { display: flex; font-weight: 700; font-size: 1.25rem; }
+        .navbar__logo-work { background: #1890ff; color: white; padding: 4px 8px; border-radius: 4px; }
+        .navbar__logo-here { color: white; padding: 4px 8px; }
+        .navbar__nav { display: flex; gap: 8px; margin-left: 40px; }
+        .navbar__link { color: rgba(255,255,255,0.7); text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; }
+        .navbar__link--active { color: white; background: rgba(255,255,255,0.1); }
+        .navbar__spacer { flex: 1; }
+        .navbar__user { display: flex; align-items: center; gap: 12px; color: white; font-size: 14px; }
+        .navbar__avatar { width: 32px; height: 32px; background: #E3711B; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px; }
+        
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            top: 56px; left: 0; bottom: 0;
+            width: 220px;
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            padding: 16px 0;
+            z-index: 100;
+        }
+        
+        .sidebar__title { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; padding: 8px 16px; margin-top: 16px; }
+        .sidebar__title:first-child { margin-top: 0; }
+        .sidebar__item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; color: #1a1a1a; font-size: 14px; cursor: pointer; }
+        .sidebar__item:hover { background: #f8fafc; }
+        .sidebar__item--active { background: rgba(227, 113, 27, 0.1); color: #E3711B; }
+        .sidebar__badge { margin-left: auto; background: #E3711B; color: white; font-size: 11px; padding: 2px 8px; border-radius: 10px; }
+        
+        /* MAIN */
+        .main {
+            margin-left: 220px;
+            margin-top: 56px;
+        }
+        
+        /* HERO - Large animated section */
         .hero {
             position: relative;
             width: 100%;
-            height: 100vh;
-            min-height: 500px;
+            height: 500px;
             background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow: hidden;
         }
-        #glcanvas {
+        
+        .hero__canvas {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
         }
+        
         .hero__content {
             position: relative;
             z-index: 20;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
             padding: 40px;
-            max-width: 650px;
         }
+        
         .hero__title {
-            font-size: 3rem;
+            font-size: 2.75rem;
             font-weight: 700;
             color: #1a1a1a;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
+        
         .hero__text {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: #555;
             line-height: 1.7;
+            max-width: 550px;
         }
+        
+        .hero__subtext {
+            margin-top: 32px;
+            font-size: 1rem;
+            color: #888;
+        }
+        
+        /* TABS */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            padding: 0 24px;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .tab {
+            padding: 14px 20px;
+            font-size: 14px;
+            color: #64748b;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab--active {
+            color: #E3711B;
+            border-bottom-color: #E3711B;
+        }
+        
+        .tab__badge {
+            background: #f1f5f9;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+        
+        .tab--active .tab__badge {
+            background: rgba(227, 113, 27, 0.15);
+            color: #E3711B;
+        }
+        
+        /* KANBAN */
+        .kanban {
+            display: flex;
+            gap: 16px;
+            padding: 24px;
+            background: #f8fafc;
+            overflow-x: auto;
+            min-height: 300px;
+        }
+        
+        .kanban__column {
+            flex: 0 0 280px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        
+        .kanban__header {
+            padding: 16px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .kanban__count {
+            background: #f1f5f9;
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            color: #64748b;
+        }
+        
+        .kanban__cards { padding: 12px; }
+        
+        .card {
+            background: #fafbfc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        
+        .card:hover { border-color: #E3711B; box-shadow: 0 2px 8px rgba(227,113,27,0.12); }
+        
+        .card__name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .card__position { font-size: 12px; color: #64748b; margin-bottom: 10px; }
+        .card__footer { display: flex; justify-content: space-between; font-size: 11px; color: #64748b; }
+        .card__source { background: #f1f5f9; padding: 3px 8px; border-radius: 4px; }
     </style>
 </head>
 <body>
-    <section class="hero">
-        <canvas id="glcanvas"></canvas>
-        <div class="hero__content">
-            <h1 class="hero__title">WorkHere AI</h1>
-            <p class="hero__text">
-                Искусственный интеллект WorkHere AI непрерывно анализирует вашу работу над вакансией и рекомендует подходящих кандидатов из вашей базы
-            </p>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar__logo">
+            <span class="navbar__logo-work">Work</span>
+            <span class="navbar__logo-here">Here</span>
         </div>
-    </section>
+        <div class="navbar__nav">
+            <a class="navbar__link navbar__link--active">Вакансии</a>
+            <a class="navbar__link">Кандидаты</a>
+            <a class="navbar__link">Аналитика</a>
+            <a class="navbar__link">Настройки</a>
+        </div>
+        <div class="navbar__spacer"></div>
+        <div class="navbar__user">
+            Иван Петров
+            <div class="navbar__avatar">ИП</div>
+        </div>
+    </nav>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar__title">Меню</div>
+        <div class="sidebar__item">📊 Дашборд</div>
+        <div class="sidebar__item sidebar__item--active">💼 Вакансии <span class="sidebar__badge">12</span></div>
+        <div class="sidebar__item">👥 Кандидаты</div>
+        <div class="sidebar__item">📅 Календарь</div>
+        <div class="sidebar__item">📈 Отчёты</div>
+        <div class="sidebar__title">Мои вакансии</div>
+        <div class="sidebar__item">🟢 Frontend-разработчик</div>
+        <div class="sidebar__item">🟢 Product Manager</div>
+        <div class="sidebar__item">🟡 UX/UI Дизайнер</div>
+        <div class="sidebar__item">🔴 DevOps Engineer</div>
+    </aside>
+    
+    <!-- Main -->
+    <main class="main">
+        <!-- Hero with animation -->
+        <section class="hero">
+            <canvas class="hero__canvas" id="glcanvas"></canvas>
+            <div class="hero__content">
+                <h1 class="hero__title">WorkHere AI</h1>
+                <p class="hero__text">
+                    Искусственный интеллект WorkHere AI непрерывно анализирует вашу работу над вакансией и рекомендует подходящих кандидатов из вашей базы
+                </p>
+                <p class="hero__subtext">Пока в вашей базе не найдены подходящие кандидаты на эту вакансию</p>
+            </div>
+        </section>
+        
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab tab--active">Из базы <span class="tab__badge">0</span></div>
+            <div class="tab">Отклики <span class="tab__badge">18</span></div>
+            <div class="tab">В работе <span class="tab__badge">7</span></div>
+            <div class="tab">Интервью <span class="tab__badge">3</span></div>
+            <div class="tab">Оффер <span class="tab__badge">1</span></div>
+        </div>
+        
+        <!-- Kanban -->
+        <div class="kanban">
+            <div class="kanban__column">
+                <div class="kanban__header">Новые <span class="kanban__count">5</span></div>
+                <div class="kanban__cards">
+                    <div class="card">
+                        <div class="card__name">Алексей Смирнов</div>
+                        <div class="card__position">Senior Frontend Developer</div>
+                        <div class="card__footer"><span class="card__source">hh.ru</span><span>Сегодня</span></div>
+                    </div>
+                    <div class="card">
+                        <div class="card__name">Мария Иванова</div>
+                        <div class="card__position">React Developer</div>
+                        <div class="card__footer"><span class="card__source">LinkedIn</span><span>Вчера</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="kanban__column">
+                <div class="kanban__header">Скрининг <span class="kanban__count">3</span></div>
+                <div class="kanban__cards">
+                    <div class="card">
+                        <div class="card__name">Екатерина Волкова</div>
+                        <div class="card__position">Frontend Developer</div>
+                        <div class="card__footer"><span class="card__source">hh.ru</span><span>3 дня</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="kanban__column">
+                <div class="kanban__header">Интервью HR <span class="kanban__count">2</span></div>
+                <div class="kanban__cards">
+                    <div class="card">
+                        <div class="card__name">Ольга Петрова</div>
+                        <div class="card__position">Senior React Developer</div>
+                        <div class="card__footer"><span class="card__source">LinkedIn</span><span>5 дней</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="kanban__column">
+                <div class="kanban__header">Техническое <span class="kanban__count">1</span></div>
+                <div class="kanban__cards">
+                    <div class="card">
+                        <div class="card__name">Сергей Морозов</div>
+                        <div class="card__position">Lead Frontend Developer</div>
+                        <div class="card__footer"><span class="card__source">Реферал</span><span>1 нед</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="kanban__column">
+                <div class="kanban__header">Оффер <span class="kanban__count">1</span></div>
+                <div class="kanban__cards">
+                    <div class="card">
+                        <div class="card__name">Николай Федоров</div>
+                        <div class="card__position">Senior Frontend Developer</div>
+                        <div class="card__footer"><span class="card__source">hh.ru</span><span>2 нед</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
 <script>
 const canvas = document.getElementById('glcanvas');
@@ -78,12 +334,10 @@ const fsSource = `
     uniform float uTime;
     uniform vec2 uResolution;
     
-    // Simplex noise
     vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
     
     float snoise(vec2 v) {
-        const vec4 C = vec4(0.211324865405187, 0.366025403784439,
-                          -0.577350269189626, 0.024390243902439);
+        const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
         vec2 i  = floor(v + dot(v, C.yy));
         vec2 x0 = v - i + dot(i, C.xx);
         vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
@@ -104,63 +358,35 @@ const fsSource = `
         return 130.0 * dot(m, g);
     }
     
-    // Anisotropic noise - stretched vertically for fabric folds
     float fabricNoise(vec2 p, float time, float stretch) {
-        // Stretch coordinates to create directional folds
         vec2 stretched = vec2(p.x, p.y * stretch);
-        
-        // Flow animation
         vec2 flow = vec2(time * 0.1, time * 0.25);
-        
-        // Layer 1: Main large folds
         float n1 = snoise(stretched * 1.2 + flow) * 0.6;
-        
-        // Layer 2: Secondary folds
         float n2 = snoise(stretched * 2.5 + flow * 1.3 + vec2(10.0, 0.0)) * 0.3;
-        
-        // Layer 3: Fine detail (less of it)
         float n3 = snoise(stretched * 5.0 + flow * 0.8 + vec2(20.0, 5.0)) * 0.1;
-        
         return n1 + n2 + n3;
     }
     
-    // Domain warping for organic flow
     float warpedFabric(vec2 p, float time) {
-        // First warp
         float warp1 = snoise(vec2(p.x * 0.8, p.y * 2.5) + time * 0.15);
         float warp2 = snoise(vec2(p.x * 0.8 + 5.0, p.y * 2.5) + time * 0.12);
-        
         vec2 warped = p + vec2(warp1, warp2) * 0.15;
-        
-        // Main fabric texture - strongly anisotropic
         float fabric = fabricNoise(warped, time, 3.5);
-        
-        // Add second layer of warping for more organic feel
         float warp3 = snoise(vec2(warped.x * 1.5, warped.y * 4.0) + time * 0.2);
         fabric += warp3 * 0.15;
-        
         return fabric;
     }
     
-    // Organic shape mask
     float shapeMask(vec2 uv, float side, float time) {
         vec2 p = side > 0.0 ? uv : vec2(1.0 - uv.x, uv.y);
-        
-        // Wobbling edge
         float wobble = 0.0;
         wobble += snoise(vec2(p.y * 2.0, time * 0.2)) * 0.12;
         wobble += snoise(vec2(p.y * 4.0, time * 0.35 + 10.0)) * 0.08;
         wobble += snoise(vec2(p.y * 8.0, time * 0.25 + 20.0)) * 0.05;
-        
-        // Vertical variation - bulge in middle
         float verticalShape = sin(p.y * 3.14159);
         verticalShape = pow(verticalShape, 0.7) * 0.4 + 0.6;
-        
         float edge = 0.32 + wobble * verticalShape;
-        
-        // Soft edge
         float mask = smoothstep(edge + 0.12, edge - 0.02, p.x);
-        
         return mask;
     }
     
@@ -168,63 +394,42 @@ const fsSource = `
         vec2 uv = vUv;
         float aspect = uResolution.x / uResolution.y;
         
-        // Colors - orange palette
-        vec3 darkColor = vec3(0.6, 0.18, 0.02);      // Deep dark orange
-        vec3 midColor = vec3(0.89, 0.44, 0.11);       // #E3711B base
-        vec3 lightColor = vec3(1.0, 0.7, 0.5);        // Light orange
-        vec3 highlightColor = vec3(1.0, 0.92, 0.88);  // Almost white
+        vec3 darkColor = vec3(0.6, 0.18, 0.02);
+        vec3 midColor = vec3(0.89, 0.44, 0.11);
+        vec3 lightColor = vec3(1.0, 0.7, 0.5);
+        vec3 highlightColor = vec3(1.0, 0.92, 0.88);
         vec3 white = vec3(1.0);
         
         float time = uTime * 0.6;
         
-        // Shape masks
         float leftMask = shapeMask(uv, 1.0, time);
         float rightMask = shapeMask(uv, -1.0, time + 5.0);
         
-        // Fabric texture - left side
         vec2 leftP = vec2(uv.x * aspect * 1.5, uv.y * 1.2);
         float leftFabric = warpedFabric(leftP, time);
         
-        // Fabric texture - right side
         vec2 rightP = vec2((1.0 - uv.x) * aspect * 1.5, uv.y * 1.2);
         float rightFabric = warpedFabric(rightP, time + 3.0);
         
-        // Normalize and add contrast
-        leftFabric = leftFabric * 0.5 + 0.5;
-        rightFabric = rightFabric * 0.5 + 0.5;
+        leftFabric = pow(leftFabric * 0.5 + 0.5, 0.8);
+        rightFabric = pow(rightFabric * 0.5 + 0.5, 0.8);
         
-        // Increase contrast with power curve
-        leftFabric = pow(leftFabric, 0.8);
-        rightFabric = pow(rightFabric, 0.8);
-        
-        // Color mapping with more contrast
-        // Dark valleys
         vec3 leftColor = mix(darkColor, midColor, smoothstep(0.0, 0.45, leftFabric));
-        // Light areas
         leftColor = mix(leftColor, lightColor, smoothstep(0.45, 0.7, leftFabric));
-        // Bright highlights on peaks
-        float leftHighlight = smoothstep(0.7, 0.9, leftFabric);
-        leftColor = mix(leftColor, highlightColor, leftHighlight);
-        // Extra white on very top peaks
-        float leftPeak = smoothstep(0.85, 1.0, leftFabric);
-        leftColor = mix(leftColor, white, leftPeak * 0.8);
+        leftColor = mix(leftColor, highlightColor, smoothstep(0.7, 0.9, leftFabric));
+        leftColor = mix(leftColor, white, smoothstep(0.85, 1.0, leftFabric) * 0.8);
         
-        // Same for right
         vec3 rightColor = mix(darkColor, midColor, smoothstep(0.0, 0.45, rightFabric));
         rightColor = mix(rightColor, lightColor, smoothstep(0.45, 0.7, rightFabric));
-        float rightHighlight = smoothstep(0.7, 0.9, rightFabric);
-        rightColor = mix(rightColor, highlightColor, rightHighlight);
-        float rightPeak = smoothstep(0.85, 1.0, rightFabric);
-        rightColor = mix(rightColor, white, rightPeak * 0.8);
+        rightColor = mix(rightColor, highlightColor, smoothstep(0.7, 0.9, rightFabric));
+        rightColor = mix(rightColor, white, smoothstep(0.85, 1.0, rightFabric) * 0.8);
         
-        // Combine
         vec3 color = white;
         color = mix(color, leftColor, leftMask * 0.95);
         color = mix(color, rightColor, rightMask * 0.95);
         
-        // Center fade for text
         float centerDist = length(uv - vec2(0.5));
-        float centerMask = smoothstep(0.25, 0.7, centerDist);
+        float centerMask = smoothstep(0.2, 0.6, centerDist);
         color = mix(white, color, centerMask);
         
         gl_FragColor = vec4(color, 1.0);
@@ -235,10 +440,6 @@ function compileShader(gl, source, type) {
     const shader = gl.createShader(type);
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.error('Shader error:', gl.getShaderInfoLog(shader));
-        return null;
-    }
     return shader;
 }
 
@@ -262,8 +463,9 @@ const timeLoc = gl.getUniformLocation(program, 'uTime');
 const resLoc = gl.getUniformLocation(program, 'uResolution');
 
 function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
     gl.viewport(0, 0, canvas.width, canvas.height);
 }
 resize();
@@ -272,7 +474,6 @@ window.addEventListener('resize', resize);
 let start = Date.now();
 function render() {
     const time = (Date.now() - start) / 1000;
-    
     gl.clearColor(1,1,1,1);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.useProgram(program);
@@ -282,7 +483,6 @@ function render() {
     gl.uniform1f(timeLoc, time);
     gl.uniform2f(resLoc, canvas.width, canvas.height);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
-    
     requestAnimationFrame(render);
 }
 render();
