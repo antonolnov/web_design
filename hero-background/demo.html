@@ -5,38 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WorkHere — ATS/CRM Demo</title>
     <style>
-        /* ==============================================
-           WORHERE CRM DEMO WITH DYNAMIC WAVE BACKGROUND
-           ============================================== */
-        
         :root {
             --wh-orange: #E3711B;
-            --wh-orange-light: #f59542;
+            --wh-orange-light: #f5923d;
             --wh-orange-dark: #c45a0a;
-            --bg-cream: #fffdf9;
-            --bg-white: #ffffff;
+            --wh-orange-pale: #ffecd9;
             --text-dark: #1a1a1a;
             --text-muted: #64748b;
-            --intensity: 1;
-            --speed: 1;
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #f0f2f5;
             color: var(--text-dark);
-            line-height: 1.5;
         }
         
-        /* ==============================================
-           HEADER / NAVBAR
-           ============================================== */
+        /* NAVBAR */
         .navbar {
             position: fixed;
             top: 0;
@@ -48,12 +34,10 @@
             align-items: center;
             padding: 0 24px;
             z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
         
         .navbar__logo {
             display: flex;
-            align-items: center;
             font-weight: 700;
             font-size: 1.25rem;
         }
@@ -82,11 +66,9 @@
             padding: 8px 16px;
             border-radius: 6px;
             font-size: 14px;
-            transition: all 0.2s;
         }
         
-        .navbar__link:hover,
-        .navbar__link--active {
+        .navbar__link:hover, .navbar__link--active {
             color: white;
             background: rgba(255,255,255,0.1);
         }
@@ -113,25 +95,17 @@
             font-size: 12px;
         }
         
-        /* ==============================================
-           SIDEBAR
-           ============================================== */
+        /* SIDEBAR */
         .sidebar {
             position: fixed;
             top: 56px;
             left: 0;
             bottom: 0;
-            width: 240px;
+            width: 220px;
             background: white;
             border-right: 1px solid #e2e8f0;
             padding: 16px 0;
-            overflow-y: auto;
             z-index: 100;
-        }
-        
-        .sidebar__section {
-            padding: 0 12px;
-            margin-bottom: 24px;
         }
         
         .sidebar__title {
@@ -139,37 +113,24 @@
             font-weight: 600;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 8px 12px;
+            padding: 8px 16px;
         }
         
         .sidebar__item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 10px 12px;
-            border-radius: 8px;
+            gap: 10px;
+            padding: 10px 16px;
             color: var(--text-dark);
-            text-decoration: none;
             font-size: 14px;
-            transition: all 0.15s;
             cursor: pointer;
         }
         
-        .sidebar__item:hover { background: #f1f5f9; }
+        .sidebar__item:hover { background: #f8fafc; }
         
         .sidebar__item--active {
             background: rgba(227, 113, 27, 0.1);
             color: var(--wh-orange);
-        }
-        
-        .sidebar__icon {
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
         }
         
         .sidebar__badge {
@@ -177,394 +138,107 @@
             background: var(--wh-orange);
             color: white;
             font-size: 11px;
-            font-weight: 600;
             padding: 2px 8px;
             border-radius: 10px;
         }
         
-        .sidebar__vacancy {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            font-size: 13px;
-            color: var(--text-dark);
-            cursor: pointer;
-            border-radius: 6px;
-        }
-        
-        .sidebar__vacancy:hover { background: #f8fafc; }
-        
-        .sidebar__vacancy-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #10b981;
-        }
-        
-        .sidebar__vacancy-dot--yellow { background: #f59e0b; }
-        .sidebar__vacancy-dot--red { background: #ef4444; }
-        
-        /* ==============================================
-           MAIN CONTENT AREA
-           ============================================== */
+        /* MAIN */
         .main {
-            margin-left: 240px;
+            margin-left: 220px;
             margin-top: 56px;
-            min-height: calc(100vh - 56px);
         }
         
         /* ==============================================
-           HERO SECTION - DYNAMIC WAVE BACKGROUND
-           Height: 1.5x (480px), Width: 60% narrower center
+           HERO WITH FLOWING RIBBONS
            ============================================== */
         .hero {
             position: relative;
-            height: 480px;
+            height: 420px;
+            background: #fffcf8;
             overflow: hidden;
-            background: var(--bg-cream);
         }
         
-        /* === WAVE CONTAINER === */
-        .hero__waves {
+        /* SVG Ribbons Container */
+        .hero__ribbons {
             position: absolute;
             inset: 0;
             z-index: 1;
         }
         
-        /* === LEFT SIDE WAVES === */
-        .hero__wave-left {
+        .hero__ribbons svg {
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 35%;
-            overflow: hidden;
+            width: 100%;
+            height: 100%;
         }
         
-        .hero__wave-left .wave-blob {
+        /* Ribbon paths */
+        .ribbon {
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .ribbon--1 {
+            stroke: var(--wh-orange);
+            stroke-width: 60;
+            opacity: 0.9;
+        }
+        
+        .ribbon--2 {
+            stroke: var(--wh-orange-light);
+            stroke-width: 45;
+            opacity: 0.85;
+        }
+        
+        .ribbon--3 {
+            stroke: var(--wh-orange-dark);
+            stroke-width: 35;
+            opacity: 0.8;
+        }
+        
+        .ribbon--4 {
+            stroke: var(--wh-orange);
+            stroke-width: 50;
+            opacity: 0.75;
+        }
+        
+        .ribbon--5 {
+            stroke: var(--wh-orange-light);
+            stroke-width: 40;
+            opacity: 0.7;
+        }
+        
+        /* Animated gradient overlay on ribbons */
+        .ribbon-glow {
+            fill: none;
+            stroke: url(#ribbonGradient);
+            stroke-width: 80;
+            opacity: 0.3;
+            filter: blur(20px);
+        }
+        
+        /* Center safe zone */
+        .hero__center {
             position: absolute;
-            border-radius: 50%;
-            filter: blur(40px);
-            will-change: transform;
-        }
-        
-        .hero__wave-left .wave-blob--1 {
-            width: 200px;
-            height: 300px;
-            top: -50px;
-            left: -60px;
-            background: radial-gradient(ellipse at 60% 40%, var(--wh-orange) 0%, rgba(227, 113, 27, 0.6) 40%, transparent 70%);
-            animation: waveFloat1 8s ease-in-out infinite;
-        }
-        
-        .hero__wave-left .wave-blob--2 {
-            width: 180px;
-            height: 250px;
-            top: 30%;
-            left: -30px;
-            background: radial-gradient(ellipse at 50% 50%, var(--wh-orange-light) 0%, rgba(245, 149, 66, 0.5) 50%, transparent 70%);
-            animation: waveFloat2 10s ease-in-out infinite;
-        }
-        
-        .hero__wave-left .wave-blob--3 {
-            width: 160px;
-            height: 220px;
-            bottom: -40px;
-            left: -40px;
-            background: radial-gradient(ellipse at 40% 60%, var(--wh-orange-dark) 0%, rgba(196, 90, 10, 0.5) 45%, transparent 70%);
-            animation: waveFloat3 12s ease-in-out infinite;
-        }
-        
-        .hero__wave-left .wave-blob--4 {
-            width: 120px;
-            height: 180px;
-            top: 15%;
-            left: 50px;
-            background: radial-gradient(ellipse at 50% 50%, rgba(227, 113, 27, 0.7) 0%, transparent 60%);
-            animation: waveFloat4 9s ease-in-out infinite;
-        }
-        
-        .hero__wave-left .wave-blob--5 {
-            width: 140px;
-            height: 200px;
-            bottom: 20%;
-            left: 30px;
-            background: radial-gradient(ellipse at 50% 50%, rgba(245, 149, 66, 0.6) 0%, transparent 60%);
-            animation: waveFloat5 11s ease-in-out infinite;
-        }
-        
-        /* === RIGHT SIDE WAVES === */
-        .hero__wave-right {
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 35%;
-            overflow: hidden;
-        }
-        
-        .hero__wave-right .wave-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(40px);
-            will-change: transform;
-        }
-        
-        .hero__wave-right .wave-blob--1 {
-            width: 200px;
-            height: 280px;
-            top: -40px;
-            right: -50px;
-            background: radial-gradient(ellipse at 40% 50%, var(--wh-orange) 0%, rgba(227, 113, 27, 0.6) 40%, transparent 70%);
-            animation: waveFloat1 9s ease-in-out infinite reverse;
-        }
-        
-        .hero__wave-right .wave-blob--2 {
-            width: 170px;
-            height: 240px;
-            top: 35%;
-            right: -20px;
-            background: radial-gradient(ellipse at 50% 50%, var(--wh-orange-light) 0%, rgba(245, 149, 66, 0.55) 45%, transparent 70%);
-            animation: waveFloat2 11s ease-in-out infinite reverse;
-        }
-        
-        .hero__wave-right .wave-blob--3 {
-            width: 150px;
-            height: 210px;
-            bottom: -30px;
-            right: -30px;
-            background: radial-gradient(ellipse at 60% 40%, var(--wh-orange-dark) 0%, rgba(196, 90, 10, 0.5) 40%, transparent 70%);
-            animation: waveFloat3 10s ease-in-out infinite reverse;
-        }
-        
-        .hero__wave-right .wave-blob--4 {
-            width: 130px;
-            height: 170px;
-            top: 20%;
-            right: 40px;
-            background: radial-gradient(ellipse at 50% 50%, rgba(227, 113, 27, 0.65) 0%, transparent 60%);
-            animation: waveFloat5 8s ease-in-out infinite reverse;
-        }
-        
-        .hero__wave-right .wave-blob--5 {
-            width: 140px;
-            height: 190px;
-            bottom: 25%;
-            right: 20px;
-            background: radial-gradient(ellipse at 50% 50%, rgba(245, 149, 66, 0.55) 0%, transparent 60%);
-            animation: waveFloat4 12s ease-in-out infinite reverse;
-        }
-        
-        /* === FRAGMENTED WAVE PIECES === */
-        .wave-fragment {
-            position: absolute;
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            filter: blur(25px);
-            will-change: transform;
-        }
-        
-        .hero__wave-left .wave-fragment--1 {
-            width: 80px;
-            height: 100px;
-            top: 10%;
-            left: 80px;
-            background: rgba(227, 113, 27, 0.5);
-            animation: fragmentDrift1 7s ease-in-out infinite;
-        }
-        
-        .hero__wave-left .wave-fragment--2 {
-            width: 60px;
-            height: 80px;
+            left: 50%;
             top: 50%;
-            left: 100px;
-            background: rgba(245, 149, 66, 0.45);
-            animation: fragmentDrift2 9s ease-in-out infinite;
-        }
-        
-        .hero__wave-left .wave-fragment--3 {
-            width: 70px;
-            height: 90px;
-            bottom: 15%;
-            left: 70px;
-            background: rgba(196, 90, 10, 0.4);
-            animation: fragmentDrift3 8s ease-in-out infinite;
-        }
-        
-        .hero__wave-right .wave-fragment--1 {
-            width: 75px;
-            height: 95px;
-            top: 15%;
-            right: 70px;
-            background: rgba(227, 113, 27, 0.5);
-            animation: fragmentDrift1 8s ease-in-out infinite reverse;
-        }
-        
-        .hero__wave-right .wave-fragment--2 {
-            width: 65px;
-            height: 85px;
-            top: 55%;
-            right: 90px;
-            background: rgba(245, 149, 66, 0.45);
-            animation: fragmentDrift2 10s ease-in-out infinite reverse;
-        }
-        
-        .hero__wave-right .wave-fragment--3 {
-            width: 70px;
-            height: 85px;
-            bottom: 20%;
-            right: 60px;
-            background: rgba(196, 90, 10, 0.4);
-            animation: fragmentDrift3 7s ease-in-out infinite reverse;
-        }
-        
-        /* === CENTER SAFE ZONE (white/cream) === */
-        .hero__center-safe {
-            position: absolute;
-            left: 30%;
-            right: 30%;
-            top: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, 
-                transparent 0%,
-                rgba(255, 253, 249, 0.7) 10%,
-                var(--bg-cream) 25%,
-                var(--bg-white) 50%,
-                var(--bg-cream) 75%,
-                rgba(255, 253, 249, 0.7) 90%,
-                transparent 100%
+            transform: translate(-50%, -50%);
+            width: 450px;
+            height: 280px;
+            background: radial-gradient(ellipse at center, 
+                #fffcf8 0%, 
+                #fffcf8 60%, 
+                rgba(255, 252, 248, 0.95) 80%,
+                rgba(255, 252, 248, 0.8) 100%
             );
-            z-index: 5;
+            z-index: 10;
+            border-radius: 20px;
         }
         
-        /* Soft gradient fade from edges to center */
-        .hero__fade-left {
-            position: absolute;
-            left: 20%;
-            top: 0;
-            bottom: 0;
-            width: 15%;
-            background: linear-gradient(90deg, transparent 0%, rgba(255, 253, 249, 0.95) 100%);
-            z-index: 4;
-        }
-        
-        .hero__fade-right {
-            position: absolute;
-            right: 20%;
-            top: 0;
-            bottom: 0;
-            width: 15%;
-            background: linear-gradient(270deg, transparent 0%, rgba(255, 253, 249, 0.95) 100%);
-            z-index: 4;
-        }
-        
-        /* === ANIMATIONS === */
-        @keyframes waveFloat1 {
-            0%, 100% {
-                transform: translate(0, 0) scale(1) rotate(0deg);
-            }
-            25% {
-                transform: translate(15px, 20px) scale(1.05) rotate(3deg);
-            }
-            50% {
-                transform: translate(-10px, -15px) scale(0.95) rotate(-2deg);
-            }
-            75% {
-                transform: translate(20px, -10px) scale(1.02) rotate(1deg);
-            }
-        }
-        
-        @keyframes waveFloat2 {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            33% {
-                transform: translate(-20px, 25px) scale(1.08);
-            }
-            66% {
-                transform: translate(15px, -20px) scale(0.92);
-            }
-        }
-        
-        @keyframes waveFloat3 {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            50% {
-                transform: translate(25px, 15px) rotate(5deg);
-            }
-        }
-        
-        @keyframes waveFloat4 {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            40% {
-                transform: translate(-15px, -20px) scale(1.1);
-            }
-            80% {
-                transform: translate(10px, 15px) scale(0.9);
-            }
-        }
-        
-        @keyframes waveFloat5 {
-            0%, 100% {
-                transform: translate(0, 0);
-            }
-            30% {
-                transform: translate(20px, -15px);
-            }
-            70% {
-                transform: translate(-15px, 20px);
-            }
-        }
-        
-        @keyframes fragmentDrift1 {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-            }
-            25% {
-                transform: translate(10px, -15px) rotate(15deg) scale(1.1);
-            }
-            50% {
-                transform: translate(-5px, 10px) rotate(-10deg) scale(0.9);
-            }
-            75% {
-                transform: translate(15px, 5px) rotate(5deg) scale(1.05);
-            }
-        }
-        
-        @keyframes fragmentDrift2 {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            50% {
-                transform: translate(-20px, 15px) rotate(-20deg);
-            }
-        }
-        
-        @keyframes fragmentDrift3 {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            33% {
-                transform: translate(15px, -10px) scale(1.15);
-            }
-            66% {
-                transform: translate(-10px, 20px) scale(0.85);
-            }
-        }
-        
-        @media (prefers-reduced-motion: reduce) {
-            .wave-blob, .wave-fragment {
-                animation: none !important;
-            }
-        }
-        
-        /* === CONTENT === */
+        /* Content */
         .hero__content {
             position: relative;
-            z-index: 10;
+            z-index: 20;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -572,41 +246,35 @@
             justify-content: center;
             text-align: center;
             padding: 24px;
-            /* Center content within narrower zone */
-            max-width: 500px;
-            margin: 0 auto;
         }
         
         .hero__badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(227, 113, 27, 0.12);
+            background: var(--wh-orange-pale);
             color: var(--wh-orange);
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            border: 1px solid rgba(227, 113, 27, 0.2);
         }
         
         .hero__title {
-            font-size: 2.75rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: var(--text-dark);
-            margin-bottom: 16px;
-            line-height: 1.2;
+            margin-bottom: 12px;
         }
         
         .hero__subtitle {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--text-muted);
-            max-width: 400px;
         }
         
-        /* ==============================================
-           TABS
-           ============================================== */
+        /* TABS */
         .tabs {
             display: flex;
             gap: 4px;
@@ -621,10 +289,7 @@
             color: var(--text-muted);
             cursor: pointer;
             border-bottom: 2px solid transparent;
-            transition: all 0.15s;
         }
-        
-        .tab:hover { color: var(--text-dark); }
         
         .tab--active {
             color: var(--wh-orange);
@@ -632,250 +297,293 @@
         }
         
         .tab__badge {
-            display: inline-block;
             background: #f1f5f9;
-            color: var(--text-muted);
             font-size: 11px;
-            font-weight: 600;
             padding: 2px 6px;
             border-radius: 4px;
             margin-left: 6px;
         }
         
         .tab--active .tab__badge {
-            background: rgba(227, 113, 27, 0.12);
+            background: var(--wh-orange-pale);
             color: var(--wh-orange);
         }
         
-        /* ==============================================
-           KANBAN BOARD
-           ============================================== */
+        /* KANBAN */
         .kanban {
             display: flex;
             gap: 16px;
             padding: 24px;
-            overflow-x: auto;
             background: #f8fafc;
-            min-height: 350px;
+            overflow-x: auto;
         }
         
         .kanban__column {
-            flex: 0 0 280px;
+            flex: 0 0 260px;
             background: white;
             border-radius: 12px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         }
         
         .kanban__header {
-            padding: 16px;
+            padding: 14px;
             border-bottom: 1px solid #f1f5f9;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-        }
-        
-        .kanban__title {
             font-size: 14px;
             font-weight: 600;
-            color: var(--text-dark);
         }
         
         .kanban__count {
             background: #f1f5f9;
-            color: var(--text-muted);
             font-size: 12px;
-            font-weight: 600;
             padding: 2px 8px;
             border-radius: 10px;
+            color: var(--text-muted);
         }
         
-        .kanban__cards {
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+        .kanban__cards { padding: 12px; }
         
         .card {
             background: #fafbfc;
             border: 1px solid #e2e8f0;
             border-radius: 10px;
-            padding: 14px;
+            padding: 12px;
+            margin-bottom: 10px;
             cursor: pointer;
-            transition: all 0.15s;
         }
         
         .card:hover {
             border-color: var(--wh-orange);
-            box-shadow: 0 2px 8px rgba(227, 113, 27, 0.15);
         }
         
         .card__name {
             font-size: 14px;
             font-weight: 600;
-            color: var(--text-dark);
             margin-bottom: 4px;
         }
         
         .card__position {
             font-size: 12px;
             color: var(--text-muted);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .card__footer {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
         }
         
         .card__source {
-            font-size: 11px;
-            color: var(--text-muted);
             background: #f1f5f9;
-            padding: 3px 8px;
+            padding: 2px 6px;
             border-radius: 4px;
-        }
-        
-        .card__date {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-        
-        /* ==============================================
-           RESPONSIVE
-           ============================================== */
-        @media (max-width: 768px) {
-            .sidebar { display: none; }
-            .main { margin-left: 0; }
-            .hero__title { font-size: 1.75rem; }
-            .hero__wave-left, .hero__wave-right { width: 30%; }
-            .hero__center-safe { left: 25%; right: 25%; }
-            .kanban__column { flex: 0 0 260px; }
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar__logo">
             <span class="navbar__logo-work">Work</span>
             <span class="navbar__logo-here">Here</span>
         </div>
-        
         <div class="navbar__nav">
-            <a href="#" class="navbar__link navbar__link--active">Вакансии</a>
-            <a href="#" class="navbar__link">Кандидаты</a>
-            <a href="#" class="navbar__link">Аналитика</a>
-            <a href="#" class="navbar__link">Настройки</a>
+            <a class="navbar__link navbar__link--active">Вакансии</a>
+            <a class="navbar__link">Кандидаты</a>
+            <a class="navbar__link">Аналитика</a>
+            <a class="navbar__link">Настройки</a>
         </div>
-        
         <div class="navbar__spacer"></div>
-        
         <div class="navbar__user">
             <span>Иван Петров</span>
             <div class="navbar__avatar">ИП</div>
         </div>
     </nav>
     
-    <!-- Sidebar -->
     <aside class="sidebar">
-        <div class="sidebar__section">
-            <div class="sidebar__title">Меню</div>
-            <a class="sidebar__item">
-                <span class="sidebar__icon">📊</span>
-                <span>Дашборд</span>
-            </a>
-            <a class="sidebar__item sidebar__item--active">
-                <span class="sidebar__icon">💼</span>
-                <span>Вакансии</span>
-                <span class="sidebar__badge">12</span>
-            </a>
-            <a class="sidebar__item">
-                <span class="sidebar__icon">👥</span>
-                <span>Кандидаты</span>
-            </a>
-            <a class="sidebar__item">
-                <span class="sidebar__icon">📅</span>
-                <span>Календарь</span>
-            </a>
-            <a class="sidebar__item">
-                <span class="sidebar__icon">📈</span>
-                <span>Отчёты</span>
-            </a>
-        </div>
-        
-        <div class="sidebar__section">
-            <div class="sidebar__title">Мои вакансии</div>
-            <div class="sidebar__vacancy">
-                <span class="sidebar__vacancy-dot"></span>
-                <span>Frontend-разработчик</span>
-            </div>
-            <div class="sidebar__vacancy">
-                <span class="sidebar__vacancy-dot"></span>
-                <span>Product Manager</span>
-            </div>
-            <div class="sidebar__vacancy">
-                <span class="sidebar__vacancy-dot sidebar__vacancy-dot--yellow"></span>
-                <span>UX/UI Дизайнер</span>
-            </div>
-            <div class="sidebar__vacancy">
-                <span class="sidebar__vacancy-dot sidebar__vacancy-dot--red"></span>
-                <span>DevOps Engineer</span>
-            </div>
-        </div>
+        <div class="sidebar__title">Меню</div>
+        <div class="sidebar__item">📊 Дашборд</div>
+        <div class="sidebar__item sidebar__item--active">💼 Вакансии <span class="sidebar__badge">12</span></div>
+        <div class="sidebar__item">👥 Кандидаты</div>
+        <div class="sidebar__item">📅 Календарь</div>
+        <div class="sidebar__item">📈 Отчёты</div>
+        <div class="sidebar__title" style="margin-top: 20px;">Мои вакансии</div>
+        <div class="sidebar__item">🟢 Frontend-разработчик</div>
+        <div class="sidebar__item">🟢 Product Manager</div>
+        <div class="sidebar__item">🟡 UX/UI Дизайнер</div>
+        <div class="sidebar__item">🔴 DevOps Engineer</div>
     </aside>
     
-    <!-- Main Content -->
     <main class="main">
-        <!-- Hero Section with Dynamic Wave Background -->
         <section class="hero">
-            <!-- Wave effects on edges -->
-            <div class="hero__waves">
-                <!-- LEFT SIDE -->
-                <div class="hero__wave-left">
-                    <div class="wave-blob wave-blob--1"></div>
-                    <div class="wave-blob wave-blob--2"></div>
-                    <div class="wave-blob wave-blob--3"></div>
-                    <div class="wave-blob wave-blob--4"></div>
-                    <div class="wave-blob wave-blob--5"></div>
-                    <div class="wave-fragment wave-fragment--1"></div>
-                    <div class="wave-fragment wave-fragment--2"></div>
-                    <div class="wave-fragment wave-fragment--3"></div>
-                </div>
-                
-                <!-- RIGHT SIDE -->
-                <div class="hero__wave-right">
-                    <div class="wave-blob wave-blob--1"></div>
-                    <div class="wave-blob wave-blob--2"></div>
-                    <div class="wave-blob wave-blob--3"></div>
-                    <div class="wave-blob wave-blob--4"></div>
-                    <div class="wave-blob wave-blob--5"></div>
-                    <div class="wave-fragment wave-fragment--1"></div>
-                    <div class="wave-fragment wave-fragment--2"></div>
-                    <div class="wave-fragment wave-fragment--3"></div>
-                </div>
+            <!-- Animated SVG Ribbons -->
+            <div class="hero__ribbons">
+                <svg viewBox="0 0 1200 420" preserveAspectRatio="none">
+                    <defs>
+                        <linearGradient id="ribbonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#E3711B;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#f5923d;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#E3711B;stop-opacity:1" />
+                        </linearGradient>
+                        
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    
+                    <!-- LEFT RIBBONS -->
+                    <path class="ribbon ribbon--1" filter="url(#glow)">
+                        <animate 
+                            attributeName="d" 
+                            dur="6s" 
+                            repeatCount="indefinite"
+                            values="
+                                M -50,50 Q 80,100 120,180 T 180,320 Q 200,400 150,450;
+                                M -50,80 Q 100,60 140,150 T 200,280 Q 220,380 170,450;
+                                M -50,30 Q 60,120 100,200 T 160,350 Q 180,420 130,450;
+                                M -50,50 Q 80,100 120,180 T 180,320 Q 200,400 150,450
+                            "
+                            calcMode="spline"
+                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
+                        />
+                    </path>
+                    
+                    <path class="ribbon ribbon--2" filter="url(#glow)">
+                        <animate 
+                            attributeName="d" 
+                            dur="8s" 
+                            repeatCount="indefinite"
+                            values="
+                                M -30,150 Q 50,80 100,120 T 220,200 Q 280,280 250,380;
+                                M -30,120 Q 70,150 130,100 T 250,180 Q 300,250 270,360;
+                                M -30,180 Q 40,100 80,140 T 200,220 Q 260,300 230,400;
+                                M -30,150 Q 50,80 100,120 T 220,200 Q 280,280 250,380
+                            "
+                            calcMode="spline"
+                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
+                        />
+                    </path>
+                    
+                    <path class="ribbon ribbon--3">
+                        <animate 
+                            attributeName="d" 
+                            dur="7s" 
+                            repeatCount="indefinite"
+                            values="
+                                M -20,280 Q 60,220 100,260 T 200,340 Q 250,400 220,450;
+                                M -20,250 Q 80,280 120,240 T 220,320 Q 270,380 240,450;
+                                M -20,300 Q 50,240 90,280 T 180,360 Q 230,420 200,450;
+                                M -20,280 Q 60,220 100,260 T 200,340 Q 250,400 220,450
+                            "
+                            calcMode="spline"
+                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
+                        />
+                    </path>
+                    
+                    <!-- RIGHT RIBBONS -->
+                    <path class="ribbon ribbon--4" filter="url(#glow)">
+                        <animate 
+                            attributeName="d" 
+                            dur="7s" 
+                            repeatCount="indefinite"
+                            values="
+                                M 1250,80 Q 1120,50 1080,130 T 1000,280 Q 960,380 1020,450;
+                                M 1250,50 Q 1140,100 1100,100 T 1020,250 Q 980,350 1040,450;
+                                M 1250,100 Q 1100,70 1060,160 T 980,310 Q 940,400 1000,450;
+                                M 1250,80 Q 1120,50 1080,130 T 1000,280 Q 960,380 1020,450
+                            "
+                            calcMode="spline"
+                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
+                        />
+                    </path>
+                    
+                    <path class="ribbon ribbon--5" filter="url(#glow)">
+                        <animate 
+                            attributeName="d" 
+                            dur="9s" 
+                            repeatCount="indefinite"
+                            values="
+                                M 1250,200 Q 1150,150 1100,200 T 980,300 Q 920,380 960,450;
+                                M 1250,170 Q 1130,200 1080,170 T 960,270 Q 900,350 940,450;
+                                M 1250,230 Q 1160,180 1120,230 T 1000,330 Q 940,400 980,450;
+                                M 1250,200 Q 1150,150 1100,200 T 980,300 Q 920,380 960,450
+                            "
+                            calcMode="spline"
+                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
+                        />
+                    </path>
+                    
+                    <path class="ribbon ribbon--2">
+                        <animate 
+                            attributeName="d" 
+                            dur="8s" 
+                            repeatCount="indefinite"
+                            values="
+                                M 1250,320 Q 1130,280 1080,320 T 1000,380 Q 960,420 1000,450;
+                                M 1250,290 Q 1150,330 1100,290 T 1020,360 Q 980,400 1020,450;
+                                M 1250,350 Q 1120,300 1060,350 T 980,400 Q 940,440 980,450;
+                                M 1250,320 Q 1130,280 1080,320 T 1000,380 Q 960,420 1000,450
+                            "
+                            calcMode="spline"
+                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
+                        />
+                    </path>
+                    
+                    <!-- TOP RIBBONS -->
+                    <path class="ribbon ribbon--3" filter="url(#glow)">
+                        <animate 
+                            attributeName="d" 
+                            dur="10s" 
+                            repeatCount="indefinite"
+                            values="
+                                M 300,-30 Q 380,40 500,20 T 700,60 Q 800,100 900,-30;
+                                M 320,-30 Q 400,60 520,30 T 720,80 Q 820,120 920,-30;
+                                M 280,-30 Q 360,30 480,10 T 680,50 Q 780,90 880,-30;
+                                M 300,-30 Q 380,40 500,20 T 700,60 Q 800,100 900,-30
+                            "
+                            calcMode="spline"
+                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
+                        />
+                    </path>
+                    
+                    <!-- BOTTOM RIBBONS -->
+                    <path class="ribbon ribbon--1">
+                        <animate 
+                            attributeName="d" 
+                            dur="9s" 
+                            repeatCount="indefinite"
+                            values="
+                                M 250,450 Q 350,380 500,420 T 750,380 Q 850,340 950,450;
+                                M 270,450 Q 370,360 520,400 T 770,360 Q 870,320 970,450;
+                                M 230,450 Q 330,400 480,440 T 730,400 Q 830,360 930,450;
+                                M 250,450 Q 350,380 500,420 T 750,380 Q 850,340 950,450
+                            "
+                            calcMode="spline"
+                            keySplines="0.4 0 0.2 1; 0.4 0 0.2 1; 0.4 0 0.2 1"
+                        />
+                    </path>
+                </svg>
             </div>
             
-            <!-- Fade transitions -->
-            <div class="hero__fade-left"></div>
-            <div class="hero__fade-right"></div>
-            
-            <!-- Safe white center zone -->
-            <div class="hero__center-safe"></div>
+            <!-- Center safe zone -->
+            <div class="hero__center"></div>
             
             <!-- Content -->
             <div class="hero__content">
                 <div class="hero__badge">
-                    <span>🧠</span>
-                    <span>ИИ-поиск кандидатов</span>
+                    🧠 ИИ-поиск кандидатов
                 </div>
                 <h1 class="hero__title">Frontend-разработчик</h1>
                 <p class="hero__subtitle">Отдел разработки • Москва • от 250 000 ₽</p>
             </div>
         </section>
         
-        <!-- Tabs -->
         <div class="tabs">
             <div class="tab">Из базы <span class="tab__badge">24</span></div>
             <div class="tab tab--active">Отклики <span class="tab__badge">18</span></div>
@@ -884,20 +592,16 @@
             <div class="tab">Оффер <span class="tab__badge">1</span></div>
         </div>
         
-        <!-- Kanban Board -->
         <div class="kanban">
             <div class="kanban__column">
-                <div class="kanban__header">
-                    <span class="kanban__title">Новые</span>
-                    <span class="kanban__count">5</span>
-                </div>
+                <div class="kanban__header">Новые <span class="kanban__count">5</span></div>
                 <div class="kanban__cards">
                     <div class="card">
                         <div class="card__name">Алексей Смирнов</div>
                         <div class="card__position">Senior Frontend Developer</div>
                         <div class="card__footer">
                             <span class="card__source">hh.ru</span>
-                            <span class="card__date">Сегодня</span>
+                            <span>Сегодня</span>
                         </div>
                     </div>
                     <div class="card">
@@ -905,75 +609,46 @@
                         <div class="card__position">React Developer</div>
                         <div class="card__footer">
                             <span class="card__source">LinkedIn</span>
-                            <span class="card__date">Вчера</span>
+                            <span>Вчера</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
             <div class="kanban__column">
-                <div class="kanban__header">
-                    <span class="kanban__title">Скрининг</span>
-                    <span class="kanban__count">3</span>
-                </div>
+                <div class="kanban__header">Скрининг <span class="kanban__count">3</span></div>
                 <div class="kanban__cards">
                     <div class="card">
                         <div class="card__name">Екатерина Волкова</div>
                         <div class="card__position">Frontend Developer</div>
                         <div class="card__footer">
                             <span class="card__source">hh.ru</span>
-                            <span class="card__date">3 дня</span>
+                            <span>3 дня</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
             <div class="kanban__column">
-                <div class="kanban__header">
-                    <span class="kanban__title">Интервью HR</span>
-                    <span class="kanban__count">2</span>
-                </div>
+                <div class="kanban__header">Интервью <span class="kanban__count">2</span></div>
                 <div class="kanban__cards">
                     <div class="card">
                         <div class="card__name">Ольга Петрова</div>
-                        <div class="card__position">Senior React Developer</div>
+                        <div class="card__position">Senior React Dev</div>
                         <div class="card__footer">
                             <span class="card__source">LinkedIn</span>
-                            <span class="card__date">5 дней</span>
+                            <span>5 дней</span>
                         </div>
                     </div>
                 </div>
             </div>
-            
             <div class="kanban__column">
-                <div class="kanban__header">
-                    <span class="kanban__title">Техническое</span>
-                    <span class="kanban__count">1</span>
-                </div>
-                <div class="kanban__cards">
-                    <div class="card">
-                        <div class="card__name">Сергей Морозов</div>
-                        <div class="card__position">Lead Frontend Developer</div>
-                        <div class="card__footer">
-                            <span class="card__source">Реферал</span>
-                            <span class="card__date">1 нед</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="kanban__column">
-                <div class="kanban__header">
-                    <span class="kanban__title">Оффер</span>
-                    <span class="kanban__count">1</span>
-                </div>
+                <div class="kanban__header">Оффер <span class="kanban__count">1</span></div>
                 <div class="kanban__cards">
                     <div class="card">
                         <div class="card__name">Николай Федоров</div>
-                        <div class="card__position">Senior Frontend Developer</div>
+                        <div class="card__position">Senior Frontend Dev</div>
                         <div class="card__footer">
-                            <span class="card__source">hh.ru</span>
-                            <span class="card__date">2 нед</span>
+                            <span class="card__source">Реферал</span>
+                            <span>2 нед</span>
                         </div>
                     </div>
                 </div>
