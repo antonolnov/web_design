@@ -153,183 +153,207 @@ const fsSource = `
     uniform float uTime;
     uniform vec2 uResolution;
     
-    vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+    // Better noise
+    vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+    vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+    vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
+    vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
     
-    float snoise(vec2 v) {
-        const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
-        vec2 i = floor(v + dot(v, C.yy));
-        vec2 x0 = v - i + dot(i, C.xx);
-        vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-        vec4 x12 = x0.xyxy + C.xxzz;
-        x12.xy -= i1;
-        i = mod(i, 289.0);
-        vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
-        vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
-        m = m*m; m = m*m;
-        vec3 x = 2.0 * fract(p * C.www) - 1.0;
-        vec3 h = abs(x) - 0.5;
-        vec3 ox = floor(x + 0.5);
-        vec3 a0 = x - ox;
-        m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
-        vec3 g;
-        g.x = a0.x * x0.x + h.x * x0.y;
-        g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-        return 130.0 * dot(m, g);
+    float snoise(vec3 v) {
+        const vec2 C = vec2(1.0/6.0, 1.0/3.0);
+        const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
+        
+        vec3 i = floor(v + dot(v, C.yyy));
+        vec3 x0 = v - i + dot(i, C.xxx);
+        
+        vec3 g = step(x0.yzx, x0.xyz);
+        vec3 l = 1.0 - g;
+        vec3 i1 = min(g.xyz, l.zxy);
+        vec3 i2 = max(g.xyz, l.zxy);
+        
+        vec3 x1 = x0 - i1 + C.xxx;
+        vec3 x2 = x0 - i2 + C.yyy;
+        vec3 x3 = x0 - D.yyy;
+        
+        i = mod289(i);
+        vec4 p = permute(permute(permute(
+            i.z + vec4(0.0, i1.z, i2.z, 1.0))
+            + i.y + vec4(0.0, i1.y, i2.y, 1.0))
+            + i.x + vec4(0.0, i1.x, i2.x, 1.0));
+            
+        float n_ = 0.142857142857;
+        vec3 ns = n_ * D.wyz - D.xzx;
+        
+        vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
+        
+        vec4 x_ = floor(j * ns.z);
+        vec4 y_ = floor(j - 7.0 * x_);
+        
+        vec4 x = x_ *ns.x + ns.yyyy;
+        vec4 y = y_ *ns.x + ns.yyyy;
+        vec4 h = 1.0 - abs(x) - abs(y);
+        
+        vec4 b0 = vec4(x.xy, y.xy);
+        vec4 b1 = vec4(x.zw, y.zw);
+        
+        vec4 s0 = floor(b0)*2.0 + 1.0;
+        vec4 s1 = floor(b1)*2.0 + 1.0;
+        vec4 sh = -step(h, vec4(0.0));
+        
+        vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
+        vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
+        
+        vec3 p0 = vec3(a0.xy, h.x);
+        vec3 p1 = vec3(a0.zw, h.y);
+        vec3 p2 = vec3(a1.xy, h.z);
+        vec3 p3 = vec3(a1.zw, h.w);
+        
+        vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
+        p0 *= norm.x;
+        p1 *= norm.y;
+        p2 *= norm.z;
+        p3 *= norm.w;
+        
+        vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+        m = m * m;
+        return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
     }
     
-    // Elongated brush stroke shape
-    float brushStroke(vec2 uv, vec2 start, vec2 end, float width, float time, float seed) {
-        // Direction and length
-        vec2 dir = end - start;
-        float len = length(dir);
-        vec2 normDir = dir / len;
-        
-        // Perpendicular
-        vec2 perp = vec2(-normDir.y, normDir.x);
-        
-        // Project point onto line
-        vec2 toPoint = uv - start;
-        float along = dot(toPoint, normDir);
-        float across = dot(toPoint, perp);
-        
-        // Parametric position along stroke (0 to 1)
-        float t = along / len;
-        
-        // Width variation along stroke - thicker in middle
-        float widthMod = sin(t * 3.14159) * 0.6 + 0.4;
-        
-        // Organic edge wobble
-        float edgeWobble = snoise(vec2(t * 8.0 + seed, time * 0.3)) * 0.15;
-        edgeWobble += snoise(vec2(t * 15.0 + seed * 2.0, time * 0.2)) * 0.08;
-        
-        float currentWidth = width * widthMod + edgeWobble * width;
-        
-        // Distance from stroke center
-        float dist = abs(across) - currentWidth;
-        
-        // Soft ends
-        float endFade = smoothstep(0.0, 0.1, t) * smoothstep(1.0, 0.9, t);
-        
-        // Final shape
-        float shape = smoothstep(0.02, -0.02, dist) * endFade;
-        
-        // Return shape and t for fold calculation
-        return shape;
+    // FBM with domain warping
+    float fbm(vec3 p) {
+        float value = 0.0;
+        float amplitude = 0.5;
+        float frequency = 1.0;
+        for (int i = 0; i < 5; i++) {
+            value += amplitude * snoise(p * frequency);
+            amplitude *= 0.5;
+            frequency *= 2.0;
+        }
+        return value;
     }
     
-    // Get fold value along stroke
-    float strokeFolds(vec2 uv, vec2 start, vec2 end, float time, float seed) {
-        vec2 dir = end - start;
-        float len = length(dir);
-        vec2 normDir = dir / len;
+    // Domain warped noise for organic fabric
+    float fabricField(vec2 uv, float time) {
+        vec3 p = vec3(uv * 2.0, time * 0.15);
         
-        vec2 toPoint = uv - start;
-        float along = dot(toPoint, normDir);
-        float t = along / len;
+        // First warp
+        float warp1 = fbm(p + vec3(0.0, 0.0, 0.0));
+        float warp2 = fbm(p + vec3(5.2, 1.3, 2.1));
         
-        // Folds perpendicular to stroke direction (across the width)
-        vec2 perp = vec2(-normDir.y, normDir.x);
-        float across = dot(toPoint, perp);
+        vec3 q = p + vec3(warp1, warp2, 0.0) * 0.8;
         
-        // Multiple fold frequencies - creates fabric-like pattern
-        float foldSpeed = time * 0.4;
+        // Second warp
+        float warp3 = fbm(q + vec3(1.7, 9.2, 3.5));
+        float warp4 = fbm(q + vec3(8.3, 2.8, 1.2));
         
-        // Main folds - perpendicular to stroke, moving along it
-        float fold1 = sin((t * 25.0 - foldSpeed) + seed) * 0.5;
-        float fold2 = sin((t * 40.0 - foldSpeed * 1.3) + seed * 1.5) * 0.3;
-        float fold3 = sin((t * 60.0 - foldSpeed * 0.8) + seed * 2.0) * 0.15;
+        vec3 r = q + vec3(warp3, warp4, 0.0) * 0.6;
         
-        // Add some noise for organic feel
-        float noiseFold = snoise(vec2(t * 10.0, time * 0.5 + seed)) * 0.2;
+        // Final noise with stretch for fabric folds
+        vec3 stretched = vec3(r.x, r.y * 2.5, r.z);
+        return fbm(stretched);
+    }
+    
+    // Soft amorphous shape
+    float softShape(vec2 uv, vec2 center, float size, float time, float seed) {
+        vec2 p = uv - center;
         
-        float folds = fold1 + fold2 + fold3 + noiseFold;
+        // Base distance
+        float dist = length(p);
         
-        // Normalize to 0-1
-        return folds * 0.5 + 0.5;
+        // Organic deformation
+        float angle = atan(p.y, p.x);
+        float deform = 0.0;
+        deform += snoise(vec3(angle * 2.0, seed, time * 0.2)) * 0.3;
+        deform += snoise(vec3(angle * 4.0, seed + 10.0, time * 0.15)) * 0.15;
+        deform += snoise(vec3(angle * 8.0, seed + 20.0, time * 0.1)) * 0.08;
+        
+        float modSize = size * (1.0 + deform);
+        
+        // Very soft edge
+        return smoothstep(modSize, modSize * 0.3, dist);
+    }
+    
+    // Calculate normal from height for 3D lighting
+    vec3 calculateNormal(vec2 uv, float time) {
+        float eps = 0.005;
+        float h = fabricField(uv, time);
+        float hx = fabricField(uv + vec2(eps, 0.0), time);
+        float hy = fabricField(uv + vec2(0.0, eps), time);
+        
+        vec3 normal = normalize(vec3(
+            (h - hx) / eps * 0.5,
+            (h - hy) / eps * 0.5,
+            1.0
+        ));
+        return normal;
     }
     
     void main() {
         vec2 uv = vUv;
         float aspect = uResolution.x / uResolution.y;
-        vec2 aspectUV = vec2(uv.x * aspect, uv.y);
+        vec2 aspectUV = vec2((uv.x - 0.5) * aspect + 0.5, uv.y);
         
-        float time = uTime * 0.8;
+        float time = uTime;
         
         // Colors
-        vec3 darkColor = vec3(0.55, 0.15, 0.0);
+        vec3 darkColor = vec3(0.5, 0.12, 0.0);
         vec3 midColor = vec3(0.89, 0.44, 0.11);
-        vec3 lightColor = vec3(1.0, 0.72, 0.5);
-        vec3 highlightColor = vec3(1.0, 0.93, 0.88);
+        vec3 lightColor = vec3(1.0, 0.72, 0.52);
+        vec3 highlightColor = vec3(1.0, 0.92, 0.87);
         vec3 white = vec3(1.0);
         
-        vec3 finalColor = white;
+        // Create soft amorphous shapes on sides
+        float leftShape = 0.0;
+        leftShape += softShape(aspectUV, vec2(0.0, 0.5), 0.45, time, 1.0);
+        leftShape += softShape(aspectUV, vec2(0.1, 0.3), 0.35, time, 2.0);
+        leftShape += softShape(aspectUV, vec2(0.05, 0.75), 0.3, time, 3.0);
+        leftShape = clamp(leftShape, 0.0, 1.0);
         
-        // Define brush strokes - LEFT SIDE
-        // Stroke 1 - main large
-        vec2 l1Start = vec2(-0.15 * aspect, -0.1 + sin(time * 0.2) * 0.05);
-        vec2 l1End = vec2(0.25 * aspect + sin(time * 0.15) * 0.03, 1.1);
-        float l1Shape = brushStroke(aspectUV, l1Start, l1End, 0.18, time, 1.0);
-        float l1Folds = strokeFolds(aspectUV, l1Start, l1End, time, 1.0);
+        float rightShape = 0.0;
+        rightShape += softShape(aspectUV, vec2(1.0, 0.5), 0.45, time, 4.0);
+        rightShape += softShape(aspectUV, vec2(0.9, 0.35), 0.35, time, 5.0);
+        rightShape += softShape(aspectUV, vec2(0.95, 0.7), 0.3, time, 6.0);
+        rightShape = clamp(rightShape, 0.0, 1.0);
         
-        // Stroke 2 - secondary
-        vec2 l2Start = vec2(0.0 * aspect, -0.05 + sin(time * 0.25 + 1.0) * 0.04);
-        vec2 l2End = vec2(0.18 * aspect + sin(time * 0.18) * 0.02, 1.05);
-        float l2Shape = brushStroke(aspectUV, l2Start, l2End, 0.12, time, 2.0);
-        float l2Folds = strokeFolds(aspectUV, l2Start, l2End, time, 2.0);
+        float totalShape = max(leftShape, rightShape);
         
-        // Stroke 3 - thin accent
-        vec2 l3Start = vec2(0.08 * aspect, 0.1 + sin(time * 0.22 + 2.0) * 0.03);
-        vec2 l3End = vec2(0.22 * aspect + sin(time * 0.2) * 0.025, 0.95);
-        float l3Shape = brushStroke(aspectUV, l3Start, l3End, 0.08, time, 3.0);
-        float l3Folds = strokeFolds(aspectUV, l3Start, l3End, time, 3.0);
+        // Fabric texture with domain warping
+        float fabric = fabricField(aspectUV, time);
+        fabric = fabric * 0.5 + 0.5; // normalize to 0-1
         
-        // RIGHT SIDE
-        // Stroke 4 - main large
-        vec2 r1Start = vec2(1.15 * aspect, -0.1 + sin(time * 0.2 + 3.0) * 0.05);
-        vec2 r1End = vec2(0.75 * aspect + sin(time * 0.15 + 1.0) * 0.03, 1.1);
-        float r1Shape = brushStroke(aspectUV, r1Start, r1End, 0.18, time, 4.0);
-        float r1Folds = strokeFolds(aspectUV, r1Start, r1End, time, 4.0);
+        // 3D lighting from normals
+        vec3 normal = calculateNormal(aspectUV, time);
+        vec3 lightDir = normalize(vec3(0.5, 0.5, 1.0));
+        float diffuse = max(dot(normal, lightDir), 0.0);
         
-        // Stroke 5 - secondary
-        vec2 r2Start = vec2(1.0 * aspect, -0.05 + sin(time * 0.25 + 4.0) * 0.04);
-        vec2 r2End = vec2(0.82 * aspect + sin(time * 0.18 + 2.0) * 0.02, 1.05);
-        float r2Shape = brushStroke(aspectUV, r2Start, r2End, 0.12, time, 5.0);
-        float r2Folds = strokeFolds(aspectUV, r2Start, r2End, time, 5.0);
+        // Specular highlight
+        vec3 viewDir = vec3(0.0, 0.0, 1.0);
+        vec3 reflectDir = reflect(-lightDir, normal);
+        float specular = pow(max(dot(viewDir, reflectDir), 0.0), 16.0);
         
-        // Stroke 6 - thin accent
-        vec2 r3Start = vec2(0.92 * aspect, 0.1 + sin(time * 0.22 + 5.0) * 0.03);
-        vec2 r3End = vec2(0.78 * aspect + sin(time * 0.2 + 3.0) * 0.025, 0.95);
-        float r3Shape = brushStroke(aspectUV, r3Start, r3End, 0.08, time, 6.0);
-        float r3Folds = strokeFolds(aspectUV, r3Start, r3End, time, 6.0);
+        // Combine fabric height and lighting for final shade
+        float shade = fabric * 0.6 + diffuse * 0.4;
+        shade = pow(shade, 0.9); // adjust contrast
         
-        // Combine strokes with fold-based coloring
-        float totalShape = 0.0;
-        vec3 strokeColor = white;
+        // Color based on shade
+        vec3 fabricColor = mix(darkColor, midColor, smoothstep(0.0, 0.4, shade));
+        fabricColor = mix(fabricColor, lightColor, smoothstep(0.4, 0.65, shade));
+        fabricColor = mix(fabricColor, highlightColor, smoothstep(0.65, 0.85, shade));
+        fabricColor = mix(fabricColor, white, smoothstep(0.85, 1.0, shade) * 0.6);
         
-        // Helper function inline - blend stroke with folds
-        #define BLEND_STROKE(shape, folds) { \
-            if (shape > 0.01) { \
-                vec3 foldColor = mix(darkColor, midColor, smoothstep(0.2, 0.5, folds)); \
-                foldColor = mix(foldColor, lightColor, smoothstep(0.5, 0.75, folds)); \
-                foldColor = mix(foldColor, highlightColor, smoothstep(0.75, 0.9, folds)); \
-                foldColor = mix(foldColor, white, smoothstep(0.9, 1.0, folds) * 0.7); \
-                strokeColor = mix(strokeColor, foldColor, shape * 0.95); \
-                totalShape = max(totalShape, shape); \
-            } \
-        }
+        // Add specular highlights
+        fabricColor += white * specular * 0.4;
         
-        BLEND_STROKE(l1Shape, l1Folds)
-        BLEND_STROKE(l2Shape, l2Folds)
-        BLEND_STROKE(l3Shape, l3Folds)
-        BLEND_STROKE(r1Shape, r1Folds)
-        BLEND_STROKE(r2Shape, r2Folds)
-        BLEND_STROKE(r3Shape, r3Folds)
+        // Apply shape mask with very soft edge
+        vec3 finalColor = mix(white, fabricColor, totalShape);
         
-        finalColor = strokeColor;
+        // Extra soft fade at edges of shapes
+        float edgeFade = smoothstep(0.0, 0.4, totalShape);
+        finalColor = mix(white, finalColor, edgeFade);
         
-        // Center fade for text readability
+        // Center fade for text
         float centerDist = length(uv - vec2(0.5));
-        float centerMask = smoothstep(0.15, 0.5, centerDist);
+        float centerMask = smoothstep(0.1, 0.45, centerDist);
         finalColor = mix(white, finalColor, centerMask);
         
         gl_FragColor = vec4(finalColor, 1.0);
