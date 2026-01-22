@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Скрипт для генерации PDF коммерческого предложения WorkHere
-Использует markdown + weasyprint для создания стильного PDF
+Генератор PDF коммерческого предложения WorkHere
+Профессиональный дизайн, компактная вёрстка
 """
 
 import markdown
@@ -9,153 +9,176 @@ from weasyprint import HTML, CSS
 from pathlib import Path
 
 
+# Логотип WorkHere как inline SVG
+LOGO_SVG = '''
+<svg width="180" height="50" viewBox="0 0 180 50" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="100" height="50" fill="#2196F3"/>
+  <rect x="100" y="0" width="80" height="50" fill="#1a1a1a"/>
+  <text x="10" y="36" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Work</text>
+  <text x="108" y="36" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="white">Here</text>
+</svg>
+'''
+
+
 def generate_pdf():
-    # Пути к файлам
     script_dir = Path(__file__).parent
     md_file = script_dir / "workhere-proposal.md"
     pdf_file = script_dir / "WorkHere_Commercial_Proposal.pdf"
     
-    # Читаем markdown
     md_content = md_file.read_text(encoding="utf-8")
     
-    # Конвертируем в HTML
+    # Убираем первый заголовок, будем использовать логотип вместо него
+    lines = md_content.split('\n')
+    if lines[0].startswith('# WorkHere'):
+        lines = lines[1:]
+    md_content = '\n'.join(lines)
+    
     html_content = markdown.markdown(
         md_content,
         extensions=['tables', 'fenced_code']
     )
     
-    # CSS стили для красивого PDF
     css = CSS(string='''
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        
         @page {
             size: A4;
-            margin: 2cm;
-            @bottom-center {
-                content: counter(page);
-                font-size: 10pt;
-                color: #666;
+            margin: 1.5cm 2cm;
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                font-size: 9pt;
+                color: #888;
             }
         }
         
         body {
-            font-family: 'Inter', 'DejaVu Sans', 'Liberation Sans', Arial, sans-serif;
-            font-size: 11pt;
-            line-height: 1.6;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-size: 10pt;
+            line-height: 1.4;
+            color: #222;
         }
         
-        h1 {
-            color: #1a365d;
-            font-size: 28pt;
-            font-weight: 700;
-            margin-top: 0;
-            margin-bottom: 0.5em;
+        .logo-container {
             text-align: center;
-            border-bottom: 3px solid #3182ce;
-            padding-bottom: 0.3em;
+            margin-bottom: 8px;
         }
+        
+        .tagline {
+            text-align: center;
+            font-size: 14pt;
+            color: #444;
+            margin: 0 0 12px 0;
+            font-weight: 500;
+        }
+        
+        h1 { display: none; }
         
         h2 {
-            color: #2c5282;
-            font-size: 16pt;
+            color: #1a1a1a;
+            font-size: 13pt;
             font-weight: 600;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-            border-left: 4px solid #3182ce;
-            padding-left: 0.5em;
+            margin: 16px 0 8px 0;
+            padding-bottom: 4px;
+            border-bottom: 2px solid #2196F3;
         }
         
         h3 {
-            color: #2d3748;
-            font-size: 12pt;
+            color: #333;
+            font-size: 10pt;
             font-weight: 600;
-            margin-top: 1em;
-            margin-bottom: 0.3em;
+            margin: 10px 0 4px 0;
         }
         
         p {
-            margin-bottom: 0.8em;
+            margin: 0 0 8px 0;
         }
         
         ul, ol {
-            margin-bottom: 1em;
-            padding-left: 1.5em;
+            margin: 4px 0 8px 0;
+            padding-left: 18px;
         }
         
         li {
-            margin-bottom: 0.3em;
+            margin-bottom: 2px;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 1em 0;
-            font-size: 10pt;
+            margin: 8px 0;
+            font-size: 9.5pt;
         }
         
         th {
-            background-color: #3182ce;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
             color: white;
             font-weight: 600;
             text-align: left;
-            padding: 10px 12px;
+            padding: 8px 10px;
         }
         
         td {
-            padding: 10px 12px;
-            border-bottom: 1px solid #e2e8f0;
+            padding: 7px 10px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
         }
         
-        tr:nth-child(even) {
-            background-color: #f7fafc;
+        tr:nth-child(even) td {
+            background-color: #f8f9fa;
+        }
+        
+        tr:last-child td {
+            border-bottom: 2px solid #2196F3;
         }
         
         hr {
             border: none;
-            border-top: 1px solid #e2e8f0;
-            margin: 2em 0;
+            border-top: 1px solid #e0e0e0;
+            margin: 12px 0;
         }
         
         strong {
-            color: #1a365d;
+            color: #1a1a1a;
         }
         
-        /* Стиль для блоков с преимуществами */
-        p:has(✓) {
-            background-color: #f0fff4;
-            padding: 0.5em;
-            border-radius: 4px;
+        /* Компактные блоки функционала */
+        p + ul {
+            margin-top: -4px;
         }
         
-        /* Центрирование для последнего блока */
-        em {
-            display: block;
+        /* Финальный блок */
+        p:last-of-type {
             text-align: center;
-            font-style: italic;
-            color: #4a5568;
-            margin-top: 2em;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-top: 16px;
+            font-weight: 500;
+        }
+        
+        p:last-of-type strong {
+            color: white;
         }
     ''')
     
-    # Полный HTML документ
     full_html = f'''
     <!DOCTYPE html>
     <html lang="ru">
     <head>
         <meta charset="UTF-8">
-        <title>WorkHere - Коммерческое предложение</title>
+        <title>WorkHere — Коммерческое предложение</title>
     </head>
     <body>
+        <div class="logo-container">
+            {LOGO_SVG}
+        </div>
+        <p class="tagline">ATS/CRM для подбора персонала</p>
         {html_content}
     </body>
     </html>
     '''
     
-    # Генерируем PDF
     HTML(string=full_html).write_pdf(pdf_file, stylesheets=[css])
-    
-    print(f"PDF успешно создан: {pdf_file}")
+    print(f"PDF создан: {pdf_file}")
     return pdf_file
 
 
