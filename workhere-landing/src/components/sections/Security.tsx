@@ -72,7 +72,7 @@ export default function Security() {
       id="security" 
       className="relative py-24 overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #0f172a 0%, #1e3a5f 40%, #1890ff 100%)',
+        background: 'linear-gradient(180deg, #0f172a 0%, #0c2d4d 50%, #0a3a5c 100%)',
       }}
     >
       {/* Subtle grid pattern */}
@@ -205,7 +205,7 @@ export default function Security() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.6 }}
-          className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10"
+          className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20"
         >
           <div className="flex items-center gap-3 mb-6">
             <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
