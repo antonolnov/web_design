@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkHere Hero Background</title>
+    <style>
+        /* ==============================================
+           WORHERE HERO BACKGROUND COMPONENT
+           Animated silk/satin flowing background
+           
+           CUSTOMIZATION (CSS Variables):
+           --wh-blue: Brand blue color (edges)
+           --center-accent: Center glow color (fuchsia)
+           --bg-base: Base background color
+           --intensity: Effect intensity (0.0 - 1.0)
+           --speed: Animation speed multiplier (0.5 - 1.5)
+           ============================================== */
+        
+        :root {
+            /* === COLORS - Customize here === */
+            --wh-blue: #1890ff;
+            --wh-blue-light: #40a9ff;
+            --center-accent: #ff3b8d;
+            --center-accent-soft: #ff6bab;
+            --bg-base: #f8f9fc;
+            --bg-warm: #fff5f8;
+            
+            /* === EFFECT CONTROLS === */
+            --intensity: 0.85;        /* 0.0 = subtle, 1.0 = full */
+            --speed: 1;               /* 0.5 = slow, 1.5 = faster */
+            
+            /* === COMPUTED (don't edit) === */
+            --cycle-1: calc(28s / var(--speed));
+            --cycle-2: calc(35s / var(--speed));
+            --cycle-3: calc(22s / var(--speed));
+            --cycle-4: calc(40s / var(--speed));
+            --blob-opacity: calc(0.4 * var(--intensity));
+            --glow-opacity: calc(0.35 * var(--intensity));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* === HERO CONTAINER === */
+        .wh-hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+            background: var(--bg-base);
+        }
+        
+        /* === BACKGROUND LAYERS CONTAINER === */
+        .wh-hero__bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        /* === LAYER 1: Base gradient === */
+        .wh-hero__base {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 120% 80% at 50% 50%, var(--bg-warm) 0%, transparent 70%),
+                linear-gradient(180deg, #ffffff 0%, var(--bg-base) 50%, #f0f4f8 100%);
+        }
+        
+        /* === LAYER 2: Center fuchsia glow === */
+        .wh-hero__center-glow {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse 60% 50% at 50% 45%, 
+                    color-mix(in srgb, var(--center-accent) calc(var(--glow-opacity) * 100%), transparent) 0%,
+                    color-mix(in srgb, var(--center-accent-soft) calc(var(--glow-opacity) * 50%), transparent) 30%,
+                    transparent 70%
+                );
+            opacity: var(--intensity);
+        }
+        
+        /* === LAYER 3: Edge blue glows === */
+        .wh-hero__edge-glows {
+            position: absolute;
+            inset: 0;
+        }
+        
+        .wh-hero__edge-glows::before,
+        .wh-hero__edge-glows::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: calc(0.25 * var(--intensity));
+        }
+        
+        /* Top-left blue glow */
+        .wh-hero__edge-glows::before {
+            width: 50%;
+            height: 60%;
+            top: -20%;
+            left: -15%;
+            background: radial-gradient(ellipse at center, var(--wh-blue) 0%, transparent 70%);
+        }
+        
+        /* Bottom-right blue glow */
+        .wh-hero__edge-glows::after {
+            width: 55%;
+            height: 65%;
+            bottom: -25%;
+            right: -20%;
+            background: radial-gradient(ellipse at center, var(--wh-blue-light) 0%, transparent 70%);
+        }
+        
+        /* === LAYER 4: Animated silk blobs === */
+        .wh-hero__blobs {
+            position: absolute;
+            inset: -20%;
+            filter: blur(60px);
+        }
+        
+        .wh-hero__blob {
+            position: absolute;
+            border-radius: 50%;
+            mix-blend-mode: normal;
+            will-change: transform;
+        }
+        
+        /* Blob 1: Large center-left fuchsia */
+        .wh-hero__blob--1 {
+            width: 45%;
+            height: 50%;
+            top: 20%;
+            left: 15%;
+            background: radial-gradient(ellipse at 40% 40%, 
+                color-mix(in srgb, var(--center-accent) 60%, transparent) 0%,
+                color-mix(in srgb, var(--center-accent-soft) 30%, transparent) 50%,
+                transparent 70%
+            );
+            opacity: var(--blob-opacity);
+            animation: blob-drift-1 var(--cycle-1) ease-in-out infinite;
+        }
+        
+        /* Blob 2: Medium center-right pink */
+        .wh-hero__blob--2 {
+            width: 40%;
+            height: 45%;
+            top: 25%;
+            right: 20%;
+            background: radial-gradient(ellipse at 60% 50%, 
+                color-mix(in srgb, var(--center-accent-soft) 50%, transparent) 0%,
+                transparent 60%
+            );
+            opacity: calc(var(--blob-opacity) * 0.7);
+            animation: blob-drift-2 var(--cycle-2) ease-in-out infinite;
+        }
+        
+        /* Blob 3: Top blue accent */
+        .wh-hero__blob--3 {
+            width: 35%;
+            height: 40%;
+            top: -5%;
+            left: 5%;
+            background: radial-gradient(ellipse at 30% 60%, 
+                color-mix(in srgb, var(--wh-blue) 40%, transparent) 0%,
+                transparent 60%
+            );
+            opacity: calc(var(--blob-opacity) * 0.5);
+            animation: blob-drift-3 var(--cycle-3) ease-in-out infinite;
+        }
+        
+        /* Blob 4: Bottom-right blue */
+        .wh-hero__blob--4 {
+            width: 40%;
+            height: 50%;
+            bottom: 5%;
+            right: 0%;
+            background: radial-gradient(ellipse at 70% 40%, 
+                color-mix(in srgb, var(--wh-blue-light) 35%, transparent) 0%,
+                transparent 55%
+            );
+            opacity: calc(var(--blob-opacity) * 0.6);
+            animation: blob-drift-4 var(--cycle-4) ease-in-out infinite;
+        }
+        
+        /* Blob 5: Subtle warm center */
+        .wh-hero__blob--5 {
+            width: 50%;
+            height: 40%;
+            top: 35%;
+            left: 25%;
+            background: radial-gradient(ellipse at 50% 50%, 
+                color-mix(in srgb, #ffb6c1 30%, transparent) 0%,
+                transparent 50%
+            );
+            opacity: calc(var(--blob-opacity) * 0.4);
+            animation: blob-drift-5 var(--cycle-1) ease-in-out infinite reverse;
+        }
+        
+        /* === LAYER 5: Silk wave texture (SVG filter) === */
+        .wh-hero__waves {
+            position: absolute;
+            inset: 0;
+            opacity: calc(0.15 * var(--intensity));
+            background: 
+                repeating-linear-gradient(
+                    135deg,
+                    transparent 0px,
+                    rgba(255, 255, 255, 0.03) 2px,
+                    transparent 4px,
+                    transparent 8px
+                ),
+                repeating-linear-gradient(
+                    45deg,
+                    transparent 0px,
+                    rgba(255, 200, 220, 0.02) 1px,
+                    transparent 2px,
+                    transparent 6px
+                );
+            animation: wave-shift var(--cycle-4) linear infinite;
+        }
+        
+        /* === LAYER 6: Grain/noise overlay === */
+        .wh-hero__grain {
+            position: absolute;
+            inset: 0;
+            opacity: 0.04;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 256px 256px;
+        }
+        
+        /* === LAYER 7: Soft vignette for depth === */
+        .wh-hero__vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 70% at 50% 50%, 
+                transparent 50%, 
+                rgba(248, 249, 252, 0.4) 100%
+            );
+            pointer-events: none;
+        }
+        
+        /* === ANIMATIONS === */
+        @keyframes blob-drift-1 {
+            0%, 100% {
+                transform: translate(0%, 0%) scale(1) rotate(0deg);
+            }
+            25% {
+                transform: translate(3%, -2%) scale(1.02) rotate(1deg);
+            }
+            50% {
+                transform: translate(-2%, 3%) scale(0.98) rotate(-1deg);
+            }
+            75% {
+                transform: translate(-3%, -1%) scale(1.01) rotate(0.5deg);
+            }
+        }
+        
+        @keyframes blob-drift-2 {
+            0%, 100% {
+                transform: translate(0%, 0%) scale(1);
+            }
+            33% {
+                transform: translate(-4%, 2%) scale(1.03);
+            }
+            66% {
+                transform: translate(2%, -3%) scale(0.97);
+            }
+        }
+        
+        @keyframes blob-drift-3 {
+            0%, 100% {
+                transform: translate(0%, 0%) rotate(0deg);
+            }
+            50% {
+                transform: translate(5%, 4%) rotate(2deg);
+            }
+        }
+        
+        @keyframes blob-drift-4 {
+            0%, 100% {
+                transform: translate(0%, 0%) scale(1);
+            }
+            40% {
+                transform: translate(-3%, -2%) scale(1.04);
+            }
+            80% {
+                transform: translate(2%, 3%) scale(0.96);
+            }
+        }
+        
+        @keyframes blob-drift-5 {
+            0%, 100% {
+                transform: translate(0%, 0%);
+            }
+            50% {
+                transform: translate(4%, -2%);
+            }
+        }
+        
+        @keyframes wave-shift {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(20px, 20px);
+            }
+        }
+        
+        /* === CONTENT LAYER === */
+        .wh-hero__content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        /* Optional: subtle text backdrop for readability */
+        .wh-hero__text-backdrop {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 3rem 4rem;
+            max-width: 800px;
+        }
+        
+        .wh-hero__logo {
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .wh-hero__logo-work {
+            background: var(--wh-blue);
+            color: white;
+            padding: 0.3em 0.5em;
+            border-radius: 0.2em;
+        }
+        
+        .wh-hero__logo-here {
+            color: #1a1a2e;
+            padding: 0.3em 0.5em;
+        }
+        
+        .wh-hero__title {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .wh-hero__subtitle {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.35rem);
+            font-weight: 400;
+            color: #4a5568;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        /* === REDUCED MOTION SUPPORT === */
+        @media (prefers-reduced-motion: reduce) {
+            .wh-hero__blob,
+            .wh-hero__waves {
+                animation: none !important;
+            }
+        }
+        
+        /* === FALLBACK for older browsers === */
+        @supports not (backdrop-filter: blur(8px)) {
+            .wh-hero__text-backdrop {
+                background: rgba(255, 255, 255, 0.85);
+            }
+        }
+        
+        /* Static fallback if color-mix not supported */
+        @supports not (color: color-mix(in srgb, red 50%, blue)) {
+            .wh-hero__blob--1 {
+                background: radial-gradient(ellipse at 40% 40%, 
+                    rgba(255, 59, 141, 0.25) 0%,
+                    rgba(255, 107, 171, 0.12) 50%,
+                    transparent 70%
+                );
+            }
+            .wh-hero__blob--2 {
+                background: radial-gradient(ellipse at 60% 50%, 
+                    rgba(255, 107, 171, 0.2) 0%,
+                    transparent 60%
+                );
+            }
+            .wh-hero__blob--3 {
+                background: radial-gradient(ellipse at 30% 60%, 
+                    rgba(24, 144, 255, 0.15) 0%,
+                    transparent 60%
+                );
+            }
+            .wh-hero__blob--4 {
+                background: radial-gradient(ellipse at 70% 40%, 
+                    rgba(64, 169, 255, 0.15) 0%,
+                    transparent 55%
+                );
+            }
+            .wh-hero__center-glow {
+                background: radial-gradient(ellipse 60% 50% at 50% 45%, 
+                    rgba(255, 59, 141, 0.15) 0%,
+                    rgba(255, 107, 171, 0.08) 30%,
+                    transparent 70%
+                );
+            }
+        }
+        
+        /* === DEMO CONTROLS (remove in production) === */
+        .demo-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 12px;
+            z-index: 100;
+        }
+        
+        .demo-controls label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .demo-controls input[type="range"] {
+            width: 120px;
+            margin-left: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         WORHERE HERO BACKGROUND COMPONENT
+         
+         Usage: Copy the .wh-hero block and styles.
+         Customize colors via CSS variables in :root
+         ============================================ -->
+    
+    <section class="wh-hero">
+        <!-- Background layers -->
+        <div class="wh-hero__bg">
+            <!-- Layer 1: Base gradient -->
+            <div class="wh-hero__base"></div>
+            
+            <!-- Layer 2: Center fuchsia glow -->
+            <div class="wh-hero__center-glow"></div>
+            
+            <!-- Layer 3: Edge blue glows -->
+            <div class="wh-hero__edge-glows"></div>
+            
+            <!-- Layer 4: Animated blobs -->
+            <div class="wh-hero__blobs">
+                <div class="wh-hero__blob wh-hero__blob--1"></div>
+                <div class="wh-hero__blob wh-hero__blob--2"></div>
+                <div class="wh-hero__blob wh-hero__blob--3"></div>
+                <div class="wh-hero__blob wh-hero__blob--4"></div>
+                <div class="wh-hero__blob wh-hero__blob--5"></div>
+            </div>
+            
+            <!-- Layer 5: Silk wave texture -->
+            <div class="wh-hero__waves"></div>
+            
+            <!-- Layer 6: Grain overlay -->
+            <div class="wh-hero__grain"></div>
+            
+            <!-- Layer 7: Vignette -->
+            <div class="wh-hero__vignette"></div>
+        </div>
+        
+        <!-- Content -->
+        <div class="wh-hero__content">
+            <div class="wh-hero__text-backdrop">
+                <div class="wh-hero__logo">
+                    <span class="wh-hero__logo-work">Work</span>
+                    <span class="wh-hero__logo-here">Here</span>
+                </div>
+                <h1 class="wh-hero__title">ATS/CRM нового поколения</h1>
+                <p class="wh-hero__subtitle">
+                    Единое пространство для эффективного подбора персонала. 
+                    Автоматизация, аналитика и ИИ-поиск кандидатов.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Demo controls (remove in production) -->
+    <div class="demo-controls">
+        <label>
+            Intensity:
+            <input type="range" id="intensity" min="0" max="100" value="85">
+        </label>
+        <label>
+            Speed:
+            <input type="range" id="speed" min="50" max="150" value="100">
+        </label>
+    </div>
+    
+    <script>
+        // Demo controls for testing (remove in production)
+        const intensitySlider = document.getElementById('intensity');
+        const speedSlider = document.getElementById('speed');
+        
+        intensitySlider.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--intensity', e.target.value / 100);
+        });
+        
+        speedSlider.addEventListener('input', (e) => {
+            document.documentElement.style.setProperty('--speed', e.target.value / 100);
+        });
+    </script>
+</body>
+</html>
