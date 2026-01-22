@@ -6,31 +6,27 @@
     <title>WorkHere AI</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #fff;
             overflow: hidden;
         }
-        
         .hero {
             position: relative;
             width: 100%;
             height: 100vh;
             min-height: 500px;
-            background: #fffcfa;
+            background: #fff;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
         .hero__canvas {
             position: absolute;
             inset: 0;
             z-index: 1;
         }
-        
         .hero__content {
             position: relative;
             z-index: 20;
@@ -38,7 +34,6 @@
             padding: 40px;
             max-width: 650px;
         }
-        
         .hero__title {
             font-size: 3rem;
             font-weight: 700;
@@ -46,7 +41,6 @@
             margin-bottom: 24px;
             line-height: 1.15;
         }
-        
         .hero__text {
             font-size: 1.2rem;
             color: #555;
@@ -57,7 +51,6 @@
 <body>
     <section class="hero">
         <canvas class="hero__canvas" id="canvas"></canvas>
-        
         <div class="hero__content">
             <h1 class="hero__title">WorkHere AI</h1>
             <p class="hero__text">
@@ -69,10 +62,8 @@
     <script>
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    
     let W, H, time = 0;
     
-    // Resize
     function resize() {
         W = canvas.width = window.innerWidth;
         H = canvas.height = window.innerHeight;
@@ -80,375 +71,304 @@
     resize();
     window.addEventListener('resize', resize);
     
-    // Noise functions
-    const perm = new Uint8Array(512);
-    for (let i = 0; i < 256; i++) perm[i] = i;
-    for (let i = 255; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [perm[i], perm[j]] = [perm[j], perm[i]];
-    }
-    for (let i = 0; i < 256; i++) perm[i + 256] = perm[i];
-    
-    function noise(x, y, z) {
-        const X = Math.floor(x) & 255, Y = Math.floor(y) & 255, Z = Math.floor(z) & 255;
-        x -= Math.floor(x); y -= Math.floor(y); z -= Math.floor(z);
-        const u = fade(x), v = fade(y), w = fade(z);
-        const A = perm[X] + Y, AA = perm[A] + Z, AB = perm[A + 1] + Z;
-        const B = perm[X + 1] + Y, BA = perm[B] + Z, BB = perm[B + 1] + Z;
-        return lerp(w, lerp(v, lerp(u, grad(perm[AA], x, y, z), grad(perm[BA], x - 1, y, z)),
-            lerp(u, grad(perm[AB], x, y - 1, z), grad(perm[BB], x - 1, y - 1, z))),
-            lerp(v, lerp(u, grad(perm[AA + 1], x, y, z - 1), grad(perm[BA + 1], x - 1, y, z - 1)),
-            lerp(u, grad(perm[AB + 1], x, y - 1, z - 1), grad(perm[BB + 1], x - 1, y - 1, z - 1))));
-    }
-    function fade(t) { return t * t * t * (t * (t * 6 - 15) + 10); }
-    function lerp(t, a, b) { return a + t * (b - a); }
-    function grad(hash, x, y, z) {
-        const h = hash & 15;
-        const u = h < 8 ? x : y, v = h < 4 ? y : h === 12 || h === 14 ? x : z;
-        return ((h & 1) === 0 ? u : -u) + ((h & 2) === 0 ? v : -v);
-    }
-    
-    // Color palette
-    const colors = {
-        orange: [227, 113, 27],
-        orangeLight: [255, 150, 80],
-        orangePale: [255, 200, 170],
-        coral: [255, 120, 100],
-        peach: [255, 180, 150],
-        salmon: [250, 140, 120],
-        amber: [255, 170, 50],
-        white: [255, 255, 255]
-    };
-    
-    // Create many layers
-    const layers = [];
-    
-    // Layer types
-    function createLayers() {
-        layers.length = 0;
-        
-        // LEFT SIDE - Main streams (6 layers)
-        for (let i = 0; i < 6; i++) {
-            layers.push({
-                type: 'stream',
-                side: 'left',
-                startX: -0.1 + Math.random() * 0.15,
-                startY: 0.1 + i * 0.15,
-                endX: -0.3 + Math.random() * 0.1,
-                endY: 0.2 + i * 0.15 + Math.random() * 0.3,
-                color: i % 2 === 0 ? colors.orange : colors.orangeLight,
-                width: 60 + Math.random() * 80,
-                alpha: 0.5 + Math.random() * 0.4,
-                speed: 0.003 + Math.random() * 0.004,
-                phase: Math.random() * 10,
-                noiseScale: 0.001 + Math.random() * 0.002,
-                amplitude: 50 + Math.random() * 60
-            });
+    // Simplex noise
+    class Noise {
+        constructor() {
+            this.p = [];
+            for (let i = 0; i < 256; i++) this.p[i] = Math.floor(Math.random() * 256);
+            this.p = this.p.concat(this.p);
         }
         
-        // LEFT SIDE - Thin ribbons (8 layers)
-        for (let i = 0; i < 8; i++) {
-            layers.push({
-                type: 'ribbon',
-                side: 'left',
-                startX: 0.05 + Math.random() * 0.12,
-                startY: Math.random(),
-                endX: -0.2 + Math.random() * 0.1,
-                endY: Math.random(),
-                color: [colors.coral, colors.peach, colors.salmon, colors.orangePale][i % 4],
-                width: 15 + Math.random() * 35,
-                alpha: 0.3 + Math.random() * 0.4,
-                speed: 0.004 + Math.random() * 0.005,
-                phase: Math.random() * 10,
-                noiseScale: 0.002 + Math.random() * 0.003,
-                amplitude: 30 + Math.random() * 50,
-                frequency: 2 + Math.random() * 3
-            });
+        fade(t) { return t * t * t * (t * (t * 6 - 15) + 10); }
+        lerp(t, a, b) { return a + t * (b - a); }
+        grad(hash, x, y) {
+            const h = hash & 3;
+            const u = h < 2 ? x : y;
+            const v = h < 2 ? y : x;
+            return ((h & 1) === 0 ? u : -u) + ((h & 2) === 0 ? v : -v);
         }
         
-        // LEFT SIDE - Particles/dots (15 layers)
-        for (let i = 0; i < 15; i++) {
-            layers.push({
-                type: 'particle',
-                side: 'left',
-                x: Math.random() * 0.25,
-                y: Math.random(),
-                size: 5 + Math.random() * 40,
-                color: [colors.orange, colors.orangeLight, colors.coral, colors.peach][i % 4],
-                alpha: 0.2 + Math.random() * 0.5,
-                speed: 0.002 + Math.random() * 0.006,
-                phase: Math.random() * 10,
-                driftX: 20 + Math.random() * 40,
-                driftY: 30 + Math.random() * 60
-            });
-        }
-        
-        // RIGHT SIDE - Main streams (6 layers)
-        for (let i = 0; i < 6; i++) {
-            layers.push({
-                type: 'stream',
-                side: 'right',
-                startX: 1.1 - Math.random() * 0.15,
-                startY: 0.1 + i * 0.15,
-                endX: 1.3 - Math.random() * 0.1,
-                endY: 0.2 + i * 0.15 + Math.random() * 0.3,
-                color: i % 2 === 0 ? colors.orange : colors.orangeLight,
-                width: 60 + Math.random() * 80,
-                alpha: 0.5 + Math.random() * 0.4,
-                speed: 0.003 + Math.random() * 0.004,
-                phase: Math.random() * 10,
-                noiseScale: 0.001 + Math.random() * 0.002,
-                amplitude: 50 + Math.random() * 60
-            });
-        }
-        
-        // RIGHT SIDE - Thin ribbons (8 layers)
-        for (let i = 0; i < 8; i++) {
-            layers.push({
-                type: 'ribbon',
-                side: 'right',
-                startX: 0.95 - Math.random() * 0.12,
-                startY: Math.random(),
-                endX: 1.2 - Math.random() * 0.1,
-                endY: Math.random(),
-                color: [colors.coral, colors.peach, colors.salmon, colors.orangePale][i % 4],
-                width: 15 + Math.random() * 35,
-                alpha: 0.3 + Math.random() * 0.4,
-                speed: 0.004 + Math.random() * 0.005,
-                phase: Math.random() * 10,
-                noiseScale: 0.002 + Math.random() * 0.003,
-                amplitude: 30 + Math.random() * 50,
-                frequency: 2 + Math.random() * 3
-            });
-        }
-        
-        // RIGHT SIDE - Particles (15 layers)
-        for (let i = 0; i < 15; i++) {
-            layers.push({
-                type: 'particle',
-                side: 'right',
-                x: 0.75 + Math.random() * 0.25,
-                y: Math.random(),
-                size: 5 + Math.random() * 40,
-                color: [colors.orange, colors.orangeLight, colors.coral, colors.peach][i % 4],
-                alpha: 0.2 + Math.random() * 0.5,
-                speed: 0.002 + Math.random() * 0.006,
-                phase: Math.random() * 10,
-                driftX: 20 + Math.random() * 40,
-                driftY: 30 + Math.random() * 60
-            });
-        }
-        
-        // Highlight glows (10 layers)
-        for (let i = 0; i < 10; i++) {
-            layers.push({
-                type: 'glow',
-                side: i < 5 ? 'left' : 'right',
-                x: i < 5 ? Math.random() * 0.2 : 0.8 + Math.random() * 0.2,
-                y: Math.random(),
-                size: 80 + Math.random() * 150,
-                alpha: 0.1 + Math.random() * 0.2,
-                speed: 0.001 + Math.random() * 0.003,
-                phase: Math.random() * 10
-            });
-        }
-        
-        // Wave distortion layers (4)
-        for (let i = 0; i < 4; i++) {
-            layers.push({
-                type: 'wave',
-                side: i < 2 ? 'left' : 'right',
-                y: 0.2 + i * 0.2,
-                amplitude: 40 + Math.random() * 60,
-                frequency: 0.005 + Math.random() * 0.01,
-                speed: 0.002 + Math.random() * 0.003,
-                phase: Math.random() * 10,
-                color: colors.orangePale,
-                alpha: 0.2 + Math.random() * 0.3,
-                width: 30 + Math.random() * 40
-            });
+        noise2d(x, y) {
+            const X = Math.floor(x) & 255;
+            const Y = Math.floor(y) & 255;
+            x -= Math.floor(x);
+            y -= Math.floor(y);
+            const u = this.fade(x);
+            const v = this.fade(y);
+            const A = this.p[X] + Y;
+            const B = this.p[X + 1] + Y;
+            return this.lerp(v,
+                this.lerp(u, this.grad(this.p[A], x, y), this.grad(this.p[B], x - 1, y)),
+                this.lerp(u, this.grad(this.p[A + 1], x, y - 1), this.grad(this.p[B + 1], x - 1, y - 1))
+            );
         }
     }
     
-    createLayers();
+    const noise = new Noise();
     
-    function draw() {
-        time += 1;
-        
-        // Clear
-        ctx.fillStyle = '#fffcfa';
-        ctx.fillRect(0, 0, W, H);
-        
-        // Sort by alpha for depth
-        layers.sort((a, b) => a.alpha - b.alpha);
-        
-        // Draw all layers
-        for (const layer of layers) {
-            const t = time * layer.speed + layer.phase;
-            
-            if (layer.type === 'stream') {
-                drawStream(layer, t);
-            } else if (layer.type === 'ribbon') {
-                drawRibbon(layer, t);
-            } else if (layer.type === 'particle') {
-                drawParticle(layer, t);
-            } else if (layer.type === 'glow') {
-                drawGlow(layer, t);
-            } else if (layer.type === 'wave') {
-                drawWave(layer, t);
+    // Color
+    const baseColor = { r: 227, g: 113, b: 27 }; // #E3711B
+    
+    // Organic shape definitions
+    const shapes = [
+        // LEFT - Main large shape
+        {
+            side: 'left',
+            getPath: (t) => {
+                const pts = [];
+                const baseX = -0.15;
+                const wobble = (i) => noise.noise2d(i * 0.3, t * 0.5) * 0.08;
+                
+                pts.push({ x: baseX - 0.1, y: -0.1 });
+                pts.push({ x: baseX + 0.25 + wobble(0), y: 0.1 + wobble(1) });
+                pts.push({ x: baseX + 0.35 + wobble(2), y: 0.3 + wobble(3) });
+                pts.push({ x: baseX + 0.30 + wobble(4), y: 0.5 + wobble(5) });
+                pts.push({ x: baseX + 0.38 + wobble(6), y: 0.7 + wobble(7) });
+                pts.push({ x: baseX + 0.25 + wobble(8), y: 0.9 + wobble(9) });
+                pts.push({ x: baseX - 0.1, y: 1.1 });
+                pts.push({ x: baseX - 0.3, y: 0.8 });
+                pts.push({ x: baseX - 0.2, y: 0.5 });
+                pts.push({ x: baseX - 0.25, y: 0.2 });
+                
+                return pts;
+            }
+        },
+        // LEFT - Secondary shape
+        {
+            side: 'left',
+            getPath: (t) => {
+                const pts = [];
+                const baseX = 0.05;
+                const wobble = (i) => noise.noise2d(i * 0.3 + 10, t * 0.4) * 0.06;
+                
+                pts.push({ x: baseX - 0.15, y: 0.2 });
+                pts.push({ x: baseX + 0.15 + wobble(0), y: 0.25 + wobble(1) });
+                pts.push({ x: baseX + 0.22 + wobble(2), y: 0.45 + wobble(3) });
+                pts.push({ x: baseX + 0.18 + wobble(4), y: 0.65 + wobble(5) });
+                pts.push({ x: baseX + 0.08 + wobble(6), y: 0.85 + wobble(7) });
+                pts.push({ x: baseX - 0.1, y: 0.95 });
+                pts.push({ x: baseX - 0.2, y: 0.7 });
+                pts.push({ x: baseX - 0.18, y: 0.45 });
+                
+                return pts;
+            }
+        },
+        // RIGHT - Main large shape
+        {
+            side: 'right',
+            getPath: (t) => {
+                const pts = [];
+                const baseX = 1.15;
+                const wobble = (i) => noise.noise2d(i * 0.3 + 20, t * 0.5) * 0.08;
+                
+                pts.push({ x: baseX + 0.1, y: -0.1 });
+                pts.push({ x: baseX - 0.25 + wobble(0), y: 0.1 + wobble(1) });
+                pts.push({ x: baseX - 0.35 + wobble(2), y: 0.3 + wobble(3) });
+                pts.push({ x: baseX - 0.30 + wobble(4), y: 0.5 + wobble(5) });
+                pts.push({ x: baseX - 0.38 + wobble(6), y: 0.7 + wobble(7) });
+                pts.push({ x: baseX - 0.25 + wobble(8), y: 0.9 + wobble(9) });
+                pts.push({ x: baseX + 0.1, y: 1.1 });
+                pts.push({ x: baseX + 0.3, y: 0.8 });
+                pts.push({ x: baseX + 0.2, y: 0.5 });
+                pts.push({ x: baseX + 0.25, y: 0.2 });
+                
+                return pts;
+            }
+        },
+        // RIGHT - Secondary shape
+        {
+            side: 'right',
+            getPath: (t) => {
+                const pts = [];
+                const baseX = 0.95;
+                const wobble = (i) => noise.noise2d(i * 0.3 + 30, t * 0.4) * 0.06;
+                
+                pts.push({ x: baseX + 0.15, y: 0.15 });
+                pts.push({ x: baseX - 0.12 + wobble(0), y: 0.2 + wobble(1) });
+                pts.push({ x: baseX - 0.20 + wobble(2), y: 0.4 + wobble(3) });
+                pts.push({ x: baseX - 0.18 + wobble(4), y: 0.6 + wobble(5) });
+                pts.push({ x: baseX - 0.10 + wobble(6), y: 0.8 + wobble(7) });
+                pts.push({ x: baseX + 0.1, y: 0.9 });
+                pts.push({ x: baseX + 0.2, y: 0.65 });
+                pts.push({ x: baseX + 0.18, y: 0.4 });
+                
+                return pts;
             }
         }
+    ];
+    
+    function drawShape(shape, t) {
+        const path = shape.getPath(t);
         
-        // White center fade
-        const grd = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H) * 0.42);
-        grd.addColorStop(0, 'rgba(255,252,250,1)');
-        grd.addColorStop(0.5, 'rgba(255,252,250,0.95)');
-        grd.addColorStop(0.75, 'rgba(255,252,250,0.6)');
-        grd.addColorStop(1, 'rgba(255,252,250,0)');
-        ctx.fillStyle = grd;
+        // Convert to screen coords
+        const screenPath = path.map(p => ({
+            x: p.x * W,
+            y: p.y * H
+        }));
+        
+        // Create smooth bezier path
+        ctx.save();
+        ctx.beginPath();
+        
+        // Draw smooth curve through points
+        ctx.moveTo(screenPath[0].x, screenPath[0].y);
+        for (let i = 0; i < screenPath.length; i++) {
+            const p0 = screenPath[(i - 1 + screenPath.length) % screenPath.length];
+            const p1 = screenPath[i];
+            const p2 = screenPath[(i + 1) % screenPath.length];
+            const p3 = screenPath[(i + 2) % screenPath.length];
+            
+            const cp1x = p1.x + (p2.x - p0.x) * 0.2;
+            const cp1y = p1.y + (p2.y - p0.y) * 0.2;
+            const cp2x = p2.x - (p3.x - p1.x) * 0.2;
+            const cp2y = p2.y - (p3.y - p1.y) * 0.2;
+            
+            ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, p2.x, p2.y);
+        }
+        ctx.closePath();
+        
+        // Clip to shape
+        ctx.clip();
+        
+        // Draw flowing waves INSIDE the shape
+        drawInternalWaves(screenPath, t, shape.side);
+        
+        ctx.restore();
+    }
+    
+    function drawInternalWaves(path, t, side) {
+        // Get bounding box
+        let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+        for (const p of path) {
+            minX = Math.min(minX, p.x);
+            maxX = Math.max(maxX, p.x);
+            minY = Math.min(minY, p.y);
+            maxY = Math.max(maxY, p.y);
+        }
+        
+        const width = maxX - minX;
+        const height = maxY - minY;
+        
+        // Direction of flow
+        const flowDir = side === 'left' ? 1 : -1;
+        
+        // Number of wave stripes
+        const stripeCount = 25;
+        
+        // Draw each wave stripe
+        for (let i = 0; i < stripeCount; i++) {
+            const ratio = i / stripeCount;
+            
+            // Base position along the shape
+            const flowOffset = (t * 0.8 * flowDir + ratio * 3) % 3 - 1;
+            
+            // Wave parameters
+            const waveAmp = 15 + noise.noise2d(i * 0.5, t * 0.3) * 20;
+            const waveFreq = 0.015 + noise.noise2d(i * 0.3 + 5, t * 0.2) * 0.008;
+            const phaseOffset = noise.noise2d(i * 0.7, t * 0.1) * Math.PI * 2;
+            
+            // Color variation - darker in valleys, lighter on peaks
+            const colorPhase = Math.sin(ratio * Math.PI * 4 + t * 2 + phaseOffset);
+            const brightness = 0.7 + colorPhase * 0.3;
+            const alpha = 0.6 + colorPhase * 0.3;
+            
+            const r = Math.min(255, baseColor.r * brightness + (1 - brightness) * 255);
+            const g = Math.min(255, baseColor.g * brightness + (1 - brightness) * 220);
+            const b = Math.min(255, baseColor.b * brightness + (1 - brightness) * 200);
+            
+            // Draw wave stripe
+            ctx.beginPath();
+            
+            const segments = 80;
+            for (let j = 0; j <= segments; j++) {
+                const segRatio = j / segments;
+                
+                // Position along the shape (vertical for this orientation)
+                let x, y;
+                
+                if (side === 'left') {
+                    // Waves flow from top-left to bottom
+                    const baseY = minY + segRatio * height;
+                    const baseX = minX + (ratio + flowOffset) * width * 0.5;
+                    
+                    // Add wave distortion
+                    const wave1 = Math.sin(segRatio * Math.PI * 6 + t * 3 + phaseOffset) * waveAmp;
+                    const wave2 = Math.sin(segRatio * Math.PI * 10 + t * 2 + phaseOffset * 1.5) * waveAmp * 0.4;
+                    const noiseOffset = noise.noise2d(segRatio * 3, t * 0.5 + i * 0.2) * waveAmp * 0.6;
+                    
+                    x = baseX + wave1 + wave2 + noiseOffset;
+                    y = baseY;
+                } else {
+                    // Right side - mirror
+                    const baseY = minY + segRatio * height;
+                    const baseX = maxX - (ratio + flowOffset) * width * 0.5;
+                    
+                    const wave1 = Math.sin(segRatio * Math.PI * 6 + t * 3 + phaseOffset) * waveAmp;
+                    const wave2 = Math.sin(segRatio * Math.PI * 10 + t * 2 + phaseOffset * 1.5) * waveAmp * 0.4;
+                    const noiseOffset = noise.noise2d(segRatio * 3, t * 0.5 + i * 0.2) * waveAmp * 0.6;
+                    
+                    x = baseX - wave1 - wave2 - noiseOffset;
+                    y = baseY;
+                }
+                
+                if (j === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+            
+            // Varying stroke width for depth
+            const strokeWidth = 8 + Math.sin(ratio * Math.PI * 2 + t) * 6;
+            
+            ctx.strokeStyle = `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${alpha})`;
+            ctx.lineWidth = strokeWidth;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.stroke();
+        }
+        
+        // Add highlight streaks
+        for (let i = 0; i < 8; i++) {
+            const ratio = (i / 8 + t * 0.3) % 1;
+            const highlightY = minY + ratio * height;
+            
+            const wave = Math.sin(ratio * Math.PI * 4 + t * 2) * 30;
+            const highlightX = side === 'left' 
+                ? minX + width * 0.3 + wave
+                : maxX - width * 0.3 - wave;
+            
+            const grad = ctx.createRadialGradient(highlightX, highlightY, 0, highlightX, highlightY, 40);
+            grad.addColorStop(0, `rgba(255, 255, 255, ${0.4 + Math.sin(t * 3 + i) * 0.2})`);
+            grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            
+            ctx.fillStyle = grad;
+            ctx.fillRect(highlightX - 40, highlightY - 40, 80, 80);
+        }
+    }
+    
+    function draw() {
+        time += 0.016;
+        
+        // Clear
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, W, H);
+        
+        // Draw each organic shape with internal waves
+        for (const shape of shapes) {
+            drawShape(shape, time);
+        }
+        
+        // Soft white center for text readability
+        const centerGrad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.min(W, H) * 0.45);
+        centerGrad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+        centerGrad.addColorStop(0.4, 'rgba(255, 255, 255, 0.9)');
+        centerGrad.addColorStop(0.7, 'rgba(255, 255, 255, 0.4)');
+        centerGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.fillStyle = centerGrad;
         ctx.fillRect(0, 0, W, H);
         
         requestAnimationFrame(draw);
-    }
-    
-    function drawStream(l, t) {
-        const segments = 100;
-        const points = [];
-        
-        for (let i = 0; i <= segments; i++) {
-            const s = i / segments;
-            let x = lerp(l.startX * W, l.endX * W, s);
-            let y = lerp(l.startY * H, l.endY * H, s);
-            
-            // Multiple noise octaves
-            const n1 = noise(x * l.noiseScale, y * l.noiseScale, t) * l.amplitude;
-            const n2 = noise(x * l.noiseScale * 2, y * l.noiseScale * 2, t * 1.3) * l.amplitude * 0.5;
-            const n3 = noise(x * l.noiseScale * 4, y * l.noiseScale * 4, t * 1.7) * l.amplitude * 0.25;
-            
-            x += n1 + n2 + n3;
-            y += noise(x * l.noiseScale + 100, y * l.noiseScale, t) * l.amplitude * 0.7;
-            
-            points.push({x, y});
-        }
-        
-        // Draw thick stream with varying width and color
-        for (let i = 0; i < points.length - 1; i++) {
-            const p = points[i], p2 = points[i + 1];
-            const s = i / (points.length - 1);
-            const widthMod = Math.sin(s * Math.PI) * 0.9 + 0.1;
-            const w = l.width * widthMod;
-            const a = l.alpha * Math.sin(s * Math.PI);
-            
-            // Color shift along stream
-            const colorShift = Math.sin(s * Math.PI * 2 + t) * 0.3;
-            const r = Math.min(255, l.color[0] + colorShift * 50);
-            const g = Math.min(255, l.color[1] + colorShift * 30);
-            const b = Math.min(255, l.color[2] + colorShift * 20);
-            
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(${r},${g},${b},${a})`;
-            ctx.lineWidth = w;
-            ctx.lineCap = 'round';
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
-        }
-    }
-    
-    function drawRibbon(l, t) {
-        const segments = 80;
-        const points = [];
-        
-        for (let i = 0; i <= segments; i++) {
-            const s = i / segments;
-            let x = lerp(l.startX * W, l.endX * W, s);
-            let y = lerp(l.startY * H, l.endY * H, s);
-            
-            // Wavy path
-            const wave = Math.sin(s * Math.PI * l.frequency + t * 2) * l.amplitude;
-            const n = noise(x * l.noiseScale, y * l.noiseScale, t * 0.5) * l.amplitude * 0.5;
-            
-            if (l.side === 'left') {
-                x += wave + n;
-            } else {
-                x -= wave - n;
-            }
-            y += noise(s * 5 + 50, t * 0.3, l.phase) * 30;
-            
-            points.push({x, y});
-        }
-        
-        // Draw ribbon
-        ctx.beginPath();
-        ctx.moveTo(points[0].x, points[0].y);
-        for (let i = 1; i < points.length; i++) {
-            ctx.lineTo(points[i].x, points[i].y);
-        }
-        ctx.strokeStyle = `rgba(${l.color[0]},${l.color[1]},${l.color[2]},${l.alpha})`;
-        ctx.lineWidth = l.width;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        ctx.stroke();
-        
-        // Inner highlight
-        ctx.strokeStyle = `rgba(255,255,255,${l.alpha * 0.3})`;
-        ctx.lineWidth = l.width * 0.3;
-        ctx.stroke();
-    }
-    
-    function drawParticle(l, t) {
-        const x = l.x * W + Math.sin(t * 2 + l.phase) * l.driftX + noise(l.phase, t * 0.5, 0) * l.driftX;
-        const y = l.y * H + Math.cos(t * 1.5 + l.phase) * l.driftY + noise(l.phase + 50, t * 0.5, 0) * l.driftY;
-        const size = l.size * (0.8 + Math.sin(t + l.phase) * 0.2);
-        
-        const grd = ctx.createRadialGradient(x, y, 0, x, y, size);
-        grd.addColorStop(0, `rgba(${l.color[0]},${l.color[1]},${l.color[2]},${l.alpha})`);
-        grd.addColorStop(0.5, `rgba(${l.color[0]},${l.color[1]},${l.color[2]},${l.alpha * 0.5})`);
-        grd.addColorStop(1, `rgba(${l.color[0]},${l.color[1]},${l.color[2]},0)`);
-        
-        ctx.fillStyle = grd;
-        ctx.beginPath();
-        ctx.arc(x, y, size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-    
-    function drawGlow(l, t) {
-        const x = l.x * W + Math.sin(t + l.phase) * 50;
-        const y = l.y * H + Math.cos(t * 0.7 + l.phase) * 70;
-        const size = l.size * (0.9 + Math.sin(t * 0.5 + l.phase) * 0.1);
-        
-        const grd = ctx.createRadialGradient(x, y, 0, x, y, size);
-        grd.addColorStop(0, `rgba(255,200,180,${l.alpha})`);
-        grd.addColorStop(0.5, `rgba(255,180,150,${l.alpha * 0.5})`);
-        grd.addColorStop(1, 'rgba(255,255,255,0)');
-        
-        ctx.fillStyle = grd;
-        ctx.beginPath();
-        ctx.arc(x, y, size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-    
-    function drawWave(l, t) {
-        const segments = 60;
-        const xStart = l.side === 'left' ? -0.1 : 0.7;
-        const xEnd = l.side === 'left' ? 0.35 : 1.1;
-        
-        ctx.beginPath();
-        for (let i = 0; i <= segments; i++) {
-            const s = i / segments;
-            const x = lerp(xStart * W, xEnd * W, s);
-            const waveY = Math.sin(s * Math.PI * 3 + t * 3) * l.amplitude;
-            const noiseY = noise(s * 5, t * 0.5, l.phase) * l.amplitude * 0.5;
-            const y = l.y * H + waveY + noiseY;
-            
-            if (i === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-        }
-        
-        ctx.strokeStyle = `rgba(${l.color[0]},${l.color[1]},${l.color[2]},${l.alpha})`;
-        ctx.lineWidth = l.width;
-        ctx.lineCap = 'round';
-        ctx.stroke();
     }
     
     draw();
