@@ -7,7 +7,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; color: #1a1a1a; }
-        
         .navbar { position: fixed; top: 0; left: 0; right: 0; height: 56px; background: #1a1a2e; display: flex; align-items: center; padding: 0 24px; z-index: 1000; }
         .navbar__logo { display: flex; font-weight: 700; font-size: 1.25rem; }
         .navbar__logo-work { background: #1890ff; color: white; padding: 4px 8px; border-radius: 4px; }
@@ -18,7 +17,6 @@
         .navbar__spacer { flex: 1; }
         .navbar__user { display: flex; align-items: center; gap: 12px; color: white; font-size: 14px; }
         .navbar__avatar { width: 32px; height: 32px; background: #E3711B; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px; }
-        
         .sidebar { position: fixed; top: 56px; left: 0; bottom: 0; width: 220px; background: white; border-right: 1px solid #e2e8f0; padding: 16px 0; z-index: 100; }
         .sidebar__title { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; padding: 8px 16px; margin-top: 16px; }
         .sidebar__title:first-child { margin-top: 0; }
@@ -26,21 +24,17 @@
         .sidebar__item:hover { background: #f8fafc; }
         .sidebar__item--active { background: rgba(227, 113, 27, 0.1); color: #E3711B; }
         .sidebar__badge { margin-left: auto; background: #E3711B; color: white; font-size: 11px; padding: 2px 8px; border-radius: 10px; }
-        
         .main { margin-left: 220px; margin-top: 56px; }
-        
         .hero { position: relative; width: 100%; height: 500px; background: #fff; overflow: hidden; }
         .hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
         .hero__content { position: relative; z-index: 20; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; }
         .hero__title { font-size: 2.75rem; font-weight: 700; color: #1a1a1a; margin-bottom: 20px; }
         .hero__text { font-size: 1.15rem; color: #555; line-height: 1.7; max-width: 550px; }
-        
         .tabs { display: flex; gap: 4px; padding: 0 24px; background: white; border-bottom: 1px solid #e2e8f0; }
         .tab { padding: 14px 20px; font-size: 14px; color: #64748b; cursor: pointer; border-bottom: 2px solid transparent; }
         .tab--active { color: #E3711B; border-bottom-color: #E3711B; }
         .tab__badge { background: #f1f5f9; font-size: 11px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; }
         .tab--active .tab__badge { background: rgba(227, 113, 27, 0.15); color: #E3711B; }
-        
         .kanban { display: flex; gap: 16px; padding: 24px; background: #f8fafc; overflow-x: auto; min-height: 300px; }
         .kanban__column { flex: 0 0 280px; background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
         .kanban__header { padding: 16px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; }
@@ -57,16 +51,10 @@
 <body>
     <nav class="navbar">
         <div class="navbar__logo"><span class="navbar__logo-work">Work</span><span class="navbar__logo-here">Here</span></div>
-        <div class="navbar__nav">
-            <a class="navbar__link navbar__link--active">Вакансии</a>
-            <a class="navbar__link">Кандидаты</a>
-            <a class="navbar__link">Аналитика</a>
-            <a class="navbar__link">Настройки</a>
-        </div>
+        <div class="navbar__nav"><a class="navbar__link navbar__link--active">Вакансии</a><a class="navbar__link">Кандидаты</a><a class="navbar__link">Аналитика</a><a class="navbar__link">Настройки</a></div>
         <div class="navbar__spacer"></div>
         <div class="navbar__user">Иван Петров<div class="navbar__avatar">ИП</div></div>
     </nav>
-    
     <aside class="sidebar">
         <div class="sidebar__title">Меню</div>
         <div class="sidebar__item">📊 Дашборд</div>
@@ -80,7 +68,6 @@
         <div class="sidebar__item">🟡 UX/UI Дизайнер</div>
         <div class="sidebar__item">🔴 DevOps Engineer</div>
     </aside>
-    
     <main class="main">
         <section class="hero">
             <canvas class="hero__canvas" id="glcanvas"></canvas>
@@ -89,7 +76,6 @@
                 <p class="hero__text">Искусственный интеллект WorkHere AI непрерывно анализирует вашу работу над вакансией и рекомендует подходящих кандидатов из вашей базы</p>
             </div>
         </section>
-        
         <div class="tabs">
             <div class="tab tab--active">Из базы <span class="tab__badge">0</span></div>
             <div class="tab">Отклики <span class="tab__badge">18</span></div>
@@ -97,39 +83,12 @@
             <div class="tab">Интервью <span class="tab__badge">3</span></div>
             <div class="tab">Оффер <span class="tab__badge">1</span></div>
         </div>
-        
         <div class="kanban">
-            <div class="kanban__column">
-                <div class="kanban__header">Новые <span class="kanban__count">5</span></div>
-                <div class="kanban__cards">
-                    <div class="card"><div class="card__name">Алексей Смирнов</div><div class="card__position">Senior Frontend Developer</div><div class="card__footer"><span class="card__source">hh.ru</span><span>Сегодня</span></div></div>
-                    <div class="card"><div class="card__name">Мария Иванова</div><div class="card__position">React Developer</div><div class="card__footer"><span class="card__source">LinkedIn</span><span>Вчера</span></div></div>
-                </div>
-            </div>
-            <div class="kanban__column">
-                <div class="kanban__header">Скрининг <span class="kanban__count">3</span></div>
-                <div class="kanban__cards">
-                    <div class="card"><div class="card__name">Екатерина Волкова</div><div class="card__position">Frontend Developer</div><div class="card__footer"><span class="card__source">hh.ru</span><span>3 дня</span></div></div>
-                </div>
-            </div>
-            <div class="kanban__column">
-                <div class="kanban__header">Интервью HR <span class="kanban__count">2</span></div>
-                <div class="kanban__cards">
-                    <div class="card"><div class="card__name">Ольга Петрова</div><div class="card__position">Senior React Developer</div><div class="card__footer"><span class="card__source">LinkedIn</span><span>5 дней</span></div></div>
-                </div>
-            </div>
-            <div class="kanban__column">
-                <div class="kanban__header">Техническое <span class="kanban__count">1</span></div>
-                <div class="kanban__cards">
-                    <div class="card"><div class="card__name">Сергей Морозов</div><div class="card__position">Lead Frontend Developer</div><div class="card__footer"><span class="card__source">Реферал</span><span>1 нед</span></div></div>
-                </div>
-            </div>
-            <div class="kanban__column">
-                <div class="kanban__header">Оффер <span class="kanban__count">1</span></div>
-                <div class="kanban__cards">
-                    <div class="card"><div class="card__name">Николай Федоров</div><div class="card__position">Senior Frontend Developer</div><div class="card__footer"><span class="card__source">hh.ru</span><span>2 нед</span></div></div>
-                </div>
-            </div>
+            <div class="kanban__column"><div class="kanban__header">Новые <span class="kanban__count">5</span></div><div class="kanban__cards"><div class="card"><div class="card__name">Алексей Смирнов</div><div class="card__position">Senior Frontend Developer</div><div class="card__footer"><span class="card__source">hh.ru</span><span>Сегодня</span></div></div><div class="card"><div class="card__name">Мария Иванова</div><div class="card__position">React Developer</div><div class="card__footer"><span class="card__source">LinkedIn</span><span>Вчера</span></div></div></div></div>
+            <div class="kanban__column"><div class="kanban__header">Скрининг <span class="kanban__count">3</span></div><div class="kanban__cards"><div class="card"><div class="card__name">Екатерина Волкова</div><div class="card__position">Frontend Developer</div><div class="card__footer"><span class="card__source">hh.ru</span><span>3 дня</span></div></div></div></div>
+            <div class="kanban__column"><div class="kanban__header">Интервью HR <span class="kanban__count">2</span></div><div class="kanban__cards"><div class="card"><div class="card__name">Ольга Петрова</div><div class="card__position">Senior React Developer</div><div class="card__footer"><span class="card__source">LinkedIn</span><span>5 дней</span></div></div></div></div>
+            <div class="kanban__column"><div class="kanban__header">Техническое <span class="kanban__count">1</span></div><div class="kanban__cards"><div class="card"><div class="card__name">Сергей Морозов</div><div class="card__position">Lead Frontend Developer</div><div class="card__footer"><span class="card__source">Реферал</span><span>1 нед</span></div></div></div></div>
+            <div class="kanban__column"><div class="kanban__header">Оффер <span class="kanban__count">1</span></div><div class="kanban__cards"><div class="card"><div class="card__name">Николай Федоров</div><div class="card__position">Senior Frontend Developer</div><div class="card__footer"><span class="card__source">hh.ru</span><span>2 нед</span></div></div></div></div>
         </div>
     </main>
 
@@ -153,246 +112,202 @@ const fsSource = `
     uniform float uTime;
     uniform vec2 uResolution;
     
-    // Better noise
-    vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-    vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+    // Noise
+    vec3 mod289(vec3 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
+    vec4 mod289(vec4 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
     vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
     vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
     
     float snoise(vec3 v) {
         const vec2 C = vec2(1.0/6.0, 1.0/3.0);
         const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
-        
         vec3 i = floor(v + dot(v, C.yyy));
         vec3 x0 = v - i + dot(i, C.xxx);
-        
         vec3 g = step(x0.yzx, x0.xyz);
         vec3 l = 1.0 - g;
         vec3 i1 = min(g.xyz, l.zxy);
         vec3 i2 = max(g.xyz, l.zxy);
-        
         vec3 x1 = x0 - i1 + C.xxx;
         vec3 x2 = x0 - i2 + C.yyy;
         vec3 x3 = x0 - D.yyy;
-        
         i = mod289(i);
-        vec4 p = permute(permute(permute(
-            i.z + vec4(0.0, i1.z, i2.z, 1.0))
-            + i.y + vec4(0.0, i1.y, i2.y, 1.0))
-            + i.x + vec4(0.0, i1.x, i2.x, 1.0));
-            
+        vec4 p = permute(permute(permute(i.z + vec4(0.0, i1.z, i2.z, 1.0)) + i.y + vec4(0.0, i1.y, i2.y, 1.0)) + i.x + vec4(0.0, i1.x, i2.x, 1.0));
         float n_ = 0.142857142857;
         vec3 ns = n_ * D.wyz - D.xzx;
-        
         vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
-        
         vec4 x_ = floor(j * ns.z);
         vec4 y_ = floor(j - 7.0 * x_);
-        
-        vec4 x = x_ *ns.x + ns.yyyy;
-        vec4 y = y_ *ns.x + ns.yyyy;
+        vec4 x = x_ * ns.x + ns.yyyy;
+        vec4 y = y_ * ns.x + ns.yyyy;
         vec4 h = 1.0 - abs(x) - abs(y);
-        
         vec4 b0 = vec4(x.xy, y.xy);
         vec4 b1 = vec4(x.zw, y.zw);
-        
         vec4 s0 = floor(b0)*2.0 + 1.0;
         vec4 s1 = floor(b1)*2.0 + 1.0;
         vec4 sh = -step(h, vec4(0.0));
-        
         vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy;
         vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww;
-        
         vec3 p0 = vec3(a0.xy, h.x);
         vec3 p1 = vec3(a0.zw, h.y);
         vec3 p2 = vec3(a1.xy, h.z);
         vec3 p3 = vec3(a1.zw, h.w);
-        
         vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2,p2), dot(p3,p3)));
-        p0 *= norm.x;
-        p1 *= norm.y;
-        p2 *= norm.z;
-        p3 *= norm.w;
-        
+        p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
         vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
         m = m * m;
         return 42.0 * dot(m*m, vec4(dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3)));
     }
     
-    // FBM with domain warping
-    float fbm(vec3 p) {
-        float value = 0.0;
-        float amplitude = 0.5;
-        float frequency = 1.0;
-        for (int i = 0; i < 5; i++) {
-            value += amplitude * snoise(p * frequency);
-            amplitude *= 0.5;
-            frequency *= 2.0;
-        }
-        return value;
+    // Elongated dripping shape
+    float dripShape(vec2 uv, vec2 top, float width, float length, float time, float seed) {
+        // Wobble the shape
+        float wobble = snoise(vec3(uv.y * 3.0, seed, time * 0.3)) * 0.05;
+        wobble += snoise(vec3(uv.y * 6.0, seed + 10.0, time * 0.2)) * 0.03;
+        
+        // Horizontal distance from center line
+        float centerX = top.x + wobble;
+        float dx = abs(uv.x - centerX);
+        
+        // Width varies along length - thicker at top, thinner at bottom
+        float t = (uv.y - top.y) / length;
+        t = clamp(t, 0.0, 1.0);
+        
+        // Organic width variation
+        float widthMod = 1.0 - pow(t, 0.7) * 0.6; // Taper towards bottom
+        widthMod += snoise(vec3(t * 5.0, seed + 5.0, time * 0.25)) * 0.2;
+        float currentWidth = width * widthMod;
+        
+        // Ragged edges
+        float edgeNoise = snoise(vec3(uv.y * 15.0, seed + 20.0, time * 0.15)) * 0.015;
+        currentWidth += edgeNoise;
+        
+        // Distance from shape
+        float shape = smoothstep(currentWidth, currentWidth * 0.4, dx);
+        
+        // Fade at ends
+        float topFade = smoothstep(top.y - 0.05, top.y + 0.05, uv.y);
+        float bottomFade = smoothstep(top.y + length + 0.1, top.y + length - 0.05, uv.y);
+        
+        return shape * topFade * bottomFade;
     }
     
-    // Domain warped noise for organic fabric
-    float fabricField(vec2 uv, float time) {
-        vec3 p = vec3(uv * 2.0, time * 0.15);
+    // Horizontal stripes/folds within the shape
+    float stripeFolds(vec2 uv, float time, float seed) {
+        // Multiple stripe frequencies for fabric effect
+        float stripes = 0.0;
         
-        // First warp
-        float warp1 = fbm(p + vec3(0.0, 0.0, 0.0));
-        float warp2 = fbm(p + vec3(5.2, 1.3, 2.1));
+        // Main stripes - horizontal across the drip
+        float s1 = snoise(vec3(uv.x * 25.0, uv.y * 3.0 - time * 0.3, seed));
+        float s2 = snoise(vec3(uv.x * 40.0, uv.y * 5.0 - time * 0.25, seed + 5.0));
+        float s3 = snoise(vec3(uv.x * 60.0, uv.y * 8.0 - time * 0.2, seed + 10.0));
         
-        vec3 q = p + vec3(warp1, warp2, 0.0) * 0.8;
+        stripes = s1 * 0.5 + s2 * 0.3 + s3 * 0.2;
         
-        // Second warp
-        float warp3 = fbm(q + vec3(1.7, 9.2, 3.5));
-        float warp4 = fbm(q + vec3(8.3, 2.8, 1.2));
+        // Add flowing warp
+        float warp = snoise(vec3(uv.x * 8.0, uv.y * 2.0 - time * 0.4, seed + 20.0));
+        stripes += warp * 0.3;
         
-        vec3 r = q + vec3(warp3, warp4, 0.0) * 0.6;
-        
-        // Final noise with stretch for fabric folds
-        vec3 stretched = vec3(r.x, r.y * 2.5, r.z);
-        return fbm(stretched);
-    }
-    
-    // Soft amorphous shape
-    float softShape(vec2 uv, vec2 center, float size, float time, float seed) {
-        vec2 p = uv - center;
-        
-        // Base distance
-        float dist = length(p);
-        
-        // Organic deformation
-        float angle = atan(p.y, p.x);
-        float deform = 0.0;
-        deform += snoise(vec3(angle * 2.0, seed, time * 0.2)) * 0.3;
-        deform += snoise(vec3(angle * 4.0, seed + 10.0, time * 0.15)) * 0.15;
-        deform += snoise(vec3(angle * 8.0, seed + 20.0, time * 0.1)) * 0.08;
-        
-        float modSize = size * (1.0 + deform);
-        
-        // Very soft edge
-        return smoothstep(modSize, modSize * 0.3, dist);
-    }
-    
-    // Calculate normal from height for 3D lighting
-    vec3 calculateNormal(vec2 uv, float time) {
-        float eps = 0.005;
-        float h = fabricField(uv, time);
-        float hx = fabricField(uv + vec2(eps, 0.0), time);
-        float hy = fabricField(uv + vec2(0.0, eps), time);
-        
-        vec3 normal = normalize(vec3(
-            (h - hx) / eps * 0.5,
-            (h - hy) / eps * 0.5,
-            1.0
-        ));
-        return normal;
+        return stripes;
     }
     
     void main() {
         vec2 uv = vUv;
         float aspect = uResolution.x / uResolution.y;
-        vec2 aspectUV = vec2((uv.x - 0.5) * aspect + 0.5, uv.y);
+        vec2 aspectUV = vec2(uv.x * aspect, uv.y);
         
         float time = uTime;
         
-        // Colors
-        vec3 darkColor = vec3(0.5, 0.12, 0.0);
-        vec3 midColor = vec3(0.89, 0.44, 0.11);
-        vec3 lightColor = vec3(1.0, 0.72, 0.52);
-        vec3 highlightColor = vec3(1.0, 0.92, 0.87);
+        // Colors - more saturated
+        vec3 darkColor = vec3(0.45, 0.08, 0.0);      // Deep dark
+        vec3 midColor = vec3(0.89, 0.44, 0.11);       // #E3711B
+        vec3 lightColor = vec3(1.0, 0.68, 0.45);      // Light orange
+        vec3 highlightColor = vec3(1.0, 0.88, 0.8);   // Near white
         vec3 white = vec3(1.0);
         
-        // Create soft amorphous shapes on sides
-        float leftShape = 0.0;
-        leftShape += softShape(aspectUV, vec2(0.0, 0.5), 0.45, time, 1.0);
-        leftShape += softShape(aspectUV, vec2(0.1, 0.3), 0.35, time, 2.0);
-        leftShape += softShape(aspectUV, vec2(0.05, 0.75), 0.3, time, 3.0);
-        leftShape = clamp(leftShape, 0.0, 1.0);
+        float totalShape = 0.0;
+        float totalFolds = 0.0;
         
-        float rightShape = 0.0;
-        rightShape += softShape(aspectUV, vec2(1.0, 0.5), 0.45, time, 4.0);
-        rightShape += softShape(aspectUV, vec2(0.9, 0.35), 0.35, time, 5.0);
-        rightShape += softShape(aspectUV, vec2(0.95, 0.7), 0.3, time, 6.0);
-        rightShape = clamp(rightShape, 0.0, 1.0);
+        // LEFT SIDE - Multiple dripping shapes
+        float l1 = dripShape(aspectUV, vec2(-0.05 * aspect, -0.15), 0.12, 1.4, time, 1.0);
+        float l1f = stripeFolds(aspectUV, time, 1.0);
         
-        float totalShape = max(leftShape, rightShape);
+        float l2 = dripShape(aspectUV, vec2(0.08 * aspect, -0.1), 0.09, 1.25, time, 2.0);
+        float l2f = stripeFolds(aspectUV, time, 2.0);
         
-        // Fabric texture with domain warping
-        float fabric = fabricField(aspectUV, time);
-        fabric = fabric * 0.5 + 0.5; // normalize to 0-1
+        float l3 = dripShape(aspectUV, vec2(0.18 * aspect, -0.05), 0.07, 1.1, time, 3.0);
+        float l3f = stripeFolds(aspectUV, time, 3.0);
         
-        // 3D lighting from normals
-        vec3 normal = calculateNormal(aspectUV, time);
-        vec3 lightDir = normalize(vec3(0.5, 0.5, 1.0));
-        float diffuse = max(dot(normal, lightDir), 0.0);
+        float l4 = dripShape(aspectUV, vec2(0.02 * aspect, 0.0), 0.1, 1.3, time, 4.0);
+        float l4f = stripeFolds(aspectUV, time, 4.0);
         
-        // Specular highlight
-        vec3 viewDir = vec3(0.0, 0.0, 1.0);
-        vec3 reflectDir = reflect(-lightDir, normal);
-        float specular = pow(max(dot(viewDir, reflectDir), 0.0), 16.0);
+        // RIGHT SIDE
+        float r1 = dripShape(aspectUV, vec2(1.05 * aspect, -0.15), 0.12, 1.4, time, 5.0);
+        float r1f = stripeFolds(aspectUV, time, 5.0);
         
-        // Combine fabric height and lighting for final shade
-        float shade = fabric * 0.6 + diffuse * 0.4;
-        shade = pow(shade, 0.9); // adjust contrast
+        float r2 = dripShape(aspectUV, vec2(0.92 * aspect, -0.1), 0.09, 1.25, time, 6.0);
+        float r2f = stripeFolds(aspectUV, time, 6.0);
         
-        // Color based on shade
-        vec3 fabricColor = mix(darkColor, midColor, smoothstep(0.0, 0.4, shade));
-        fabricColor = mix(fabricColor, lightColor, smoothstep(0.4, 0.65, shade));
-        fabricColor = mix(fabricColor, highlightColor, smoothstep(0.65, 0.85, shade));
-        fabricColor = mix(fabricColor, white, smoothstep(0.85, 1.0, shade) * 0.6);
+        float r3 = dripShape(aspectUV, vec2(0.82 * aspect, -0.05), 0.07, 1.1, time, 7.0);
+        float r3f = stripeFolds(aspectUV, time, 7.0);
         
-        // Add specular highlights
-        fabricColor += white * specular * 0.4;
+        float r4 = dripShape(aspectUV, vec2(0.98 * aspect, 0.0), 0.1, 1.3, time, 8.0);
+        float r4f = stripeFolds(aspectUV, time, 8.0);
         
-        // Apply shape mask with very soft edge
+        // Combine shapes and folds
+        totalShape = max(max(max(l1, l2), max(l3, l4)), max(max(r1, r2), max(r3, r4)));
+        
+        // Weighted fold combination
+        float foldSum = l1 * l1f + l2 * l2f + l3 * l3f + l4 * l4f + 
+                        r1 * r1f + r2 * r2f + r3 * r3f + r4 * r4f;
+        float shapeSum = l1 + l2 + l3 + l4 + r1 + r2 + r3 + r4;
+        totalFolds = shapeSum > 0.01 ? foldSum / shapeSum : 0.0;
+        
+        // Normalize folds to 0-1 with increased contrast
+        totalFolds = totalFolds * 0.5 + 0.5;
+        totalFolds = pow(totalFolds, 0.7); // Increase contrast
+        
+        // Color based on folds - high contrast
+        vec3 fabricColor = mix(darkColor, midColor, smoothstep(0.15, 0.4, totalFolds));
+        fabricColor = mix(fabricColor, lightColor, smoothstep(0.4, 0.6, totalFolds));
+        fabricColor = mix(fabricColor, highlightColor, smoothstep(0.6, 0.8, totalFolds));
+        fabricColor = mix(fabricColor, white, smoothstep(0.8, 0.95, totalFolds) * 0.8);
+        
+        // Final composite
         vec3 finalColor = mix(white, fabricColor, totalShape);
-        
-        // Extra soft fade at edges of shapes
-        float edgeFade = smoothstep(0.0, 0.4, totalShape);
-        finalColor = mix(white, finalColor, edgeFade);
         
         // Center fade for text
         float centerDist = length(uv - vec2(0.5));
-        float centerMask = smoothstep(0.1, 0.45, centerDist);
+        float centerMask = smoothstep(0.1, 0.4, centerDist);
         finalColor = mix(white, finalColor, centerMask);
         
         gl_FragColor = vec4(finalColor, 1.0);
     }
 `;
 
-function compileShader(gl, source, type) {
-    const shader = gl.createShader(type);
-    gl.shaderSource(shader, source);
-    gl.compileShader(shader);
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.error(gl.getShaderInfoLog(shader));
-    }
-    return shader;
+function compileShader(gl, src, type) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(s));
+    return s;
 }
 
-function createProgram(gl, vs, fs) {
-    const v = compileShader(gl, vs, gl.VERTEX_SHADER);
-    const f = compileShader(gl, fs, gl.FRAGMENT_SHADER);
-    const p = gl.createProgram();
-    gl.attachShader(p, v);
-    gl.attachShader(p, f);
-    gl.linkProgram(p);
-    return p;
-}
+const prog = gl.createProgram();
+gl.attachShader(prog, compileShader(gl, vsSource, gl.VERTEX_SHADER));
+gl.attachShader(prog, compileShader(gl, fsSource, gl.FRAGMENT_SHADER));
+gl.linkProgram(prog);
 
-const program = createProgram(gl, vsSource, fsSource);
-const positionBuffer = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+const buf = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buf);
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]), gl.STATIC_DRAW);
 
-const posLoc = gl.getAttribLocation(program, 'aPosition');
-const timeLoc = gl.getUniformLocation(program, 'uTime');
-const resLoc = gl.getUniformLocation(program, 'uResolution');
+const posLoc = gl.getAttribLocation(prog, 'aPosition');
+const timeLoc = gl.getUniformLocation(prog, 'uTime');
+const resLoc = gl.getUniformLocation(prog, 'uResolution');
 
 function resize() {
-    const rect = canvas.parentElement.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
+    const r = canvas.parentElement.getBoundingClientRect();
+    canvas.width = r.width; canvas.height = r.height;
     gl.viewport(0, 0, canvas.width, canvas.height);
 }
 resize();
@@ -400,14 +315,14 @@ window.addEventListener('resize', resize);
 
 let start = Date.now();
 function render() {
-    const time = (Date.now() - start) / 1000;
+    const t = (Date.now() - start) / 1000;
     gl.clearColor(1,1,1,1);
     gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.useProgram(program);
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.useProgram(prog);
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
     gl.enableVertexAttribArray(posLoc);
     gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
-    gl.uniform1f(timeLoc, time);
+    gl.uniform1f(timeLoc, t);
     gl.uniform2f(resLoc, canvas.width, canvas.height);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     requestAnimationFrame(render);
