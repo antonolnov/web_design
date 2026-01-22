@@ -6,25 +6,9 @@
     <title>WorkHere — ATS/CRM</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; color: #1a1a1a; }
         
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f0f2f5;
-            color: #1a1a1a;
-        }
-        
-        /* NAVBAR */
-        .navbar {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 56px;
-            background: #1a1a2e;
-            display: flex;
-            align-items: center;
-            padding: 0 24px;
-            z-index: 1000;
-        }
-        
+        .navbar { position: fixed; top: 0; left: 0; right: 0; height: 56px; background: #1a1a2e; display: flex; align-items: center; padding: 0 24px; z-index: 1000; }
         .navbar__logo { display: flex; font-weight: 700; font-size: 1.25rem; }
         .navbar__logo-work { background: #1890ff; color: white; padding: 4px 8px; border-radius: 4px; }
         .navbar__logo-here { color: white; padding: 4px 8px; }
@@ -35,17 +19,7 @@
         .navbar__user { display: flex; align-items: center; gap: 12px; color: white; font-size: 14px; }
         .navbar__avatar { width: 32px; height: 32px; background: #E3711B; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px; }
         
-        /* SIDEBAR */
-        .sidebar {
-            position: fixed;
-            top: 56px; left: 0; bottom: 0;
-            width: 220px;
-            background: white;
-            border-right: 1px solid #e2e8f0;
-            padding: 16px 0;
-            z-index: 100;
-        }
-        
+        .sidebar { position: fixed; top: 56px; left: 0; bottom: 0; width: 220px; background: white; border-right: 1px solid #e2e8f0; padding: 16px 0; z-index: 100; }
         .sidebar__title { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; padding: 8px 16px; margin-top: 16px; }
         .sidebar__title:first-child { margin-top: 0; }
         .sidebar__item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; color: #1a1a1a; font-size: 14px; cursor: pointer; }
@@ -53,143 +27,27 @@
         .sidebar__item--active { background: rgba(227, 113, 27, 0.1); color: #E3711B; }
         .sidebar__badge { margin-left: auto; background: #E3711B; color: white; font-size: 11px; padding: 2px 8px; border-radius: 10px; }
         
-        /* MAIN */
-        .main {
-            margin-left: 220px;
-            margin-top: 56px;
-        }
+        .main { margin-left: 220px; margin-top: 56px; }
         
-        /* HERO - Large animated section */
-        .hero {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            background: #fff;
-            overflow: hidden;
-        }
+        .hero { position: relative; width: 100%; height: 500px; background: #fff; overflow: hidden; }
+        .hero__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .hero__content { position: relative; z-index: 20; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; }
+        .hero__title { font-size: 2.75rem; font-weight: 700; color: #1a1a1a; margin-bottom: 20px; }
+        .hero__text { font-size: 1.15rem; color: #555; line-height: 1.7; max-width: 550px; }
         
-        .hero__canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-        }
+        .tabs { display: flex; gap: 4px; padding: 0 24px; background: white; border-bottom: 1px solid #e2e8f0; }
+        .tab { padding: 14px 20px; font-size: 14px; color: #64748b; cursor: pointer; border-bottom: 2px solid transparent; }
+        .tab--active { color: #E3711B; border-bottom-color: #E3711B; }
+        .tab__badge { background: #f1f5f9; font-size: 11px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; }
+        .tab--active .tab__badge { background: rgba(227, 113, 27, 0.15); color: #E3711B; }
         
-        .hero__content {
-            position: relative;
-            z-index: 20;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 40px;
-        }
-        
-        .hero__title {
-            font-size: 2.75rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 20px;
-        }
-        
-        .hero__text {
-            font-size: 1.15rem;
-            color: #555;
-            line-height: 1.7;
-            max-width: 550px;
-        }
-        
-        .hero__subtext {
-            margin-top: 32px;
-            font-size: 1rem;
-            color: #888;
-        }
-        
-        /* TABS */
-        .tabs {
-            display: flex;
-            gap: 4px;
-            padding: 0 24px;
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .tab {
-            padding: 14px 20px;
-            font-size: 14px;
-            color: #64748b;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-        }
-        
-        .tab--active {
-            color: #E3711B;
-            border-bottom-color: #E3711B;
-        }
-        
-        .tab__badge {
-            background: #f1f5f9;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 6px;
-        }
-        
-        .tab--active .tab__badge {
-            background: rgba(227, 113, 27, 0.15);
-            color: #E3711B;
-        }
-        
-        /* KANBAN */
-        .kanban {
-            display: flex;
-            gap: 16px;
-            padding: 24px;
-            background: #f8fafc;
-            overflow-x: auto;
-            min-height: 300px;
-        }
-        
-        .kanban__column {
-            flex: 0 0 280px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-        }
-        
-        .kanban__header {
-            padding: 16px;
-            border-bottom: 1px solid #f1f5f9;
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .kanban__count {
-            background: #f1f5f9;
-            font-size: 12px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            color: #64748b;
-        }
-        
+        .kanban { display: flex; gap: 16px; padding: 24px; background: #f8fafc; overflow-x: auto; min-height: 300px; }
+        .kanban__column { flex: 0 0 280px; background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .kanban__header { padding: 16px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; }
+        .kanban__count { background: #f1f5f9; font-size: 12px; padding: 2px 8px; border-radius: 10px; color: #64748b; }
         .kanban__cards { padding: 12px; }
-        
-        .card {
-            background: #fafbfc;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-        
-        .card:hover { border-color: #E3711B; box-shadow: 0 2px 8px rgba(227,113,27,0.12); }
-        
+        .card { background: #fafbfc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; margin-bottom: 10px; cursor: pointer; }
+        .card:hover { border-color: #E3711B; }
         .card__name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
         .card__position { font-size: 12px; color: #64748b; margin-bottom: 10px; }
         .card__footer { display: flex; justify-content: space-between; font-size: 11px; color: #64748b; }
@@ -197,12 +55,8 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
-        <div class="navbar__logo">
-            <span class="navbar__logo-work">Work</span>
-            <span class="navbar__logo-here">Here</span>
-        </div>
+        <div class="navbar__logo"><span class="navbar__logo-work">Work</span><span class="navbar__logo-here">Here</span></div>
         <div class="navbar__nav">
             <a class="navbar__link navbar__link--active">Вакансии</a>
             <a class="navbar__link">Кандидаты</a>
@@ -210,13 +64,9 @@
             <a class="navbar__link">Настройки</a>
         </div>
         <div class="navbar__spacer"></div>
-        <div class="navbar__user">
-            Иван Петров
-            <div class="navbar__avatar">ИП</div>
-        </div>
+        <div class="navbar__user">Иван Петров<div class="navbar__avatar">ИП</div></div>
     </nav>
     
-    <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar__title">Меню</div>
         <div class="sidebar__item">📊 Дашборд</div>
@@ -231,21 +81,15 @@
         <div class="sidebar__item">🔴 DevOps Engineer</div>
     </aside>
     
-    <!-- Main -->
     <main class="main">
-        <!-- Hero with animation -->
         <section class="hero">
             <canvas class="hero__canvas" id="glcanvas"></canvas>
             <div class="hero__content">
                 <h1 class="hero__title">WorkHere AI</h1>
-                <p class="hero__text">
-                    Искусственный интеллект WorkHere AI непрерывно анализирует вашу работу над вакансией и рекомендует подходящих кандидатов из вашей базы
-                </p>
-                <p class="hero__subtext">Пока в вашей базе не найдены подходящие кандидаты на эту вакансию</p>
+                <p class="hero__text">Искусственный интеллект WorkHere AI непрерывно анализирует вашу работу над вакансией и рекомендует подходящих кандидатов из вашей базы</p>
             </div>
         </section>
         
-        <!-- Tabs -->
         <div class="tabs">
             <div class="tab tab--active">Из базы <span class="tab__badge">0</span></div>
             <div class="tab">Отклики <span class="tab__badge">18</span></div>
@@ -254,61 +98,36 @@
             <div class="tab">Оффер <span class="tab__badge">1</span></div>
         </div>
         
-        <!-- Kanban -->
         <div class="kanban">
             <div class="kanban__column">
                 <div class="kanban__header">Новые <span class="kanban__count">5</span></div>
                 <div class="kanban__cards">
-                    <div class="card">
-                        <div class="card__name">Алексей Смирнов</div>
-                        <div class="card__position">Senior Frontend Developer</div>
-                        <div class="card__footer"><span class="card__source">hh.ru</span><span>Сегодня</span></div>
-                    </div>
-                    <div class="card">
-                        <div class="card__name">Мария Иванова</div>
-                        <div class="card__position">React Developer</div>
-                        <div class="card__footer"><span class="card__source">LinkedIn</span><span>Вчера</span></div>
-                    </div>
+                    <div class="card"><div class="card__name">Алексей Смирнов</div><div class="card__position">Senior Frontend Developer</div><div class="card__footer"><span class="card__source">hh.ru</span><span>Сегодня</span></div></div>
+                    <div class="card"><div class="card__name">Мария Иванова</div><div class="card__position">React Developer</div><div class="card__footer"><span class="card__source">LinkedIn</span><span>Вчера</span></div></div>
                 </div>
             </div>
             <div class="kanban__column">
                 <div class="kanban__header">Скрининг <span class="kanban__count">3</span></div>
                 <div class="kanban__cards">
-                    <div class="card">
-                        <div class="card__name">Екатерина Волкова</div>
-                        <div class="card__position">Frontend Developer</div>
-                        <div class="card__footer"><span class="card__source">hh.ru</span><span>3 дня</span></div>
-                    </div>
+                    <div class="card"><div class="card__name">Екатерина Волкова</div><div class="card__position">Frontend Developer</div><div class="card__footer"><span class="card__source">hh.ru</span><span>3 дня</span></div></div>
                 </div>
             </div>
             <div class="kanban__column">
                 <div class="kanban__header">Интервью HR <span class="kanban__count">2</span></div>
                 <div class="kanban__cards">
-                    <div class="card">
-                        <div class="card__name">Ольга Петрова</div>
-                        <div class="card__position">Senior React Developer</div>
-                        <div class="card__footer"><span class="card__source">LinkedIn</span><span>5 дней</span></div>
-                    </div>
+                    <div class="card"><div class="card__name">Ольга Петрова</div><div class="card__position">Senior React Developer</div><div class="card__footer"><span class="card__source">LinkedIn</span><span>5 дней</span></div></div>
                 </div>
             </div>
             <div class="kanban__column">
                 <div class="kanban__header">Техническое <span class="kanban__count">1</span></div>
                 <div class="kanban__cards">
-                    <div class="card">
-                        <div class="card__name">Сергей Морозов</div>
-                        <div class="card__position">Lead Frontend Developer</div>
-                        <div class="card__footer"><span class="card__source">Реферал</span><span>1 нед</span></div>
-                    </div>
+                    <div class="card"><div class="card__name">Сергей Морозов</div><div class="card__position">Lead Frontend Developer</div><div class="card__footer"><span class="card__source">Реферал</span><span>1 нед</span></div></div>
                 </div>
             </div>
             <div class="kanban__column">
                 <div class="kanban__header">Оффер <span class="kanban__count">1</span></div>
                 <div class="kanban__cards">
-                    <div class="card">
-                        <div class="card__name">Николай Федоров</div>
-                        <div class="card__position">Senior Frontend Developer</div>
-                        <div class="card__footer"><span class="card__source">hh.ru</span><span>2 нед</span></div>
-                    </div>
+                    <div class="card"><div class="card__name">Николай Федоров</div><div class="card__position">Senior Frontend Developer</div><div class="card__footer"><span class="card__source">hh.ru</span><span>2 нед</span></div></div>
                 </div>
             </div>
         </div>
@@ -327,6 +146,7 @@ const vsSource = `
     }
 `;
 
+// Two-layer effect: soft blobs + displacement glass
 const fsSource = `
     precision highp float;
     
@@ -334,11 +154,12 @@ const fsSource = `
     uniform float uTime;
     uniform vec2 uResolution;
     
+    // Noise
     vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
     
     float snoise(vec2 v) {
         const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
-        vec2 i  = floor(v + dot(v, C.yy));
+        vec2 i = floor(v + dot(v, C.yy));
         vec2 x0 = v - i + dot(i, C.xx);
         vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
         vec4 x12 = x0.xyxy + C.xxzz;
@@ -358,79 +179,125 @@ const fsSource = `
         return 130.0 * dot(m, g);
     }
     
-    float fabricNoise(vec2 p, float time, float stretch) {
-        vec2 stretched = vec2(p.x, p.y * stretch);
-        vec2 flow = vec2(time * 0.1, time * 0.25);
-        float n1 = snoise(stretched * 1.2 + flow) * 0.6;
-        float n2 = snoise(stretched * 2.5 + flow * 1.3 + vec2(10.0, 0.0)) * 0.3;
-        float n3 = snoise(stretched * 5.0 + flow * 0.8 + vec2(20.0, 5.0)) * 0.1;
-        return n1 + n2 + n3;
+    // Soft blob function
+    float blob(vec2 uv, vec2 center, float radius, float softness) {
+        float d = length(uv - center);
+        return smoothstep(radius + softness, radius - softness, d);
     }
     
-    float warpedFabric(vec2 p, float time) {
-        float warp1 = snoise(vec2(p.x * 0.8, p.y * 2.5) + time * 0.15);
-        float warp2 = snoise(vec2(p.x * 0.8 + 5.0, p.y * 2.5) + time * 0.12);
-        vec2 warped = p + vec2(warp1, warp2) * 0.15;
-        float fabric = fabricNoise(warped, time, 3.5);
-        float warp3 = snoise(vec2(warped.x * 1.5, warped.y * 4.0) + time * 0.2);
-        fabric += warp3 * 0.15;
-        return fabric;
+    // Animated blob center
+    vec2 animatedCenter(vec2 base, float seed, float time) {
+        float x = base.x + sin(time * 0.3 + seed) * 0.08 + sin(time * 0.5 + seed * 2.0) * 0.04;
+        float y = base.y + cos(time * 0.25 + seed * 1.5) * 0.1 + cos(time * 0.4 + seed * 3.0) * 0.05;
+        return vec2(x, y);
     }
     
-    float shapeMask(vec2 uv, float side, float time) {
-        vec2 p = side > 0.0 ? uv : vec2(1.0 - uv.x, uv.y);
-        float wobble = 0.0;
-        wobble += snoise(vec2(p.y * 2.0, time * 0.2)) * 0.12;
-        wobble += snoise(vec2(p.y * 4.0, time * 0.35 + 10.0)) * 0.08;
-        wobble += snoise(vec2(p.y * 8.0, time * 0.25 + 20.0)) * 0.05;
-        float verticalShape = sin(p.y * 3.14159);
-        verticalShape = pow(verticalShape, 0.7) * 0.4 + 0.6;
-        float edge = 0.32 + wobble * verticalShape;
-        float mask = smoothstep(edge + 0.12, edge - 0.02, p.x);
-        return mask;
+    // Glass displacement - sharp wavy distortion
+    vec2 glassDisplacement(vec2 uv, float time) {
+        // Multiple layers of sharp waves
+        float scale1 = 3.0;
+        float scale2 = 6.0;
+        float scale3 = 12.0;
+        
+        // Stretched vertically for fabric-like folds
+        vec2 stretchedUV = vec2(uv.x, uv.y * 2.5);
+        
+        // Wave layers with different speeds
+        float wave1 = snoise(stretchedUV * scale1 + vec2(time * 0.2, time * 0.15));
+        float wave2 = snoise(stretchedUV * scale2 + vec2(time * 0.15, time * 0.25));
+        float wave3 = snoise(stretchedUV * scale3 + vec2(time * 0.1, time * 0.2));
+        
+        // Combine with decreasing amplitude
+        float dx = wave1 * 0.06 + wave2 * 0.025 + wave3 * 0.01;
+        float dy = wave1 * 0.03 + wave2 * 0.015 + wave3 * 0.008;
+        
+        // Add some sharper distortion
+        float sharp = snoise(stretchedUV * 4.0 + time * 0.3);
+        sharp = pow(abs(sharp), 0.5) * sign(sharp); // Make it sharper
+        dx += sharp * 0.04;
+        
+        return vec2(dx, dy);
     }
     
     void main() {
         vec2 uv = vUv;
         float aspect = uResolution.x / uResolution.y;
+        vec2 aspectUV = vec2(uv.x * aspect, uv.y);
         
+        float time = uTime * 0.8;
+        
+        // === LAYER 1: Soft animated blobs (background) ===
+        float blobField = 0.0;
+        
+        // Left side blobs
+        blobField += blob(aspectUV, animatedCenter(vec2(-0.1 * aspect, 0.3), 1.0, time), 0.5, 0.3);
+        blobField += blob(aspectUV, animatedCenter(vec2(0.05 * aspect, 0.6), 2.0, time), 0.4, 0.25);
+        blobField += blob(aspectUV, animatedCenter(vec2(-0.05 * aspect, 0.8), 3.0, time), 0.35, 0.2);
+        blobField += blob(aspectUV, animatedCenter(vec2(0.1 * aspect, 0.2), 4.0, time), 0.3, 0.2);
+        blobField += blob(aspectUV, animatedCenter(vec2(0.0, 0.5), 5.0, time), 0.45, 0.3);
+        
+        // Right side blobs
+        blobField += blob(aspectUV, animatedCenter(vec2(1.1 * aspect, 0.4), 6.0, time), 0.5, 0.3);
+        blobField += blob(aspectUV, animatedCenter(vec2(0.95 * aspect, 0.7), 7.0, time), 0.4, 0.25);
+        blobField += blob(aspectUV, animatedCenter(vec2(1.05 * aspect, 0.2), 8.0, time), 0.35, 0.2);
+        blobField += blob(aspectUV, animatedCenter(vec2(0.9 * aspect, 0.85), 9.0, time), 0.3, 0.2);
+        blobField += blob(aspectUV, animatedCenter(vec2(1.0 * aspect, 0.5), 10.0, time), 0.45, 0.3);
+        
+        blobField = clamp(blobField, 0.0, 1.0);
+        
+        // === LAYER 2: Glass displacement ===
+        vec2 displacement = glassDisplacement(uv, time);
+        
+        // Apply displacement to blob sampling
+        vec2 displacedUV = aspectUV + displacement * 2.0;
+        
+        // Re-sample blobs with displacement
+        float displacedBlobs = 0.0;
+        
+        // Left side - displaced
+        displacedBlobs += blob(displacedUV, animatedCenter(vec2(-0.1 * aspect, 0.3), 1.0, time), 0.5, 0.3);
+        displacedBlobs += blob(displacedUV, animatedCenter(vec2(0.05 * aspect, 0.6), 2.0, time), 0.4, 0.25);
+        displacedBlobs += blob(displacedUV, animatedCenter(vec2(-0.05 * aspect, 0.8), 3.0, time), 0.35, 0.2);
+        displacedBlobs += blob(displacedUV, animatedCenter(vec2(0.1 * aspect, 0.2), 4.0, time), 0.3, 0.2);
+        displacedBlobs += blob(displacedUV, animatedCenter(vec2(0.0, 0.5), 5.0, time), 0.45, 0.3);
+        
+        // Right side - displaced
+        displacedBlobs += blob(displacedUV, animatedCenter(vec2(1.1 * aspect, 0.4), 6.0, time), 0.5, 0.3);
+        displacedBlobs += blob(displacedUV, animatedCenter(vec2(0.95 * aspect, 0.7), 7.0, time), 0.4, 0.25);
+        displacedBlobs += blob(displacedUV, animatedCenter(vec2(1.05 * aspect, 0.2), 8.0, time), 0.35, 0.2);
+        displacedBlobs += blob(displacedUV, animatedCenter(vec2(0.9 * aspect, 0.85), 9.0, time), 0.3, 0.2);
+        displacedBlobs += blob(displacedUV, animatedCenter(vec2(1.0 * aspect, 0.5), 10.0, time), 0.45, 0.3);
+        
+        displacedBlobs = clamp(displacedBlobs, 0.0, 1.0);
+        
+        // === Combine with color ===
         vec3 darkColor = vec3(0.6, 0.18, 0.02);
-        vec3 midColor = vec3(0.89, 0.44, 0.11);
-        vec3 lightColor = vec3(1.0, 0.7, 0.5);
-        vec3 highlightColor = vec3(1.0, 0.92, 0.88);
+        vec3 midColor = vec3(0.89, 0.44, 0.11);  // #E3711B
+        vec3 lightColor = vec3(1.0, 0.75, 0.55);
+        vec3 highlightColor = vec3(1.0, 0.95, 0.92);
         vec3 white = vec3(1.0);
         
-        float time = uTime * 0.6;
+        // Use displacement gradient for fold lighting
+        float foldLight = displacement.x * 5.0 + 0.5;
+        foldLight = clamp(foldLight, 0.0, 1.0);
         
-        float leftMask = shapeMask(uv, 1.0, time);
-        float rightMask = shapeMask(uv, -1.0, time + 5.0);
+        // Color based on blob intensity and fold lighting
+        vec3 blobColor = mix(darkColor, midColor, displacedBlobs);
+        blobColor = mix(blobColor, lightColor, foldLight * displacedBlobs);
+        blobColor = mix(blobColor, highlightColor, pow(foldLight, 3.0) * displacedBlobs);
+        blobColor = mix(blobColor, white, pow(foldLight, 5.0) * displacedBlobs * 0.5);
         
-        vec2 leftP = vec2(uv.x * aspect * 1.5, uv.y * 1.2);
-        float leftFabric = warpedFabric(leftP, time);
+        // Final color - blend blobs over white background
+        vec3 color = mix(white, blobColor, displacedBlobs);
         
-        vec2 rightP = vec2((1.0 - uv.x) * aspect * 1.5, uv.y * 1.2);
-        float rightFabric = warpedFabric(rightP, time + 3.0);
-        
-        leftFabric = pow(leftFabric * 0.5 + 0.5, 0.8);
-        rightFabric = pow(rightFabric * 0.5 + 0.5, 0.8);
-        
-        vec3 leftColor = mix(darkColor, midColor, smoothstep(0.0, 0.45, leftFabric));
-        leftColor = mix(leftColor, lightColor, smoothstep(0.45, 0.7, leftFabric));
-        leftColor = mix(leftColor, highlightColor, smoothstep(0.7, 0.9, leftFabric));
-        leftColor = mix(leftColor, white, smoothstep(0.85, 1.0, leftFabric) * 0.8);
-        
-        vec3 rightColor = mix(darkColor, midColor, smoothstep(0.0, 0.45, rightFabric));
-        rightColor = mix(rightColor, lightColor, smoothstep(0.45, 0.7, rightFabric));
-        rightColor = mix(rightColor, highlightColor, smoothstep(0.7, 0.9, rightFabric));
-        rightColor = mix(rightColor, white, smoothstep(0.85, 1.0, rightFabric) * 0.8);
-        
-        vec3 color = white;
-        color = mix(color, leftColor, leftMask * 0.95);
-        color = mix(color, rightColor, rightMask * 0.95);
-        
+        // Center fade for text
         float centerDist = length(uv - vec2(0.5));
-        float centerMask = smoothstep(0.2, 0.6, centerDist);
+        float centerMask = smoothstep(0.15, 0.55, centerDist);
         color = mix(white, color, centerMask);
+        
+        // Subtle grain
+        float grain = snoise(uv * 500.0 + time * 10.0) * 0.015;
+        color += grain;
         
         gl_FragColor = vec4(color, 1.0);
     }
@@ -440,6 +307,9 @@ function compileShader(gl, source, type) {
     const shader = gl.createShader(type);
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.error(gl.getShaderInfoLog(shader));
+    }
     return shader;
 }
 
