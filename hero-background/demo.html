@@ -7,8 +7,6 @@
     <style>
         :root {
             --accent: #E3711B;
-            --accent-light: #ff8c42;
-            --accent-pink: #ff6b9d;
             --text-dark: #1a1a1a;
             --text-muted: #64748b;
         }
@@ -21,7 +19,6 @@
             color: var(--text-dark);
         }
         
-        /* NAVBAR */
         .navbar {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -33,66 +30,16 @@
             z-index: 1000;
         }
         
-        .navbar__logo {
-            display: flex;
-            font-weight: 700;
-            font-size: 1.25rem;
-        }
-        
-        .navbar__logo-work {
-            background: #1890ff;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-        }
-        
-        .navbar__logo-here {
-            color: white;
-            padding: 4px 8px;
-        }
-        
-        .navbar__nav {
-            display: flex;
-            gap: 8px;
-            margin-left: 40px;
-        }
-        
-        .navbar__link {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-        
-        .navbar__link--active {
-            color: white;
-            background: rgba(255,255,255,0.1);
-        }
-        
+        .navbar__logo { display: flex; font-weight: 700; font-size: 1.25rem; }
+        .navbar__logo-work { background: #1890ff; color: white; padding: 4px 8px; border-radius: 4px; }
+        .navbar__logo-here { color: white; padding: 4px 8px; }
+        .navbar__nav { display: flex; gap: 8px; margin-left: 40px; }
+        .navbar__link { color: rgba(255,255,255,0.7); text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 14px; }
+        .navbar__link--active { color: white; background: rgba(255,255,255,0.1); }
         .navbar__spacer { flex: 1; }
+        .navbar__user { display: flex; align-items: center; gap: 12px; color: white; font-size: 14px; }
+        .navbar__avatar { width: 32px; height: 32px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 12px; }
         
-        .navbar__user {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: white;
-            font-size: 14px;
-        }
-        
-        .navbar__avatar {
-            width: 32px;
-            height: 32px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 12px;
-        }
-        
-        /* SIDEBAR */
         .sidebar {
             position: fixed;
             top: 56px; left: 0; bottom: 0;
@@ -103,100 +50,28 @@
             z-index: 100;
         }
         
-        .sidebar__title {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            padding: 8px 16px;
-        }
-        
-        .sidebar__item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 16px;
-            color: var(--text-dark);
-            font-size: 14px;
-            cursor: pointer;
-        }
-        
+        .sidebar__title { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; padding: 8px 16px; }
+        .sidebar__item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; color: var(--text-dark); font-size: 14px; cursor: pointer; }
         .sidebar__item:hover { background: #f8fafc; }
+        .sidebar__item--active { background: rgba(227, 113, 27, 0.1); color: var(--accent); }
+        .sidebar__badge { margin-left: auto; background: var(--accent); color: white; font-size: 11px; padding: 2px 8px; border-radius: 10px; }
         
-        .sidebar__item--active {
-            background: rgba(227, 113, 27, 0.1);
-            color: var(--accent);
-        }
+        .main { margin-left: 220px; margin-top: 56px; }
         
-        .sidebar__badge {
-            margin-left: auto;
-            background: var(--accent);
-            color: white;
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 10px;
-        }
-        
-        /* MAIN */
-        .main {
-            margin-left: 220px;
-            margin-top: 56px;
-        }
-        
-        /* ==============================================
-           HERO - LIQUID AURORA EFFECT
-           ============================================== */
+        /* HERO */
         .hero {
             position: relative;
             height: 450px;
-            background: linear-gradient(180deg, #fff 0%, #fffaf5 100%);
+            background: #fff;
             overflow: hidden;
         }
         
-        /* Liquid blobs container */
-        .hero__liquid {
+        .hero__canvas {
             position: absolute;
             inset: 0;
             z-index: 1;
         }
         
-        .hero__liquid svg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-        
-        /* Liquid blob shapes */
-        .liquid-blob {
-            filter: url(#liquid-filter);
-        }
-        
-        .liquid-blob--left-1 {
-            fill: url(#gradient-orange-1);
-            opacity: 0.9;
-        }
-        
-        .liquid-blob--left-2 {
-            fill: url(#gradient-orange-2);
-            opacity: 0.8;
-        }
-        
-        .liquid-blob--right-1 {
-            fill: url(#gradient-orange-1);
-            opacity: 0.85;
-        }
-        
-        .liquid-blob--right-2 {
-            fill: url(#gradient-orange-2);
-            opacity: 0.75;
-        }
-        
-        .liquid-blob--bottom {
-            fill: url(#gradient-orange-3);
-            opacity: 0.7;
-        }
-        
-        /* Content */
         .hero__content {
             position: relative;
             z-index: 20;
@@ -213,7 +88,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(227, 113, 27, 0.1);
+            background: rgba(227, 113, 27, 0.12);
             color: var(--accent);
             padding: 8px 16px;
             border-radius: 20px;
@@ -234,87 +109,19 @@
             color: var(--text-muted);
         }
         
-        /* TABS */
-        .tabs {
-            display: flex;
-            gap: 4px;
-            padding: 0 24px;
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-        }
+        .tabs { display: flex; gap: 4px; padding: 0 24px; background: white; border-bottom: 1px solid #e2e8f0; }
+        .tab { padding: 14px 20px; font-size: 14px; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; }
+        .tab--active { color: var(--accent); border-bottom-color: var(--accent); }
+        .tab__badge { background: #f1f5f9; font-size: 11px; padding: 2px 6px; border-radius: 4px; margin-left: 6px; }
+        .tab--active .tab__badge { background: rgba(227, 113, 27, 0.15); color: var(--accent); }
         
-        .tab {
-            padding: 14px 20px;
-            font-size: 14px;
-            color: var(--text-muted);
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-        }
-        
-        .tab--active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-        
-        .tab__badge {
-            background: #f1f5f9;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 6px;
-        }
-        
-        .tab--active .tab__badge {
-            background: rgba(227, 113, 27, 0.15);
-            color: var(--accent);
-        }
-        
-        /* KANBAN */
-        .kanban {
-            display: flex;
-            gap: 16px;
-            padding: 24px;
-            background: #f8fafc;
-            overflow-x: auto;
-        }
-        
-        .kanban__column {
-            flex: 0 0 260px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-        }
-        
-        .kanban__header {
-            padding: 14px;
-            border-bottom: 1px solid #f1f5f9;
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        
-        .kanban__count {
-            background: #f1f5f9;
-            font-size: 12px;
-            padding: 2px 8px;
-            border-radius: 10px;
-            color: var(--text-muted);
-        }
-        
+        .kanban { display: flex; gap: 16px; padding: 24px; background: #f8fafc; overflow-x: auto; }
+        .kanban__column { flex: 0 0 260px; background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .kanban__header { padding: 14px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; }
+        .kanban__count { background: #f1f5f9; font-size: 12px; padding: 2px 8px; border-radius: 10px; color: var(--text-muted); }
         .kanban__cards { padding: 12px; }
-        
-        .card {
-            background: #fafbfc;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-        
+        .card { background: #fafbfc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; margin-bottom: 10px; cursor: pointer; }
         .card:hover { border-color: var(--accent); }
-        
         .card__name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
         .card__position { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
         .card__footer { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); }
@@ -353,126 +160,7 @@
     
     <main class="main">
         <section class="hero">
-            <div class="hero__liquid">
-                <svg viewBox="0 0 1200 450" preserveAspectRatio="xMidYMid slice">
-                    <defs>
-                        <!-- Gradients -->
-                        <linearGradient id="gradient-orange-1" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#E3711B"/>
-                            <stop offset="50%" style="stop-color:#ff8c42"/>
-                            <stop offset="100%" style="stop-color:#ffb088"/>
-                        </linearGradient>
-                        
-                        <linearGradient id="gradient-orange-2" x1="100%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ff9f5a"/>
-                            <stop offset="50%" style="stop-color:#E3711B"/>
-                            <stop offset="100%" style="stop-color:#c45a0a"/>
-                        </linearGradient>
-                        
-                        <linearGradient id="gradient-orange-3" x1="0%" y1="100%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#ffb088"/>
-                            <stop offset="100%" style="stop-color:#E3711B"/>
-                        </linearGradient>
-                        
-                        <!-- Liquid distortion filter -->
-                        <filter id="liquid-filter" x="-50%" y="-50%" width="200%" height="200%">
-                            <feTurbulence 
-                                type="fractalNoise" 
-                                baseFrequency="0.015" 
-                                numOctaves="3" 
-                                result="noise"
-                                seed="1">
-                                <animate 
-                                    attributeName="baseFrequency" 
-                                    dur="20s" 
-                                    values="0.015;0.02;0.015" 
-                                    repeatCount="indefinite"/>
-                            </feTurbulence>
-                            
-                            <feDisplacementMap 
-                                in="SourceGraphic" 
-                                in2="noise" 
-                                scale="35" 
-                                xChannelSelector="R" 
-                                yChannelSelector="G">
-                                <animate 
-                                    attributeName="scale" 
-                                    dur="8s" 
-                                    values="35;50;35" 
-                                    repeatCount="indefinite"/>
-                            </feDisplacementMap>
-                        </filter>
-                        
-                        <!-- Glow filter -->
-                        <filter id="glow-filter" x="-50%" y="-50%" width="200%" height="200%">
-                            <feGaussianBlur stdDeviation="15" result="blur"/>
-                            <feMerge>
-                                <feMergeNode in="blur"/>
-                                <feMergeNode in="SourceGraphic"/>
-                            </feMerge>
-                        </filter>
-                    </defs>
-                    
-                    <!-- LEFT LIQUID BLOBS -->
-                    <g filter="url(#glow-filter)">
-                        <ellipse class="liquid-blob liquid-blob--left-1" cx="80" cy="180" rx="180" ry="220">
-                            <animate attributeName="cx" dur="12s" values="80;120;60;80" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/>
-                            <animate attributeName="cy" dur="10s" values="180;220;160;180" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/>
-                            <animate attributeName="rx" dur="14s" values="180;200;170;180" repeatCount="indefinite"/>
-                            <animate attributeName="ry" dur="11s" values="220;240;210;220" repeatCount="indefinite"/>
-                        </ellipse>
-                        
-                        <ellipse class="liquid-blob liquid-blob--left-2" cx="150" cy="320" rx="140" ry="160">
-                            <animate attributeName="cx" dur="10s" values="150;180;130;150" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/>
-                            <animate attributeName="cy" dur="13s" values="320;350;300;320" repeatCount="indefinite"/>
-                            <animate attributeName="rx" dur="9s" values="140;160;130;140" repeatCount="indefinite"/>
-                        </ellipse>
-                        
-                        <ellipse class="liquid-blob liquid-blob--left-1" cx="50" cy="80" rx="120" ry="100" style="opacity: 0.7">
-                            <animate attributeName="cx" dur="11s" values="50;80;40;50" repeatCount="indefinite"/>
-                            <animate attributeName="cy" dur="9s" values="80;110;60;80" repeatCount="indefinite"/>
-                        </ellipse>
-                    </g>
-                    
-                    <!-- RIGHT LIQUID BLOBS -->
-                    <g filter="url(#glow-filter)">
-                        <ellipse class="liquid-blob liquid-blob--right-1" cx="1120" cy="200" rx="170" ry="210">
-                            <animate attributeName="cx" dur="11s" values="1120;1080;1140;1120" repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"/>
-                            <animate attributeName="cy" dur="13s" values="200;240;180;200" repeatCount="indefinite"/>
-                            <animate attributeName="rx" dur="10s" values="170;190;160;170" repeatCount="indefinite"/>
-                            <animate attributeName="ry" dur="12s" values="210;230;200;210" repeatCount="indefinite"/>
-                        </ellipse>
-                        
-                        <ellipse class="liquid-blob liquid-blob--right-2" cx="1050" cy="350" rx="130" ry="140">
-                            <animate attributeName="cx" dur="9s" values="1050;1020;1070;1050" repeatCount="indefinite"/>
-                            <animate attributeName="cy" dur="11s" values="350;380;330;350" repeatCount="indefinite"/>
-                        </ellipse>
-                        
-                        <ellipse class="liquid-blob liquid-blob--right-1" cx="1150" cy="60" rx="110" ry="90" style="opacity: 0.7">
-                            <animate attributeName="cx" dur="10s" values="1150;1120;1160;1150" repeatCount="indefinite"/>
-                            <animate attributeName="cy" dur="8s" values="60;90;50;60" repeatCount="indefinite"/>
-                        </ellipse>
-                    </g>
-                    
-                    <!-- BOTTOM LIQUID STRIP -->
-                    <g filter="url(#glow-filter)">
-                        <ellipse class="liquid-blob liquid-blob--bottom" cx="600" cy="480" rx="500" ry="80">
-                            <animate attributeName="cy" dur="10s" values="480;460;490;480" repeatCount="indefinite"/>
-                            <animate attributeName="rx" dur="15s" values="500;520;490;500" repeatCount="indefinite"/>
-                        </ellipse>
-                    </g>
-                    
-                    <!-- TOP ACCENT -->
-                    <g filter="url(#glow-filter)">
-                        <ellipse class="liquid-blob liquid-blob--left-2" cx="300" cy="-30" rx="200" ry="70" style="opacity: 0.5">
-                            <animate attributeName="cx" dur="14s" values="300;350;280;300" repeatCount="indefinite"/>
-                        </ellipse>
-                        <ellipse class="liquid-blob liquid-blob--right-2" cx="900" cy="-20" rx="180" ry="60" style="opacity: 0.5">
-                            <animate attributeName="cx" dur="12s" values="900;860;920;900" repeatCount="indefinite"/>
-                        </ellipse>
-                    </g>
-                </svg>
-            </div>
+            <canvas class="hero__canvas" id="liquidCanvas"></canvas>
             
             <div class="hero__content">
                 <div class="hero__badge">🧠 ИИ-поиск кандидатов</div>
@@ -537,21 +225,221 @@
             </div>
         </div>
     </main>
-    
+
     <script>
-        // Animate turbulence seed for more organic movement
-        const turbulence = document.querySelector('feTurbulence');
-        let seed = 1;
-        
-        function animateTurbulence() {
-            seed += 0.02;
-            if (turbulence) {
-                turbulence.setAttribute('seed', seed);
+    // Simplex Noise implementation
+    class SimplexNoise {
+        constructor() {
+            this.p = new Uint8Array(256);
+            for (let i = 0; i < 256; i++) this.p[i] = i;
+            for (let i = 255; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [this.p[i], this.p[j]] = [this.p[j], this.p[i]];
             }
-            requestAnimationFrame(animateTurbulence);
+            this.perm = new Uint8Array(512);
+            for (let i = 0; i < 512; i++) this.perm[i] = this.p[i & 255];
         }
         
-        animateTurbulence();
+        noise2D(x, y) {
+            const F2 = 0.5 * (Math.sqrt(3) - 1);
+            const G2 = (3 - Math.sqrt(3)) / 6;
+            
+            const s = (x + y) * F2;
+            const i = Math.floor(x + s);
+            const j = Math.floor(y + s);
+            
+            const t = (i + j) * G2;
+            const X0 = i - t;
+            const Y0 = j - t;
+            const x0 = x - X0;
+            const y0 = y - Y0;
+            
+            const i1 = x0 > y0 ? 1 : 0;
+            const j1 = x0 > y0 ? 0 : 1;
+            
+            const x1 = x0 - i1 + G2;
+            const y1 = y0 - j1 + G2;
+            const x2 = x0 - 1 + 2 * G2;
+            const y2 = y0 - 1 + 2 * G2;
+            
+            const ii = i & 255;
+            const jj = j & 255;
+            
+            const grad = (hash, x, y) => {
+                const h = hash & 7;
+                const u = h < 4 ? x : y;
+                const v = h < 4 ? y : x;
+                return ((h & 1) ? -u : u) + ((h & 2) ? -2 * v : 2 * v);
+            };
+            
+            let n0 = 0, n1 = 0, n2 = 0;
+            
+            let t0 = 0.5 - x0 * x0 - y0 * y0;
+            if (t0 >= 0) {
+                t0 *= t0;
+                n0 = t0 * t0 * grad(this.perm[ii + this.perm[jj]], x0, y0);
+            }
+            
+            let t1 = 0.5 - x1 * x1 - y1 * y1;
+            if (t1 >= 0) {
+                t1 *= t1;
+                n1 = t1 * t1 * grad(this.perm[ii + i1 + this.perm[jj + j1]], x1, y1);
+            }
+            
+            let t2 = 0.5 - x2 * x2 - y2 * y2;
+            if (t2 >= 0) {
+                t2 *= t2;
+                n2 = t2 * t2 * grad(this.perm[ii + 1 + this.perm[jj + 1]], x2, y2);
+            }
+            
+            return 70 * (n0 + n1 + n2);
+        }
+        
+        noise3D(x, y, z) {
+            return this.noise2D(x + z * 0.7, y + z * 0.5);
+        }
+    }
+
+    // Main animation
+    const canvas = document.getElementById('liquidCanvas');
+    const ctx = canvas.getContext('2d');
+    const noise = new SimplexNoise();
+    
+    let width, height;
+    let time = 0;
+    
+    function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        width = canvas.width = rect.width;
+        height = canvas.height = rect.height;
+    }
+    
+    resize();
+    window.addEventListener('resize', resize);
+    
+    // Colors
+    const orange = { r: 227, g: 113, b: 27 };
+    const orangeLight = { r: 255, g: 140, b: 66 };
+    const orangePale = { r: 255, g: 200, b: 160 };
+    
+    function draw() {
+        time += 0.008;
+        
+        // Clear with white
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, width, height);
+        
+        // Draw flowing streams
+        drawStream(0.15, 0.3, -0.3, 0.9, orange, 0.85, 0);
+        drawStream(0.1, 0.5, -0.2, 1.1, orangeLight, 0.7, 0.5);
+        drawStream(0.2, 0.2, -0.25, 0.7, orangePale, 0.6, 1);
+        
+        drawStream(0.85, 0.7, 1.3, 0.1, orange, 0.85, 2);
+        drawStream(0.9, 0.5, 1.2, -0.1, orangeLight, 0.7, 2.5);
+        drawStream(0.8, 0.8, 1.25, 0.3, orangePale, 0.6, 3);
+        
+        // Bottom streams
+        drawStream(0.3, 1.1, 0.5, 0.85, orangeLight, 0.5, 4);
+        drawStream(0.7, 1.1, 0.5, 0.9, orangePale, 0.4, 4.5);
+        
+        // Top streams  
+        drawStream(0.3, -0.1, 0.4, 0.15, orangePale, 0.4, 5);
+        drawStream(0.7, -0.1, 0.6, 0.1, orangeLight, 0.35, 5.5);
+        
+        // White fade in center for text readability
+        const centerGrad = ctx.createRadialGradient(
+            width / 2, height / 2, 0,
+            width / 2, height / 2, Math.min(width, height) * 0.4
+        );
+        centerGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+        centerGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.7)');
+        centerGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.fillStyle = centerGrad;
+        ctx.fillRect(0, 0, width, height);
+        
+        requestAnimationFrame(draw);
+    }
+    
+    function drawStream(startX, startY, endX, endY, color, alpha, phase) {
+        const segments = 60;
+        const streamWidth = 80;
+        
+        ctx.beginPath();
+        
+        const points = [];
+        
+        for (let i = 0; i <= segments; i++) {
+            const t = i / segments;
+            
+            // Base position
+            let x = lerp(startX * width, endX * width, t);
+            let y = lerp(startY * height, endY * height, t);
+            
+            // Add wave distortion
+            const noiseScale = 0.003;
+            const waveX = noise.noise3D(x * noiseScale, y * noiseScale, time + phase) * 60;
+            const waveY = noise.noise3D(x * noiseScale + 100, y * noiseScale, time + phase) * 40;
+            
+            // Secondary faster wave
+            const wave2X = noise.noise3D(x * noiseScale * 2, y * noiseScale * 2, time * 1.5 + phase) * 25;
+            const wave2Y = noise.noise3D(x * noiseScale * 2 + 50, y * noiseScale * 2, time * 1.5 + phase) * 20;
+            
+            x += waveX + wave2X;
+            y += waveY + wave2Y;
+            
+            points.push({ x, y });
+        }
+        
+        // Draw as thick curved path with gradient
+        for (let i = 0; i < points.length - 1; i++) {
+            const p1 = points[i];
+            const p2 = points[i + 1];
+            
+            const t = i / (points.length - 1);
+            const widthMod = Math.sin(t * Math.PI) * 0.8 + 0.2;
+            const currentWidth = streamWidth * widthMod;
+            
+            // Gradient along the stream
+            const alphaT = Math.sin(t * Math.PI);
+            const r = Math.round(lerp(color.r, 255, 1 - alphaT * 0.5));
+            const g = Math.round(lerp(color.g, 255, 1 - alphaT * 0.3));
+            const b = Math.round(lerp(color.b, 255, 1 - alphaT * 0.2));
+            
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha * alphaT})`;
+            ctx.lineWidth = currentWidth;
+            ctx.lineCap = 'round';
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+        }
+        
+        // Add highlights
+        for (let i = 0; i < points.length - 1; i += 3) {
+            const p = points[i];
+            const t = i / (points.length - 1);
+            const highlightAlpha = Math.sin(t * Math.PI) * 0.3;
+            
+            const highlightX = p.x + noise.noise3D(p.x * 0.01, p.y * 0.01, time * 2 + phase) * 15;
+            const highlightY = p.y + noise.noise3D(p.x * 0.01 + 50, p.y * 0.01, time * 2 + phase) * 10;
+            
+            const grad = ctx.createRadialGradient(
+                highlightX, highlightY, 0,
+                highlightX, highlightY, 20
+            );
+            grad.addColorStop(0, `rgba(255, 255, 255, ${highlightAlpha})`);
+            grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            
+            ctx.fillStyle = grad;
+            ctx.fillRect(highlightX - 20, highlightY - 20, 40, 40);
+        }
+    }
+    
+    function lerp(a, b, t) {
+        return a + (b - a) * t;
+    }
+    
+    draw();
     </script>
 </body>
 </html>
