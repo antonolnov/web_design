@@ -1,13 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 
 interface MascotProps {
   size?: number;
   className?: string;
   animate?: boolean;
 }
+
+// BasePath для GitHub Pages
+const basePath = '/web_design/workhere-landing';
 
 export default function Mascot({ 
   size = 200, 
@@ -27,13 +29,13 @@ export default function Mascot({
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         className="w-full h-full"
       >
-        <Image
-          src="/mascot.png"
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`${basePath}/mascot.png`}
           alt="WorkHere Mascot"
+          className="w-full h-full object-contain"
           width={size}
           height={size}
-          className="w-full h-full object-contain"
-          priority
         />
       </motion.div>
     </motion.div>
