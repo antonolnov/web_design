@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Генератор PDF коммерческого предложения WorkHere
-ADVANCED ORGANIC - сложные SVG формы, профессиональная графика
+DARK PREMIUM - чёрный фон, голубые акценты, дорого
 """
 
 from weasyprint import HTML, CSS
@@ -32,23 +32,23 @@ def generate_pdf():
             
             body {
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                color: #1a1a2e;
+                color: #ffffff;
                 font-size: 9pt;
                 line-height: 1.45;
             }
             
             /* ============================================= */
-            /* СТРАНИЦА 1: COVER */
+            /* СТРАНИЦА 1: DARK PREMIUM COVER */
             /* ============================================= */
             .cover {
                 height: 297mm;
-                background: linear-gradient(165deg, #f8fbff 0%, #e8f4fc 40%, #dceefb 100%);
+                background: linear-gradient(160deg, #0a0a0f 0%, #0d1117 40%, #0a0a0f 100%);
                 position: relative;
                 overflow: hidden;
                 page-break-after: always;
             }
             
-            /* SVG сложные формы */
+            /* SVG формы */
             .cover-svg {
                 position: absolute;
                 top: 0;
@@ -57,7 +57,7 @@ def generate_pdf():
                 height: 100%;
             }
             
-            /* Тонкая геометрическая сетка */
+            /* Subtle grid */
             .cover-grid {
                 position: absolute;
                 top: 0;
@@ -67,10 +67,29 @@ def generate_pdf():
                 background-image: 
                     linear-gradient(rgba(33, 150, 243, 0.03) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(33, 150, 243, 0.03) 1px, transparent 1px);
-                background-size: 40px 40px;
+                background-size: 50px 50px;
             }
             
-            /* Логотип */
+            /* Gradient glow */
+            .cover-glow-1 {
+                position: absolute;
+                top: -200px;
+                right: -150px;
+                width: 600px;
+                height: 600px;
+                background: radial-gradient(circle, rgba(33, 150, 243, 0.15) 0%, transparent 70%);
+            }
+            
+            .cover-glow-2 {
+                position: absolute;
+                bottom: -200px;
+                left: -150px;
+                width: 500px;
+                height: 500px;
+                background: radial-gradient(circle, rgba(33, 150, 243, 0.1) 0%, transparent 70%);
+            }
+            
+            /* Logo */
             .cover-logo {
                 position: absolute;
                 top: 50px;
@@ -80,12 +99,11 @@ def generate_pdf():
             
             .cover-logo-box {
                 display: inline-flex;
-                background: white;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
                 border-radius: 16px;
                 padding: 12px 20px;
-                box-shadow: 
-                    0 4px 6px rgba(33, 150, 243, 0.07),
-                    0 20px 40px rgba(33, 150, 243, 0.12);
+                backdrop-filter: blur(10px);
             }
             
             .cover-logo-work {
@@ -98,18 +116,18 @@ def generate_pdf():
             }
             
             .cover-logo-here {
-                color: #1a1a2e;
+                color: #ffffff;
                 font-size: 26pt;
                 font-weight: 700;
                 padding: 8px 14px;
             }
             
-            /* Главный контент */
+            /* Content */
             .cover-content {
                 position: absolute;
                 top: 200px;
                 left: 55px;
-                max-width: 400px;
+                max-width: 420px;
                 z-index: 20;
             }
             
@@ -117,38 +135,39 @@ def generate_pdf():
                 display: inline-flex;
                 align-items: center;
                 gap: 10px;
-                background: white;
+                background: rgba(33, 150, 243, 0.1);
+                border: 1px solid rgba(33, 150, 243, 0.3);
                 padding: 8px 18px;
                 border-radius: 30px;
                 margin-bottom: 25px;
-                box-shadow: 0 4px 15px rgba(33, 150, 243, 0.1);
             }
             
             .cover-eyebrow-dot {
                 width: 8px;
                 height: 8px;
-                background: linear-gradient(135deg, #2196F3, #64b5f6);
+                background: #2196F3;
                 border-radius: 50%;
+                box-shadow: 0 0 10px #2196F3;
             }
             
             .cover-eyebrow span {
                 font-size: 9pt;
                 font-weight: 600;
-                color: #2196F3;
+                color: #64b5f6;
                 letter-spacing: 1px;
             }
             
             .cover-title {
-                font-size: 42pt;
+                font-size: 44pt;
                 font-weight: 700;
-                color: #0d1b2a;
+                color: #ffffff;
                 line-height: 1.05;
                 margin-bottom: 25px;
                 letter-spacing: -1px;
             }
             
             .cover-title-accent {
-                background: linear-gradient(135deg, #2196F3, #1976D2);
+                background: linear-gradient(135deg, #2196F3, #64b5f6);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -156,46 +175,47 @@ def generate_pdf():
             
             .cover-desc {
                 font-size: 12pt;
-                color: #4a5568;
+                color: rgba(255, 255, 255, 0.7);
                 line-height: 1.7;
             }
             
-            /* Feature pills */
+            /* Pills */
             .cover-pills {
                 position: absolute;
                 bottom: 180px;
                 left: 55px;
                 display: flex;
-                gap: 12px;
+                gap: 15px;
                 z-index: 20;
             }
             
             .cover-pill {
-                background: white;
-                border-radius: 14px;
-                padding: 18px 22px;
-                box-shadow: 
-                    0 4px 6px rgba(33, 150, 243, 0.05),
-                    0 15px 35px rgba(33, 150, 243, 0.1);
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 16px;
+                padding: 20px 25px;
                 text-align: center;
-                min-width: 100px;
+                min-width: 110px;
             }
             
             .cover-pill-value {
-                font-size: 22pt;
+                font-size: 26pt;
                 font-weight: 700;
-                color: #2196F3;
+                background: linear-gradient(135deg, #2196F3, #64b5f6);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
                 line-height: 1;
                 margin-bottom: 6px;
             }
             
             .cover-pill-label {
                 font-size: 8pt;
-                color: #64748b;
+                color: rgba(255, 255, 255, 0.5);
                 font-weight: 500;
             }
             
-            /* Bottom info */
+            /* Bottom */
             .cover-bottom {
                 position: absolute;
                 bottom: 50px;
@@ -205,11 +225,13 @@ def generate_pdf():
                 justify-content: space-between;
                 align-items: flex-end;
                 z-index: 20;
+                padding-top: 20px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
             }
             
             .cover-bottom-left {
                 font-size: 10pt;
-                color: #64748b;
+                color: rgba(255, 255, 255, 0.4);
             }
             
             .cover-bottom-right {
@@ -217,22 +239,22 @@ def generate_pdf():
             }
             
             .cover-price {
-                font-size: 11pt;
-                color: #1a1a2e;
+                font-size: 12pt;
+                color: #ffffff;
                 font-weight: 600;
             }
             
             .cover-price-note {
                 font-size: 9pt;
-                color: #94a3b8;
+                color: rgba(255, 255, 255, 0.4);
             }
             
             /* ============================================= */
-            /* СТРАНИЦА 2: CONTENT */
+            /* СТРАНИЦА 2: DARK CONTENT */
             /* ============================================= */
             .page {
                 height: 297mm;
-                background: #fafcff;
+                background: linear-gradient(180deg, #0d1117 0%, #0a0a0f 100%);
                 position: relative;
                 overflow: hidden;
             }
@@ -247,22 +269,21 @@ def generate_pdf():
                 pointer-events: none;
             }
             
-            /* Header */
-            .page-header {
-                background: linear-gradient(135deg, #2196F3 0%, #1976D2 60%, #1565C0 100%);
-                padding: 20px 40px 45px;
-                position: relative;
+            /* Glows */
+            .page-glow {
+                position: absolute;
+                bottom: -100px;
+                right: -100px;
+                width: 400px;
+                height: 400px;
+                background: radial-gradient(circle, rgba(33, 150, 243, 0.08) 0%, transparent 70%);
             }
             
-            .page-header::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                height: 30px;
-                background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 30'%3E%3Cpath d='M0,30 L0,15 Q200,0 400,15 T800,15 T1200,15 L1200,30 Z' fill='%23fafcff'/%3E%3C/svg%3E");
-                background-size: 100% 100%;
+            /* Header */
+            .page-header {
+                background: linear-gradient(135deg, rgba(33, 150, 243, 0.15) 0%, rgba(25, 118, 210, 0.1) 100%);
+                border-bottom: 1px solid rgba(33, 150, 243, 0.2);
+                padding: 18px 40px;
             }
             
             .page-header-inner {
@@ -277,8 +298,8 @@ def generate_pdf():
             }
             
             .page-logo-work {
-                background: white;
-                color: #2196F3;
+                background: linear-gradient(135deg, #2196F3, #1976D2);
+                color: white;
                 font-size: 12pt;
                 font-weight: 700;
                 padding: 5px 10px;
@@ -293,79 +314,77 @@ def generate_pdf():
             }
             
             .page-header-title {
-                color: rgba(255,255,255,0.9);
+                color: rgba(255, 255, 255, 0.7);
                 font-size: 10pt;
                 font-weight: 500;
             }
             
-            /* Content area */
+            /* Content */
             .content {
-                padding: 15px 40px 25px;
+                padding: 20px 40px 25px;
                 position: relative;
                 z-index: 10;
             }
             
             /* Intro */
             .intro {
-                background: white;
-                border-radius: 18px;
-                padding: 18px 22px;
-                margin-bottom: 14px;
-                box-shadow: 0 4px 20px rgba(33, 150, 243, 0.06);
-                border-left: 4px solid;
-                border-image: linear-gradient(180deg, #2196F3, #64b5f6) 1;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-left: 3px solid #2196F3;
+                border-radius: 12px;
+                padding: 16px 20px;
+                margin-bottom: 16px;
             }
             
             .intro p {
                 font-size: 10pt;
-                color: #333;
+                color: rgba(255, 255, 255, 0.8);
                 line-height: 1.6;
             }
             
             .intro strong {
-                color: #2196F3;
+                color: #64b5f6;
             }
             
             /* Section header */
             .section-header {
                 display: flex;
                 align-items: center;
-                gap: 12px;
+                gap: 10px;
                 margin-bottom: 10px;
             }
             
             .section-icon {
-                width: 32px;
-                height: 32px;
-                background: linear-gradient(135deg, #2196F3, #42a5f5);
-                border-radius: 10px;
+                width: 30px;
+                height: 30px;
+                background: linear-gradient(135deg, #2196F3, #1976D2);
+                border-radius: 8px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                font-size: 14pt;
+                font-size: 13pt;
             }
             
             .section-title {
-                font-size: 12pt;
+                font-size: 11pt;
                 font-weight: 700;
-                color: #0d1b2a;
+                color: #ffffff;
             }
             
-            /* Audience - compact */
+            /* Audience */
             .audience-row {
                 display: flex;
                 gap: 10px;
-                margin-bottom: 14px;
+                margin-bottom: 16px;
             }
             
             .audience-card {
                 flex: 1;
-                background: white;
-                border-radius: 14px;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 12px;
                 padding: 14px;
-                box-shadow: 0 3px 15px rgba(33, 150, 243, 0.05);
                 position: relative;
-                overflow: hidden;
             }
             
             .audience-card::before {
@@ -374,20 +393,21 @@ def generate_pdf():
                 top: 0;
                 left: 0;
                 right: 0;
-                height: 3px;
+                height: 2px;
                 background: linear-gradient(90deg, #2196F3, #64b5f6);
+                border-radius: 12px 12px 0 0;
             }
             
             .audience-card h4 {
                 font-size: 10pt;
                 font-weight: 700;
-                color: #1a1a2e;
+                color: #ffffff;
                 margin-bottom: 4px;
             }
             
             .audience-card p {
                 font-size: 8pt;
-                color: #64748b;
+                color: rgba(255, 255, 255, 0.6);
                 line-height: 1.4;
             }
             
@@ -395,34 +415,35 @@ def generate_pdf():
             .two-cols {
                 display: flex;
                 gap: 15px;
-                margin-bottom: 14px;
+                margin-bottom: 16px;
             }
             
             .col {
                 flex: 1;
             }
             
-            /* Problems - minimal table */
+            /* Problems */
             .problems-box {
-                background: white;
-                border-radius: 14px;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 12px;
                 overflow: hidden;
-                box-shadow: 0 3px 15px rgba(33, 150, 243, 0.05);
             }
             
             .problems-header {
-                background: linear-gradient(90deg, #2196F3, #42a5f5);
+                background: linear-gradient(90deg, rgba(33, 150, 243, 0.2), rgba(33, 150, 243, 0.1));
                 padding: 10px 14px;
-                color: white;
+                color: #64b5f6;
                 font-size: 9pt;
                 font-weight: 600;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             }
             
             .problem-row {
                 display: flex;
                 align-items: center;
                 padding: 8px 14px;
-                border-bottom: 1px solid #f0f4f8;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
                 font-size: 8pt;
             }
             
@@ -432,7 +453,7 @@ def generate_pdf():
             
             .problem-from {
                 flex: 1;
-                color: #64748b;
+                color: rgba(255, 255, 255, 0.5);
             }
             
             .problem-arrow {
@@ -443,16 +464,16 @@ def generate_pdf():
             
             .problem-to {
                 flex: 1;
-                color: #1a1a2e;
+                color: #64b5f6;
                 font-weight: 600;
             }
             
-            /* Features grid */
+            /* Features */
             .features-box {
-                background: white;
-                border-radius: 14px;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 12px;
                 padding: 14px;
-                box-shadow: 0 3px 15px rgba(33, 150, 243, 0.05);
             }
             
             .features-grid {
@@ -469,21 +490,22 @@ def generate_pdf():
                 font-size: 9pt;
                 font-weight: 700;
                 color: #2196F3;
-                margin-bottom: 4px;
+                margin-bottom: 3px;
             }
             
             .feature-item p {
                 font-size: 8pt;
-                color: #64748b;
+                color: rgba(255, 255, 255, 0.6);
                 line-height: 1.4;
             }
             
             /* AI Block */
             .ai-block {
-                background: linear-gradient(135deg, #1565C0 0%, #1976D2 40%, #2196F3 100%);
-                border-radius: 18px;
+                background: linear-gradient(135deg, rgba(33, 150, 243, 0.15) 0%, rgba(25, 118, 210, 0.1) 100%);
+                border: 1px solid rgba(33, 150, 243, 0.3);
+                border-radius: 16px;
                 padding: 18px 22px;
-                margin-bottom: 14px;
+                margin-bottom: 16px;
                 display: flex;
                 align-items: center;
                 gap: 18px;
@@ -491,26 +513,28 @@ def generate_pdf():
                 overflow: hidden;
             }
             
-            .ai-block-bg {
+            .ai-block::before {
+                content: '';
                 position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                opacity: 0.15;
+                top: -50px;
+                right: -50px;
+                width: 150px;
+                height: 150px;
+                background: radial-gradient(circle, rgba(33, 150, 243, 0.2) 0%, transparent 70%);
             }
             
             .ai-icon {
                 width: 48px;
                 height: 48px;
-                background: rgba(255,255,255,0.2);
-                border-radius: 14px;
+                background: linear-gradient(135deg, #2196F3, #1976D2);
+                border-radius: 12px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 font-size: 22pt;
                 position: relative;
                 z-index: 1;
+                box-shadow: 0 4px 20px rgba(33, 150, 243, 0.4);
             }
             
             .ai-content {
@@ -527,7 +551,7 @@ def generate_pdf():
             }
             
             .ai-content p {
-                color: rgba(255,255,255,0.9);
+                color: rgba(255, 255, 255, 0.8);
                 font-size: 9pt;
                 line-height: 1.5;
             }
@@ -541,16 +565,19 @@ def generate_pdf():
             
             .ai-stat {
                 text-align: center;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 10px;
+                padding: 10px 15px;
             }
             
             .ai-stat-value {
-                color: white;
+                color: #64b5f6;
                 font-size: 18pt;
                 font-weight: 700;
             }
             
             .ai-stat-label {
-                color: rgba(255,255,255,0.7);
+                color: rgba(255, 255, 255, 0.5);
                 font-size: 7pt;
             }
             
@@ -558,31 +585,31 @@ def generate_pdf():
             .integrations-row {
                 display: flex;
                 gap: 8px;
-                margin-bottom: 14px;
+                margin-bottom: 16px;
             }
             
             .int-chip {
                 flex: 1;
-                background: white;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.08);
                 border-radius: 10px;
                 padding: 10px 12px;
                 text-align: center;
-                box-shadow: 0 2px 10px rgba(33, 150, 243, 0.05);
             }
             
             .int-chip strong {
                 display: block;
                 font-size: 9pt;
-                color: #1a1a2e;
+                color: #ffffff;
                 margin-bottom: 2px;
             }
             
             .int-chip span {
                 font-size: 7pt;
-                color: #94a3b8;
+                color: rgba(255, 255, 255, 0.4);
             }
             
-            /* Price section */
+            /* Price */
             .price-section {
                 display: flex;
                 gap: 12px;
@@ -590,13 +617,12 @@ def generate_pdf():
             
             .price-card {
                 flex: 1;
-                background: white;
-                border-radius: 18px;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 16px;
                 padding: 22px;
                 text-align: center;
-                box-shadow: 0 6px 25px rgba(33, 150, 243, 0.1);
                 position: relative;
-                overflow: hidden;
             }
             
             .price-card::before {
@@ -605,38 +631,42 @@ def generate_pdf():
                 top: 0;
                 left: 0;
                 right: 0;
-                height: 4px;
-                background: linear-gradient(90deg, #2196F3, #64b5f6, #2196F3);
+                height: 3px;
+                background: linear-gradient(90deg, #2196F3, #64b5f6);
+                border-radius: 16px 16px 0 0;
             }
             
             .price-label {
                 font-size: 9pt;
-                color: #94a3b8;
+                color: rgba(255, 255, 255, 0.5);
                 margin-bottom: 6px;
             }
             
             .price-value {
-                font-size: 32pt;
+                font-size: 34pt;
                 font-weight: 700;
-                color: #2196F3;
+                background: linear-gradient(135deg, #2196F3, #64b5f6);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
                 line-height: 1;
             }
             
             .price-currency {
-                font-size: 14pt;
-                color: #1a1a2e;
+                font-size: 16pt;
+                color: #ffffff;
             }
             
             .price-period {
                 font-size: 9pt;
-                color: #94a3b8;
+                color: rgba(255, 255, 255, 0.5);
                 margin-top: 4px;
             }
             
             .cta-card {
                 flex: 1;
                 background: linear-gradient(135deg, #2196F3, #1976D2);
-                border-radius: 18px;
+                border-radius: 16px;
                 padding: 22px;
                 display: flex;
                 flex-direction: column;
@@ -644,6 +674,7 @@ def generate_pdf():
                 text-align: center;
                 position: relative;
                 overflow: hidden;
+                box-shadow: 0 8px 30px rgba(33, 150, 243, 0.3);
             }
             
             .cta-card::before {
@@ -653,7 +684,7 @@ def generate_pdf():
                 right: -30px;
                 width: 100px;
                 height: 100px;
-                background: rgba(255,255,255,0.1);
+                background: rgba(255, 255, 255, 0.1);
                 border-radius: 50%;
             }
             
@@ -666,7 +697,7 @@ def generate_pdf():
             }
             
             .cta-card p {
-                color: rgba(255,255,255,0.9);
+                color: rgba(255, 255, 255, 0.9);
                 font-size: 9pt;
                 position: relative;
             }
@@ -675,57 +706,51 @@ def generate_pdf():
     <body>
         <!-- ===== СТРАНИЦА 1: COVER ===== -->
         <div class="cover">
-            <!-- Complex SVG Background -->
+            <!-- SVG -->
             <svg class="cover-svg" viewBox="0 0 595 842" preserveAspectRatio="xMidYMid slice">
                 <defs>
                     <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#2196F3;stop-opacity:0.9"/>
-                        <stop offset="100%" style="stop-color:#1565C0;stop-opacity:1"/>
+                        <stop offset="0%" style="stop-color:#2196F3;stop-opacity:0.3"/>
+                        <stop offset="100%" style="stop-color:#1565C0;stop-opacity:0.1"/>
                     </linearGradient>
-                    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#64b5f6;stop-opacity:0.7"/>
-                        <stop offset="100%" style="stop-color:#2196F3;stop-opacity:0.8"/>
+                    <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#64b5f6;stop-opacity:0.2"/>
+                        <stop offset="100%" style="stop-color:#2196F3;stop-opacity:0.05"/>
                     </linearGradient>
-                    <linearGradient id="grad3" x1="100%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#1976D2;stop-opacity:0.6"/>
-                        <stop offset="100%" style="stop-color:#0d47a1;stop-opacity:0.8"/>
-                    </linearGradient>
-                    <filter id="blur1" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
-                    </filter>
                 </defs>
                 
-                <!-- Main complex blob - top right -->
-                <path d="M450,0 Q595,50 595,180 Q595,320 520,380 Q440,450 380,400 Q300,340 350,250 Q380,180 420,120 Q460,60 450,0 Z" fill="url(#grad1)"/>
+                <!-- Complex blob top right -->
+                <path d="M450,0 Q550,30 580,120 Q610,220 550,300 Q490,380 420,350 Q340,320 360,240 Q380,160 410,100 Q440,40 450,0 Z" fill="url(#grad1)"/>
                 
-                <!-- Secondary blob -->
-                <path d="M520,80 Q580,100 570,180 Q560,260 500,280 Q430,300 420,240 Q410,180 450,130 Q490,80 520,80 Z" fill="url(#grad2)" opacity="0.6"/>
+                <!-- Secondary shape -->
+                <path d="M500,50 Q560,80 550,160 Q540,240 480,260 Q410,280 400,210 Q390,140 430,100 Q470,60 500,50 Z" fill="url(#grad2)"/>
                 
-                <!-- Bottom left blob -->
-                <path d="M-50,650 Q30,580 120,620 Q220,670 200,760 Q180,850 80,870 Q-30,890 -80,820 Q-130,750 -50,650 Z" fill="url(#grad3)"/>
+                <!-- Bottom blob -->
+                <path d="M-80,680 Q20,620 120,670 Q230,730 180,820 Q130,920 20,880 Q-100,840 -80,680 Z" fill="url(#grad1)"/>
                 
                 <!-- Flowing lines -->
-                <path d="M0,500 Q150,480 300,520 Q450,560 595,500" stroke="rgba(33,150,243,0.15)" stroke-width="2" fill="none"/>
-                <path d="M0,530 Q150,510 300,550 Q450,590 595,530" stroke="rgba(33,150,243,0.1)" stroke-width="1.5" fill="none"/>
+                <path d="M0,520 Q200,480 400,530 Q550,570 595,510" stroke="rgba(33,150,243,0.1)" stroke-width="1" fill="none"/>
+                <path d="M0,550 Q200,510 400,560 Q550,600 595,540" stroke="rgba(33,150,243,0.07)" stroke-width="1" fill="none"/>
+                <path d="M0,580 Q200,540 400,590 Q550,630 595,570" stroke="rgba(33,150,243,0.04)" stroke-width="1" fill="none"/>
                 
-                <!-- Geometric accents -->
-                <circle cx="100" cy="200" r="40" stroke="rgba(33,150,243,0.2)" stroke-width="1" fill="none"/>
-                <circle cx="100" cy="200" r="55" stroke="rgba(33,150,243,0.1)" stroke-width="1" fill="none"/>
-                <circle cx="480" cy="550" r="30" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
-                <circle cx="480" cy="550" r="45" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
+                <!-- Circles -->
+                <circle cx="120" cy="220" r="50" stroke="rgba(33,150,243,0.1)" stroke-width="1" fill="none"/>
+                <circle cx="120" cy="220" r="70" stroke="rgba(33,150,243,0.05)" stroke-width="1" fill="none"/>
+                <circle cx="500" cy="600" r="40" stroke="rgba(100,181,246,0.1)" stroke-width="1" fill="none"/>
+                <circle cx="500" cy="600" r="60" stroke="rgba(100,181,246,0.05)" stroke-width="1" fill="none"/>
                 
-                <!-- Small decorative shapes -->
-                <circle cx="180" cy="350" r="8" fill="rgba(33,150,243,0.2)"/>
-                <circle cx="520" cy="650" r="12" fill="rgba(33,150,243,0.15)"/>
-                <circle cx="450" cy="750" r="6" fill="rgba(33,150,243,0.25)"/>
+                <!-- Dots -->
+                <circle cx="200" cy="380" r="4" fill="rgba(33,150,243,0.3)"/>
+                <circle cx="480" cy="450" r="3" fill="rgba(33,150,243,0.2)"/>
+                <circle cx="150" cy="600" r="5" fill="rgba(33,150,243,0.15)"/>
                 
-                <!-- Connecting lines -->
-                <line x1="100" y1="240" x2="180" y2="350" stroke="rgba(33,150,243,0.1)" stroke-width="1"/>
-                <line x1="480" y1="580" x2="520" y2="650" stroke="rgba(33,150,243,0.08)" stroke-width="1"/>
+                <!-- Lines connecting -->
+                <line x1="120" y1="270" x2="200" y2="380" stroke="rgba(33,150,243,0.08)" stroke-width="1"/>
             </svg>
             
-            <!-- Grid overlay -->
             <div class="cover-grid"></div>
+            <div class="cover-glow-1"></div>
+            <div class="cover-glow-2"></div>
             
             <!-- Logo -->
             <div class="cover-logo">
@@ -745,7 +770,7 @@ def generate_pdf():
                 <p class="cover-desc">Единое пространство для вакансий, кандидатов и коммуникаций. Автоматизация рутины, аналитика воронки и ИИ-поиск.</p>
             </div>
             
-            <!-- Feature pills -->
+            <!-- Pills -->
             <div class="cover-pills">
                 <div class="cover-pill">
                     <div class="cover-pill-value">5×</div>
@@ -773,19 +798,20 @@ def generate_pdf():
         
         <!-- ===== СТРАНИЦА 2: CONTENT ===== -->
         <div class="page">
-            <!-- SVG Background -->
+            <!-- SVG -->
             <svg class="page-svg" viewBox="0 0 595 842" preserveAspectRatio="xMidYMid slice">
                 <defs>
                     <linearGradient id="pg1" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#2196F3;stop-opacity:0.05"/>
-                        <stop offset="100%" style="stop-color:#1976D2;stop-opacity:0.08"/>
+                        <stop offset="0%" style="stop-color:#2196F3;stop-opacity:0.08"/>
+                        <stop offset="100%" style="stop-color:#1976D2;stop-opacity:0.03"/>
                     </linearGradient>
                 </defs>
-                <path d="M595,700 Q550,650 500,680 Q420,720 400,800 Q380,880 450,900 L595,900 Z" fill="url(#pg1)"/>
-                <path d="M0,750 Q50,700 30,650 Q10,600 -20,620 L-20,850 L50,850 Q30,800 0,750 Z" fill="url(#pg1)"/>
-                <circle cx="550" cy="150" r="60" stroke="rgba(33,150,243,0.05)" stroke-width="1" fill="none"/>
-                <circle cx="550" cy="150" r="80" stroke="rgba(33,150,243,0.03)" stroke-width="1" fill="none"/>
+                <path d="M595,750 Q530,700 480,750 Q400,820 420,900 L595,900 Z" fill="url(#pg1)"/>
+                <circle cx="560" cy="200" r="80" stroke="rgba(33,150,243,0.05)" stroke-width="1" fill="none"/>
+                <circle cx="560" cy="200" r="100" stroke="rgba(33,150,243,0.03)" stroke-width="1" fill="none"/>
             </svg>
+            
+            <div class="page-glow"></div>
             
             <!-- Header -->
             <div class="page-header">
@@ -824,7 +850,7 @@ def generate_pdf():
                     </div>
                 </div>
                 
-                <!-- Two columns: Problems + Features -->
+                <!-- Two cols -->
                 <div class="two-cols">
                     <div class="col">
                         <div class="section-header">
@@ -885,11 +911,6 @@ def generate_pdf():
                 
                 <!-- AI -->
                 <div class="ai-block">
-                    <svg class="ai-block-bg" viewBox="0 0 500 100" preserveAspectRatio="xMidYMid slice">
-                        <circle cx="50" cy="50" r="80" fill="white"/>
-                        <circle cx="450" cy="30" r="60" fill="white"/>
-                        <circle cx="250" cy="80" r="40" fill="white"/>
-                    </svg>
                     <div class="ai-icon">🧠</div>
                     <div class="ai-content">
                         <h3>ИИ-поиск кандидатов</h3>
