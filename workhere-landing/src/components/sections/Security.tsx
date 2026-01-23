@@ -31,49 +31,32 @@ export default function Security() {
 
   return (
     <section id="security" className="relative py-20 overflow-hidden bg-gradient-to-b from-white via-[#f8fbff] to-white">
-      {/* Optimized background */}
+      {/* Simple background */}
+      <CrazyBackground variant="gradient" />
       <CrazyBackground variant="particles" intensity="low" />
-      <CrazyBackground variant="waves" intensity="low" />
-      
-      {/* Just 2 orbs */}
-      <motion.div
-        className="absolute -left-40 top-1/4 w-[400px] h-[400px] rounded-full blur-3xl"
-        style={{ background: 'radial-gradient(circle, rgba(24,144,255,0.1) 0%, transparent 70%)' }}
-        animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute -right-40 bottom-1/4 w-[350px] h-[350px] rounded-full blur-3xl"
-        style={{ background: 'radial-gradient(circle, rgba(64,169,255,0.1) 0%, transparent 70%)' }}
-        animate={{ x: [0, -30, 0], y: [0, 20, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      />
 
       {/* Mascot */}
       <motion.div
         className="absolute right-6 lg:right-16 top-24 z-20 hidden lg:block"
-        animate={{ y: [-15, 15, -15] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        animate={{ y: [-12, 12, -12] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Mascot size={140} variant="float" />
+        <Mascot size={130} />
       </motion.div>
       
       <Container className="relative z-10">
         <div ref={ref}>
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            className="text-center mb-14"
+            className="text-center mb-12"
           >
-            <motion.span 
-              className="inline-flex items-center gap-2 px-4 py-2 mb-5 text-sm font-medium text-[#1890ff] bg-[#e6f4ff] rounded-full"
-              whileHover={{ scale: 1.03 }}
-            >
+            <span className="inline-flex items-center gap-2 px-4 py-2 mb-5 text-sm font-medium text-[#1890ff] bg-[#e6f4ff] rounded-full">
               <Shield size={14} />
               Безопасность данных
               <Sparkles size={12} />
-            </motion.span>
+            </span>
             
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-5">
               Ваши данные под <span className="text-[#1890ff]">защитой</span>
@@ -90,11 +73,10 @@ export default function Security() {
               {securityFeatures.map((feature, i) => (
                 <motion.div
                   key={feature.title}
-                  initial={{ opacity: 0, x: -30 }}
+                  initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.15 + i * 0.08 }}
-                  whileHover={{ x: 6 }}
-                  className="flex gap-4 p-5 bg-white rounded-xl border border-gray-100 hover:border-[#1890ff]/30 hover:shadow-lg transition-all cursor-pointer"
+                  transition={{ delay: 0.1 + i * 0.06 }}
+                  className="flex gap-4 p-5 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-lg hover:-translate-x-1 transition-all cursor-pointer"
                 >
                   <div className="w-12 h-12 bg-[#e6f4ff] rounded-xl flex items-center justify-center flex-shrink-0">
                     <feature.icon className="text-[#1890ff]" size={24} />
@@ -111,9 +93,9 @@ export default function Security() {
             <div className="space-y-5">
               {/* Deployment Options */}
               <motion.div
-                initial={{ opacity: 0, x: 30 }}
+                initial={{ opacity: 0, x: 20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: 0.25 }}
+                transition={{ delay: 0.2 }}
                 className="bg-gradient-to-br from-[#e6f4ff] to-white rounded-2xl p-6 border border-[#1890ff]/10"
               >
                 <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -124,10 +106,9 @@ export default function Security() {
                   {deploymentOptions.map((option, i) => (
                     <motion.div 
                       key={option.title}
-                      initial={{ opacity: 0, y: 15 }}
+                      initial={{ opacity: 0, y: 10 }}
                       animate={isInView ? { opacity: 1, y: 0 } : {}}
-                      transition={{ delay: 0.35 + i * 0.08 }}
-                      whileHover={{ x: 5 }}
+                      transition={{ delay: 0.3 + i * 0.06 }}
                       className="flex items-start gap-3 p-3 bg-white rounded-xl hover:shadow-md transition-all cursor-pointer"
                     >
                       <div className="w-9 h-9 bg-[#e6f4ff] rounded-lg flex items-center justify-center flex-shrink-0">
@@ -144,9 +125,9 @@ export default function Security() {
 
               {/* Data Quality */}
               <motion.div
-                initial={{ opacity: 0, x: 30 }}
+                initial={{ opacity: 0, x: 20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.35 }}
                 className="bg-white rounded-2xl p-6 border border-gray-100 shadow-md"
               >
                 <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
@@ -157,10 +138,9 @@ export default function Security() {
                   {dataQuality.map((item, i) => (
                     <motion.div 
                       key={item.title}
-                      initial={{ opacity: 0, y: 15 }}
+                      initial={{ opacity: 0, y: 10 }}
                       animate={isInView ? { opacity: 1, y: 0 } : {}}
-                      transition={{ delay: 0.5 + i * 0.08 }}
-                      whileHover={{ x: 5 }}
+                      transition={{ delay: 0.45 + i * 0.06 }}
                       className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl hover:bg-[#e6f4ff]/50 transition-all cursor-pointer"
                     >
                       <div className="w-9 h-9 bg-white rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">

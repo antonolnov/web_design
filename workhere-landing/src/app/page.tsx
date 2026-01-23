@@ -21,14 +21,18 @@ export default function Home() {
         <Hero />
         <StatsBlob />
         <ProductShowcase />
-        <SectionTransition from="light" to="dark" />
+        {/* Плавный переход из светлого в тёмный */}
+        <SectionTransition from="light" to="dark" height={180} />
         <Features />
         <Pipeline />
-        <SectionTransition from="dark" to="dark" height={80} />
+        {/* Переход между тёмными секциями */}
+        <SectionTransition from="dark" to="dark" height={100} />
         <API />
-        <SectionTransition from="dark" to="dark" height={80} />
+        {/* Переход между тёмными секциями */}
+        <SectionTransition from="dark" to="dark" height={100} />
         <Enterprise />
-        <SectionTransition from="dark" to="light" />
+        {/* Плавный переход из тёмного в светлый */}
+        <SectionTransition from="dark" to="light" height={180} />
         <Security />
         <CTA />
       </main>

@@ -70,51 +70,31 @@ export default function Pipeline() {
 
   return (
     <section id="funnel" className="relative py-20 overflow-hidden bg-[#0a1628]">
-      {/* Optimized background */}
-      <CrazyBackground variant="grid" intensity="low" color="#1890ff" />
-      <CrazyBackground variant="aurora" intensity="low" />
-      
-      {/* Just 2 floating orbs */}
-      {[0, 1].map((i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full blur-3xl"
-          style={{
-            width: 350 + i * 100,
-            height: 350 + i * 100,
-            left: `${20 + i * 40}%`,
-            top: `${20 + i * 20}%`,
-            background: `radial-gradient(circle, rgba(24,144,255,${0.12 - i * 0.03}) 0%, transparent 70%)`,
-          }}
-          animate={{ x: [0, 40, 0], y: [0, -25, 0] }}
-          transition={{ duration: 15 + i * 5, repeat: Infinity, ease: "easeInOut" }}
-        />
-      ))}
+      {/* Simple grid background */}
+      <CrazyBackground variant="grid" color="#1890ff" />
+      <CrazyBackground variant="particles" intensity="low" color="#1890ff" />
 
       {/* Mascot */}
       <motion.div
         className="absolute right-8 top-16 z-20 hidden xl:block"
-        animate={{ y: [-15, 15, -15] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        animate={{ y: [-10, 10, -10] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Mascot size={130} variant="float" />
+        <Mascot size={120} />
       </motion.div>
 
       <Container className="relative z-10">
         <div ref={ref}>
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            className="text-center mb-14"
+            className="text-center mb-12"
           >
-            <motion.span 
-              className="inline-flex items-center gap-2 px-4 py-2 mb-5 text-sm font-medium text-[#1890ff] bg-[#1890ff]/10 border border-[#1890ff]/20 rounded-full"
-              whileHover={{ scale: 1.03 }}
-            >
+            <span className="inline-flex items-center gap-2 px-4 py-2 mb-5 text-sm font-medium text-[#1890ff] bg-[#1890ff]/10 border border-[#1890ff]/20 rounded-full">
               <TrendingUp size={14} />
               Воронки подбора
-            </motion.span>
+            </span>
             
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">
               Любое количество <span className="text-[#1890ff]">воронок</span>
@@ -129,11 +109,11 @@ export default function Pipeline() {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.1 }}
             className="flex flex-wrap justify-center gap-3 mb-10"
           >
             {funnels.map((funnel, i) => (
-              <motion.button
+              <button
                 key={funnel.id}
                 onClick={() => setActiveFunnel(i)}
                 className={`group flex items-center gap-3 px-5 py-3 rounded-xl transition-all ${
@@ -141,8 +121,6 @@ export default function Pipeline() {
                     ? 'bg-white text-gray-900 shadow-lg'
                     : 'bg-white/5 text-white/70 hover:bg-white/10 border border-white/10'
                 }`}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
               >
                 <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${
                   activeFunnel === i ? 'bg-[#e6f4ff] text-[#1890ff]' : 'bg-white/10 text-white/70'
@@ -155,7 +133,7 @@ export default function Pipeline() {
                     {funnel.description}
                   </div>
                 </div>
-              </motion.button>
+              </button>
             ))}
             
             <div className="flex items-center gap-2 px-3 text-white/30 text-sm">
@@ -165,15 +143,15 @@ export default function Pipeline() {
 
           {/* Main content */}
           <div className="grid lg:grid-cols-2 gap-10 items-start">
-            {/* Funnel visualization */}
+            {/* Funnel visualization - NO backdrop-blur */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentFunnel.id}
-                initial={{ opacity: 0, x: -30 }}
+                initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 30 }}
-                transition={{ duration: 0.4 }}
-                className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10"
+                exit={{ opacity: 0, x: 20 }}
+                transition={{ duration: 0.3 }}
+                className="bg-[#0d1a2d] rounded-2xl p-6 border border-white/10"
               >
                 {/* Stats row */}
                 <div className="flex items-center justify-between mb-6">
@@ -199,9 +177,9 @@ export default function Pipeline() {
                     return (
                       <motion.div
                         key={stage.name}
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={{ opacity: 0, x: -15 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.06 }}
+                        transition={{ delay: i * 0.05 }}
                       >
                         <div className="flex items-center justify-between text-sm mb-1.5">
                           <span className="text-gray-300 flex items-center gap-2">
@@ -214,9 +192,9 @@ export default function Pipeline() {
                           <motion.div
                             initial={{ width: 0 }}
                             animate={{ width: `${width}%` }}
-                            transition={{ duration: 0.6, delay: i * 0.08 }}
+                            transition={{ duration: 0.5, delay: i * 0.06 }}
                             className="h-full rounded-lg"
-                            style={{ background: `linear-gradient(90deg, #1890ff ${100 - width * 0.5}%, #40a9ff 100%)` }}
+                            style={{ background: `linear-gradient(90deg, #1890ff, #40a9ff)` }}
                           />
                         </div>
                       </motion.div>
@@ -226,16 +204,15 @@ export default function Pipeline() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Features */}
+            {/* Features - NO backdrop-blur */}
             <div className="grid sm:grid-cols-2 gap-4">
               {features.map((feature, i) => (
                 <motion.div
                   key={feature.title}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.3 + i * 0.08 }}
-                  whileHover={{ y: -5 }}
-                  className="bg-white/5 backdrop-blur rounded-xl p-5 border border-white/10 hover:border-[#1890ff]/40 transition-all cursor-pointer"
+                  transition={{ delay: 0.2 + i * 0.06 }}
+                  className="bg-[#0d1a2d] rounded-xl p-5 border border-white/10 hover:border-[#1890ff]/40 hover:-translate-y-1 transition-all cursor-pointer"
                 >
                   <div className="w-10 h-10 rounded-lg bg-[#1890ff]/10 flex items-center justify-center mb-3">
                     <feature.icon size={20} className="text-[#1890ff]" />

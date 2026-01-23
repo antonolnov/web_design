@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion';
 import Container from '../ui/Container';
 import CrazyBackground from '../ui/CrazyBackground';
 import Mascot from '../ui/Mascot';
-import { Shield, Server, Lock, FileKey, Users, Building2, Cpu, Database, Globe, Zap, CheckCircle } from 'lucide-react';
+import { Shield, Server, Lock, FileKey, Users, Building2, Cpu, Database, Globe, Zap } from 'lucide-react';
 
 const features = [
   { icon: Shield, title: 'ISO 27001', description: 'Сертифицированная система ИБ' },
@@ -29,50 +29,31 @@ export default function Enterprise() {
 
   return (
     <section className="relative py-20 overflow-hidden bg-[#0a1628]">
-      {/* Optimized background */}
-      <CrazyBackground variant="grid" intensity="low" color="#1890ff" />
-      
-      {/* Just 2 orbs */}
-      {[0, 1].map((i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full blur-3xl"
-          style={{
-            width: 400 + i * 100,
-            height: 400 + i * 100,
-            left: `${20 + i * 40}%`,
-            top: `${30 + i * 10}%`,
-            background: `radial-gradient(circle, rgba(24,144,255,${0.1 - i * 0.02}) 0%, transparent 70%)`,
-          }}
-          animate={{ x: [0, 40, 0], y: [0, -25, 0] }}
-          transition={{ duration: 18 + i * 4, repeat: Infinity, ease: "easeInOut" }}
-        />
-      ))}
+      {/* Simple grid background */}
+      <CrazyBackground variant="grid" color="#1890ff" />
+      <CrazyBackground variant="particles" intensity="low" color="#1890ff" />
 
       {/* Mascot */}
       <motion.div
         className="absolute left-6 lg:left-10 bottom-16 z-20 hidden lg:block"
-        animate={{ y: [-12, 12, -12] }}
+        animate={{ y: [-10, 10, -10] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Mascot size={130} variant="float" />
+        <Mascot size={120} />
       </motion.div>
       
       <Container className="relative z-10">
         <div ref={ref}>
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            className="text-center mb-14"
+            className="text-center mb-12"
           >
-            <motion.span 
-              className="inline-flex items-center gap-2 px-4 py-2 mb-5 text-sm font-medium text-[#1890ff] bg-[#1890ff]/10 border border-[#1890ff]/20 rounded-full"
-              whileHover={{ scale: 1.03 }}
-            >
+            <span className="inline-flex items-center gap-2 px-4 py-2 mb-5 text-sm font-medium text-[#1890ff] bg-[#1890ff]/10 border border-[#1890ff]/20 rounded-full">
               <Building2 size={14} />
               Enterprise-решение
-            </motion.span>
+            </span>
             
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">
               Для <span className="text-[#1890ff]">крупных</span> компаний
@@ -84,15 +65,14 @@ export default function Enterprise() {
           </motion.div>
           
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.1 + i * 0.08 }}
-                whileHover={{ y: -6 }}
-                className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-[#1890ff]/40 transition-all text-center"
+                transition={{ delay: 0.1 + i * 0.06 }}
+                className="p-6 rounded-2xl bg-[#0d1a2d] border border-white/10 hover:border-[#1890ff]/40 hover:-translate-y-1 transition-all text-center"
               >
                 <stat.icon className="text-[#1890ff] mx-auto mb-3" size={26} />
                 <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</div>
@@ -106,11 +86,10 @@ export default function Enterprise() {
             {features.map((feature, i) => (
               <motion.div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.3 + i * 0.06 }}
-                whileHover={{ y: -5 }}
-                className="relative p-5 rounded-xl bg-white/5 border border-white/10 hover:border-[#1890ff]/40 transition-all cursor-pointer group"
+                transition={{ delay: 0.2 + i * 0.05 }}
+                className="p-5 rounded-xl bg-[#0d1a2d] border border-white/10 hover:border-[#1890ff]/40 hover:-translate-y-1 transition-all cursor-pointer"
               >
                 <div className="flex items-start gap-4">
                   <div className="w-11 h-11 rounded-lg bg-[#1890ff]/10 flex items-center justify-center flex-shrink-0">

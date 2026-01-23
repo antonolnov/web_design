@@ -18,7 +18,7 @@ export default function CTA() {
     offset: ['start end', 'end start'],
   });
 
-  const mascotY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const mascotY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
     <section 
@@ -26,35 +26,16 @@ export default function CTA() {
       ref={containerRef}
       className="relative py-24 overflow-hidden bg-gradient-to-b from-white via-[#f8fbff] to-white"
     >
-      {/* Optimized background */}
+      {/* Simple background */}
+      <CrazyBackground variant="gradient" />
       <CrazyBackground variant="particles" intensity="low" />
-      <CrazyBackground variant="waves" intensity="low" />
-      
-      {/* Just 2 orbs */}
-      <motion.div
-        className="absolute -left-32 top-1/4 w-[350px] h-[350px] rounded-full blur-3xl"
-        style={{ background: 'radial-gradient(circle, rgba(24,144,255,0.12) 0%, transparent 70%)' }}
-        animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute -right-32 bottom-1/4 w-[300px] h-[300px] rounded-full blur-3xl"
-        style={{ background: 'radial-gradient(circle, rgba(64,169,255,0.1) 0%, transparent 70%)' }}
-        animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      />
 
       {/* Mascot */}
       <motion.div
         className="absolute right-4 lg:right-12 top-16 z-20 hidden md:block"
         style={{ y: mascotY }}
       >
-        <motion.div
-          animate={{ y: [-12, 12, -12] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <Mascot size={170} variant="float" />
-        </motion.div>
+        <Mascot size={160} />
       </motion.div>
 
       <Container>
@@ -66,17 +47,14 @@ export default function CTA() {
         >
           {/* Left Content */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.5 }}
           >
-            <motion.span
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[#e6f4ff] rounded-full text-[#1890ff] text-sm font-medium mb-5"
-              whileHover={{ scale: 1.03 }}
-            >
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-[#e6f4ff] rounded-full text-[#1890ff] text-sm font-medium mb-5">
               <Sparkles size={14} />
               Начните бесплатно
-            </motion.span>
+            </span>
             
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-5">
               Готовы ускорить <span className="text-[#1890ff]">найм</span>?
@@ -95,10 +73,9 @@ export default function CTA() {
                 <motion.div 
                   key={item} 
                   className="flex items-center gap-3"
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -15 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.3 + i * 0.08 }}
-                  whileHover={{ x: 6 }}
+                  transition={{ delay: 0.2 + i * 0.06 }}
                 >
                   <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
                     <Check size={14} className="text-green-600" />
@@ -111,15 +88,12 @@ export default function CTA() {
 
           {/* Right Form */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <motion.form
-              className="relative bg-white rounded-2xl p-7 shadow-xl border border-gray-100"
-              whileHover={{ boxShadow: '0 25px 50px rgba(24,144,255,0.12)' }}
-            >
-              <div className="relative space-y-4">
+            <form className="bg-white rounded-2xl p-7 shadow-xl border border-gray-100">
+              <div className="space-y-4">
                 <div className="text-center mb-5">
                   <h3 className="text-xl font-bold text-gray-900 mb-1">Запросить демо</h3>
                   <p className="text-gray-500 text-sm">Заполните форму — свяжемся в течение часа</p>
@@ -133,9 +107,9 @@ export default function CTA() {
                   <motion.div 
                     key={field.name}
                     className="relative"
-                    initial={{ opacity: 0, y: 15 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.4 + i * 0.08 }}
+                    transition={{ delay: 0.3 + i * 0.06 }}
                   >
                     <div className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${
                       focusedField === field.name ? 'text-[#1890ff]' : 'text-gray-400'
@@ -154,12 +128,10 @@ export default function CTA() {
 
                 <motion.button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 px-7 py-4 bg-gradient-to-r from-[#1890ff] to-[#40a9ff] text-white font-bold text-base rounded-xl shadow-lg shadow-[#1890ff]/25"
-                  whileHover={{ scale: 1.02, boxShadow: '0 15px 30px rgba(24,144,255,0.35)' }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, y: 15 }}
+                  className="w-full flex items-center justify-center gap-2 px-7 py-4 bg-gradient-to-r from-[#1890ff] to-[#40a9ff] text-white font-bold text-base rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+                  initial={{ opacity: 0, y: 10 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.7 }}
+                  transition={{ delay: 0.55 }}
                 >
                   <Send size={18} />
                   Отправить заявку
@@ -171,7 +143,7 @@ export default function CTA() {
                   <a href="#" className="text-[#1890ff] hover:underline">политикой обработки данных</a>
                 </p>
               </div>
-            </motion.form>
+            </form>
           </motion.div>
         </motion.div>
       </Container>

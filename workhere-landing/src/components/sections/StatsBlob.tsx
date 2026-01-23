@@ -38,7 +38,6 @@ export default function StatsBlob() {
   const containerRef = useRef(null);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-10%' });
-  const [hoveredStat, setHoveredStat] = useState<number | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -47,7 +46,7 @@ export default function StatsBlob() {
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
   const blobScale = useTransform(smoothProgress, [0, 0.5, 1], [0.9, 1.05, 0.95]);
-  const mascotY = useTransform(smoothProgress, [0, 1], [30, -30]);
+  const mascotY = useTransform(smoothProgress, [0, 1], [20, -20]);
 
   return (
     <section
@@ -55,63 +54,33 @@ export default function StatsBlob() {
       className="relative py-28 overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #f5f9ff 0%, #e8f4ff 50%, #f0f7ff 100%)' }}
     >
-      {/* Optimized background */}
+      {/* Static gradient background */}
+      <CrazyBackground variant="gradient" />
       <CrazyBackground variant="particles" intensity="low" />
-      <CrazyBackground variant="blobs" intensity="low" />
-
-      {/* Just 2 decorative circles */}
-      {[0, 1].map((i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full border border-[#1890ff]/10"
-          style={{
-            width: 300 + i * 150,
-            height: 300 + i * 150,
-            left: '60%',
-            top: '50%',
-            x: '-50%',
-            y: '-50%',
-          }}
-          animate={{ scale: [1, 1.05, 1], opacity: [0.1, 0.2, 0.1] }}
-          transition={{ duration: 8 + i * 2, repeat: Infinity, ease: "easeInOut" }}
-        />
-      ))}
 
       <Container className="relative z-10">
         <div ref={ref} className="flex flex-col lg:flex-row items-center justify-between gap-16">
           {/* Stats Grid */}
           <motion.div 
             className="flex-1 grid grid-cols-2 gap-5"
-            initial={{ opacity: 0, x: -60 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, type: 'spring' }}
+            transition={{ duration: 0.6 }}
           >
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                whileHover={{ y: -8, boxShadow: '0 20px 40px rgba(24,144,255,0.15)' }}
-                onHoverStart={() => setHoveredStat(i)}
-                onHoverEnd={() => setHoveredStat(null)}
-                className="relative bg-white rounded-2xl p-6 shadow-lg border border-gray-100 cursor-pointer transition-all"
+                transition={{ delay: i * 0.1, duration: 0.4 }}
+                className="relative bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer"
               >
-                <div className="relative">
-                  <motion.div 
-                    className="w-12 h-12 rounded-xl bg-[#e6f4ff] flex items-center justify-center mb-4"
-                    whileHover={{ rotate: 10 }}
-                  >
-                    <stat.icon size={24} className="text-[#1890ff]" />
-                  </motion.div>
-                  
-                  <div className="text-3xl font-bold text-gray-900 mb-1">
-                    {stat.value}
-                  </div>
-                  
-                  <div className="font-medium text-gray-800 mb-1">{stat.label}</div>
-                  <div className="text-sm text-gray-500">{stat.description}</div>
+                <div className="w-12 h-12 rounded-xl bg-[#e6f4ff] flex items-center justify-center mb-4">
+                  <stat.icon size={24} className="text-[#1890ff]" />
                 </div>
+                <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
+                <div className="font-medium text-gray-800 mb-1">{stat.label}</div>
+                <div className="text-sm text-gray-500">{stat.description}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -121,26 +90,18 @@ export default function StatsBlob() {
             className="flex-1 flex items-center justify-center relative"
             style={{ minHeight: 400 }}
           >
-            {/* Morphing blob */}
+            {/* Simple blob - no blur */}
             <motion.div style={{ scale: blobScale }} className="absolute">
-              <svg width="380" height="380" viewBox="0 0 400 400">
+              <svg width="350" height="350" viewBox="0 0 400 400">
                 <defs>
                   <linearGradient id="blobGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#1890ff" />
                     <stop offset="50%" stopColor="#40a9ff" />
                     <stop offset="100%" stopColor="#69c0ff" />
                   </linearGradient>
-                  <filter id="glow2">
-                    <feGaussianBlur stdDeviation="12" result="coloredBlur"/>
-                    <feMerge>
-                      <feMergeNode in="coloredBlur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
                 </defs>
                 <motion.path
                   fill="url(#blobGrad)"
-                  filter="url(#glow2)"
                   opacity={0.8}
                   animate={{
                     d: [
@@ -149,22 +110,17 @@ export default function StatsBlob() {
                       "M200,50 C280,50 350,100 370,180 C390,260 350,340 280,360 C210,380 130,360 80,300 C30,240 30,160 80,100 C130,40 160,50 200,50",
                     ],
                   }}
-                  transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
                 />
               </svg>
             </motion.div>
 
             {/* MASCOT */}
             <motion.div className="relative z-10" style={{ y: mascotY }}>
-              <motion.div
-                animate={{ y: [-8, 8, -8] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              >
-                <Mascot size={240} variant="float" />
-              </motion.div>
+              <Mascot size={220} />
             </motion.div>
 
-            {/* Orbiting elements - just 3 */}
+            {/* Orbiting elements - simple, no blur */}
             {[0, 120, 240].map((angle, i) => {
               const IconComponent = stats[i]?.icon;
               return (
@@ -173,16 +129,15 @@ export default function StatsBlob() {
                   className="absolute w-12 h-12 bg-white rounded-xl shadow-lg flex items-center justify-center"
                   style={{ left: '50%', top: '50%' }}
                   animate={{
-                    x: [
-                      Math.cos((angle * Math.PI) / 180) * 160,
-                      Math.cos(((angle + 360) * Math.PI) / 180) * 160,
-                    ],
-                    y: [
-                      Math.sin((angle * Math.PI) / 180) * 160,
-                      Math.sin(((angle + 360) * Math.PI) / 180) * 160,
-                    ],
+                    x: Math.cos((angle + (i * 10)) * Math.PI / 180) * 150,
+                    y: Math.sin((angle + (i * 10)) * Math.PI / 180) * 150,
+                    rotate: [0, 360],
                   }}
-                  transition={{ x: { duration: 20, repeat: Infinity, ease: "linear" }, y: { duration: 20, repeat: Infinity, ease: "linear" } }}
+                  transition={{ 
+                    x: { duration: 25, repeat: Infinity, ease: "linear" },
+                    y: { duration: 25, repeat: Infinity, ease: "linear" },
+                    rotate: { duration: 25, repeat: Infinity, ease: "linear" },
+                  }}
                 >
                   {IconComponent && <IconComponent size={22} className="text-[#1890ff]" />}
                 </motion.div>

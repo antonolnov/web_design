@@ -24,10 +24,8 @@ export default function Hero() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-  
-  const y = useTransform(smoothProgress, [0, 1], [0, 300]);
   const opacity = useTransform(smoothProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(smoothProgress, [0, 0.5], [1, 0.9]);
+  const scale = useTransform(smoothProgress, [0, 0.5], [1, 0.95]);
 
   return (
     <section
@@ -35,69 +33,18 @@ export default function Hero() {
       className="relative min-h-screen flex items-center pt-20 overflow-hidden"
       style={{ background: 'linear-gradient(180deg, #f0f7ff 0%, #e0efff 50%, #f5f9ff 100%)' }}
     >
-      {/* Optimized background - fewer elements */}
+      {/* Static gradient background - NO blur, NO animation on large elements */}
+      <CrazyBackground variant="gradient" />
       <CrazyBackground variant="particles" intensity="low" />
-      <CrazyBackground variant="blobs" intensity="low" />
-      
-      {/* Subtle gradient orbs - just 2 */}
-      <motion.div
-        className="absolute w-[500px] h-[500px] rounded-full blur-3xl"
-        style={{
-          background: 'radial-gradient(circle, rgba(24,144,255,0.12) 0%, transparent 60%)',
-          left: '10%',
-          top: '20%',
-        }}
-        animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute w-[400px] h-[400px] rounded-full blur-3xl"
-        style={{
-          background: 'radial-gradient(circle, rgba(64,169,255,0.1) 0%, transparent 60%)',
-          right: '15%',
-          bottom: '20%',
-        }}
-        animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* Pulsing rings - just 2 */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-        {[0, 1].map((i) => (
-          <motion.div
-            key={i}
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#1890ff]/10"
-            style={{ width: 300 + i * 200, height: 300 + i * 200 }}
-            animate={{ scale: [1, 1.05, 1], opacity: [0.1, 0.2, 0.1] }}
-            transition={{ duration: 6 + i * 2, repeat: Infinity, ease: "easeInOut" }}
-          />
-        ))}
-      </div>
 
       {/* MASCOT */}
       <motion.div
         className="absolute bottom-16 right-8 lg:right-20 z-20"
-        initial={{ opacity: 0, x: 100 }}
+        initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.8, duration: 0.8, type: 'spring' }}
+        transition={{ delay: 0.8, duration: 0.6 }}
       >
-        <motion.div
-          animate={{ y: [-12, 12, -12], rotate: [-4, 4, -4] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <Mascot size={160} variant="float" />
-        </motion.div>
-        
-        {/* Speech bubble */}
-        <motion.div
-          className="absolute -top-12 -left-16 bg-white rounded-2xl px-4 py-2 shadow-lg"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.5, type: 'spring' }}
-        >
-          <span className="text-sm font-medium text-gray-700">Привет! 👋</span>
-          <div className="absolute -bottom-2 right-8 w-4 h-4 bg-white transform rotate-45" />
-        </motion.div>
+        <Mascot size={150} />
       </motion.div>
 
       <Container className="relative z-10">
@@ -107,21 +54,20 @@ export default function Hero() {
         >
           {/* AI Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             className="flex justify-center mb-6"
           >
             <AIBadge />
           </motion.div>
 
-          {/* Animated badge */}
+          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            whileHover={{ scale: 1.03 }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white rounded-full shadow-lg shadow-[#1890ff]/10 mb-8 border border-[#1890ff]/10 cursor-pointer"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white rounded-full shadow-lg mb-8 border border-[#1890ff]/10"
           >
             <Sparkles size={16} className="text-[#1890ff]" />
             <span className="text-sm font-semibold text-gray-700">ATS-платформа нового поколения</span>
@@ -131,32 +77,26 @@ export default function Hero() {
           {/* Main heading */}
           <motion.h1
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-gray-900 leading-[1.05] mb-4"
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
             Единая система
           </motion.h1>
           <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] mb-6"
-            style={{
-              background: 'linear-gradient(135deg, #1890ff 0%, #40a9ff 50%, #1890ff 100%)',
-              backgroundSize: '200% 200%',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-            initial={{ opacity: 0, y: 40 }}
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] mb-6 text-[#1890ff]"
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
           >
             для найма
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
             className="text-lg md:text-xl lg:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed"
           >
             Кандидаты, вакансии, воронки, коммуникации, аналитика — 
@@ -165,46 +105,41 @@ export default function Hero() {
 
           {/* CTA Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
             className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
           >
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-              <MagneticButton
-                href="#demo"
-                className="flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-[#1890ff] to-[#40a9ff] text-white font-bold text-lg rounded-2xl shadow-xl shadow-[#1890ff]/30 hover:shadow-[#1890ff]/50 transition-shadow"
-              >
-                🚀 Запросить демо
-                <ArrowRight size={20} />
-              </MagneticButton>
-            </motion.div>
+            <MagneticButton
+              href="#demo"
+              className="flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-[#1890ff] to-[#40a9ff] text-white font-bold text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-shadow"
+            >
+              🚀 Запросить демо
+              <ArrowRight size={20} />
+            </MagneticButton>
             
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-              <MagneticButton
-                href="#features"
-                className="flex items-center justify-center gap-2 px-10 py-5 bg-white text-gray-700 font-bold text-lg rounded-2xl border-2 border-gray-200 hover:border-[#1890ff]/30 transition-colors shadow-lg"
-              >
-                Возможности
-              </MagneticButton>
-            </motion.div>
+            <MagneticButton
+              href="#features"
+              className="flex items-center justify-center gap-2 px-10 py-5 bg-white text-gray-700 font-bold text-lg rounded-2xl border-2 border-gray-200 hover:border-[#1890ff]/30 transition-colors shadow-lg"
+            >
+              Возможности
+            </MagneticButton>
           </motion.div>
 
           {/* Feature pills */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
+            transition={{ delay: 0.8 }}
             className="flex flex-wrap justify-center gap-4"
           >
             {features.map((feature, index) => (
               <motion.div
                 key={feature.label}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.1 + index * 0.1 }}
-                whileHover={{ y: -4, boxShadow: '0 12px 30px rgba(24,144,255,0.15)' }}
-                className="flex items-center gap-3 px-5 py-3 bg-white rounded-2xl shadow-md border border-gray-100 cursor-pointer transition-all"
+                transition={{ delay: 0.9 + index * 0.1 }}
+                className="flex items-center gap-3 px-5 py-3 bg-white rounded-2xl shadow-md border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer"
               >
                 <feature.icon size={20} className="text-[#1890ff]" />
                 <span className="font-medium text-gray-700">{feature.label}</span>
@@ -219,12 +154,12 @@ export default function Hero() {
         className="absolute bottom-6 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={{ delay: 1.2 }}
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center text-gray-400 cursor-pointer hover:text-[#1890ff] transition-colors"
+          className="flex flex-col items-center text-gray-400"
         >
           <span className="text-sm font-medium mb-2">Листайте</span>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

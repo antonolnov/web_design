@@ -20,14 +20,14 @@ const apiFeatures = [
 
 // Entry directions for cards
 const cardDirections = [
-  { x: -80, y: 0 },
-  { x: 0, y: -60 },
+  { x: -60, y: 0 },
+  { x: 0, y: -40 },
+  { x: 60, y: 0 },
   { x: 80, y: 0 },
-  { x: 100, y: 0 },
-  { x: -100, y: 30 },
-  { x: -80, y: 50 },
-  { x: 0, y: 80 },
-  { x: 80, y: 50 },
+  { x: -80, y: 20 },
+  { x: -60, y: 40 },
+  { x: 0, y: 60 },
+  { x: 60, y: 40 },
 ];
 
 export default function API() {
@@ -41,84 +41,59 @@ export default function API() {
         background: 'linear-gradient(135deg, #0a1628 0%, #1a1a3e 40%, #2d1b4e 60%, #1a1a3e 80%, #0a1628 100%)',
       }}
     >
-      {/* Optimized background */}
-      <CrazyBackground variant="grid" intensity="low" color="#8b5cf6" />
+      {/* Simple grid background - no blur */}
+      <CrazyBackground variant="grid" color="#8b5cf6" />
       <CrazyBackground variant="particles" intensity="low" color="#1890ff" />
-      
-      {/* Just 2 gradient orbs */}
-      {[0, 1].map((i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full blur-3xl"
-          style={{
-            width: 400 + i * 80,
-            height: 400 + i * 80,
-            left: `${10 + i * 50}%`,
-            top: `${20 + i * 30}%`,
-            background: i === 0 
-              ? 'radial-gradient(circle, rgba(139,92,246,0.15) 0%, transparent 70%)'
-              : 'radial-gradient(circle, rgba(24,144,255,0.12) 0%, transparent 70%)',
-          }}
-          animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
-          transition={{ duration: 18 + i * 4, repeat: Infinity, ease: "easeInOut" }}
-        />
-      ))}
 
       {/* Mascot */}
       <motion.div
         className="absolute left-6 lg:left-16 top-1/4 z-20 hidden lg:block"
-        animate={{ y: [-20, 20, -20] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        animate={{ y: [-15, 15, -15] }}
+        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Mascot size={140} variant="float" />
+        <Mascot size={130} />
       </motion.div>
 
       <Container className="relative z-10">
         <div ref={ref}>
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-14"
+            initial={{ opacity: 0, y: 25 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-12"
           >
-            <motion.span 
-              className="inline-flex items-center gap-2 px-5 py-2 mb-5 text-sm font-medium text-white bg-gradient-to-r from-[#8b5cf6]/30 to-[#1890ff]/30 border border-white/10 rounded-full"
-              whileHover={{ scale: 1.03 }}
-            >
+            <span className="inline-flex items-center gap-2 px-5 py-2 mb-5 text-sm font-medium text-white bg-gradient-to-r from-[#8b5cf6]/30 to-[#1890ff]/30 border border-white/10 rounded-full">
               <Code2 size={16} />
               Для разработчиков
               <Sparkles size={14} />
-            </motion.span>
+            </span>
             
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">
-              Суперсила <span className="bg-gradient-to-r from-[#8b5cf6] to-[#1890ff] bg-clip-text text-transparent">API</span>
+              Суперсила <span className="text-[#8b5cf6]">API</span>
             </h2>
             
             <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-6">
               Интегрируйте WorkHere в экосистему вашей компании
             </p>
             
-            <motion.a
+            <a
               href="#demo"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2 px-7 py-3 bg-gradient-to-r from-[#8b5cf6] to-[#1890ff] text-white rounded-xl font-bold shadow-lg"
+              className="inline-flex items-center gap-2 px-7 py-3 bg-gradient-to-r from-[#8b5cf6] to-[#1890ff] text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-shadow"
             >
               🚀 Портал для разработчиков
-            </motion.a>
+            </a>
           </motion.div>
 
-          {/* Cards Grid - Optimized animations */}
+          {/* Cards Grid - NO backdrop-blur */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
             {apiFeatures.map((feature, index) => (
               <motion.div
                 key={feature.title}
                 initial={{ opacity: 0, ...cardDirections[index % cardDirections.length] }}
                 animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, ...cardDirections[index % cardDirections.length] }}
-                transition={{ duration: 0.6, delay: index * 0.08, type: 'spring', stiffness: 80 }}
-                whileHover={{ y: -6, boxShadow: '0 20px 40px rgba(139,92,246,0.2)' }}
-                className="relative group bg-white/5 backdrop-blur-lg rounded-xl p-5 border border-white/10 hover:border-[#8b5cf6]/40 transition-all cursor-pointer"
+                transition={{ duration: 0.5, delay: index * 0.06 }}
+                className="bg-[#1a1a3e]/80 rounded-xl p-5 border border-white/10 hover:border-[#8b5cf6]/40 hover:-translate-y-1 transition-all cursor-pointer"
               >
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#8b5cf6]/20 to-[#1890ff]/20 flex items-center justify-center mb-3">
                   <feature.icon size={20} className="text-[#8b5cf6]" />
@@ -129,18 +104,15 @@ export default function API() {
             ))}
           </div>
 
-          {/* Code Preview */}
+          {/* Code Preview - NO backdrop-blur */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="max-w-3xl mx-auto"
           >
-            <motion.div 
-              className="bg-gray-900/80 backdrop-blur-lg rounded-2xl overflow-hidden border border-gray-700/50 shadow-xl"
-              whileHover={{ boxShadow: '0 30px 60px rgba(139,92,246,0.15)' }}
-            >
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-800/50 bg-gray-800/30">
+            <div className="bg-gray-900 rounded-2xl overflow-hidden border border-gray-700/50 shadow-xl">
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-800/50 bg-gray-800/50">
                 <div className="flex gap-1.5">
                   {['#ff5f56', '#ffbd2e', '#27ca40'].map((color, i) => (
                     <div key={i} className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
@@ -162,7 +134,7 @@ export default function API() {
                   <div className="text-gray-300">);</div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </Container>
