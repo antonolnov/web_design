@@ -477,7 +477,7 @@ function APIVisual() {
   );
 }
 
-// Простой экран-разделитель с заголовком секции
+// Простой экран-разделитель с заголовком секции - CRAZY MOTION
 function SectionTitleScreen({ title }: { title: string }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-10%' });
@@ -487,48 +487,131 @@ function SectionTitleScreen({ title }: { title: string }) {
       ref={ref}
       className="relative py-32 bg-[#0a1628] overflow-hidden"
     >
-      {/* Subtle grid */}
-      <div 
-        className="absolute inset-0 opacity-[0.03]"
+      {/* CRAZY animated grid */}
+      <motion.div 
+        className="absolute inset-0 opacity-[0.05]"
         style={{
           backgroundImage: 'linear-gradient(#1890ff 1px, transparent 1px), linear-gradient(90deg, #1890ff 1px, transparent 1px)',
           backgroundSize: '60px 60px',
         }}
+        animate={{ y: [0, 60, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
       />
       
-      {/* Subtle glow */}
-      <div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full opacity-20"
-        style={{ background: 'radial-gradient(ellipse, rgba(24,144,255,0.3) 0%, transparent 70%)' }}
-      />
+      {/* Flying particles */}
+      {[...Array(30)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full bg-[#1890ff]"
+          style={{
+            width: 2 + (i % 4),
+            height: 2 + (i % 4),
+            left: `${(i * 3.5) % 100}%`,
+            top: `${(i * 4) % 100}%`,
+          }}
+          animate={{
+            y: [0, -100, 0],
+            x: [0, (i % 2 === 0 ? 1 : -1) * 50, 0],
+            opacity: [0.1, 0.6, 0.1],
+            scale: [1, 2, 1],
+          }}
+          transition={{
+            duration: 4 + (i % 3),
+            repeat: Infinity,
+            delay: (i * 0.15) % 3,
+          }}
+        />
+      ))}
+      
+      {/* Multiple glowing orbs */}
+      {[...Array(4)].map((_, i) => (
+        <motion.div
+          key={`orb-${i}`}
+          className="absolute rounded-full blur-3xl"
+          style={{
+            width: 300 + i * 100,
+            height: 200 + i * 50,
+            left: `${20 + i * 20}%`,
+            top: '30%',
+            background: `radial-gradient(ellipse, rgba(24,144,255,${0.2 - i * 0.03}) 0%, transparent 70%)`,
+          }}
+          animate={{
+            x: [0, 50, 0],
+            y: [0, -30, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 6 + i * 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      {/* Light beams */}
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={`beam-${i}`}
+          className="absolute h-[200%] w-0.5"
+          style={{
+            left: `${10 + i * 15}%`,
+            top: '-50%',
+            background: 'linear-gradient(to bottom, transparent, rgba(24,144,255,0.2), transparent)',
+            transform: `rotate(${-25 + i * 5}deg)`,
+          }}
+          animate={{
+            opacity: [0, 0.6, 0],
+            x: [-30, 150, -30],
+          }}
+          transition={{
+            duration: 5,
+            repeat: Infinity,
+            delay: i * 0.8,
+          }}
+        />
+      ))}
 
       <div className="relative z-10 text-center px-4">
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl lg:text-6xl font-bold text-white"
+          initial={{ opacity: 0, y: 80, scale: 0.8, rotateX: 30 }}
+          animate={isInView ? { opacity: 1, y: 0, scale: 1, rotateX: 0 } : {}}
+          transition={{ duration: 0.8, type: 'spring' }}
+          className="text-4xl md:text-5xl lg:text-7xl font-bold text-white"
+          style={{ textShadow: '0 0 40px rgba(24,144,255,0.3)' }}
         >
           {title}
         </motion.h2>
         
         <motion.div
-          initial={{ scaleX: 0 }}
-          animate={isInView ? { scaleX: 1 } : {}}
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={isInView ? { scaleX: 1, opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mx-auto mt-6 h-1 w-24 rounded-full bg-[#1890ff]"
+          className="mx-auto mt-6 h-1.5 w-32 rounded-full"
+          style={{ 
+            background: 'linear-gradient(90deg, transparent, #1890ff, transparent)',
+            boxShadow: '0 0 20px rgba(24,144,255,0.5)',
+          }}
         />
         
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.4 }}
           className="mt-8 text-gray-400 text-sm flex items-center justify-center gap-2"
         >
           <span>Листайте вниз</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <motion.svg 
+            width="16" 
+            height="16" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2"
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
             <path d="M12 5v14M5 12l7 7 7-7" />
-          </svg>
+          </motion.svg>
         </motion.p>
       </div>
     </section>
@@ -594,43 +677,119 @@ function FeatureBlock({ block, index }: { block: typeof blocks[0]; index: number
   return (
     <section 
       ref={ref} 
-      className="min-h-screen flex flex-col justify-center relative py-20"
+      className="min-h-screen flex flex-col justify-center relative py-20 overflow-hidden"
       style={{
         background: index % 2 === 0 
           ? 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)' 
           : 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)',
       }}
     >
-      {/* Subtle decorative elements */}
+      {/* CRAZY animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div 
-          className="absolute top-0 right-0 w-[800px] h-[800px] opacity-30"
+        {/* Floating particles */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: 3 + (i % 5),
+              height: 3 + (i % 5),
+              left: `${(i * 5) % 100}%`,
+              top: `${(i * 6) % 100}%`,
+              background: `rgba(24,144,255,${0.1 + (i % 3) * 0.1})`,
+            }}
+            animate={{
+              y: [0, -60, 0],
+              x: [0, (i % 2 === 0 ? 1 : -1) * 30, 0],
+              scale: [1, 1.5, 1],
+              opacity: [0.1, 0.4, 0.1],
+            }}
+            transition={{
+              duration: 5 + (i % 4),
+              repeat: Infinity,
+              delay: (i * 0.2) % 3,
+            }}
+          />
+        ))}
+        
+        {/* Large animated orbs */}
+        <motion.div 
+          className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl"
           style={{
-            background: 'radial-gradient(circle, #1890ff10 0%, transparent 70%)',
-            transform: 'translate(30%, -30%)',
+            background: 'radial-gradient(circle, rgba(24,144,255,0.08) 0%, transparent 70%)',
+          }}
+          animate={{
+            x: [0, 50, 0],
+            y: [0, -30, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
         />
-        <div 
-          className="absolute bottom-0 left-0 w-[600px] h-[600px] opacity-20"
+        <motion.div 
+          className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl"
           style={{
-            background: 'radial-gradient(circle, #1890ff10 0%, transparent 70%)',
-            transform: 'translate(-30%, 30%)',
+            background: 'radial-gradient(circle, rgba(24,144,255,0.06) 0%, transparent 70%)',
+          }}
+          animate={{
+            x: [0, -40, 0],
+            y: [0, 30, 0],
+            scale: [1, 1.3, 1],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
         />
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+        {/* Header - CRAZY motion */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 60 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ type: 'spring', stiffness: 80 }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center justify-center w-14 h-14 mb-6 bg-gradient-to-br from-[#1890ff] to-[#40a9ff] rounded-2xl shadow-lg shadow-[#1890ff]/20">
-            <block.icon size={28} className="text-white" />
-          </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">{block.title}</h2>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto">{block.subtitle}</p>
+          <motion.div 
+            className="inline-flex items-center justify-center w-16 h-16 mb-6 bg-gradient-to-br from-[#1890ff] to-[#40a9ff] rounded-2xl shadow-xl shadow-[#1890ff]/30"
+            whileHover={{ scale: 1.1, rotate: 10 }}
+            animate={{
+              boxShadow: [
+                '0 10px 30px rgba(24,144,255,0.3)',
+                '0 20px 50px rgba(24,144,255,0.5)',
+                '0 10px 30px rgba(24,144,255,0.3)',
+              ],
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <motion.div
+              animate={{ rotate: [0, 360] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            >
+              <block.icon size={30} className="text-white" />
+            </motion.div>
+          </motion.div>
+          <motion.h2 
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.1 }}
+          >
+            {block.title}
+          </motion.h2>
+          <motion.p 
+            className="text-lg text-gray-500 max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.2 }}
+          >
+            {block.subtitle}
+          </motion.p>
         </motion.div>
 
         {/* Main content area with sidebar navigation */}

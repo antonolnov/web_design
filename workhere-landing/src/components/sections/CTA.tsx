@@ -2,261 +2,341 @@
 
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { ArrowRight, Calendar, MessageSquare, Users, Sparkles } from 'lucide-react';
+import { Send, ArrowRight, Check, Sparkles, Mail, User, Building, Star } from 'lucide-react';
 import Container from '../ui/Container';
-import MagneticButton from '../ui/MagneticButton';
+import CrazyBackground from '../ui/CrazyBackground';
 import Mascot from '../ui/Mascot';
 
-const benefits = [
-  { icon: Calendar, text: '30-минутная демонстрация' },
-  { icon: MessageSquare, text: 'Ответы на ваши вопросы' },
-  { icon: Users, text: 'Персональный план внедрения' },
-];
-
 export default function CTA() {
-  const ref = useRef(null);
   const containerRef = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-  
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-10%' });
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
-  
-  const mascotY = useTransform(scrollYProgress, [0, 1], [100, -50]);
-  const mascotRotate = useTransform(scrollYProgress, [0, 1], [-15, 15]);
-  
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
-  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(formData);
-  };
+  const mascotY = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const mascotRotate = useTransform(scrollYProgress, [0, 1], [-20, 20]);
+  const bgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.1, 1]);
 
   return (
-    <section id="demo" ref={containerRef} className="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
-      {/* Floating particles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(15)].map((_, i) => (
+    <section 
+      id="demo" 
+      ref={containerRef}
+      className="relative py-32 overflow-hidden bg-gradient-to-b from-white via-[#f8fbff] to-white"
+    >
+      {/* CRAZY background */}
+      <CrazyBackground variant="particles" intensity="high" />
+      <CrazyBackground variant="waves" intensity="medium" />
+      
+      {/* Floating stars */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute rounded-full bg-[#1890ff]"
+            className="absolute"
             style={{
-              width: 4 + (i % 4) * 2,
-              height: 4 + (i % 4) * 2,
-              left: `${(i * 7) % 100}%`,
-              top: `${(i * 11) % 100}%`,
-              opacity: 0.1,
+              left: `${(i * 5) % 100}%`,
+              top: `${(i * 7) % 100}%`,
             }}
             animate={{
-              y: [-20, 20, -20],
-              x: [-10, 10, -10],
+              y: [0, -30, 0],
+              rotate: [0, 360],
+              opacity: [0.2, 0.6, 0.2],
             }}
             transition={{
-              duration: 8 + i,
+              duration: 4 + (i % 3),
               repeat: Infinity,
+              delay: i * 0.2,
+            }}
+          >
+            <Star size={8 + (i % 8)} className="text-[#1890ff]" fill="currentColor" />
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Animated gradient orbs */}
+      <motion.div
+        className="absolute -left-40 top-1/4 w-96 h-96 rounded-full blur-3xl"
+        style={{ 
+          background: 'radial-gradient(circle, rgba(24,144,255,0.2) 0%, transparent 70%)',
+          scale: bgScale,
+        }}
+        animate={{
+          x: [0, 50, 0],
+          y: [0, -30, 0],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute -right-40 bottom-1/4 w-96 h-96 rounded-full blur-3xl"
+        style={{ 
+          background: 'radial-gradient(circle, rgba(64,169,255,0.2) 0%, transparent 70%)',
+          scale: bgScale,
+        }}
+        animate={{
+          x: [0, -50, 0],
+          y: [0, 30, 0],
+        }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      {/* Pulsing rings */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#1890ff]/10"
+            style={{
+              width: 200 + i * 150,
+              height: 200 + i * 150,
+            }}
+            animate={{
+              scale: [1, 1.05, 1],
+              opacity: [0.05, 0.2, 0.05],
+            }}
+            transition={{
+              duration: 4 + i,
+              repeat: Infinity,
+              ease: "easeInOut",
               delay: i * 0.3,
             }}
           />
         ))}
       </div>
 
+      {/* Mascot flying */}
+      <motion.div
+        className="absolute right-0 lg:right-10 top-10 z-20 hidden md:block"
+        style={{ y: mascotY, rotate: mascotRotate }}
+      >
+        <motion.div
+          animate={{ 
+            y: [-15, 15, -15],
+            rotate: [-8, 8, -8],
+            scale: [1, 1.05, 1],
+          }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <Mascot size={200} variant="crazy" />
+        </motion.div>
+        
+        {/* Flying trail */}
+        <motion.div
+          className="absolute left-1/2 top-1/2 -z-10"
+          animate={{
+            x: [0, -100],
+            opacity: [0.5, 0],
+            scale: [1, 2],
+          }}
+          transition={{
+            duration: 1,
+            repeat: Infinity,
+          }}
+        >
+          <div className="w-20 h-10 bg-gradient-to-r from-[#1890ff]/30 to-transparent rounded-full blur-xl" />
+        </motion.div>
+      </motion.div>
+
       <Container>
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 60 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="relative bg-gradient-to-br from-[#1890ff] to-[#0d6edb] rounded-[40px] p-8 lg:p-16 overflow-hidden"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          className="relative z-10 grid lg:grid-cols-2 gap-16 items-center"
         >
-          {/* Animated background */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <motion.div 
-              className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-white/10"
-              animate={{
-                scale: [1, 1.2, 1],
-                rotate: [0, 90, 0],
-              }}
-              transition={{ duration: 20, repeat: Infinity }}
-            />
-            <motion.div 
-              className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-white/5"
-              animate={{
-                scale: [1.2, 1, 1.2],
-                rotate: [0, -90, 0],
-              }}
-              transition={{ duration: 15, repeat: Infinity }}
-            />
-            
-            {/* Sparkle effects */}
-            {[...Array(20)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 bg-white rounded-full"
-                style={{
-                  left: `${(i * 5) % 100}%`,
-                  top: `${(i * 7) % 100}%`,
-                }}
-                animate={{
-                  opacity: [0, 1, 0],
-                  scale: [0, 1, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Mascot floating */}
+          {/* Left Content */}
           <motion.div
-            className="absolute -right-10 lg:right-10 top-0 lg:-top-20 z-20 hidden md:block"
-            style={{ y: mascotY, rotate: mascotRotate }}
+            initial={{ opacity: 0, x: -100 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, type: 'spring' }}
           >
-            <motion.div
+            <motion.span
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#e6f4ff] rounded-full text-[#1890ff] text-sm font-medium mb-6"
+              whileHover={{ scale: 1.05 }}
               animate={{
-                y: [-10, 10, -10],
-                rotate: [-5, 5, -5],
+                boxShadow: ['0 0 15px rgba(24,144,255,0.2)', '0 0 30px rgba(24,144,255,0.4)', '0 0 15px rgba(24,144,255,0.2)'],
               }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 2, repeat: Infinity }}
             >
-              <Mascot size={180} />
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              >
+                <Sparkles size={14} />
+              </motion.div>
+              Начните бесплатно
+            </motion.span>
+            
+            <motion.h2
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.1 }}
+            >
+              Готовы ускорить{' '}
+              <motion.span 
+                className="text-[#1890ff]"
+                animate={{ opacity: [1, 0.8, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                найм
+              </motion.span>
+              ?
+            </motion.h2>
+            
+            <motion.p
+              className="text-xl text-gray-600 mb-8"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.2 }}
+            >
+              Оставьте заявку — покажем возможности платформы и ответим на все вопросы
+            </motion.p>
+            
+            <motion.div
+              className="space-y-4"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.3 }}
+            >
+              {[
+                'Персональная демонстрация',
+                'Бесплатный пробный период',
+                'Помощь с миграцией данных',
+              ].map((item, i) => (
+                <motion.div 
+                  key={item} 
+                  className="flex items-center gap-3"
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.4 + i * 0.1 }}
+                  whileHover={{ x: 10 }}
+                >
+                  <motion.div 
+                    className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center"
+                    whileHover={{ scale: 1.2, rotate: 360 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Check size={14} className="text-green-600" />
+                  </motion.div>
+                  <span className="text-gray-700 font-medium">{item}</span>
+                </motion.div>
+              ))}
             </motion.div>
           </motion.div>
 
-          <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Content */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 rounded-full mb-6"
-              >
-                <Sparkles size={16} className="text-white" />
-                <span className="text-white text-sm font-medium">Начните сегодня</span>
-              </motion.div>
-
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.3 }}
-                className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-6 leading-tight"
-              >
-                Начните нанимать эффективнее
-              </motion.h2>
-              
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.4 }}
-                className="text-white/80 text-lg mb-8"
-              >
-                Запросите персональную демонстрацию WorkHere. 
-                Покажем, как платформа решит задачи вашей компании.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.5 }}
-                className="space-y-4"
-              >
-                {benefits.map((benefit, index) => (
-                  <motion.div 
-                    key={index} 
-                    className="flex items-center gap-3"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ delay: 0.6 + index * 0.1 }}
-                    whileHover={{ x: 10 }}
-                  >
-                    <motion.div 
-                      className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center"
-                      whileHover={{ scale: 1.1, rotate: 10 }}
-                    >
-                      <benefit.icon className="text-white" size={18} />
-                    </motion.div>
-                    <span className="text-white/90">{benefit.text}</span>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Right Form */}
-            <motion.div
-              initial={{ opacity: 0, x: 50, rotateY: -10 }}
-              animate={isInView ? { opacity: 1, x: 0, rotateY: 0 } : {}}
-              transition={{ delay: 0.6, duration: 0.8, type: 'spring' }}
-              whileHover={{ y: -5, boxShadow: '0 30px 80px rgba(0,0,0,0.3)' }}
-              className="bg-white rounded-[24px] p-8 shadow-[0_20px_60px_rgba(0,0,0,0.2)]"
+          {/* Right Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 100, rotateY: 15 }}
+            animate={isInView ? { opacity: 1, x: 0, rotateY: 0 } : {}}
+            transition={{ duration: 0.8, type: 'spring' }}
+          >
+            <motion.form
+              className="relative bg-white rounded-3xl p-8 shadow-2xl shadow-[#1890ff]/10 border border-gray-100"
+              whileHover={{ 
+                boxShadow: '0 40px 80px rgba(24,144,255,0.15)',
+                y: -5,
+              }}
             >
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                Запросить демо
-              </h3>
+              {/* Form glow */}
+              <motion.div
+                className="absolute -inset-px rounded-3xl bg-gradient-to-r from-[#1890ff] to-[#40a9ff] opacity-0"
+                animate={{ opacity: focusedField ? 0.2 : 0 }}
+                transition={{ duration: 0.3 }}
+              />
               
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="relative space-y-5">
+                <div className="text-center mb-6">
+                  <motion.h3 
+                    className="text-2xl font-bold text-gray-900 mb-2"
+                    animate={{ scale: [1, 1.02, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    Запросить демо
+                  </motion.h3>
+                  <p className="text-gray-500">Заполните форму — свяжемся в течение часа</p>
+                </div>
+
                 {[
-                  { label: 'Имя', type: 'text', key: 'name', placeholder: 'Ваше имя' },
-                  { label: 'Email', type: 'email', key: 'email', placeholder: 'email@company.ru' },
-                  { label: 'Компания', type: 'text', key: 'company', placeholder: 'Название компании' },
-                  { label: 'Телефон', type: 'tel', key: 'phone', placeholder: '+7 (___) ___-__-__' },
-                ].map((field, index) => (
-                  <motion.div
-                    key={field.key}
+                  { name: 'name', icon: User, placeholder: 'Ваше имя' },
+                  { name: 'email', icon: Mail, placeholder: 'Email' },
+                  { name: 'company', icon: Building, placeholder: 'Компания' },
+                ].map((field, i) => (
+                  <motion.div 
+                    key={field.name}
+                    className="relative"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.7 + index * 0.1 }}
+                    transition={{ delay: 0.5 + i * 0.1 }}
                   >
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      {field.label}
-                    </label>
+                    <motion.div
+                      className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${
+                        focusedField === field.name ? 'text-[#1890ff]' : 'text-gray-400'
+                      }`}
+                      animate={focusedField === field.name ? { scale: 1.2, rotate: 10 } : { scale: 1, rotate: 0 }}
+                    >
+                      <field.icon size={20} />
+                    </motion.div>
                     <motion.input
-                      type={field.type}
-                      value={formData[field.key as keyof typeof formData]}
-                      onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
+                      type={field.name === 'email' ? 'email' : 'text'}
                       placeholder={field.placeholder}
-                      className="w-full px-4 py-3 bg-gray-50 rounded-[12px] border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#1890ff] focus:border-transparent transition-all"
-                      whileFocus={{ scale: 1.01 }}
-                      required={field.key !== 'phone'}
+                      onFocus={() => setFocusedField(field.name)}
+                      onBlur={() => setFocusedField(null)}
+                      className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:border-[#1890ff] focus:outline-none transition-all text-gray-900 placeholder:text-gray-400"
+                      whileFocus={{ scale: 1.02 }}
                     />
                   </motion.div>
                 ))}
 
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <motion.button
+                  type="submit"
+                  className="w-full flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-[#1890ff] to-[#40a9ff] text-white font-bold text-lg rounded-2xl shadow-xl shadow-[#1890ff]/30"
+                  whileHover={{ 
+                    scale: 1.03, 
+                    boxShadow: '0 20px 40px rgba(24,144,255,0.4)',
+                  }}
+                  whileTap={{ scale: 0.97 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: 0.8 }}
                 >
-                  <button
-                    type="submit"
-                    className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-[#1890ff] text-white font-semibold rounded-[16px] shadow-lg shadow-[#1890ff]/30 hover:bg-[#0d6edb] transition-colors"
+                  <motion.div
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                   >
-                    Отправить заявку
-                    <motion.span
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      <ArrowRight size={20} />
-                    </motion.span>
-                  </button>
-                </motion.div>
+                    <Send size={22} />
+                  </motion.div>
+                  Отправить заявку
+                  <motion.span
+                    animate={{ x: [0, 8, 0] }}
+                    transition={{ duration: 1, repeat: Infinity }}
+                  >
+                    <ArrowRight size={22} />
+                  </motion.span>
+                </motion.button>
 
-                <p className="text-xs text-gray-500 text-center">
+                <motion.p 
+                  className="text-center text-sm text-gray-500"
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : {}}
+                  transition={{ delay: 1 }}
+                >
                   Нажимая кнопку, вы соглашаетесь с{' '}
-                  <a href="#privacy" className="text-[#1890ff] hover:underline">
-                    политикой конфиденциальности
-                  </a>
-                </p>
-              </form>
-            </motion.div>
-          </div>
+                  <motion.a 
+                    href="#" 
+                    className="text-[#1890ff] hover:underline"
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    политикой обработки данных
+                  </motion.a>
+                </motion.p>
+              </div>
+            </motion.form>
+          </motion.div>
         </motion.div>
       </Container>
     </section>
