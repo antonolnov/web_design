@@ -2,16 +2,16 @@
 
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Users, Briefcase, Building2, TrendingUp, Zap, Clock } from 'lucide-react';
+import { Sparkles, Building2, TrendingUp, GitBranch, Zap, Clock, Users } from 'lucide-react';
 import Container from '../ui/Container';
 import ContentCard from '../ui/ContentCard';
 import Mascot from '../ui/Mascot';
 
 const stats = [
-  { icon: Users, value: '500K+', label: 'Кандидатов', color: '#1890ff' },
-  { icon: Briefcase, value: '50K+', label: 'Вакансий', color: '#52c41a' },
+  { icon: Sparkles, value: 'AI', label: 'Умный найм', color: '#1890ff' },
   { icon: Building2, value: '2000+', label: 'Компаний', color: '#722ed1' },
-  { icon: TrendingUp, value: '3x', label: 'Быстрее найм', color: '#fa8c16' },
+  { icon: TrendingUp, value: '3x', label: 'Быстрее найм', color: '#52c41a' },
+  { icon: GitBranch, value: '∞', label: 'Воронок подбора', color: '#fa8c16' },
 ];
 
 const features = [
@@ -75,14 +75,14 @@ export default function StatsSection() {
               ))}
             </div>
 
-            {/* Mascot */}
+            {/* Mascot - larger and positioned in empty space */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ delay: 0.6 }}
-              className="flex justify-center mt-8"
+              className="flex justify-end mt-6 mr-4"
             >
-              <Mascot size={90} variant="02" />
+              <Mascot size={140} variant="02" />
             </motion.div>
           </div>
         </ContentCard>

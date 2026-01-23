@@ -44,19 +44,18 @@ export default function Mascot({
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Animated Speech Bubble */}
+      {/* Animated Speech Bubble - positioned to avoid covering text */}
       {showSpeechBubble && (
         <motion.div
-          className="absolute -top-16 -left-4 z-10"
+          className="absolute -top-12 left-1/2 -translate-x-1/2 z-10 pointer-events-none"
           initial={{ scale: 0, opacity: 0, rotate: -10 }}
           animate={{ scale: 1, opacity: 1, rotate: 0 }}
           transition={{ delay: 0.5, type: 'spring', stiffness: 400, damping: 12 }}
         >
           <motion.div 
-            className="relative bg-white px-5 py-3 rounded-2xl shadow-lg border-2 border-[#1890ff]/20"
+            className="relative bg-white px-4 py-2 rounded-xl shadow-md border border-[#1890ff]/20"
             animate={{ 
-              y: [0, -3, 0],
-              rotate: [0, 1, -1, 0],
+              y: [0, -2, 0],
             }}
             transition={{ 
               duration: 3, 
@@ -64,48 +63,20 @@ export default function Mascot({
               ease: "easeInOut" 
             }}
           >
-            {/* Animated text */}
+            {/* Animated text - smaller to avoid covering content */}
             <motion.span 
-              className="font-bold text-gray-800 text-lg whitespace-nowrap inline-block"
-              animate={{ scale: [1, 1.02, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="font-semibold text-gray-700 text-sm whitespace-nowrap inline-block"
             >
               {speechText}
             </motion.span>
             
-            {/* Animated sparkles */}
-            <motion.span
-              className="absolute -top-1 -right-1 text-yellow-400"
-              animate={{ 
-                rotate: [0, 15, -15, 0],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              ✨
-            </motion.span>
-            
-            {/* Triangle pointer with wobble */}
-            <motion.div 
-              className="absolute -bottom-3 left-8"
-              animate={{ x: [-1, 1, -1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <div 
-                className="w-0 h-0"
-                style={{
-                  borderLeft: '10px solid transparent',
-                  borderRight: '10px solid transparent',
-                  borderTop: '12px solid white',
-                }}
-              />
-            </motion.div>
+            {/* Triangle pointer */}
             <div 
-              className="absolute -bottom-[14px] left-8 w-0 h-0"
+              className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0"
               style={{
-                borderLeft: '10px solid transparent',
-                borderRight: '10px solid transparent',
-                borderTop: '12px solid rgba(24, 144, 255, 0.2)',
+                borderLeft: '6px solid transparent',
+                borderRight: '6px solid transparent',
+                borderTop: '8px solid white',
               }}
             />
           </motion.div>

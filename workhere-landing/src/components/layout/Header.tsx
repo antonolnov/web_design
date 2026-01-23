@@ -69,10 +69,18 @@ export default function Header() {
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-3">
+            <motion.a
+              href="#"
+              className="px-5 py-2.5 text-gray-600 hover:text-[#1890ff] font-semibold rounded-full hover:bg-[#1890ff]/5 transition-all"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Вход
+            </motion.a>
             <MagneticButton
               href="#demo"
-              className="px-6 py-2.5 bg-[#1890ff] text-white font-semibold rounded-full shadow-lg shadow-[#1890ff]/20 hover:bg-[#0d6edb] transition-colors"
+              className="px-6 py-2.5 bg-[#22c55e] text-white font-semibold rounded-full shadow-lg shadow-[#22c55e]/20 hover:bg-[#16a34a] transition-colors"
             >
               Запросить демо
             </MagneticButton>
@@ -111,10 +119,17 @@ export default function Header() {
                     {link.label}
                   </a>
                 ))}
-                <div className="pt-4 border-t border-gray-100 mt-2">
+                <div className="pt-4 border-t border-gray-100 mt-2 space-y-2">
+                  <a
+                    href="#"
+                    className="block w-full text-center px-6 py-3 text-gray-600 font-semibold rounded-full border border-gray-200"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Вход
+                  </a>
                   <a
                     href="#demo"
-                    className="block w-full text-center px-6 py-3 bg-[#1890ff] text-white font-semibold rounded-full"
+                    className="block w-full text-center px-6 py-3 bg-[#22c55e] text-white font-semibold rounded-full"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Запросить демо

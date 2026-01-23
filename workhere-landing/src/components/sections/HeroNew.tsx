@@ -60,7 +60,7 @@ export default function HeroNew() {
             >
               <a
                 href="#demo"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-[#1890ff] hover:bg-[#40a9ff] text-white font-bold text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-lg rounded-2xl shadow-lg shadow-[#22c55e]/30 hover:shadow-xl transition-all hover:-translate-y-0.5"
               >
                 🚀 Запросить демо
                 <ArrowRight size={20} />

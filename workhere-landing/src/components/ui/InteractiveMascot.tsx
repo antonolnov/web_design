@@ -26,6 +26,33 @@ const mascotImages: Record<string, string> = {
   '08': `${basePath}/workhere_mascot_08_transparent.svg`,
 };
 
+// Phrases for different states
+const activePhrases = [
+  '✨ AI Power! ✨',
+  '🚀 Поехали!',
+  '💫 Магия найма!',
+  '🔥 Вжух!',
+  '⚡ Супер-сила!',
+  '🌟 Автоматизация!',
+  '🎯 В точку!',
+  '💪 Мощь AI!',
+  '🧠 Умный найм!',
+  '✨ Вау-эффект!',
+  '🎉 Круто же!',
+  '💎 Топ!',
+];
+
+const afterClickPhrases = [
+  'Ещё раз? 😊',
+  'Понравилось? 🤩',
+  'Давай ещё! 🎯',
+  'Нажми снова! ✨',
+  'Ещё хочешь? 😏',
+  'Круто, да? 🔥',
+  'Попробуй ещё! 💫',
+  'Я готов! 🚀',
+];
+
 // Neural network nodes - 3 rings
 const generateNodes = () => {
   const nodes = [];
@@ -71,7 +98,9 @@ export default function InteractiveMascot({
 }: InteractiveMascotProps) {
   const [isActive, setIsActive] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [hasClicked, setHasClicked] = useState(false);
+  const [clickCount, setClickCount] = useState(0);
+  const [currentActivePhrase, setCurrentActivePhrase] = useState(0);
+  const [currentAfterPhrase, setCurrentAfterPhrase] = useState(0);
 
   const orbitingParticles = useMemo(() => 
     [...Array(12)].map((_, i) => ({
@@ -85,7 +114,10 @@ export default function InteractiveMascot({
   const handleClick = useCallback(() => {
     if (isActive) return;
     setIsActive(true);
-    setHasClicked(true);
+    setClickCount(prev => prev + 1);
+    // Rotate through phrases
+    setCurrentActivePhrase(prev => (prev + 1) % activePhrases.length);
+    setCurrentAfterPhrase(prev => (prev + 1) % afterClickPhrases.length);
     setTimeout(() => setIsActive(false), 3500);
   }, [isActive]);
 
@@ -132,15 +164,15 @@ export default function InteractiveMascot({
             <AnimatePresence mode="wait">
               {isActive ? (
                 <motion.span
-                  key="active"
+                  key={`active-${currentActivePhrase}`}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   className="text-[#1890ff]"
                 >
-                  ✨ AI Power! ✨
+                  {activePhrases[currentActivePhrase]}
                 </motion.span>
-              ) : isHovered && !hasClicked ? (
+              ) : isHovered && clickCount === 0 ? (
                 <motion.span
                   key="hover"
                   initial={{ opacity: 0, y: 10 }}
@@ -150,14 +182,14 @@ export default function InteractiveMascot({
                 >
                   Нажми на меня! 👆
                 </motion.span>
-              ) : hasClicked ? (
+              ) : clickCount > 0 ? (
                 <motion.span
-                  key="clicked"
+                  key={`clicked-${currentAfterPhrase}`}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                 >
-                  Ещё раз? 😊
+                  {afterClickPhrases[currentAfterPhrase]}
                 </motion.span>
               ) : (
                 <motion.span
@@ -215,41 +247,52 @@ export default function InteractiveMascot({
         transition={{ duration: 0.3 }}
       />
 
-      {/* Small AI indicator badge on mascot */}
+      {/* AI indicator badge - positioned at top-left like a sticker/badge */}
       <motion.div
-        className="absolute -right-2 top-1/4 z-20"
+        className="absolute -left-3 -top-3 z-20"
+        initial={{ scale: 0, rotate: -20 }}
         animate={{
-          scale: isHovered ? 1.1 : 1,
-          y: [0, -3, 0],
+          scale: 1,
+          rotate: isHovered ? [-5, 5, -5] : -10,
         }}
         transition={{ 
-          scale: { duration: 0.2 },
-          y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+          scale: { duration: 0.5, type: 'spring' },
+          rotate: { duration: 2, repeat: Infinity, ease: "easeInOut" }
         }}
       >
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#40a9ff] to-[#0d6edb] flex items-center justify-center shadow-lg">
+        <div className="relative">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#40a9ff] to-[#0d6edb] flex items-center justify-center shadow-lg transform rotate-12">
+            <motion.span 
+              className="text-white font-black text-lg"
+              animate={{ 
+                textShadow: isHovered 
+                  ? ['0 0 10px #fff', '0 0 20px #1890ff', '0 0 10px #fff']
+                  : '0 0 5px rgba(255,255,255,0.5)'
+              }}
+              transition={{ duration: 0.6, repeat: isHovered ? Infinity : 0 }}
+            >
+              AI
+            </motion.span>
+          </div>
+          {/* Pulse rings around AI badge */}
+          {[0, 1].map((i) => (
+            <motion.div
+              key={i}
+              className="absolute inset-0 rounded-2xl pointer-events-none rotate-12"
+              style={{ border: '2px solid rgba(24,144,255,0.4)' }}
+              animate={{ scale: [1, 1.4, 1.6], opacity: [0.6, 0.2, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.5 }}
+            />
+          ))}
+          {/* Small sparkle */}
           <motion.span 
-            className="text-white font-bold text-sm"
-            animate={{ 
-              textShadow: isHovered 
-                ? ['0 0 10px #fff', '0 0 20px #1890ff', '0 0 10px #fff']
-                : '0 0 5px rgba(255,255,255,0.5)'
-            }}
-            transition={{ duration: 0.6, repeat: isHovered ? Infinity : 0 }}
+            className="absolute -top-1 -right-1 text-lg"
+            animate={{ rotate: [0, 20, 0], scale: [1, 1.2, 1] }}
+            transition={{ duration: 1, repeat: Infinity }}
           >
-            AI
+            ⚡
           </motion.span>
         </div>
-        {/* Pulse rings around AI badge */}
-        {[0, 1].map((i) => (
-          <motion.div
-            key={i}
-            className="absolute inset-0 rounded-full pointer-events-none"
-            style={{ border: '1px solid rgba(24,144,255,0.4)' }}
-            animate={{ scale: [1, 1.5, 1.8], opacity: [0.5, 0.2, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.5 }}
-          />
-        ))}
       </motion.div>
 
       {/* Orbiting particles - visible on hover */}

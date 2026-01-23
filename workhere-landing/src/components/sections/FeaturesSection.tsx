@@ -12,6 +12,20 @@ import Mascot from '../ui/Mascot';
 
 const features = [
   {
+    id: 'ai',
+    icon: Zap,
+    title: 'AI-возможности',
+    description: 'Искусственный интеллект для умного найма',
+    points: [
+      'AI-скоринг кандидатов',
+      'Умный поиск по резюме',
+      'Автоматический парсинг резюме',
+      'Рекомендации по вакансиям',
+      'Предсказание успешности найма',
+    ],
+    mascotVariant: '01' as const,
+  },
+  {
     id: 'candidates',
     icon: Users,
     title: 'База кандидатов',
@@ -22,7 +36,7 @@ const features = [
       'Дедупликация контактов',
       'История коммуникаций',
     ],
-    mascotVariant: '01' as const,
+    mascotVariant: '02' as const,
   },
   {
     id: 'funnel',
@@ -35,7 +49,7 @@ const features = [
       'Автоматические действия',
       'Аналитика конверсии',
     ],
-    mascotVariant: '02' as const,
+    mascotVariant: '03' as const,
   },
   {
     id: 'analytics',
@@ -48,7 +62,7 @@ const features = [
       'Экспорт в BI-системы',
       'Метрики по рекрутерам',
     ],
-    mascotVariant: '03' as const,
+    mascotVariant: '04' as const,
   },
   {
     id: 'communication',
@@ -61,7 +75,7 @@ const features = [
       'Автоматические рассылки',
       'Единая история переписки',
     ],
-    mascotVariant: '04' as const,
+    mascotVariant: '05' as const,
   },
   {
     id: 'security',
@@ -74,11 +88,11 @@ const features = [
       'SSO интеграция',
       'Гранулярные права доступа',
     ],
-    mascotVariant: '05' as const,
+    mascotVariant: '06' as const,
   },
   {
     id: 'integrations',
-    icon: Zap,
+    icon: GitBranch,
     title: 'Интеграции',
     description: 'Связь со всеми вашими инструментами',
     points: [
@@ -87,7 +101,7 @@ const features = [
       'CRM и ERP системы',
       'Открытый API',
     ],
-    mascotVariant: '06' as const,
+    mascotVariant: '07' as const,
   },
 ];
 
@@ -179,9 +193,9 @@ export default function FeaturesSection() {
                         </div>
                       </div>
 
-                      {/* Mini mascot */}
+                      {/* Mini mascot - larger size */}
                       <div className="hidden md:block flex-shrink-0">
-                        <Mascot size={100} variant={current.mascotVariant} animate={false} />
+                        <Mascot size={140} variant={current.mascotVariant} animate={true} />
                       </div>
                     </div>
                   </motion.div>
