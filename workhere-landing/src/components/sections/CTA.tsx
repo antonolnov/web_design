@@ -6,6 +6,7 @@ import { Send, ArrowRight, Check, Sparkles, Mail, User, Building } from 'lucide-
 import Container from '../ui/Container';
 import CrazyBackground from '../ui/CrazyBackground';
 import Mascot from '../ui/Mascot';
+import Paws from '../ui/Paws';
 
 export default function CTA() {
   const containerRef = useRef(null);
@@ -30,12 +31,27 @@ export default function CTA() {
       <CrazyBackground variant="gradient" />
       <CrazyBackground variant="particles" intensity="low" />
 
-      {/* Mascot */}
+      {/* Decorative Paws */}
+      <Paws 
+        size={100} 
+        className="absolute bottom-20 left-8 hidden lg:block" 
+        rotation={15}
+        opacity={0.5}
+      />
+      <Paws 
+        size={60} 
+        className="absolute top-32 left-[30%] hidden lg:block" 
+        rotation={-20}
+        opacity={0.4}
+        flip
+      />
+
+      {/* Mascot with speech bubble */}
       <motion.div
         className="absolute right-4 lg:right-12 top-16 z-20 hidden md:block"
         style={{ y: mascotY }}
       >
-        <Mascot size={160} />
+        <Mascot size={160} variant="plant" showSpeechBubble speechText="Ждём вас! 🎉" />
       </motion.div>
 
       <Container>

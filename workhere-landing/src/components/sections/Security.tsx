@@ -5,6 +5,7 @@ import { motion, useInView } from 'framer-motion';
 import Container from '../ui/Container';
 import CrazyBackground from '../ui/CrazyBackground';
 import Mascot from '../ui/Mascot';
+import Paws from '../ui/Paws';
 import { Shield, Lock, Key, Server, Users, FileCheck, Cloud, Database, CheckCircle, Sparkles } from 'lucide-react';
 
 const securityFeatures = [
@@ -35,13 +36,28 @@ export default function Security() {
       <CrazyBackground variant="gradient" />
       <CrazyBackground variant="particles" intensity="low" />
 
-      {/* Mascot */}
+      {/* Decorative Paws */}
+      <Paws 
+        size={85} 
+        className="absolute bottom-24 left-10 hidden lg:block" 
+        rotation={-20}
+        opacity={0.5}
+      />
+      <Paws 
+        size={65} 
+        className="absolute top-40 left-[25%] hidden xl:block" 
+        rotation={35}
+        opacity={0.4}
+        flip
+      />
+
+      {/* Mascot - box variant */}
       <motion.div
         className="absolute right-6 lg:right-16 top-24 z-20 hidden lg:block"
         animate={{ y: [-12, 12, -12] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Mascot size={130} />
+        <Mascot size={130} variant="box" />
       </motion.div>
       
       <Container className="relative z-10">

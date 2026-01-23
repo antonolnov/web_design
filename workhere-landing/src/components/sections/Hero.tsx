@@ -7,6 +7,7 @@ import Container from '../ui/Container';
 import MagneticButton from '../ui/MagneticButton';
 import AIBadge from '../ui/AIBadge';
 import Mascot from '../ui/Mascot';
+import Paws from '../ui/Paws';
 import CrazyBackground from '../ui/CrazyBackground';
 
 const features = [
@@ -37,14 +38,41 @@ export default function Hero() {
       <CrazyBackground variant="gradient" />
       <CrazyBackground variant="particles" intensity="low" />
 
-      {/* MASCOT */}
+      {/* Decorative Paws - scattered around */}
+      <Paws 
+        size={80} 
+        className="absolute top-32 left-10 hidden lg:block" 
+        rotation={-15}
+        opacity={0.6}
+      />
+      <Paws 
+        size={60} 
+        className="absolute top-48 right-32 hidden lg:block" 
+        rotation={25}
+        opacity={0.5}
+        flip
+      />
+      <Paws 
+        size={50} 
+        className="absolute bottom-40 left-24 hidden md:block" 
+        rotation={-30}
+        opacity={0.4}
+      />
+      <Paws 
+        size={120} 
+        className="absolute bottom-20 right-[40%] hidden lg:block" 
+        rotation={10}
+        opacity={0.3}
+      />
+
+      {/* MASCOT with Speech Bubble */}
       <motion.div
-        className="absolute bottom-16 right-8 lg:right-20 z-20"
+        className="absolute bottom-24 right-8 lg:right-24 z-20"
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.8, duration: 0.6 }}
       >
-        <Mascot size={150} />
+        <Mascot size={180} showSpeechBubble speechText="Привет! 👋" />
       </motion.div>
 
       <Container className="relative z-10">

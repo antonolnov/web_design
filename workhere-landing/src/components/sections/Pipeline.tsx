@@ -6,6 +6,7 @@ import { Users, Clock, Target, Layers, Zap, Building2, UserCheck, ChevronRight, 
 import Container from '../ui/Container';
 import CrazyBackground from '../ui/CrazyBackground';
 import Mascot from '../ui/Mascot';
+import Paws from '../ui/Paws';
 
 const funnels = [
   {
@@ -74,13 +75,28 @@ export default function Pipeline() {
       <CrazyBackground variant="grid" color="#1890ff" />
       <CrazyBackground variant="particles" intensity="low" color="#1890ff" />
 
-      {/* Mascot */}
+      {/* Decorative Paws */}
+      <Paws 
+        size={80} 
+        className="absolute bottom-24 left-8 hidden lg:block" 
+        rotation={-15}
+        opacity={0.3}
+      />
+      <Paws 
+        size={100} 
+        className="absolute top-40 left-[15%] hidden xl:block" 
+        rotation={30}
+        opacity={0.25}
+        flip
+      />
+
+      {/* Mascot - plant variant */}
       <motion.div
         className="absolute right-8 top-16 z-20 hidden xl:block"
         animate={{ y: [-10, 10, -10] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Mascot size={120} />
+        <Mascot size={120} variant="plant" />
       </motion.div>
 
       <Container className="relative z-10">

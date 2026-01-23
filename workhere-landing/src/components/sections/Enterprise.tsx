@@ -5,6 +5,7 @@ import { motion, useInView } from 'framer-motion';
 import Container from '../ui/Container';
 import CrazyBackground from '../ui/CrazyBackground';
 import Mascot from '../ui/Mascot';
+import Paws from '../ui/Paws';
 import { Shield, Server, Lock, FileKey, Users, Building2, Cpu, Database, Globe, Zap } from 'lucide-react';
 
 const features = [
@@ -32,6 +33,21 @@ export default function Enterprise() {
       {/* Simple grid background */}
       <CrazyBackground variant="grid" color="#1890ff" />
       <CrazyBackground variant="particles" intensity="low" color="#1890ff" />
+
+      {/* Decorative Paws */}
+      <Paws 
+        size={90} 
+        className="absolute top-20 right-12 hidden xl:block" 
+        rotation={20}
+        opacity={0.25}
+      />
+      <Paws 
+        size={60} 
+        className="absolute bottom-40 right-[20%] hidden lg:block" 
+        rotation={-30}
+        opacity={0.2}
+        flip
+      />
 
       {/* Mascot */}
       <motion.div

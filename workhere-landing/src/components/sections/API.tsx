@@ -6,6 +6,7 @@ import { Code2, FileJson, Send, Users, FileSpreadsheet, Building2, BarChart3, We
 import Container from '../ui/Container';
 import CrazyBackground from '../ui/CrazyBackground';
 import Mascot from '../ui/Mascot';
+import Paws from '../ui/Paws';
 
 const apiFeatures = [
   { icon: FileJson, title: 'Интерактивная документация', description: 'Полное руководство с примерами кода' },
@@ -45,13 +46,28 @@ export default function API() {
       <CrazyBackground variant="grid" color="#8b5cf6" />
       <CrazyBackground variant="particles" intensity="low" color="#1890ff" />
 
-      {/* Mascot */}
+      {/* Decorative Paws */}
+      <Paws 
+        size={110} 
+        className="absolute top-24 right-16 hidden xl:block" 
+        rotation={25}
+        opacity={0.25}
+      />
+      <Paws 
+        size={70} 
+        className="absolute bottom-16 right-[25%] hidden lg:block" 
+        rotation={-35}
+        opacity={0.2}
+        flip
+      />
+
+      {/* Mascot - box variant */}
       <motion.div
         className="absolute left-6 lg:left-16 top-1/4 z-20 hidden lg:block"
         animate={{ y: [-15, 15, -15] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Mascot size={130} />
+        <Mascot size={130} variant="box" />
       </motion.div>
 
       <Container className="relative z-10">

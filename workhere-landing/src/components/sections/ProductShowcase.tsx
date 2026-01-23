@@ -5,6 +5,7 @@ import { motion, useInView } from 'framer-motion';
 import Container from '../ui/Container';
 import CrazyBackground from '../ui/CrazyBackground';
 import Mascot from '../ui/Mascot';
+import Paws from '../ui/Paws';
 import { Search, Plus, Mail, Phone } from 'lucide-react';
 
 function InterfaceMockup() {
@@ -148,14 +149,29 @@ export default function ProductShowcase() {
     <section className="relative py-28 overflow-hidden bg-gradient-to-b from-white via-[#f8fbff] to-white">
       {/* Simple background */}
       <CrazyBackground variant="gradient" />
+
+      {/* Decorative Paws */}
+      <Paws 
+        size={75} 
+        className="absolute top-28 right-20 hidden lg:block" 
+        rotation={15}
+        opacity={0.5}
+      />
+      <Paws 
+        size={55} 
+        className="absolute bottom-32 right-[40%] hidden lg:block" 
+        rotation={-25}
+        opacity={0.4}
+        flip
+      />
       
-      {/* Mascot - simple animation */}
+      {/* Mascot - plant variant */}
       <motion.div
         className="absolute left-4 top-1/2 -translate-y-1/2 z-20 hidden lg:block"
         animate={{ y: [-10, 10, -10] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Mascot size={110} />
+        <Mascot size={110} variant="plant" />
       </motion.div>
 
       <Container className="relative z-10">

@@ -6,6 +6,7 @@ import { Users, Briefcase, Building2, TrendingUp } from 'lucide-react';
 import Container from '../ui/Container';
 import CrazyBackground from '../ui/CrazyBackground';
 import Mascot from '../ui/Mascot';
+import Paws from '../ui/Paws';
 
 const stats = [
   { 
@@ -57,6 +58,21 @@ export default function StatsBlob() {
       {/* Static gradient background */}
       <CrazyBackground variant="gradient" />
       <CrazyBackground variant="particles" intensity="low" />
+
+      {/* Decorative Paws */}
+      <Paws 
+        size={90} 
+        className="absolute top-20 right-16 hidden lg:block" 
+        rotation={20}
+        opacity={0.5}
+      />
+      <Paws 
+        size={70} 
+        className="absolute bottom-32 left-12 hidden lg:block" 
+        rotation={-25}
+        opacity={0.4}
+        flip
+      />
 
       <Container className="relative z-10">
         <div ref={ref} className="flex flex-col lg:flex-row items-center justify-between gap-16">
@@ -115,9 +131,9 @@ export default function StatsBlob() {
               </svg>
             </motion.div>
 
-            {/* MASCOT */}
+            {/* MASCOT - cat in box variant */}
             <motion.div className="relative z-10" style={{ y: mascotY }}>
-              <Mascot size={220} />
+              <Mascot size={220} variant="box" />
             </motion.div>
 
             {/* Orbiting elements - simple, no blur */}
