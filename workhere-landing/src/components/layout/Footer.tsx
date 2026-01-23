@@ -136,7 +136,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-gray-800">
-          <p className="text-gray-500 text-sm mb-4 md:mb-0">
+          <p className="text-gray-500 text-sm mb-4 md:mb-0" suppressHydrationWarning>
             © {new Date().getFullYear()} WorkHere. Все права защищены.
           </p>
           <div className="flex items-center gap-2 text-gray-500 text-sm">

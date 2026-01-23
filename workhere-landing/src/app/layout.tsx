@@ -43,8 +43,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru" className={inter.variable}>
-      <body className="antialiased overflow-x-hidden">{children}</body>
+    <html lang="ru" className={inter.variable} suppressHydrationWarning>
+      <body className="antialiased overflow-x-hidden" suppressHydrationWarning>{children}</body>
     </html>
   );
 }
