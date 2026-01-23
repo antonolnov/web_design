@@ -1,41 +1,34 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import FloatingCTA from '@/components/ui/FloatingCTA';
-import SectionTransition from '@/components/ui/SectionTransition';
-import Hero from '@/components/sections/Hero';
-import StatsBlob from '@/components/sections/StatsBlob';
-import Features from '@/components/sections/Features';
-import ProductShowcase from '@/components/sections/ProductShowcase';
-import Pipeline from '@/components/sections/Pipeline';
-import API from '@/components/sections/API';
-import Enterprise from '@/components/sections/Enterprise';
-import Security from '@/components/sections/Security';
-import CTA from '@/components/sections/CTA';
+import FixedBackground from '@/components/ui/FixedBackground';
+import HeroNew from '@/components/sections/HeroNew';
+import StatsSection from '@/components/sections/StatsSection';
+import FeaturesSection from '@/components/sections/FeaturesSection';
+import IntegrationSection from '@/components/sections/IntegrationSection';
+import CTASection from '@/components/sections/CTASection';
 
 export default function Home() {
   return (
     <>
+      {/* Fixed background that stays in place */}
+      <FixedBackground />
+      
+      {/* Header - fixed on top */}
       <Header />
+      
+      {/* Floating CTA button */}
       <FloatingCTA />
-      <main>
-        <Hero />
-        <StatsBlob />
-        <ProductShowcase />
-        {/* Плавный переход из светлого в тёмный */}
-        <SectionTransition from="light" to="dark" height={180} />
-        <Features />
-        <Pipeline />
-        {/* Переход между тёмными секциями */}
-        <SectionTransition from="dark" to="dark" height={100} />
-        <API />
-        {/* Переход между тёмными секциями */}
-        <SectionTransition from="dark" to="dark" height={100} />
-        <Enterprise />
-        {/* Плавный переход из тёмного в светлый */}
-        <SectionTransition from="dark" to="light" height={180} />
-        <Security />
-        <CTA />
+      
+      {/* Scrolling content */}
+      <main className="relative z-10">
+        <HeroNew />
+        <StatsSection />
+        <FeaturesSection />
+        <IntegrationSection />
+        <CTASection />
       </main>
+      
       <Footer />
     </>
   );

@@ -8,10 +8,7 @@ import MagneticButton from '../ui/MagneticButton';
 
 const navLinks = [
   { href: '#features', label: 'Возможности' },
-  { href: '#funnel', label: 'Воронка' },
-  { href: '#analytics', label: 'Аналитика' },
-  { href: '#integrations', label: 'Интеграции' },
-  { href: '#security', label: 'Безопасность' },
+  { href: '#demo', label: 'Демо' },
 ];
 
 export default function Header() {
