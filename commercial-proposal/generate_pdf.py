@@ -99,28 +99,27 @@ def generate_pdf():
             
             .cover-logo-box {
                 display: inline-flex;
-                background: rgba(255, 255, 255, 0.05);
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                align-items: center;
+                background: #1890ff;
                 border-radius: 16px;
-                padding: 12px 20px;
-                backdrop-filter: blur(10px);
+                padding: 4px;
+                box-shadow: 0 8px 30px rgba(24, 144, 255, 0.5);
             }
             
             .cover-logo-work {
-                background: linear-gradient(135deg, #1890ff 0%, #40a9ff 100%);
-                color: white;
+                background: white;
+                color: #1890ff;
                 font-size: 26pt;
                 font-weight: 700;
-                padding: 8px 14px;
-                border-radius: 10px;
-                box-shadow: 0 4px 15px rgba(24, 144, 255, 0.4);
+                padding: 10px 16px;
+                border-radius: 12px;
             }
             
             .cover-logo-here {
-                color: #ffffff;
+                color: white;
                 font-size: 26pt;
                 font-weight: 700;
-                padding: 8px 14px;
+                padding: 10px 16px;
             }
             
             /* Content */
