@@ -25,7 +25,7 @@ export default function ContentCard({
     white: 'bg-white/95 border-gray-100 shadow-xl',
     glass: 'bg-white/80 backdrop-blur-sm border-white/50 shadow-lg',
     dark: 'bg-[#0a1628]/95 border-[#1890ff]/10 shadow-2xl',
-    gradient: 'bg-gradient-to-br from-white/95 to-[#f0f7ff]/95 border-[#1890ff]/10 shadow-xl',
+    gradient: 'bg-gradient-to-br from-[#1890ff] to-[#0d6edb] border-[#1890ff]/20 shadow-xl',
   };
 
   return (

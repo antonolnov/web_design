@@ -1,215 +1,126 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import Paws from './Paws';
-
-const basePath = '/web_design/workhere-landing';
 
 export default function FixedBackground() {
   const { scrollYProgress } = useScroll();
   
-  // Subtle parallax for background elements
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -300]);
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const y4 = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const rotate1 = useTransform(scrollYProgress, [0, 1], [0, 20]);
-  const rotate2 = useTransform(scrollYProgress, [0, 1], [0, -15]);
+  // Color transitions based on scroll
+  // Start: light blue -> purple -> dark blue -> teal -> back to blue
+  const backgroundColor = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.4, 0.6, 0.8, 1],
+    [
+      'linear-gradient(135deg, #e8f4ff 0%, #f0f7ff 50%, #e0efff 100%)',
+      'linear-gradient(135deg, #e8f0ff 0%, #f0e8ff 50%, #e8e0ff 100%)',
+      'linear-gradient(135deg, #f0e8ff 0%, #e8e8ff 50%, #e0e8ff 100%)',
+      'linear-gradient(135deg, #e0f0ff 0%, #e8f8ff 50%, #e0ffff 100%)',
+      'linear-gradient(135deg, #e8fff8 0%, #e0fff0 50%, #e8ffff 100%)',
+      'linear-gradient(135deg, #e8f4ff 0%, #f0f7ff 50%, #e0efff 100%)',
+    ]
+  );
+
+  // Subtle orb movements
+  const orb1Y = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const orb2Y = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const orb1Scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.2, 1]);
+  const orb2Scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 1]);
+
+  // Color shifts for orbs
+  const orb1Color = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.6, 1],
+    [
+      'rgba(24, 144, 255, 0.15)',
+      'rgba(139, 92, 246, 0.15)',
+      'rgba(20, 184, 166, 0.15)',
+      'rgba(24, 144, 255, 0.15)',
+    ]
+  );
+
+  const orb2Color = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.6, 1],
+    [
+      'rgba(64, 169, 255, 0.12)',
+      'rgba(167, 139, 250, 0.12)',
+      'rgba(45, 212, 191, 0.12)',
+      'rgba(64, 169, 255, 0.12)',
+    ]
+  );
 
   return (
     <div className="fixed inset-0 z-0 overflow-hidden">
-      {/* Base gradient */}
-      <div 
+      {/* Animated gradient background */}
+      <motion.div 
         className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(135deg, #e8f4ff 0%, #f0f7ff 25%, #e0efff 50%, #f5faff 75%, #e8f4ff 100%)',
-        }}
+        style={{ background: backgroundColor }}
       />
 
       {/* Subtle grid pattern */}
       <div 
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.02]"
         style={{
           backgroundImage: 'linear-gradient(#1890ff 1px, transparent 1px), linear-gradient(90deg, #1890ff 1px, transparent 1px)',
-          backgroundSize: '80px 80px',
+          backgroundSize: '100px 100px',
         }}
       />
 
-      {/* Large gradient orbs - static, no blur for performance */}
-      <div 
-        className="absolute w-[800px] h-[800px] rounded-full opacity-20"
+      {/* Floating gradient orbs with scroll-based color */}
+      <motion.div 
+        className="absolute w-[900px] h-[900px] rounded-full"
         style={{
-          background: 'radial-gradient(circle, rgba(24,144,255,0.3) 0%, transparent 70%)',
-          top: '-200px',
-          right: '-200px',
+          background: `radial-gradient(circle, ${orb1Color} 0%, transparent 70%)`,
+          top: '-300px',
+          right: '-300px',
+          y: orb1Y,
+          scale: orb1Scale,
         }}
       />
-      <div 
-        className="absolute w-[600px] h-[600px] rounded-full opacity-15"
+      
+      <motion.div 
+        className="absolute w-[700px] h-[700px] rounded-full"
         style={{
-          background: 'radial-gradient(circle, rgba(24,144,255,0.25) 0%, transparent 70%)',
-          bottom: '20%',
-          left: '-150px',
+          background: `radial-gradient(circle, ${orb2Color} 0%, transparent 70%)`,
+          bottom: '10%',
+          left: '-200px',
+          y: orb2Y,
+          scale: orb2Scale,
         }}
       />
-      <div 
-        className="absolute w-[500px] h-[500px] rounded-full opacity-10"
+
+      <motion.div 
+        className="absolute w-[500px] h-[500px] rounded-full"
         style={{
-          background: 'radial-gradient(circle, rgba(64,169,255,0.3) 0%, transparent 70%)',
-          top: '40%',
-          right: '10%',
+          background: `radial-gradient(circle, ${orb1Color} 0%, transparent 70%)`,
+          top: '50%',
+          right: '5%',
+          y: orb2Y,
         }}
       />
 
-      {/* Floating mascots with parallax - shuffled and mixed */}
-      {/* mascot_04 on background - at multiple positions */}
-      <motion.div
-        className="absolute left-[3%] top-[15%] hidden lg:block"
-        style={{ y: y1 }}
-      >
-        <img src={`${basePath}/workhere_mascot_04_transparent.svg`} alt="" className="w-32 h-32 opacity-20" />
-      </motion.div>
-
-      <motion.div
-        className="absolute right-[5%] top-[35%] hidden xl:block"
-        style={{ y: y2 }}
-      >
-        <img src={`${basePath}/workhere_mascot_04_transparent.svg`} alt="" className="w-28 h-28 opacity-18" />
-      </motion.div>
-
-      <motion.div
-        className="absolute left-[8%] top-[65%] hidden lg:block"
-        style={{ y: y3 }}
-      >
-        <img src={`${basePath}/workhere_mascot_04_transparent.svg`} alt="" className="w-24 h-24 opacity-15" />
-      </motion.div>
-
-      {/* Other mascots shuffled across the page */}
-      <motion.div
-        className="absolute right-[12%] top-[8%] hidden lg:block"
-        style={{ y: y2 }}
-      >
-        <img src={`${basePath}/workhere_mascot_02_transparent.svg`} alt="" className="w-28 h-28 opacity-25" />
-      </motion.div>
-
-      <motion.div
-        className="absolute left-[15%] top-[45%] hidden xl:block"
-        style={{ y: y4 }}
-      >
-        <img src={`${basePath}/workhere_mascot_06_transparent.svg`} alt="" className="w-26 h-26 opacity-22" />
-      </motion.div>
-
-      <motion.div
-        className="absolute right-[8%] top-[55%] hidden lg:block"
-        style={{ y: y1 }}
-      >
-        <img src={`${basePath}/workhere_mascot_03_transparent.svg`} alt="" className="w-24 h-24 opacity-20" />
-      </motion.div>
-
-      <motion.div
-        className="absolute left-[5%] top-[80%] hidden xl:block"
-        style={{ y: y2 }}
-      >
-        <img src={`${basePath}/workhere_mascot_05_transparent.svg`} alt="" className="w-28 h-28 opacity-22" />
-      </motion.div>
-
-      <motion.div
-        className="absolute right-[18%] top-[75%] hidden lg:block"
-        style={{ y: y3 }}
-      >
-        <img src={`${basePath}/workhere_mascot_07_transparent.svg`} alt="" className="w-22 h-22 opacity-18" />
-      </motion.div>
-
-      <motion.div
-        className="absolute left-[12%] top-[92%] hidden lg:block"
-        style={{ y: y4 }}
-      >
-        <img src={`${basePath}/workhere_mascot_08_transparent.svg`} alt="" className="w-26 h-26 opacity-20" />
-      </motion.div>
-
-      {/* More paws with parallax - doubled amount */}
-      <motion.div
-        className="absolute left-[18%] top-[10%] hidden lg:block"
-        style={{ y: y1, rotate: rotate1 }}
-      >
-        <Paws size={100} opacity={0.15} animate={false} />
-      </motion.div>
-
-      <motion.div
-        className="absolute right-[22%] top-[18%] hidden lg:block"
-        style={{ y: y2, rotate: rotate2 }}
-      >
-        <Paws size={80} opacity={0.12} flip animate={false} />
-      </motion.div>
-
-      <motion.div
-        className="absolute left-[35%] top-[28%] hidden xl:block"
-        style={{ y: y3, rotate: rotate1 }}
-      >
-        <Paws size={70} opacity={0.10} animate={false} />
-      </motion.div>
-
-      <motion.div
-        className="absolute right-[30%] top-[42%] hidden lg:block"
-        style={{ y: y1, rotate: rotate2 }}
-      >
-        <Paws size={90} opacity={0.14} flip animate={false} />
-      </motion.div>
-
-      <motion.div
-        className="absolute left-[25%] top-[52%] hidden xl:block"
-        style={{ y: y2, rotate: rotate1 }}
-      >
-        <Paws size={110} opacity={0.10} animate={false} />
-      </motion.div>
-
-      <motion.div
-        className="absolute right-[15%] top-[62%] hidden lg:block"
-        style={{ y: y3, rotate: rotate2 }}
-      >
-        <Paws size={65} opacity={0.15} flip animate={false} />
-      </motion.div>
-
-      <motion.div
-        className="absolute left-[30%] top-[72%] hidden lg:block"
-        style={{ y: y4, rotate: rotate1 }}
-      >
-        <Paws size={85} opacity={0.12} animate={false} />
-      </motion.div>
-
-      <motion.div
-        className="absolute right-[28%] top-[82%] hidden xl:block"
-        style={{ y: y1, rotate: rotate2 }}
-      >
-        <Paws size={75} opacity={0.13} flip animate={false} />
-      </motion.div>
-
-      <motion.div
-        className="absolute left-[22%] top-[88%] hidden lg:block"
-        style={{ y: y2, rotate: rotate1 }}
-      >
-        <Paws size={95} opacity={0.11} animate={false} />
-      </motion.div>
-
-      <motion.div
-        className="absolute right-[35%] top-[95%] hidden lg:block"
-        style={{ y: y3, rotate: rotate2 }}
-      >
-        <Paws size={60} opacity={0.14} flip animate={false} />
-      </motion.div>
-
-      {/* Decorative dots */}
-      {[...Array(15)].map((_, i) => (
+      {/* Subtle animated dots */}
+      {[...Array(20)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-[#1890ff]"
+          className="absolute rounded-full"
           style={{
-            width: 4 + (i % 4) * 2,
-            height: 4 + (i % 4) * 2,
-            left: `${5 + (i * 6.5) % 90}%`,
-            top: `${10 + (i * 7) % 85}%`,
-            opacity: 0.08 + (i % 3) * 0.03,
-            y: i % 2 === 0 ? y1 : y2,
+            width: 3 + (i % 4) * 2,
+            height: 3 + (i % 4) * 2,
+            left: `${5 + (i * 5) % 90}%`,
+            top: `${8 + (i * 5.3) % 85}%`,
+            backgroundColor: '#1890ff',
+            opacity: 0.06 + (i % 3) * 0.02,
+          }}
+          animate={{
+            y: [0, -10, 0],
+            opacity: [0.04, 0.08, 0.04],
+          }}
+          transition={{
+            duration: 4 + (i % 3),
+            repeat: Infinity,
+            delay: i * 0.2,
+            ease: 'easeInOut',
           }}
         />
       ))}
