@@ -100,24 +100,20 @@ def generate_pdf():
             .cover-logo-box {
                 display: inline-flex;
                 align-items: center;
-                background: #1890ff;
-                border-radius: 16px;
-                padding: 4px;
-                box-shadow: 0 8px 30px rgba(24, 144, 255, 0.5);
             }
             
             .cover-logo-work {
-                background: white;
-                color: #1890ff;
-                font-size: 26pt;
+                background: #1890ff;
+                color: white;
+                font-size: 28pt;
                 font-weight: 700;
                 padding: 10px 16px;
-                border-radius: 12px;
+                border-radius: 8px;
             }
             
             .cover-logo-here {
                 color: white;
-                font-size: 26pt;
+                font-size: 28pt;
                 font-weight: 700;
                 padding: 10px 16px;
             }
