@@ -203,47 +203,118 @@ export default function API() {
         background: 'linear-gradient(135deg, #0c1929 0%, #1a1a3e 25%, #2d1b4e 50%, #1a1a3e 75%, #0c1929 100%)',
       }}
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-[0.08]">
+      {/* Smooth transition from previous section */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-32 z-[1]"
+        style={{
+          background: 'linear-gradient(180deg, #0c1929 0%, transparent 100%)',
+        }}
+      />
+      
+      {/* Background grid */}
+      <div className="absolute inset-0 opacity-[0.06]">
         <div 
           style={{
-            backgroundImage: 'linear-gradient(rgba(139,92,246,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.4) 1px, transparent 1px)',
-            backgroundSize: '50px 50px',
+            backgroundImage: 'linear-gradient(rgba(139,92,246,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.5) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
           }}
           className="absolute inset-0"
         />
       </div>
       
+      {/* Floating particles */}
+      {[...Array(30)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            width: 2 + Math.random() * 4,
+            height: 2 + Math.random() * 4,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            background: i % 2 === 0 ? '#8b5cf6' : '#1890ff',
+            boxShadow: `0 0 ${6 + Math.random() * 10}px ${i % 2 === 0 ? 'rgba(139,92,246,0.6)' : 'rgba(24,144,255,0.6)'}`,
+          }}
+          animate={{
+            y: [0, -30 - Math.random() * 40, 0],
+            x: [0, (Math.random() - 0.5) * 30, 0],
+            opacity: [0.3, 0.8, 0.3],
+            scale: [1, 1.5, 1],
+          }}
+          transition={{
+            duration: 4 + Math.random() * 4,
+            repeat: Infinity,
+            delay: Math.random() * 3,
+            ease: 'easeInOut',
+          }}
+        />
+      ))}
+      
       {/* Glowing orbs - blue and purple */}
       <motion.div
-        className="absolute w-[600px] h-[600px] rounded-full"
+        className="absolute w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(139,92,246,0.2) 0%, transparent 70%)',
-          top: '10%',
+          background: 'radial-gradient(circle, rgba(139,92,246,0.25) 0%, transparent 70%)',
+          top: '5%',
           left: '-15%',
+          filter: 'blur(40px)',
         }}
-        animate={{ scale: [1, 1.2, 1], x: [0, 20, 0] }}
-        transition={{ duration: 10, repeat: Infinity }}
+        animate={{ scale: [1, 1.3, 1], x: [0, 50, 0], y: [0, 30, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute w-[500px] h-[500px] rounded-full"
+        className="absolute w-[500px] h-[500px] rounded-full pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(24,144,255,0.15) 0%, transparent 70%)',
-          top: '40%',
+          background: 'radial-gradient(circle, rgba(24,144,255,0.2) 0%, transparent 70%)',
+          top: '50%',
           right: '-10%',
+          filter: 'blur(30px)',
         }}
-        animate={{ scale: [1.1, 1, 1.1], y: [0, -30, 0] }}
-        transition={{ duration: 8, repeat: Infinity }}
+        animate={{ scale: [1.2, 1, 1.2], y: [0, -50, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute w-[400px] h-[400px] rounded-full"
+        className="absolute w-[450px] h-[450px] rounded-full pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%)',
-          bottom: '5%',
-          left: '20%',
+          background: 'radial-gradient(circle, rgba(168,85,247,0.2) 0%, transparent 70%)',
+          bottom: '0%',
+          left: '30%',
+          filter: 'blur(35px)',
         }}
-        animate={{ scale: [1, 1.15, 1] }}
-        transition={{ duration: 7, repeat: Infinity }}
+        animate={{ scale: [1, 1.2, 1], x: [0, -30, 0] }}
+        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      
+      {/* Moving light streaks */}
+      <motion.div
+        className="absolute w-[2px] h-[100px] pointer-events-none"
+        style={{
+          background: 'linear-gradient(180deg, transparent, rgba(139,92,246,0.5), transparent)',
+          left: '20%',
+          top: '-100px',
+        }}
+        animate={{ y: [0, 800], opacity: [0, 1, 0] }}
+        transition={{ duration: 3, repeat: Infinity, delay: 0, ease: 'linear' }}
+      />
+      <motion.div
+        className="absolute w-[2px] h-[80px] pointer-events-none"
+        style={{
+          background: 'linear-gradient(180deg, transparent, rgba(24,144,255,0.5), transparent)',
+          left: '70%',
+          top: '-80px',
+        }}
+        animate={{ y: [0, 700], opacity: [0, 1, 0] }}
+        transition={{ duration: 2.5, repeat: Infinity, delay: 1.5, ease: 'linear' }}
+      />
+      <motion.div
+        className="absolute w-[2px] h-[60px] pointer-events-none"
+        style={{
+          background: 'linear-gradient(180deg, transparent, rgba(168,85,247,0.4), transparent)',
+          left: '45%',
+          top: '-60px',
+        }}
+        animate={{ y: [0, 600], opacity: [0, 1, 0] }}
+        transition={{ duration: 2, repeat: Infinity, delay: 2.5, ease: 'linear' }}
       />
 
       <Container className="relative z-10">
@@ -299,9 +370,9 @@ export default function API() {
           <div className="grid grid-cols-12 gap-4 mb-4">
             {/* Docs - large */}
             <motion.div
-              initial={{ opacity: 0, x: -150, y: -80 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: -150, y: -80 }}
-              transition={{ duration: 0.6, delay: isInView ? 0.4 : 0, type: 'spring', stiffness: 100 }}
+              initial={{ opacity: 0, x: -300, y: -150, rotate: -15, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 } : { opacity: 0, x: -300, y: -150, rotate: -15, scale: 0.8 }}
+              transition={{ duration: 0.8, delay: isInView ? 0.3 : 0, type: 'spring', stiffness: 70, damping: 15 }}
               className="col-span-12 md:col-span-4 bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <DocsVisual />
@@ -310,9 +381,9 @@ export default function API() {
             
             {/* Send from intranet */}
             <motion.div
-              initial={{ opacity: 0, y: -120 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -120 }}
-              transition={{ duration: 0.6, delay: isInView ? 0.5 : 0, type: 'spring', stiffness: 100 }}
+              initial={{ opacity: 0, y: -250, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: -250, scale: 0.8 }}
+              transition={{ duration: 0.8, delay: isInView ? 0.4 : 0, type: 'spring', stiffness: 70, damping: 15 }}
               className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <IconVisual icon={Send} />
@@ -321,9 +392,9 @@ export default function API() {
             
             {/* Send to HR */}
             <motion.div
-              initial={{ opacity: 0, x: 150, y: -80 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 150, y: -80 }}
-              transition={{ duration: 0.6, delay: isInView ? 0.6 : 0, type: 'spring', stiffness: 100 }}
+              initial={{ opacity: 0, x: 300, y: -100, rotate: 15, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 } : { opacity: 0, x: 300, y: -100, rotate: 15, scale: 0.8 }}
+              transition={{ duration: 0.8, delay: isInView ? 0.5 : 0, type: 'spring', stiffness: 70, damping: 15 }}
               className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <IconVisual icon={Users} />
@@ -332,9 +403,9 @@ export default function API() {
             
             {/* Career site */}
             <motion.div
-              initial={{ opacity: 0, x: 100, y: -50 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 100, y: -50 }}
-              transition={{ duration: 0.6, delay: isInView ? 0.55 : 0, type: 'spring', stiffness: 100 }}
+              initial={{ opacity: 0, x: 250, y: -80, rotate: 10, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 } : { opacity: 0, x: 250, y: -80, rotate: 10, scale: 0.8 }}
+              transition={{ duration: 0.8, delay: isInView ? 0.45 : 0, type: 'spring', stiffness: 70, damping: 15 }}
               className="col-span-12 md:col-span-2 bg-white/5 backdrop-blur-md rounded-3xl p-4 border border-[#1890ff]/20 flex flex-col items-center text-center justify-center hover:border-[#1890ff]/40 transition-colors"
             >
               <IconVisual icon={Database} />
@@ -346,9 +417,9 @@ export default function API() {
           <div className="grid grid-cols-12 gap-4 mb-4">
             {/* Excel */}
             <motion.div
-              initial={{ opacity: 0, x: -200 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -200 }}
-              transition={{ duration: 0.6, delay: isInView ? 0.7 : 0, type: 'spring', stiffness: 100 }}
+              initial={{ opacity: 0, x: -350, rotate: -20, scale: 0.7 }}
+              animate={isInView ? { opacity: 1, x: 0, rotate: 0, scale: 1 } : { opacity: 0, x: -350, rotate: -20, scale: 0.7 }}
+              transition={{ duration: 0.9, delay: isInView ? 0.55 : 0, type: 'spring', stiffness: 60, damping: 14 }}
               className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <ExcelVisual />
@@ -357,9 +428,9 @@ export default function API() {
             
             {/* Sandbox - large */}
             <motion.div
-              initial={{ opacity: 0, x: 200 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 200 }}
-              transition={{ duration: 0.6, delay: isInView ? 0.75 : 0, type: 'spring', stiffness: 100 }}
+              initial={{ opacity: 0, x: 350, rotate: 15, scale: 0.7 }}
+              animate={isInView ? { opacity: 1, x: 0, rotate: 0, scale: 1 } : { opacity: 0, x: 350, rotate: 15, scale: 0.7 }}
+              transition={{ duration: 0.9, delay: isInView ? 0.6 : 0, type: 'spring', stiffness: 60, damping: 14 }}
               className="col-span-12 md:col-span-5 bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <SandboxVisual />
@@ -368,9 +439,9 @@ export default function API() {
             
             {/* Departments */}
             <motion.div
-              initial={{ opacity: 0, x: 180, y: 50 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 180, y: 50 }}
-              transition={{ duration: 0.6, delay: isInView ? 0.8 : 0, type: 'spring', stiffness: 100 }}
+              initial={{ opacity: 0, x: 300, y: 100, rotate: 20, scale: 0.7 }}
+              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 } : { opacity: 0, x: 300, y: 100, rotate: 20, scale: 0.7 }}
+              transition={{ duration: 0.9, delay: isInView ? 0.65 : 0, type: 'spring', stiffness: 60, damping: 14 }}
               className="col-span-6 md:col-span-4 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <IconVisual icon={Building2} />
@@ -382,9 +453,9 @@ export default function API() {
           <div className="grid grid-cols-12 gap-4">
             {/* Webhooks - xlarge */}
             <motion.div
-              initial={{ opacity: 0, x: -180, y: 100 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: -180, y: 100 }}
-              transition={{ duration: 0.6, delay: isInView ? 0.85 : 0, type: 'spring', stiffness: 100 }}
+              initial={{ opacity: 0, x: -400, y: 150, rotate: -25, scale: 0.6 }}
+              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 } : { opacity: 0, x: -400, y: 150, rotate: -25, scale: 0.6 }}
+              transition={{ duration: 1, delay: isInView ? 0.7 : 0, type: 'spring', stiffness: 50, damping: 13 }}
               className="col-span-12 md:col-span-6 bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <WebhooksVisual />
@@ -393,9 +464,9 @@ export default function API() {
             
             {/* BI export */}
             <motion.div
-              initial={{ opacity: 0, y: 150 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 150 }}
-              transition={{ duration: 0.6, delay: isInView ? 0.9 : 0, type: 'spring', stiffness: 100 }}
+              initial={{ opacity: 0, y: 300, scale: 0.6 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 300, scale: 0.6 }}
+              transition={{ duration: 1, delay: isInView ? 0.75 : 0, type: 'spring', stiffness: 50, damping: 13 }}
               className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <IconVisual icon={BarChart3} />
@@ -404,9 +475,9 @@ export default function API() {
             
             {/* Empty decorative space / small card */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
-              transition={{ duration: 0.6, delay: isInView ? 0.95 : 0, type: 'spring', stiffness: 100 }}
+              initial={{ opacity: 0, x: 300, y: 200, rotate: 25, scale: 0.5 }}
+              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 } : { opacity: 0, x: 300, y: 200, rotate: 25, scale: 0.5 }}
+              transition={{ duration: 1, delay: isInView ? 0.8 : 0, type: 'spring', stiffness: 50, damping: 13 }}
               className="col-span-6 md:col-span-3 bg-gradient-to-br from-[#1890ff]/20 to-[#1890ff]/5 backdrop-blur-md rounded-3xl p-5 border border-[#1890ff]/30 flex flex-col items-center justify-center text-center hover:border-[#1890ff]/50 transition-colors"
             >
               <div className="text-4xl mb-2">🚀</div>
