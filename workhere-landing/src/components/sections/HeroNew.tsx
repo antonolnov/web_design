@@ -3,8 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import Container from '../ui/Container';
-import Mascot from '../ui/Mascot';
-import AIBadge from '../ui/AIBadge';
+import InteractiveMascot from '../ui/InteractiveMascot';
 
 export default function HeroNew() {
   return (
@@ -17,16 +16,6 @@ export default function HeroNew() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            {/* AI Badge - prominent position */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-              className="mb-6"
-            >
-              <AIBadge />
-            </motion.div>
-
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -103,20 +92,20 @@ export default function HeroNew() {
             </motion.div>
           </motion.div>
 
-          {/* Right - Mascot with speech bubble */}
+          {/* Right - Interactive Mascot with AI explosion */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, duration: 0.6 }}
             className="relative flex items-center justify-center"
           >
-            {/* Decorative card behind mascot */}
+            {/* Decorative cards behind mascot */}
             <div className="absolute w-80 h-80 bg-white/60 backdrop-blur-sm rounded-3xl border border-white/50 shadow-xl -rotate-6" />
             <div className="absolute w-72 h-72 bg-[#1890ff]/10 rounded-3xl rotate-6" />
             
-            {/* Mascot */}
+            {/* Interactive Mascot - click triggers AI explosion */}
             <div className="relative z-10">
-              <Mascot size={300} variant="01" showSpeechBubble speechText="Привет! 👋" />
+              <InteractiveMascot size={320} variant="01" />
             </div>
           </motion.div>
         </div>
