@@ -364,125 +364,145 @@ export default function API() {
           </motion.a>
         </motion.div>
 
-        {/* Creative card layout */}
+        {/* Artistic floating cards */}
         <div className="relative max-w-6xl mx-auto">
-          {/* Row 1 - 3 cards */}
-          <div className="grid grid-cols-12 gap-4 mb-4">
-            {/* Docs - large */}
+          <div className="grid grid-cols-12 gap-5 lg:gap-6">
+            
+            {/* Card 1 - Docs - glass morphism with glow */}
             <motion.div
-              initial={{ opacity: 0, x: -300, y: -150, rotate: -15, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 } : { opacity: 0, x: -300, y: -150, rotate: -15, scale: 0.8 }}
-              transition={{ duration: 0.8, delay: isInView ? 0.3 : 0, type: 'spring', stiffness: 70, damping: 15 }}
-              className="col-span-12 md:col-span-4 bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
+              initial={{ opacity: 0, x: -200, rotate: -5 }}
+              animate={isInView ? { opacity: 1, x: 0, rotate: -1 } : { opacity: 0, x: -200, rotate: -5 }}
+              transition={{ duration: 1.2, delay: isInView ? 0.2 : 0, type: 'spring', stiffness: 40 }}
+              whileHover={{ rotate: 0, y: -8, scale: 1.02 }}
+              className="col-span-12 md:col-span-5 relative group"
             >
-              <DocsVisual />
-              <h3 className="text-lg font-bold text-white">Интерактивная документация</h3>
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#8b5cf6] to-[#1890ff] rounded-[2rem] opacity-20 group-hover:opacity-40 blur-xl transition-opacity" />
+              <div className="relative bg-white/[0.08] backdrop-blur-2xl rounded-[2rem] p-8 border border-white/10 overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#8b5cf6]/20 to-transparent rounded-bl-full" />
+                <DocsVisual />
+                <h3 className="text-xl font-semibold text-white mt-4">Интерактивная документация</h3>
+                <p className="text-white/40 text-sm mt-2">Полное руководство с живыми примерами</p>
+              </div>
             </motion.div>
             
-            {/* Send from intranet */}
+            {/* Card 2 - Send - organic shape */}
             <motion.div
-              initial={{ opacity: 0, y: -250, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: -250, scale: 0.8 }}
-              transition={{ duration: 0.8, delay: isInView ? 0.4 : 0, type: 'spring', stiffness: 70, damping: 15 }}
-              className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
+              initial={{ opacity: 0, y: -180 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -180 }}
+              transition={{ duration: 1.1, delay: isInView ? 0.3 : 0, type: 'spring', stiffness: 45 }}
+              whileHover={{ y: -12 }}
+              className="col-span-6 md:col-span-3"
             >
-              <IconVisual icon={Send} />
-              <h3 className="text-sm font-bold text-white leading-tight">Передавайте заявки из интранета</h3>
+              <div className="h-full bg-gradient-to-b from-[#a78bfa]/15 to-white/5 backdrop-blur-2xl rounded-[2rem] p-6 border border-white/10 hover:border-[#a78bfa]/30 transition-all">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#8b5cf6] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/25">
+                  <Send size={24} className="text-white" />
+                </div>
+                <h3 className="text-base font-semibold text-white mt-5">Заявки из интранета</h3>
+                <p className="text-white/35 text-sm mt-2">Прямая интеграция</p>
+              </div>
             </motion.div>
             
-            {/* Send to HR */}
+            {/* Card 3 - HR system */}
             <motion.div
-              initial={{ opacity: 0, x: 300, y: -100, rotate: 15, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 } : { opacity: 0, x: 300, y: -100, rotate: 15, scale: 0.8 }}
-              transition={{ duration: 0.8, delay: isInView ? 0.5 : 0, type: 'spring', stiffness: 70, damping: 15 }}
-              className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
+              initial={{ opacity: 0, x: 180, rotate: 3 }}
+              animate={isInView ? { opacity: 1, x: 0, rotate: 2 } : { opacity: 0, x: 180, rotate: 3 }}
+              transition={{ duration: 1.1, delay: isInView ? 0.35 : 0, type: 'spring', stiffness: 45 }}
+              whileHover={{ rotate: 0, scale: 1.03 }}
+              className="col-span-6 md:col-span-4"
             >
-              <IconVisual icon={Users} />
-              <h3 className="text-sm font-bold text-white leading-tight">Отправляйте финалистов в HR-систему</h3>
+              <div className="h-full bg-white/[0.06] backdrop-blur-2xl rounded-[2rem] p-6 border border-white/10 hover:bg-white/10 transition-all">
+                <Users size={28} className="text-[#60a5fa]" />
+                <h3 className="text-base font-semibold text-white mt-4">Финалисты в HR</h3>
+                <p className="text-white/35 text-sm mt-2">Автоматическая передача данных</p>
+              </div>
             </motion.div>
             
-            {/* Career site */}
+            {/* Card 4 - Excel - accent card */}
             <motion.div
-              initial={{ opacity: 0, x: 250, y: -80, rotate: 10, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 } : { opacity: 0, x: 250, y: -80, rotate: 10, scale: 0.8 }}
-              transition={{ duration: 0.8, delay: isInView ? 0.45 : 0, type: 'spring', stiffness: 70, damping: 15 }}
-              className="col-span-12 md:col-span-2 bg-white/5 backdrop-blur-md rounded-3xl p-4 border border-[#1890ff]/20 flex flex-col items-center text-center justify-center hover:border-[#1890ff]/40 transition-colors"
+              initial={{ opacity: 0, x: -220, rotate: -8 }}
+              animate={isInView ? { opacity: 1, x: 0, rotate: -2 } : { opacity: 0, x: -220, rotate: -8 }}
+              transition={{ duration: 1.2, delay: isInView ? 0.45 : 0, type: 'spring', stiffness: 40 }}
+              whileHover={{ rotate: 0, y: -8 }}
+              className="col-span-6 md:col-span-3"
             >
-              <IconVisual icon={Database} />
-              <h3 className="text-xs font-bold text-white leading-tight">Отклики с сайта</h3>
-            </motion.div>
-          </div>
-
-          {/* Row 2 - asymmetric */}
-          <div className="grid grid-cols-12 gap-4 mb-4">
-            {/* Excel */}
-            <motion.div
-              initial={{ opacity: 0, x: -350, rotate: -20, scale: 0.7 }}
-              animate={isInView ? { opacity: 1, x: 0, rotate: 0, scale: 1 } : { opacity: 0, x: -350, rotate: -20, scale: 0.7 }}
-              transition={{ duration: 0.9, delay: isInView ? 0.55 : 0, type: 'spring', stiffness: 60, damping: 14 }}
-              className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
-            >
-              <ExcelVisual />
-              <h3 className="text-sm font-bold text-white leading-tight">Индивидуальные Excel-отчёты</h3>
+              <div className="relative overflow-hidden bg-gradient-to-br from-emerald-500/15 to-white/5 backdrop-blur-2xl rounded-[2rem] p-6 border border-emerald-500/20 hover:border-emerald-400/40 transition-all">
+                <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-emerald-500/10 rounded-full blur-xl" />
+                <ExcelVisual />
+                <h3 className="text-base font-semibold text-white mt-2">Excel-отчёты</h3>
+              </div>
             </motion.div>
             
-            {/* Sandbox - large */}
+            {/* Card 5 - Sandbox - hero card */}
             <motion.div
-              initial={{ opacity: 0, x: 350, rotate: 15, scale: 0.7 }}
-              animate={isInView ? { opacity: 1, x: 0, rotate: 0, scale: 1 } : { opacity: 0, x: 350, rotate: 15, scale: 0.7 }}
-              transition={{ duration: 0.9, delay: isInView ? 0.6 : 0, type: 'spring', stiffness: 60, damping: 14 }}
-              className="col-span-12 md:col-span-5 bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
+              transition={{ duration: 1.3, delay: isInView ? 0.5 : 0, type: 'spring', stiffness: 35 }}
+              whileHover={{ scale: 1.02 }}
+              className="col-span-12 md:col-span-6 relative group"
             >
-              <SandboxVisual />
-              <h3 className="text-lg font-bold text-white">Песочница для экспериментов</h3>
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#8b5cf6]/30 via-[#1890ff]/20 to-[#8b5cf6]/30 rounded-[2.5rem] opacity-40 group-hover:opacity-60 blur-2xl transition-opacity" />
+              <div className="relative bg-gray-900/80 backdrop-blur-2xl rounded-[2rem] p-8 border border-white/10 shadow-2xl">
+                <SandboxVisual />
+                <h3 className="text-xl font-semibold text-white mt-4">Песочница</h3>
+                <p className="text-white/40 text-sm mt-2">Безопасные эксперименты с API</p>
+              </div>
             </motion.div>
             
-            {/* Departments */}
+            {/* Card 6 - Departments - minimal */}
             <motion.div
-              initial={{ opacity: 0, x: 300, y: 100, rotate: 20, scale: 0.7 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 } : { opacity: 0, x: 300, y: 100, rotate: 20, scale: 0.7 }}
-              transition={{ duration: 0.9, delay: isInView ? 0.65 : 0, type: 'spring', stiffness: 60, damping: 14 }}
-              className="col-span-6 md:col-span-4 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
+              initial={{ opacity: 0, x: 200 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 200 }}
+              transition={{ duration: 1.1, delay: isInView ? 0.55 : 0, type: 'spring', stiffness: 45 }}
+              whileHover={{ x: 5 }}
+              className="col-span-6 md:col-span-3"
             >
-              <IconVisual icon={Building2} />
-              <h3 className="text-sm font-bold text-white leading-tight">Загружайте справочник подразделений</h3>
-            </motion.div>
-          </div>
-
-          {/* Row 3 */}
-          <div className="grid grid-cols-12 gap-4">
-            {/* Webhooks - xlarge */}
-            <motion.div
-              initial={{ opacity: 0, x: -400, y: 150, rotate: -25, scale: 0.6 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 } : { opacity: 0, x: -400, y: 150, rotate: -25, scale: 0.6 }}
-              transition={{ duration: 1, delay: isInView ? 0.7 : 0, type: 'spring', stiffness: 50, damping: 13 }}
-              className="col-span-12 md:col-span-6 bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
-            >
-              <WebhooksVisual />
-              <h3 className="text-lg font-bold text-white">Вебхуки для интеграций</h3>
+              <div className="h-full bg-white/[0.04] backdrop-blur-xl rounded-[2rem] p-6 border border-white/5 hover:border-white/15 hover:bg-white/[0.08] transition-all">
+                <Building2 size={26} className="text-[#a78bfa]" />
+                <h3 className="text-base font-semibold text-white mt-4">Справочники</h3>
+                <p className="text-white/30 text-sm mt-2">Структура компании</p>
+              </div>
             </motion.div>
             
-            {/* BI export */}
+            {/* Card 7 - Webhooks - wide artistic */}
             <motion.div
-              initial={{ opacity: 0, y: 300, scale: 0.6 }}
-              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 300, scale: 0.6 }}
-              transition={{ duration: 1, delay: isInView ? 0.75 : 0, type: 'spring', stiffness: 50, damping: 13 }}
-              className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
+              initial={{ opacity: 0, y: 180, rotate: 3 }}
+              animate={isInView ? { opacity: 1, y: 0, rotate: 1 } : { opacity: 0, y: 180, rotate: 3 }}
+              transition={{ duration: 1.3, delay: isInView ? 0.6 : 0, type: 'spring', stiffness: 35 }}
+              whileHover={{ rotate: 0, y: -5 }}
+              className="col-span-12 md:col-span-7 relative group"
             >
-              <IconVisual icon={BarChart3} />
-              <h3 className="text-sm font-bold text-white leading-tight">Экспортируйте данные в BI-систему</h3>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#8b5cf6]/15 to-[#1890ff]/15 rounded-[2rem] blur-xl opacity-50 group-hover:opacity-80 transition-opacity" />
+              <div className="relative bg-white/[0.06] backdrop-blur-2xl rounded-[2rem] p-8 border border-white/10 overflow-hidden">
+                <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-[#8b5cf6]/10 to-transparent rounded-tr-full" />
+                <WebhooksVisual />
+                <h3 className="text-xl font-semibold text-white mt-4">Вебхуки</h3>
+                <p className="text-white/40 text-sm mt-1">Telegram · 1C · CRM · Slack</p>
+              </div>
             </motion.div>
             
-            {/* Empty decorative space / small card */}
+            {/* Card 8 - BI + More - combined artistic */}
             <motion.div
-              initial={{ opacity: 0, x: 300, y: 200, rotate: 25, scale: 0.5 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0, scale: 1 } : { opacity: 0, x: 300, y: 200, rotate: 25, scale: 0.5 }}
-              transition={{ duration: 1, delay: isInView ? 0.8 : 0, type: 'spring', stiffness: 50, damping: 13 }}
-              className="col-span-6 md:col-span-3 bg-gradient-to-br from-[#1890ff]/20 to-[#1890ff]/5 backdrop-blur-md rounded-3xl p-5 border border-[#1890ff]/30 flex flex-col items-center justify-center text-center hover:border-[#1890ff]/50 transition-colors"
+              initial={{ opacity: 0, x: 150, y: 100, rotate: 5 }}
+              animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 2 } : { opacity: 0, x: 150, y: 100, rotate: 5 }}
+              transition={{ duration: 1.2, delay: isInView ? 0.7 : 0, type: 'spring', stiffness: 40 }}
+              whileHover={{ rotate: 0, scale: 1.03 }}
+              className="col-span-12 md:col-span-5 relative group"
             >
-              <div className="text-4xl mb-2">🚀</div>
-              <h3 className="text-sm font-bold text-white leading-tight">И многое другое...</h3>
+              <div className="absolute -inset-1 bg-gradient-to-br from-[#60a5fa]/20 to-[#a78bfa]/20 rounded-[2rem] opacity-30 group-hover:opacity-50 blur-xl transition-opacity" />
+              <div className="relative bg-gradient-to-br from-white/[0.08] to-white/[0.03] backdrop-blur-2xl rounded-[2rem] p-6 border border-white/10 flex gap-6">
+                <div className="flex-1">
+                  <BarChart3 size={28} className="text-[#60a5fa]" />
+                  <h3 className="text-base font-semibold text-white mt-3">BI-экспорт</h3>
+                  <p className="text-white/35 text-sm mt-1">Аналитика в любой формат</p>
+                </div>
+                <div className="flex-1 border-l border-white/10 pl-6">
+                  <div className="text-2xl mb-2">✨</div>
+                  <h3 className="text-base font-semibold text-white">+20 интеграций</h3>
+                  <p className="text-white/35 text-sm mt-1">И это не предел</p>
+                </div>
+              </div>
             </motion.div>
+            
           </div>
         </div>
       </Container>
