@@ -477,193 +477,60 @@ function APIVisual() {
   );
 }
 
-// Разные темы для каждой заставки
-const sectionThemes = [
-  {
-    bg: 'from-[#0c1929] via-[#0f2744] to-[#0c1929]',
-    accent: '#1890ff',
-    glow: 'rgba(24, 144, 255, 0.5)',
-  },
-  {
-    bg: 'from-[#1a0a2e] via-[#2d1b4e] to-[#1a0a2e]',
-    accent: '#a855f7',
-    glow: 'rgba(168, 85, 247, 0.5)',
-  },
-  {
-    bg: 'from-[#042f2e] via-[#0d4f4a] to-[#042f2e]',
-    accent: '#14b8a6',
-    glow: 'rgba(20, 184, 166, 0.5)',
-  },
-  {
-    bg: 'from-[#0f172a] via-[#1e3a5f] to-[#0f172a]',
-    accent: '#fbbf24',
-    glow: 'rgba(251, 191, 36, 0.5)',
-  },
-];
-
-// Анимированный экран-заставка с заголовком
-function SectionTitleScreen({ title, icon: Icon, index }: { title: string; icon: React.ComponentType<{ size?: number; className?: string }>; index: number }) {
+// Простой экран-разделитель с заголовком секции
+function SectionTitleScreen({ title }: { title: string }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-10%' });
-  const theme = sectionThemes[index % sectionThemes.length];
   
   return (
     <section 
       ref={ref}
-      className={`relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br ${theme.bg}`}
+      className="relative py-32 bg-[#0a1628] overflow-hidden"
     >
-      {/* Animated grid background */}
-      <div className="absolute inset-0 opacity-20">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `linear-gradient(${theme.accent}20 1px, transparent 1px), linear-gradient(90deg, ${theme.accent}20 1px, transparent 1px)`,
-            backgroundSize: '60px 60px',
-          }}
-        />
-      </div>
-      
-      {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              width: Math.random() * 6 + 2,
-              height: Math.random() * 6 + 2,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              background: theme.accent,
-              boxShadow: `0 0 ${10 + Math.random() * 20}px ${theme.glow}`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              opacity: [0.3, 0.8, 0.3],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
-      </div>
-      
-      {/* Animated circles/waves */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        {[...Array(4)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full border"
-            style={{
-              width: 200 + i * 150,
-              height: 200 + i * 150,
-              borderColor: `${theme.accent}${20 - i * 4}`,
-            }}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={isInView ? {
-              scale: [0, 1.2, 1],
-              opacity: [0, 0.6, 0.2],
-            } : {}}
-            transition={{
-              duration: 1.5,
-              delay: i * 0.15,
-              ease: 'easeOut',
-            }}
-          />
-        ))}
-      </div>
-      
-      {/* Glowing orbs */}
-      <motion.div
-        className="absolute w-[600px] h-[600px] rounded-full"
+      {/* Subtle grid */}
+      <div 
+        className="absolute inset-0 opacity-[0.03]"
         style={{
-          background: `radial-gradient(circle, ${theme.glow} 0%, transparent 70%)`,
-          filter: 'blur(60px)',
-        }}
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'easeInOut',
+          backgroundImage: 'linear-gradient(#1890ff 1px, transparent 1px), linear-gradient(90deg, #1890ff 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
         }}
       />
       
-      {/* Main content */}
+      {/* Subtle glow */}
+      <div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full opacity-20"
+        style={{ background: 'radial-gradient(ellipse, rgba(24,144,255,0.3) 0%, transparent 70%)' }}
+      />
+
       <div className="relative z-10 text-center px-4">
-        {/* Animated title */}
-        <div className="overflow-hidden mb-6">
-          <motion.h2
-            initial={{ y: 120, opacity: 0 }}
-            animate={isInView ? { y: 0, opacity: 1 } : {}}
-            transition={{ 
-              duration: 0.8,
-              delay: 0.2,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="text-5xl md:text-6xl lg:text-8xl font-bold text-white tracking-tight"
-          >
-            {title}
-          </motion.h2>
-        </div>
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl lg:text-6xl font-bold text-white"
+        >
+          {title}
+        </motion.h2>
         
-        {/* Animated underline */}
         <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={isInView ? { scaleX: 1, opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mx-auto h-1.5 w-32 rounded-full mb-12"
-          style={{
-            background: `linear-gradient(90deg, transparent, ${theme.accent}, transparent)`,
-            boxShadow: `0 0 20px ${theme.glow}`,
-          }}
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mx-auto mt-6 h-1 w-24 rounded-full bg-[#1890ff]"
         />
         
-        {/* Scroll indicator - below title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.8, duration: 0.5 }}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.4 }}
+          className="mt-8 text-gray-400 text-sm flex items-center justify-center gap-2"
         >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-            className="flex flex-col items-center text-gray-400"
-          >
-            <span className="text-sm mb-2">Листайте вниз</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 5v14M5 12l7 7 7-7" />
-            </svg>
-          </motion.div>
-        </motion.div>
+          <span>Листайте вниз</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
+        </motion.p>
       </div>
-      
-      {/* Corner decorations */}
-      <motion.div
-        className="absolute top-0 left-0 w-64 h-64"
-        style={{
-          background: `radial-gradient(circle at top left, ${theme.accent}30 0%, transparent 70%)`,
-        }}
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : {}}
-        transition={{ duration: 1, delay: 0.3 }}
-      />
-      <motion.div
-        className="absolute bottom-0 right-0 w-96 h-96"
-        style={{
-          background: `radial-gradient(circle at bottom right, ${theme.accent}20 0%, transparent 70%)`,
-        }}
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : {}}
-        transition={{ duration: 1, delay: 0.5 }}
-      />
-      
     </section>
   );
 }
@@ -675,12 +542,11 @@ const blocks = [
     title: 'Единая база данных',
     subtitle: 'Все кандидаты, история и коммуникации в одном месте',
     icon: Database,
-    bgColor: 'from-[#f0f7ff] to-white',
     tabs: [
-      { id: 'cards', label: 'КАРТОЧКИ', title: 'Полная карточка кандидата', description: 'Вся информация о кандидате собрана в одном месте.', features: ['Контакты и резюме', 'Теги и заметки', 'История изменений', 'Кастомные поля'], visual: CandidateCardVisual },
-      { id: 'dedup', label: 'ДЕДУПЛИКАЦИЯ', title: 'Умная дедупликация', description: 'Автоматическое определение дубликатов.', features: ['Авто-определение', 'Объединение профилей', 'AI-сопоставление'], visual: DeduplicationVisual },
-      { id: 'search', label: 'ПОИСК', title: 'Мощный поиск', description: 'Находите нужных кандидатов за секунды.', features: ['Глобальный поиск', 'Умные фильтры', 'Сохранённые запросы'], visual: SearchVisual },
-      { id: 'import', label: 'ИМПОРТ', title: 'Импорт данных', description: 'Загружайте базы из любых источников.', features: ['Excel/CSV', 'Массовые действия', 'Экспорт'], visual: ImportVisual },
+      { id: 'cards', label: 'Карточки', title: 'Полная карточка кандидата', description: 'Вся информация о кандидате собрана в одном месте.', features: ['Контакты и резюме', 'Теги и заметки', 'История изменений', 'Кастомные поля'], visual: CandidateCardVisual },
+      { id: 'dedup', label: 'Дедупликация', title: 'Умная дедупликация', description: 'Автоматическое определение дубликатов.', features: ['Авто-определение', 'Объединение профилей', 'AI-сопоставление'], visual: DeduplicationVisual },
+      { id: 'search', label: 'Поиск', title: 'Мощный поиск', description: 'Находите нужных кандидатов за секунды.', features: ['Глобальный поиск', 'Умные фильтры', 'Сохранённые запросы'], visual: SearchVisual },
+      { id: 'import', label: 'Импорт', title: 'Импорт данных', description: 'Загружайте базы из любых источников.', features: ['Excel/CSV', 'Массовые действия', 'Экспорт'], visual: ImportVisual },
     ],
   },
   {
@@ -688,11 +554,10 @@ const blocks = [
     title: 'Автоматизируйте рутину',
     subtitle: 'Освободите время для важных задач',
     icon: Workflow,
-    bgColor: 'from-[#f5f0ff] to-white',
     tabs: [
-      { id: 'triggers', label: 'ТРИГГЕРЫ', title: 'Автоматические действия', description: 'Настройте триггеры на события.', features: ['Триггеры по событиям', 'Цепочки действий', 'Условная логика'], visual: TriggersVisual },
-      { id: 'notifications', label: 'УВЕДОМЛЕНИЯ', title: 'Умные уведомления', description: 'Никогда не пропустите важное.', features: ['Email', 'Telegram', 'Push', 'Эскалации'], visual: NotificationsVisual },
-      { id: 'templates', label: 'ШАБЛОНЫ', title: 'Шаблоны сообщений', description: 'Экономьте время с готовыми шаблонами.', features: ['Email шаблоны', 'Переменные', 'Мультиязычность'], visual: TemplatesVisual },
+      { id: 'triggers', label: 'Триггеры', title: 'Автоматические действия', description: 'Настройте триггеры на события.', features: ['Триггеры по событиям', 'Цепочки действий', 'Условная логика'], visual: TriggersVisual },
+      { id: 'notifications', label: 'Уведомления', title: 'Умные уведомления', description: 'Никогда не пропустите важное.', features: ['Email', 'Telegram', 'Push', 'Эскалации'], visual: NotificationsVisual },
+      { id: 'templates', label: 'Шаблоны', title: 'Шаблоны сообщений', description: 'Экономьте время с готовыми шаблонами.', features: ['Email шаблоны', 'Переменные', 'Мультиязычность'], visual: TemplatesVisual },
     ],
   },
   {
@@ -700,11 +565,10 @@ const blocks = [
     title: 'Данные для решений',
     subtitle: 'Отслеживайте эффективность найма',
     icon: BarChart3,
-    bgColor: 'from-[#f0fff4] to-white',
     tabs: [
-      { id: 'funnel', label: 'ВОРОНКА', title: 'Аналитика воронки', description: 'Конверсия на каждом этапе.', features: ['Конверсия', 'Сравнение периодов', 'Фильтры'], visual: FunnelVisual },
-      { id: 'metrics', label: 'МЕТРИКИ', title: 'Ключевые метрики', description: 'Time-to-hire, стоимость, качество.', features: ['Time-to-hire', 'Cost-per-hire', 'Retention'], visual: MetricsVisual },
-      { id: 'reports', label: 'ОТЧЁТЫ', title: 'Готовые отчёты', description: 'Автоматические отчёты для руководства.', features: ['Еженедельные', 'По вакансиям', 'Кастомные'], visual: ReportsVisual },
+      { id: 'funnel', label: 'Воронка', title: 'Аналитика воронки', description: 'Конверсия на каждом этапе.', features: ['Конверсия', 'Сравнение периодов', 'Фильтры'], visual: FunnelVisual },
+      { id: 'metrics', label: 'Метрики', title: 'Ключевые метрики', description: 'Time-to-hire, стоимость, качество.', features: ['Time-to-hire', 'Cost-per-hire', 'Retention'], visual: MetricsVisual },
+      { id: 'reports', label: 'Отчёты', title: 'Готовые отчёты', description: 'Автоматические отчёты для руководства.', features: ['Еженедельные', 'По вакансиям', 'Кастомные'], visual: ReportsVisual },
     ],
   },
   {
@@ -712,11 +576,10 @@ const blocks = [
     title: 'Всё подключено',
     subtitle: 'Работайте с привычными инструментами',
     icon: Link2,
-    bgColor: 'from-[#fff7e6] to-white',
     tabs: [
-      { id: 'jobsites', label: 'ДЖОБ-САЙТЫ', title: 'Интеграция с площадками', description: 'HH.ru, Avito, SuperJob.', features: ['Публикация вакансий', 'Авто-импорт откликов'], visual: JobSitesVisual },
-      { id: 'calendar', label: 'КАЛЕНДАРИ', title: 'Синхронизация', description: 'Google, Outlook, Apple.', features: ['Синхронизация', 'Приглашения'], visual: CalendarVisual },
-      { id: 'messengers', label: 'МЕССЕНДЖЕРЫ', title: 'Чаты и email', description: 'Вся переписка в одном окне.', features: ['Email', 'Telegram', 'WhatsApp'], visual: MessengersVisual },
+      { id: 'jobsites', label: 'Джоб-сайты', title: 'Интеграция с площадками', description: 'HH.ru, Avito, SuperJob.', features: ['Публикация вакансий', 'Авто-импорт откликов'], visual: JobSitesVisual },
+      { id: 'calendar', label: 'Календари', title: 'Синхронизация', description: 'Google, Outlook, Apple.', features: ['Синхронизация', 'Приглашения'], visual: CalendarVisual },
+      { id: 'messengers', label: 'Мессенджеры', title: 'Чаты и email', description: 'Вся переписка в одном окне.', features: ['Email', 'Telegram', 'WhatsApp'], visual: MessengersVisual },
       { id: 'api', label: 'API', title: 'Открытый API', description: 'Интеграция с любыми системами.', features: ['REST API', 'Webhooks', 'SDK'], visual: APIVisual },
     ],
   },
@@ -908,7 +771,7 @@ export default function Features() {
 
       {blocks.map((block, index) => (
         <div key={block.badge}>
-          <SectionTitleScreen title={block.badge} icon={block.icon} index={index} />
+          <SectionTitleScreen title={block.badge} />
           <FeatureBlock block={block} index={index} />
         </div>
       ))}

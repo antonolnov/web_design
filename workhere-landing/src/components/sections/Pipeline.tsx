@@ -2,7 +2,8 @@
 
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Users, Clock, Target, Layers, Zap, Building2, UserCheck, TrendingUp, ChevronRight } from 'lucide-react';
+import { Users, Clock, Target, Layers, Zap, Building2, UserCheck, ChevronRight, TrendingUp } from 'lucide-react';
+import Container from '../ui/Container';
 
 // Примеры разных воронок
 const funnels = [
@@ -10,8 +11,7 @@ const funnels = [
     id: 'mass',
     name: 'Массовый найм',
     icon: Users,
-    description: 'Для розницы, колл-центров, производства',
-    color: '#1890ff',
+    description: 'Для розницы и колл-центров',
     stages: [
       { name: 'Отклики', count: 2847 },
       { name: 'Прескрин', count: 1923 },
@@ -25,8 +25,7 @@ const funnels = [
     id: 'it',
     name: 'IT-специалисты',
     icon: Zap,
-    description: 'Разработчики, дизайнеры, аналитики',
-    color: '#722ed1',
+    description: 'Разработчики, аналитики',
     stages: [
       { name: 'Сорсинг', count: 245 },
       { name: 'Скрининг', count: 156 },
@@ -41,13 +40,12 @@ const funnels = [
     id: 'exec',
     name: 'Топ-менеджмент',
     icon: Building2,
-    description: 'C-level, директора, руководители',
-    color: '#13c2c2',
+    description: 'C-level, директора',
     stages: [
       { name: 'Поиск', count: 48 },
-      { name: 'Первичный контакт', count: 32 },
-      { name: 'Встреча с HR', count: 18 },
-      { name: 'Встреча с CEO', count: 8 },
+      { name: 'Контакт', count: 32 },
+      { name: 'HR-встреча', count: 18 },
+      { name: 'CEO', count: 8 },
       { name: 'Переговоры', count: 4 },
       { name: 'Оффер', count: 2 },
     ],
@@ -59,22 +57,22 @@ const features = [
   {
     icon: Layers,
     title: 'Бесконечное количество воронок',
-    description: 'Создавайте уникальные воронки для каждого типа вакансий, отдела или клиента',
+    description: 'Создавайте уникальные воронки для каждого типа вакансий',
   },
   {
     icon: Target,
     title: 'Аналитика по каждой воронке',
-    description: 'Конверсия, время на этапах, причины отказов — всё в реальном времени',
+    description: 'Конверсия, время на этапах — всё в реальном времени',
   },
   {
     icon: UserCheck,
     title: 'Кадровый резерв',
-    description: 'Сохраняйте перспективных кандидатов "на будущее" с тегами и напоминаниями',
+    description: 'Сохраняйте кандидатов "на будущее" с тегами',
   },
   {
     icon: Clock,
     title: 'Время на этапах',
-    description: 'Выявляйте узкие места: на каком этапе кандидаты задерживаются дольше всего',
+    description: 'Выявляйте узкие места в процессе подбора',
   },
 ];
 
@@ -83,81 +81,35 @@ export default function Pipeline() {
   const isInView = useInView(ref, { once: true, margin: '-10%' });
   const [activeFunnel, setActiveFunnel] = useState(0);
   const currentFunnel = funnels[activeFunnel];
+  const maxCount = currentFunnel.stages[0].count;
 
   return (
-    <section 
-      id="funnel" 
-      ref={ref}
-      className="relative overflow-hidden py-20 lg:py-24"
-      style={{
-        background: 'linear-gradient(180deg, #0c1929 0%, #0f2744 50%, #0c1929 100%)',
-      }}
-    >
-      {/* Animated background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Grid */}
-        <div 
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: 'linear-gradient(#1890ff20 1px, transparent 1px), linear-gradient(90deg, #1890ff20 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
-          }}
-        />
-        
-        {/* Floating particles */}
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 rounded-full bg-[#1890ff]"
-            style={{
-              left: `${10 + Math.random() * 80}%`,
-              top: `${10 + Math.random() * 80}%`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              opacity: [0.2, 0.6, 0.2],
-            }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            }}
-          />
-        ))}
-        
-        {/* Glowing orbs */}
-        <motion.div
-          className="absolute w-[600px] h-[600px] rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(24, 144, 255, 0.15) 0%, transparent 70%)',
-            top: '20%',
-            right: '-10%',
-          }}
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-      </div>
+    <section id="funnel" ref={ref} className="py-24 bg-[#0a1628]">
+      {/* Subtle grid */}
+      <div 
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: 'linear-gradient(#1890ff 1px, transparent 1px), linear-gradient(90deg, #1890ff 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+        }}
+      />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Container className="relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-16"
         >
-          <motion.span 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            className="inline-block px-4 py-2 mb-6 text-sm font-medium text-[#1890ff] bg-[#1890ff]/10 border border-[#1890ff]/20 rounded-full"
-          >
-            Воронка подбора
-          </motion.span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 text-sm font-medium text-[#1890ff] bg-[#1890ff]/10 border border-[#1890ff]/20 rounded-full">
+            <TrendingUp size={14} />
+            Воронки подбора
+          </span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
             Любое количество воронок
           </h2>
-          <p className="text-xl text-white/60 max-w-3xl mx-auto">
-            Массовый найм, IT-рекрутинг, Executive Search — создавайте уникальные процессы 
-            под каждый тип подбора со своей аналитикой
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            Массовый найм, IT-рекрутинг, Executive Search — создавайте уникальные процессы под каждый тип подбора
           </p>
         </motion.div>
 
@@ -165,223 +117,123 @@ export default function Pipeline() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          transition={{ delay: 0.1 }}
+          className="flex flex-wrap justify-center gap-3 mb-12"
         >
           {funnels.map((funnel, i) => (
-            <motion.button
+            <button
               key={funnel.id}
               onClick={() => setActiveFunnel(i)}
-              className={`group relative px-6 py-4 rounded-2xl transition-all duration-300 ${
+              className={`group flex items-center gap-3 px-5 py-3 rounded-2xl transition-all ${
                 activeFunnel === i
-                  ? 'bg-white text-gray-900 shadow-2xl shadow-white/10'
-                  : 'bg-white/5 text-white/80 hover:bg-white/10 border border-white/10'
+                  ? 'bg-white text-gray-900'
+                  : 'bg-white/5 text-white/70 hover:bg-white/10 border border-white/10'
               }`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
-              <div className="flex items-center gap-3">
-                <div 
-                  className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
-                    activeFunnel === i ? 'bg-gray-100' : 'bg-white/10'
-                  }`}
-                  style={{ color: funnel.color }}
-                >
-                  <funnel.icon size={20} />
-                </div>
-                <div className="text-left">
-                  <div className="font-semibold">{funnel.name}</div>
-                  <div className={`text-xs ${activeFunnel === i ? 'text-gray-500' : 'text-white/50'}`}>
-                    {funnel.description}
-                  </div>
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                activeFunnel === i ? 'bg-[#e6f4ff] text-[#1890ff]' : 'bg-white/10 text-white/70'
+              }`}>
+                <funnel.icon size={16} />
+              </div>
+              <div className="text-left">
+                <div className="font-medium text-sm">{funnel.name}</div>
+                <div className={`text-xs ${activeFunnel === i ? 'text-gray-500' : 'text-white/40'}`}>
+                  {funnel.description}
                 </div>
               </div>
-            </motion.button>
+            </button>
           ))}
           
-          {/* "More" indicator */}
-          <motion.div
-            className="flex items-center gap-2 px-6 py-4 text-white/40"
-            animate={{ x: [0, 5, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <span className="text-sm">+ ещё ∞</span>
-            <ChevronRight size={16} />
-          </motion.div>
+          <div className="flex items-center gap-2 px-4 py-3 text-white/30 text-sm">
+            + ещё ∞
+            <ChevronRight size={14} />
+          </div>
         </motion.div>
 
         {/* Main content */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Funnel visualization */}
           <AnimatePresence mode="wait">
             <motion.div
               key={currentFunnel.id}
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 30 }}
-              transition={{ duration: 0.4 }}
-              className="relative"
+              exit={{ opacity: 0, x: 20 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
             >
-              <div 
-                className="rounded-3xl p-8 border backdrop-blur-sm"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
-                  borderColor: `${currentFunnel.color}30`,
-                }}
-              >
-                {/* Funnel header */}
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-3">
-                    <div 
-                      className="w-12 h-12 rounded-2xl flex items-center justify-center"
-                      style={{ background: `${currentFunnel.color}20`, color: currentFunnel.color }}
-                    >
-                      <currentFunnel.icon size={24} />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">{currentFunnel.name}</h3>
-                      <p className="text-white/50 text-sm">{currentFunnel.description}</p>
-                    </div>
-                  </div>
-                  <div 
-                    className="px-3 py-1.5 rounded-full text-sm font-medium"
-                    style={{ background: `${currentFunnel.color}20`, color: currentFunnel.color }}
-                  >
-                    Активна
-                  </div>
-                </div>
-
-                {/* Funnel stages */}
-                <div className="space-y-3 mb-8">
-                  {currentFunnel.stages.map((stage, i) => {
-                    const maxCount = currentFunnel.stages[0].count;
-                    const width = (stage.count / maxCount) * 100;
-                    
-                    return (
-                      <motion.div
-                        key={stage.name}
-                        initial={{ opacity: 0, scaleX: 0 }}
-                        animate={{ opacity: 1, scaleX: 1 }}
-                        transition={{ delay: i * 0.1, duration: 0.5 }}
-                        className="origin-left"
-                      >
-                        <div 
-                          className="h-14 rounded-xl flex items-center justify-between px-5 transition-all duration-300 hover:scale-[1.02] cursor-pointer group"
-                          style={{
-                            width: `${Math.max(width, 30)}%`,
-                            background: `linear-gradient(90deg, ${currentFunnel.color}40 0%, ${currentFunnel.color}20 100%)`,
-                            borderLeft: `3px solid ${currentFunnel.color}`,
-                          }}
-                        >
-                          <span className="text-white/80 font-medium">{stage.name}</span>
-                          <motion.span 
-                            className="text-white font-bold text-lg"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: i * 0.1 + 0.3 }}
-                          >
-                            {stage.count.toLocaleString()}
-                          </motion.span>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-
-                {/* Stats */}
-                <div className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-lg font-semibold text-white">Воронка: {currentFunnel.name}</h3>
+                <div className="flex gap-4 text-sm">
                   <div className="text-center">
-                    <motion.div 
-                      className="text-2xl font-bold"
-                      style={{ color: currentFunnel.color }}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                    >
-                      {currentFunnel.stats.conversion}
-                    </motion.div>
-                    <div className="text-xs text-white/40 mt-1">Конверсия</div>
+                    <div className="text-[#1890ff] font-bold">{currentFunnel.stats.conversion}</div>
+                    <div className="text-gray-500 text-xs">Конверсия</div>
                   </div>
                   <div className="text-center">
-                    <motion.div 
-                      className="text-2xl font-bold text-white"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 }}
-                    >
-                      {currentFunnel.stats.avgTime}
-                    </motion.div>
-                    <div className="text-xs text-white/40 mt-1">Среднее время</div>
+                    <div className="text-white font-bold">{currentFunnel.stats.avgTime}</div>
+                    <div className="text-gray-500 text-xs">Ср. время</div>
                   </div>
                   <div className="text-center">
-                    <motion.div 
-                      className="text-2xl font-bold text-white"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.7 }}
-                    >
-                      {currentFunnel.stats.hired}
-                    </motion.div>
-                    <div className="text-xs text-white/40 mt-1">Наняли</div>
+                    <div className="text-emerald-400 font-bold">{currentFunnel.stats.hired}</div>
+                    <div className="text-gray-500 text-xs">Наняли</div>
                   </div>
                 </div>
               </div>
 
-              {/* Decorative glow */}
-              <div 
-                className="absolute -inset-4 rounded-3xl opacity-20 blur-2xl -z-10"
-                style={{ background: currentFunnel.color }}
-              />
+              {/* Funnel stages */}
+              <div className="space-y-3">
+                {currentFunnel.stages.map((stage, i) => {
+                  const width = (stage.count / maxCount) * 100;
+                  return (
+                    <motion.div
+                      key={stage.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                    >
+                      <div className="flex items-center justify-between text-sm mb-1">
+                        <span className="text-gray-300">{stage.name}</span>
+                        <span className="text-white font-medium">{stage.count.toLocaleString()}</span>
+                      </div>
+                      <div className="h-8 bg-white/5 rounded-lg overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${width}%` }}
+                          transition={{ duration: 0.5, delay: i * 0.05 }}
+                          className="h-full rounded-lg"
+                          style={{
+                            background: `linear-gradient(90deg, #1890ff ${100 - width * 0.5}%, #40a9ff 100%)`,
+                          }}
+                        />
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </motion.div>
           </AnimatePresence>
 
           {/* Features */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.3 }}
-          >
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-8">
-              Полный контроль над<br />процессом найма
-            </h3>
-            
-            <div className="space-y-6">
-              {features.map((feature, i) => (
-                <motion.div
-                  key={feature.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.4 + i * 0.1 }}
-                  className="flex gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors group"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-[#1890ff]/20 flex items-center justify-center flex-shrink-0 group-hover:bg-[#1890ff]/30 transition-colors">
-                    <feature.icon className="text-[#1890ff]" size={22} />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-white mb-1">{feature.title}</h4>
-                    <p className="text-white/50 text-sm leading-relaxed">{feature.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Additional info */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.8 }}
-              className="mt-8 p-4 rounded-2xl bg-gradient-to-r from-[#1890ff]/20 to-transparent border border-[#1890ff]/20"
-            >
-              <div className="flex items-center gap-3">
-                <TrendingUp className="text-[#1890ff]" size={20} />
-                <span className="text-white/70 text-sm">
-                  Компании с настроенными воронками нанимают на <span className="text-[#1890ff] font-semibold">40% быстрее</span>
-                </span>
-              </div>
-            </motion.div>
-          </motion.div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {features.map((feature, i) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.2 + i * 0.1 }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                className="bg-white/5 rounded-2xl p-5 border border-white/10 hover:border-[#1890ff]/30 hover:bg-white/[0.07] transition-all"
+              >
+                <div className="w-10 h-10 rounded-xl bg-[#1890ff]/10 flex items-center justify-center mb-4">
+                  <feature.icon size={20} className="text-[#1890ff]" />
+                </div>
+                <h3 className="text-base font-semibold text-white mb-1">{feature.title}</h3>
+                <p className="text-sm text-gray-400">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }
