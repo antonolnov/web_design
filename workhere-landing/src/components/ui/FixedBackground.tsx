@@ -1,125 +1,83 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export default function FixedBackground() {
-  const { scrollYProgress } = useScroll();
-  
-  // Color transitions based on scroll
-  // Start: light blue -> purple -> dark blue -> teal -> back to blue
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.4, 0.6, 0.8, 1],
-    [
-      'linear-gradient(135deg, #e8f4ff 0%, #f0f7ff 50%, #e0efff 100%)',
-      'linear-gradient(135deg, #e8f0ff 0%, #f0e8ff 50%, #e8e0ff 100%)',
-      'linear-gradient(135deg, #f0e8ff 0%, #e8e8ff 50%, #e0e8ff 100%)',
-      'linear-gradient(135deg, #e0f0ff 0%, #e8f8ff 50%, #e0ffff 100%)',
-      'linear-gradient(135deg, #e8fff8 0%, #e0fff0 50%, #e8ffff 100%)',
-      'linear-gradient(135deg, #e8f4ff 0%, #f0f7ff 50%, #e0efff 100%)',
-    ]
-  );
-
-  // Subtle orb movements
-  const orb1Y = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const orb2Y = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const orb1Scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.2, 1]);
-  const orb2Scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 1]);
-
-  // Color shifts for orbs
-  const orb1Color = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.6, 1],
-    [
-      'rgba(24, 144, 255, 0.15)',
-      'rgba(139, 92, 246, 0.15)',
-      'rgba(20, 184, 166, 0.15)',
-      'rgba(24, 144, 255, 0.15)',
-    ]
-  );
-
-  const orb2Color = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.6, 1],
-    [
-      'rgba(64, 169, 255, 0.12)',
-      'rgba(167, 139, 250, 0.12)',
-      'rgba(45, 212, 191, 0.12)',
-      'rgba(64, 169, 255, 0.12)',
-    ]
-  );
-
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden">
-      {/* Animated gradient background */}
-      <motion.div 
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+      {/* Static gradient background */}
+      <div 
         className="absolute inset-0"
-        style={{ background: backgroundColor }}
+        style={{
+          background: 'linear-gradient(135deg, #e8f4ff 0%, #f0f7ff 50%, #e0efff 100%)',
+        }}
       />
 
       {/* Subtle grid pattern */}
       <div 
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage: 'linear-gradient(#1890ff 1px, transparent 1px), linear-gradient(90deg, #1890ff 1px, transparent 1px)',
-          backgroundSize: '100px 100px',
+          backgroundSize: '80px 80px',
         }}
       />
 
-      {/* Floating gradient orbs with scroll-based color */}
-      <motion.div 
-        className="absolute w-[900px] h-[900px] rounded-full"
+      {/* Static gradient orbs */}
+      <div 
+        className="absolute w-[800px] h-[800px] rounded-full"
         style={{
-          background: `radial-gradient(circle, ${orb1Color} 0%, transparent 70%)`,
-          top: '-300px',
-          right: '-300px',
-          y: orb1Y,
-          scale: orb1Scale,
+          background: 'radial-gradient(circle, rgba(24, 144, 255, 0.12) 0%, transparent 70%)',
+          top: '-200px',
+          right: '-200px',
         }}
       />
       
-      <motion.div 
-        className="absolute w-[700px] h-[700px] rounded-full"
+      <div 
+        className="absolute w-[600px] h-[600px] rounded-full"
         style={{
-          background: `radial-gradient(circle, ${orb2Color} 0%, transparent 70%)`,
+          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%)',
           bottom: '10%',
-          left: '-200px',
-          y: orb2Y,
-          scale: orb2Scale,
+          left: '-150px',
         }}
       />
 
-      <motion.div 
+      <div 
         className="absolute w-[500px] h-[500px] rounded-full"
         style={{
-          background: `radial-gradient(circle, ${orb1Color} 0%, transparent 70%)`,
-          top: '50%',
-          right: '5%',
-          y: orb2Y,
+          background: 'radial-gradient(circle, rgba(20, 184, 166, 0.08) 0%, transparent 70%)',
+          top: '40%',
+          right: '10%',
         }}
       />
 
-      {/* Subtle animated dots */}
-      {[...Array(20)].map((_, i) => (
+      <div 
+        className="absolute w-[400px] h-[400px] rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(24, 144, 255, 0.10) 0%, transparent 70%)',
+          bottom: '20%',
+          right: '30%',
+        }}
+      />
+
+      {/* Very subtle animated dots for life */}
+      {[...Array(12)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full"
+          className="absolute rounded-full bg-[#1890ff]"
           style={{
-            width: 3 + (i % 4) * 2,
-            height: 3 + (i % 4) * 2,
-            left: `${5 + (i * 5) % 90}%`,
-            top: `${8 + (i * 5.3) % 85}%`,
-            backgroundColor: '#1890ff',
-            opacity: 0.06 + (i % 3) * 0.02,
+            width: 4 + (i % 3) * 2,
+            height: 4 + (i % 3) * 2,
+            left: `${10 + (i * 7) % 80}%`,
+            top: `${15 + (i * 6.5) % 70}%`,
+            opacity: 0.06,
           }}
           animate={{
-            y: [0, -10, 0],
             opacity: [0.04, 0.08, 0.04],
           }}
           transition={{
-            duration: 4 + (i % 3),
+            duration: 3 + (i % 2),
             repeat: Infinity,
-            delay: i * 0.2,
+            delay: i * 0.3,
             ease: 'easeInOut',
           }}
         />
