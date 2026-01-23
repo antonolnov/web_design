@@ -96,7 +96,7 @@ export default function IntegrationSection() {
                     <p className="text-gray-400">Для разработчиков</p>
                   </div>
                 </div>
-                <Mascot size={80} variant="box" animate={false} />
+                <Mascot size={80} variant="07" animate={false} />
               </div>
 
               <div className="space-y-4 mb-6">

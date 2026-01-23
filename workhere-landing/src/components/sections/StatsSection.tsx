@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { Users, Briefcase, Building2, TrendingUp, Zap, Clock } from 'lucide-react';
 import Container from '../ui/Container';
 import ContentCard from '../ui/ContentCard';
+import Mascot from '../ui/Mascot';
 
 const stats = [
   { icon: Users, value: '500K+', label: 'Кандидатов', color: '#1890ff' },
@@ -73,6 +74,16 @@ export default function StatsSection() {
                 </motion.div>
               ))}
             </div>
+
+            {/* Mascot */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 0.6 }}
+              className="flex justify-center mt-8"
+            >
+              <Mascot size={90} variant="02" />
+            </motion.div>
           </div>
         </ContentCard>
       </Container>

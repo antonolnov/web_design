@@ -59,7 +59,7 @@ export default function CTASection() {
 
               {/* Mascot */}
               <div className="hidden lg:block">
-                <Mascot size={120} variant="plant" showSpeechBubble speechText="Ждём вас! 🎉" />
+                <Mascot size={120} variant="08" showSpeechBubble speechText="Ждём вас! 🎉" />
               </div>
             </motion.div>
 

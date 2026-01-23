@@ -105,7 +105,7 @@ export default function HeroNew() {
             
             {/* Mascot */}
             <div className="relative z-10">
-              <Mascot size={300} showSpeechBubble speechText="Привет! 👋" />
+              <Mascot size={300} variant="01" showSpeechBubble speechText="Привет! 👋" />
             </div>
           </motion.div>
         </div>

@@ -22,7 +22,7 @@ const features = [
       'Дедупликация контактов',
       'История коммуникаций',
     ],
-    mascotVariant: 'default' as const,
+    mascotVariant: '01' as const,
   },
   {
     id: 'funnel',
@@ -35,7 +35,7 @@ const features = [
       'Автоматические действия',
       'Аналитика конверсии',
     ],
-    mascotVariant: 'box' as const,
+    mascotVariant: '02' as const,
   },
   {
     id: 'analytics',
@@ -48,7 +48,7 @@ const features = [
       'Экспорт в BI-системы',
       'Метрики по рекрутерам',
     ],
-    mascotVariant: 'plant' as const,
+    mascotVariant: '03' as const,
   },
   {
     id: 'communication',
@@ -61,7 +61,7 @@ const features = [
       'Автоматические рассылки',
       'Единая история переписки',
     ],
-    mascotVariant: 'default' as const,
+    mascotVariant: '04' as const,
   },
   {
     id: 'security',
@@ -74,7 +74,7 @@ const features = [
       'SSO интеграция',
       'Гранулярные права доступа',
     ],
-    mascotVariant: 'box' as const,
+    mascotVariant: '05' as const,
   },
   {
     id: 'integrations',
@@ -87,7 +87,7 @@ const features = [
       'CRM и ERP системы',
       'Открытый API',
     ],
-    mascotVariant: 'plant' as const,
+    mascotVariant: '06' as const,
   },
 ];
 
