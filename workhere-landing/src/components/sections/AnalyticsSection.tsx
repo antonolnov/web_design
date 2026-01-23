@@ -162,14 +162,14 @@ export default function AnalyticsSection() {
                   ))}
                 </div>
 
-                {/* Mascot - inside the right panel below the chart */}
+                {/* Mascot - inside the right panel below the chart, with extra margin for speech bubble */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ delay: 0.7, type: 'spring' }}
-                  className="flex justify-center mt-4"
+                  className="flex justify-center mt-10 pt-4"
                 >
-                  <Mascot size={160} variant="03" showSpeechBubble speechText="Отличные метрики! 📊" />
+                  <Mascot size={150} variant="03" showSpeechBubble speechText="Отличные метрики! 📊" />
                 </motion.div>
               </motion.div>
             </div>
