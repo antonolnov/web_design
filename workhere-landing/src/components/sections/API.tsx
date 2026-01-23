@@ -193,70 +193,80 @@ function IconVisual({ icon: Icon }: { icon: typeof Send }) {
 
 export default function API() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-10%' });
+  const isInView = useInView(ref, { once: false, margin: '-10%' });
 
   return (
     <section 
       ref={ref}
       className="relative py-24 overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #0c1929 0%, #0f2d4a 50%, #0f172a 100%)',
+        background: 'linear-gradient(135deg, #0c1929 0%, #1a1a3e 25%, #2d1b4e 50%, #1a1a3e 75%, #0c1929 100%)',
       }}
     >
       {/* Background decoration */}
-      <div className="absolute inset-0 opacity-[0.05]">
+      <div className="absolute inset-0 opacity-[0.08]">
         <div 
           style={{
-            backgroundImage: 'linear-gradient(rgba(24,144,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(24,144,255,0.3) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
+            backgroundImage: 'linear-gradient(rgba(139,92,246,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.4) 1px, transparent 1px)',
+            backgroundSize: '50px 50px',
           }}
           className="absolute inset-0"
         />
       </div>
       
-      {/* Glowing orbs */}
+      {/* Glowing orbs - blue and purple */}
+      <motion.div
+        className="absolute w-[600px] h-[600px] rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(139,92,246,0.2) 0%, transparent 70%)',
+          top: '10%',
+          left: '-15%',
+        }}
+        animate={{ scale: [1, 1.2, 1], x: [0, 20, 0] }}
+        transition={{ duration: 10, repeat: Infinity }}
+      />
       <motion.div
         className="absolute w-[500px] h-[500px] rounded-full"
         style={{
           background: 'radial-gradient(circle, rgba(24,144,255,0.15) 0%, transparent 70%)',
-          top: '20%',
-          left: '-10%',
+          top: '40%',
+          right: '-10%',
         }}
-        animate={{ scale: [1, 1.1, 1] }}
+        animate={{ scale: [1.1, 1, 1.1], y: [0, -30, 0] }}
         transition={{ duration: 8, repeat: Infinity }}
       />
       <motion.div
         className="absolute w-[400px] h-[400px] rounded-full"
         style={{
-          background: 'radial-gradient(circle, rgba(24,144,255,0.1) 0%, transparent 70%)',
-          bottom: '10%',
-          right: '-5%',
+          background: 'radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%)',
+          bottom: '5%',
+          left: '20%',
         }}
-        animate={{ scale: [1.1, 1, 1.1] }}
-        transition={{ duration: 6, repeat: Infinity }}
+        animate={{ scale: [1, 1.15, 1] }}
+        transition={{ duration: 7, repeat: Infinity }}
       />
 
       <Container className="relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-[#1890ff]/20 border border-[#1890ff]/30 rounded-full"
+            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+            className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-gradient-to-r from-[#8b5cf6]/20 to-[#1890ff]/20 border border-[#8b5cf6]/30 rounded-full"
           >
-            <Code2 size={16} className="text-[#1890ff]" />
-            <span className="text-sm font-medium text-[#1890ff]">Для разработчиков</span>
+            <Code2 size={16} className="text-[#a78bfa]" />
+            <span className="text-sm font-medium text-[#a78bfa]">Для разработчиков</span>
           </motion.div>
           
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ delay: isInView ? 0.1 : 0, duration: 0.5 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6"
           >
             Суперсила API
@@ -264,8 +274,8 @@ export default function API() {
           
           <motion.p
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ delay: isInView ? 0.2 : 0, duration: 0.5 }}
             className="text-xl text-white/70 max-w-2xl mx-auto mb-8"
           >
             Интегрируйте WorkHere в экосистему вашей компании
@@ -274,10 +284,10 @@ export default function API() {
           <motion.a
             href="#demo"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.3 }}
-            whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(24,144,255,0.3)' }}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#1890ff] text-white rounded-full font-medium hover:bg-[#40a9ff] transition-colors"
+            whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(139,92,246,0.4)' }}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#8b5cf6] to-[#1890ff] text-white rounded-full font-medium hover:from-[#a78bfa] hover:to-[#40a9ff] transition-all"
           >
             Портал для разработчиков
           </motion.a>
@@ -290,9 +300,9 @@ export default function API() {
             {/* Docs - large */}
             <motion.div
               initial={{ opacity: 0, x: -150, y: -80 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.4, type: 'spring', stiffness: 80 }}
-              className="col-span-12 md:col-span-4 bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-[#1890ff]/20 flex flex-col items-center text-center hover:border-[#1890ff]/40 transition-colors"
+              animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: -150, y: -80 }}
+              transition={{ duration: 0.6, delay: isInView ? 0.4 : 0, type: 'spring', stiffness: 100 }}
+              className="col-span-12 md:col-span-4 bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <DocsVisual />
               <h3 className="text-lg font-bold text-white">Интерактивная документация</h3>
@@ -301,9 +311,9 @@ export default function API() {
             {/* Send from intranet */}
             <motion.div
               initial={{ opacity: 0, y: -120 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.5, type: 'spring', stiffness: 80 }}
-              className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#1890ff]/20 flex flex-col items-center text-center hover:border-[#1890ff]/40 transition-colors"
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -120 }}
+              transition={{ duration: 0.6, delay: isInView ? 0.5 : 0, type: 'spring', stiffness: 100 }}
+              className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <IconVisual icon={Send} />
               <h3 className="text-sm font-bold text-white leading-tight">Передавайте заявки из интранета</h3>
@@ -312,9 +322,9 @@ export default function API() {
             {/* Send to HR */}
             <motion.div
               initial={{ opacity: 0, x: 150, y: -80 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.6, type: 'spring', stiffness: 80 }}
-              className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#1890ff]/20 flex flex-col items-center text-center hover:border-[#1890ff]/40 transition-colors"
+              animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 150, y: -80 }}
+              transition={{ duration: 0.6, delay: isInView ? 0.6 : 0, type: 'spring', stiffness: 100 }}
+              className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <IconVisual icon={Users} />
               <h3 className="text-sm font-bold text-white leading-tight">Отправляйте финалистов в HR-систему</h3>
@@ -323,8 +333,8 @@ export default function API() {
             {/* Career site */}
             <motion.div
               initial={{ opacity: 0, x: 100, y: -50 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.55, type: 'spring', stiffness: 80 }}
+              animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 100, y: -50 }}
+              transition={{ duration: 0.6, delay: isInView ? 0.55 : 0, type: 'spring', stiffness: 100 }}
               className="col-span-12 md:col-span-2 bg-white/5 backdrop-blur-md rounded-3xl p-4 border border-[#1890ff]/20 flex flex-col items-center text-center justify-center hover:border-[#1890ff]/40 transition-colors"
             >
               <IconVisual icon={Database} />
@@ -337,9 +347,9 @@ export default function API() {
             {/* Excel */}
             <motion.div
               initial={{ opacity: 0, x: -200 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.7, type: 'spring', stiffness: 80 }}
-              className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#1890ff]/20 flex flex-col items-center text-center hover:border-[#1890ff]/40 transition-colors"
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -200 }}
+              transition={{ duration: 0.6, delay: isInView ? 0.7 : 0, type: 'spring', stiffness: 100 }}
+              className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <ExcelVisual />
               <h3 className="text-sm font-bold text-white leading-tight">Индивидуальные Excel-отчёты</h3>
@@ -348,9 +358,9 @@ export default function API() {
             {/* Sandbox - large */}
             <motion.div
               initial={{ opacity: 0, x: 200 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.75, type: 'spring', stiffness: 80 }}
-              className="col-span-12 md:col-span-5 bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-[#1890ff]/20 flex flex-col items-center text-center hover:border-[#1890ff]/40 transition-colors"
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 200 }}
+              transition={{ duration: 0.6, delay: isInView ? 0.75 : 0, type: 'spring', stiffness: 100 }}
+              className="col-span-12 md:col-span-5 bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <SandboxVisual />
               <h3 className="text-lg font-bold text-white">Песочница для экспериментов</h3>
@@ -359,9 +369,9 @@ export default function API() {
             {/* Departments */}
             <motion.div
               initial={{ opacity: 0, x: 180, y: 50 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.8, type: 'spring', stiffness: 80 }}
-              className="col-span-6 md:col-span-4 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#1890ff]/20 flex flex-col items-center text-center hover:border-[#1890ff]/40 transition-colors"
+              animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: 180, y: 50 }}
+              transition={{ duration: 0.6, delay: isInView ? 0.8 : 0, type: 'spring', stiffness: 100 }}
+              className="col-span-6 md:col-span-4 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <IconVisual icon={Building2} />
               <h3 className="text-sm font-bold text-white leading-tight">Загружайте справочник подразделений</h3>
@@ -373,9 +383,9 @@ export default function API() {
             {/* Webhooks - xlarge */}
             <motion.div
               initial={{ opacity: 0, x: -180, y: 100 }}
-              animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.85, type: 'spring', stiffness: 80 }}
-              className="col-span-12 md:col-span-6 bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-[#1890ff]/20 flex flex-col items-center text-center hover:border-[#1890ff]/40 transition-colors"
+              animate={isInView ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: -180, y: 100 }}
+              transition={{ duration: 0.6, delay: isInView ? 0.85 : 0, type: 'spring', stiffness: 100 }}
+              className="col-span-12 md:col-span-6 bg-white/5 backdrop-blur-md rounded-3xl p-6 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <WebhooksVisual />
               <h3 className="text-lg font-bold text-white">Вебхуки для интеграций</h3>
@@ -384,9 +394,9 @@ export default function API() {
             {/* BI export */}
             <motion.div
               initial={{ opacity: 0, y: 150 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.9, type: 'spring', stiffness: 80 }}
-              className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#1890ff]/20 flex flex-col items-center text-center hover:border-[#1890ff]/40 transition-colors"
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 150 }}
+              transition={{ duration: 0.6, delay: isInView ? 0.9 : 0, type: 'spring', stiffness: 100 }}
+              className="col-span-6 md:col-span-3 bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-[#8b5cf6]/20 flex flex-col items-center text-center hover:border-[#8b5cf6]/50 hover:bg-white/10 transition-all"
             >
               <IconVisual icon={BarChart3} />
               <h3 className="text-sm font-bold text-white leading-tight">Экспортируйте данные в BI-систему</h3>
@@ -395,8 +405,8 @@ export default function API() {
             {/* Empty decorative space / small card */}
             <motion.div
               initial={{ opacity: 0, scale: 0.5 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.95, type: 'spring', stiffness: 80 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
+              transition={{ duration: 0.6, delay: isInView ? 0.95 : 0, type: 'spring', stiffness: 100 }}
               className="col-span-6 md:col-span-3 bg-gradient-to-br from-[#1890ff]/20 to-[#1890ff]/5 backdrop-blur-md rounded-3xl p-5 border border-[#1890ff]/30 flex flex-col items-center justify-center text-center hover:border-[#1890ff]/50 transition-colors"
             >
               <div className="text-4xl mb-2">🚀</div>
