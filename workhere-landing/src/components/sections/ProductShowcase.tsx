@@ -189,28 +189,27 @@ export default function ProductShowcase() {
       {/* Crazy animated background */}
       <CrazyBackground variant="waves" intensity="medium" />
       
-      {/* Floating elements */}
+      {/* Optimized floating elements - just 6 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute"
             style={{
-              left: `${(i * 5) % 100}%`,
-              top: `${(i * 7) % 100}%`,
+              left: `${(i * 16) % 100}%`,
+              top: `${(i * 14) % 100}%`,
             }}
             animate={{
-              y: [0, -40, 0],
-              rotate: [0, 360],
-              opacity: [0.05, 0.15, 0.05],
+              y: [0, -30, 0],
+              opacity: [0.05, 0.2, 0.05],
             }}
             transition={{
-              duration: 5 + i,
+              duration: 8 + i * 2,
               repeat: Infinity,
-              delay: i * 0.3,
+              delay: i * 0.5,
             }}
           >
-            <Star size={10 + (i % 10)} className="text-[#1890ff]" />
+            <Star size={12 + (i % 6)} className="text-[#1890ff]" />
           </motion.div>
         ))}
       </div>

@@ -1,7 +1,7 @@
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import FloatingCTA from '@/components/ui/FloatingCTA';
-import SectionDivider from '@/components/ui/SectionDivider';
+import SectionTransition from '@/components/ui/SectionTransition';
 import Hero from '@/components/sections/Hero';
 import StatsBlob from '@/components/sections/StatsBlob';
 import Features from '@/components/sections/Features';
@@ -21,12 +21,14 @@ export default function Home() {
         <Hero />
         <StatsBlob />
         <ProductShowcase />
-        <SectionDivider showMascot />
+        <SectionTransition from="light" to="dark" />
         <Features />
         <Pipeline />
+        <SectionTransition from="dark" to="dark" height={80} />
         <API />
-        <SectionDivider showMascot />
+        <SectionTransition from="dark" to="dark" height={80} />
         <Enterprise />
+        <SectionTransition from="dark" to="light" />
         <Security />
         <CTA />
       </main>

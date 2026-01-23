@@ -477,7 +477,7 @@ function APIVisual() {
   );
 }
 
-// Простой экран-разделитель с заголовком секции - CRAZY MOTION
+// Оптимизированный экран-разделитель с заголовком секции
 function SectionTitleScreen({ title }: { title: string }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-10%' });
@@ -485,119 +485,82 @@ function SectionTitleScreen({ title }: { title: string }) {
   return (
     <section 
       ref={ref}
-      className="relative py-32 bg-[#0a1628] overflow-hidden"
+      className="relative py-28 bg-[#0a1628] overflow-hidden"
     >
-      {/* CRAZY animated grid */}
+      {/* Animated grid - optimized */}
       <motion.div 
-        className="absolute inset-0 opacity-[0.05]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage: 'linear-gradient(#1890ff 1px, transparent 1px), linear-gradient(90deg, #1890ff 1px, transparent 1px)',
           backgroundSize: '60px 60px',
         }}
         animate={{ y: [0, 60, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
       />
       
-      {/* Flying particles */}
-      {[...Array(30)].map((_, i) => (
+      {/* Just 8 particles */}
+      {[...Array(8)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute rounded-full bg-[#1890ff]"
           style={{
-            width: 2 + (i % 4),
-            height: 2 + (i % 4),
-            left: `${(i * 3.5) % 100}%`,
-            top: `${(i * 4) % 100}%`,
+            width: 3 + (i % 3),
+            height: 3 + (i % 3),
+            left: `${(i * 12) % 100}%`,
+            top: `${(i * 10) % 100}%`,
           }}
           animate={{
-            y: [0, -100, 0],
-            x: [0, (i % 2 === 0 ? 1 : -1) * 50, 0],
-            opacity: [0.1, 0.6, 0.1],
-            scale: [1, 2, 1],
+            y: [0, -60, 0],
+            opacity: [0.1, 0.5, 0.1],
           }}
           transition={{
-            duration: 4 + (i % 3),
+            duration: 6 + (i % 3),
             repeat: Infinity,
-            delay: (i * 0.15) % 3,
+            delay: (i * 0.3) % 3,
           }}
         />
       ))}
       
-      {/* Multiple glowing orbs */}
-      {[...Array(4)].map((_, i) => (
+      {/* Just 2 glowing orbs */}
+      {[0, 1].map((i) => (
         <motion.div
           key={`orb-${i}`}
           className="absolute rounded-full blur-3xl"
           style={{
-            width: 300 + i * 100,
+            width: 350 + i * 100,
             height: 200 + i * 50,
-            left: `${20 + i * 20}%`,
-            top: '30%',
-            background: `radial-gradient(ellipse, rgba(24,144,255,${0.2 - i * 0.03}) 0%, transparent 70%)`,
+            left: `${25 + i * 30}%`,
+            top: '35%',
+            background: `radial-gradient(ellipse, rgba(24,144,255,${0.15 - i * 0.04}) 0%, transparent 70%)`,
           }}
-          animate={{
-            x: [0, 50, 0],
-            y: [0, -30, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 6 + i * 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-
-      {/* Light beams */}
-      {[...Array(6)].map((_, i) => (
-        <motion.div
-          key={`beam-${i}`}
-          className="absolute h-[200%] w-0.5"
-          style={{
-            left: `${10 + i * 15}%`,
-            top: '-50%',
-            background: 'linear-gradient(to bottom, transparent, rgba(24,144,255,0.2), transparent)',
-            transform: `rotate(${-25 + i * 5}deg)`,
-          }}
-          animate={{
-            opacity: [0, 0.6, 0],
-            x: [-30, 150, -30],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            delay: i * 0.8,
-          }}
+          animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+          transition={{ duration: 12 + i * 4, repeat: Infinity, ease: "easeInOut" }}
         />
       ))}
 
       <div className="relative z-10 text-center px-4">
         <motion.h2
-          initial={{ opacity: 0, y: 80, scale: 0.8, rotateX: 30 }}
-          animate={isInView ? { opacity: 1, y: 0, scale: 1, rotateX: 0 } : {}}
-          transition={{ duration: 0.8, type: 'spring' }}
-          className="text-4xl md:text-5xl lg:text-7xl font-bold text-white"
-          style={{ textShadow: '0 0 40px rgba(24,144,255,0.3)' }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl lg:text-6xl font-bold text-white"
+          style={{ textShadow: '0 0 30px rgba(24,144,255,0.2)' }}
         >
           {title}
         </motion.h2>
         
         <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={isInView ? { scaleX: 1, opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mx-auto mt-6 h-1.5 w-32 rounded-full"
-          style={{ 
-            background: 'linear-gradient(90deg, transparent, #1890ff, transparent)',
-            boxShadow: '0 0 20px rgba(24,144,255,0.5)',
-          }}
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mx-auto mt-5 h-1 w-28 rounded-full bg-[#1890ff]"
         />
         
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.4 }}
-          className="mt-8 text-gray-400 text-sm flex items-center justify-center gap-2"
+          className="mt-6 text-gray-400 text-sm flex items-center justify-center gap-2"
         >
           <span>Листайте вниз</span>
           <motion.svg 
@@ -607,8 +570,8 @@ function SectionTitleScreen({ title }: { title: string }) {
             fill="none" 
             stroke="currentColor" 
             strokeWidth="2"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
             <path d="M12 5v14M5 12l7 7 7-7" />
           </motion.svg>
@@ -684,66 +647,20 @@ function FeatureBlock({ block, index }: { block: typeof blocks[0]; index: number
           : 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)',
       }}
     >
-      {/* CRAZY animated background elements */}
+      {/* Optimized background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating particles */}
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              width: 3 + (i % 5),
-              height: 3 + (i % 5),
-              left: `${(i * 5) % 100}%`,
-              top: `${(i * 6) % 100}%`,
-              background: `rgba(24,144,255,${0.1 + (i % 3) * 0.1})`,
-            }}
-            animate={{
-              y: [0, -60, 0],
-              x: [0, (i % 2 === 0 ? 1 : -1) * 30, 0],
-              scale: [1, 1.5, 1],
-              opacity: [0.1, 0.4, 0.1],
-            }}
-            transition={{
-              duration: 5 + (i % 4),
-              repeat: Infinity,
-              delay: (i * 0.2) % 3,
-            }}
-          />
-        ))}
-        
-        {/* Large animated orbs */}
+        {/* Just 2 animated orbs */}
         <motion.div 
-          className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl"
-          style={{
-            background: 'radial-gradient(circle, rgba(24,144,255,0.08) 0%, transparent 70%)',
-          }}
-          animate={{
-            x: [0, 50, 0],
-            y: [0, -30, 0],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(24,144,255,0.06) 0%, transparent 70%)' }}
+          animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div 
-          className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl"
-          style={{
-            background: 'radial-gradient(circle, rgba(24,144,255,0.06) 0%, transparent 70%)',
-          }}
-          animate={{
-            x: [0, -40, 0],
-            y: [0, 30, 0],
-            scale: [1, 1.3, 1],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(circle, rgba(24,144,255,0.05) 0%, transparent 70%)' }}
+          animate={{ x: [0, -25, 0], y: [0, 20, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 

@@ -3,8 +3,8 @@
 import { motion } from 'framer-motion';
 
 interface CrazyBackgroundProps {
-  variant?: 'particles' | 'waves' | 'blobs' | 'matrix' | 'aurora';
-  intensity?: 'low' | 'medium' | 'high' | 'insane';
+  variant?: 'particles' | 'waves' | 'blobs' | 'grid' | 'aurora';
+  intensity?: 'low' | 'medium' | 'high';
   color?: string;
 }
 
@@ -14,7 +14,8 @@ export default function CrazyBackground({
   color = '#1890ff'
 }: CrazyBackgroundProps) {
   
-  const counts = { low: 15, medium: 30, high: 50, insane: 80 };
+  // Optimized counts - much fewer particles for better performance
+  const counts = { low: 6, medium: 10, high: 15 };
   const count = counts[intensity];
 
   if (variant === 'particles') {
@@ -25,23 +26,20 @@ export default function CrazyBackground({
             key={i}
             className="absolute rounded-full"
             style={{
-              width: 2 + (i % 6) * 2,
-              height: 2 + (i % 6) * 2,
-              left: `${(i * 3.7) % 100}%`,
-              top: `${(i * 2.3) % 100}%`,
-              background: i % 3 === 0 ? color : `${color}80`,
-              boxShadow: `0 0 ${10 + (i % 10)}px ${color}60`,
+              width: 3 + (i % 4) * 2,
+              height: 3 + (i % 4) * 2,
+              left: `${(i * 10) % 100}%`,
+              top: `${(i * 8) % 100}%`,
+              background: i % 2 === 0 ? color : `${color}60`,
             }}
             animate={{
-              y: [0, -50 - (i % 30), 0],
-              x: [0, (i % 2 === 0 ? 1 : -1) * (20 + i % 20), 0],
-              scale: [1, 1.5, 1],
-              opacity: [0.2, 0.8, 0.2],
+              y: [0, -40 - (i % 20), 0],
+              opacity: [0.15, 0.5, 0.15],
             }}
             transition={{
-              duration: 3 + (i % 5),
+              duration: 6 + (i % 4),
               repeat: Infinity,
-              delay: (i * 0.1) % 3,
+              delay: (i * 0.3) % 4,
               ease: "easeInOut",
             }}
           />
@@ -53,21 +51,21 @@ export default function CrazyBackground({
   if (variant === 'waves') {
     return (
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(5)].map((_, i) => (
+        {[...Array(3)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-[200%] h-[200%] left-[-50%]"
+            className="absolute w-[200%] h-[60%] left-[-50%]"
             style={{
-              top: `${20 + i * 15}%`,
-              background: `linear-gradient(90deg, transparent, ${color}${10 + i * 5}, transparent)`,
-              transform: 'rotate(-5deg)',
+              top: `${30 + i * 20}%`,
+              background: `linear-gradient(90deg, transparent, ${color}${8 + i * 3}, transparent)`,
+              transform: 'rotate(-3deg)',
             }}
             animate={{
-              x: ['-50%', '0%', '-50%'],
-              opacity: [0.1, 0.3, 0.1],
+              x: ['-30%', '0%', '-30%'],
+              opacity: [0.1, 0.25, 0.1],
             }}
             transition={{
-              duration: 8 + i * 2,
+              duration: 12 + i * 3,
               repeat: Infinity,
               ease: "easeInOut",
             }}
@@ -80,24 +78,24 @@ export default function CrazyBackground({
   if (variant === 'blobs') {
     return (
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(Math.min(count, 8))].map((_, i) => (
+        {[...Array(Math.min(count, 4))].map((_, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full blur-3xl"
             style={{
-              width: 200 + i * 100,
-              height: 200 + i * 100,
-              left: `${(i * 20) % 80}%`,
-              top: `${(i * 25) % 70}%`,
-              background: `radial-gradient(circle, ${color}30 0%, transparent 70%)`,
+              width: 250 + i * 80,
+              height: 250 + i * 80,
+              left: `${(i * 25) % 80}%`,
+              top: `${(i * 20) % 70}%`,
+              background: `radial-gradient(circle, ${color}20 0%, transparent 70%)`,
             }}
             animate={{
-              x: [0, 100 * (i % 2 === 0 ? 1 : -1), 0],
-              y: [0, 80 * (i % 2 === 0 ? -1 : 1), 0],
-              scale: [1, 1.3, 1],
+              x: [0, 60 * (i % 2 === 0 ? 1 : -1), 0],
+              y: [0, 40 * (i % 2 === 0 ? -1 : 1), 0],
+              scale: [1, 1.15, 1],
             }}
             transition={{
-              duration: 10 + i * 2,
+              duration: 15 + i * 3,
               repeat: Infinity,
               ease: "easeInOut",
             }}
@@ -107,61 +105,44 @@ export default function CrazyBackground({
     );
   }
 
-  if (variant === 'matrix') {
+  if (variant === 'grid') {
     return (
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(count)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-px"
-            style={{
-              height: 20 + (i % 50),
-              left: `${(i * 2) % 100}%`,
-              top: `-${20 + (i % 50)}px`,
-              background: `linear-gradient(to bottom, transparent, ${color}, transparent)`,
-            }}
-            animate={{
-              y: ['0vh', '120vh'],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 2 + (i % 3),
-              repeat: Infinity,
-              delay: (i * 0.1) % 5,
-              ease: "linear",
-            }}
-          />
-        ))}
-      </div>
+      <motion.div 
+        className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.04]"
+        style={{
+          backgroundImage: `linear-gradient(${color} 1px, transparent 1px), linear-gradient(90deg, ${color} 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }}
+        animate={{ y: [0, 60, 0] }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+      />
     );
   }
 
   if (variant === 'aurora') {
     return (
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(6)].map((_, i) => (
+        {[...Array(3)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-full h-[50%] blur-[100px]"
+            className="absolute w-full h-[40%] blur-[80px]"
             style={{
-              top: `${i * 15}%`,
-              background: `linear-gradient(${90 + i * 30}deg, 
+              top: `${i * 25}%`,
+              background: `linear-gradient(${90 + i * 40}deg, 
                 transparent, 
-                ${color}${20 + i * 5}, 
-                #40a9ff${15 + i * 3}, 
+                ${color}15, 
                 transparent
               )`,
             }}
             animate={{
-              x: ['-20%', '20%', '-20%'],
-              opacity: [0.3, 0.6, 0.3],
-              skewX: [-5, 5, -5],
+              x: ['-15%', '15%', '-15%'],
+              opacity: [0.2, 0.4, 0.2],
             }}
             transition={{
-              duration: 8 + i * 2,
+              duration: 12 + i * 3,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: i * 0.5,
+              delay: i * 0.8,
             }}
           />
         ))}
