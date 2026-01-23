@@ -44,18 +44,19 @@ export default function Mascot({
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      {/* Animated Speech Bubble - positioned to avoid covering text */}
+      {/* Animated Speech Bubble - positioned above mascot, not covering other content */}
       {showSpeechBubble && (
         <motion.div
-          className="absolute -top-12 left-1/2 -translate-x-1/2 z-10 pointer-events-none"
-          initial={{ scale: 0, opacity: 0, rotate: -10 }}
-          animate={{ scale: 1, opacity: 1, rotate: 0 }}
+          className="absolute -top-14 left-0 right-0 flex justify-center z-10 pointer-events-none"
+          initial={{ scale: 0, opacity: 0, y: 10 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ delay: 0.5, type: 'spring', stiffness: 400, damping: 12 }}
         >
           <motion.div 
-            className="relative bg-white px-4 py-2 rounded-xl shadow-md border border-[#1890ff]/20"
+            className="relative bg-white px-4 py-2.5 rounded-2xl shadow-lg border-2 border-[#1890ff]/20"
             animate={{ 
-              y: [0, -2, 0],
+              y: [0, -3, 0],
+              rotate: [0, 1, -1, 0],
             }}
             transition={{ 
               duration: 3, 
@@ -63,20 +64,31 @@ export default function Mascot({
               ease: "easeInOut" 
             }}
           >
-            {/* Animated text - smaller to avoid covering content */}
+            {/* Text with emoji */}
             <motion.span 
-              className="font-semibold text-gray-700 text-sm whitespace-nowrap inline-block"
+              className="font-bold text-gray-800 text-base whitespace-nowrap inline-block"
+              animate={{ scale: [1, 1.02, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
             >
               {speechText}
+            </motion.span>
+            
+            {/* Sparkle */}
+            <motion.span
+              className="absolute -top-1 -right-1 text-yellow-400 text-sm"
+              animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.2, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              ✨
             </motion.span>
             
             {/* Triangle pointer */}
             <div 
               className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0"
               style={{
-                borderLeft: '6px solid transparent',
-                borderRight: '6px solid transparent',
-                borderTop: '8px solid white',
+                borderLeft: '8px solid transparent',
+                borderRight: '8px solid transparent',
+                borderTop: '10px solid white',
               }}
             />
           </motion.div>

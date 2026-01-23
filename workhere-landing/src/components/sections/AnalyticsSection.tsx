@@ -162,9 +162,9 @@ export default function AnalyticsSection() {
                   ))}
                 </div>
 
-                {/* Mascot - larger, positioned right */}
-                <div className="flex justify-end">
-                  <Mascot size={150} variant="04" />
+                {/* Mascot - astronaut cat with speech bubble, positioned to the right */}
+                <div className="flex justify-end -mt-4 -mr-2">
+                  <Mascot size={180} variant="01" showSpeechBubble speechText="Отличные метрики! 📊" />
                 </div>
               </motion.div>
             </div>

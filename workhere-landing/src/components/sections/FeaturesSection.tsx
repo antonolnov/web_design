@@ -193,9 +193,9 @@ export default function FeaturesSection() {
                         </div>
                       </div>
 
-                      {/* Mini mascot - larger size */}
+                      {/* Mascot - larger size */}
                       <div className="hidden md:block flex-shrink-0">
-                        <Mascot size={140} variant={current.mascotVariant} animate={true} />
+                        <Mascot size={180} variant={current.mascotVariant} animate={true} />
                       </div>
                     </div>
                   </motion.div>

@@ -95,7 +95,7 @@ export default function EnterpriseSection() {
               transition={{ delay: 0.5 }}
               className="flex justify-center mt-8"
             >
-              <Mascot size={160} variant="05" />
+              <Mascot size={220} variant="01" />
             </motion.div>
           </div>
         </ContentCard>

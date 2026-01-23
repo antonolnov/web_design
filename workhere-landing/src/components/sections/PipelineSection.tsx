@@ -188,9 +188,9 @@ export default function PipelineSection() {
                   </motion.div>
                 ))}
 
-                {/* Mascot - larger */}
-                <div className="flex justify-end mt-4">
-                  <Mascot size={150} variant="03" animate={true} />
+                {/* Mascot - astronaut cat, larger */}
+                <div className="flex justify-end mt-2">
+                  <Mascot size={200} variant="01" animate={true} />
                 </div>
               </div>
             </div>
