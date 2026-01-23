@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import Container from '../ui/Container';
 import Mascot from '../ui/Mascot';
+import AIBadge from '../ui/AIBadge';
 
 export default function HeroNew() {
   return (
@@ -16,6 +17,16 @@ export default function HeroNew() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
+            {/* AI Badge - prominent position */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
+              className="mb-6"
+            >
+              <AIBadge />
+            </motion.div>
+
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
