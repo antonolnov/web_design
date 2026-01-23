@@ -2,18 +2,19 @@
 
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { Building2, Users, TrendingUp } from 'lucide-react';
+import { Building2, Users, TrendingUp, Sparkles } from 'lucide-react';
 import Container from '../ui/Container';
+import Mascot from '../ui/Mascot';
 
 const stats = [
-  { icon: Building2, value: '1500+', label: 'Компаний', angle: 0 },
-  { icon: Users, value: '10 000+', label: 'Рекрутеров', angle: 120 },
-  { icon: TrendingUp, value: '3M+', label: 'Наймов в год', angle: 240 },
+  { icon: Building2, value: '1500+', label: 'Компаний', color: '#1890ff' },
+  { icon: Users, value: '10 000+', label: 'Рекрутеров', color: '#52c41a' },
+  { icon: TrendingUp, value: '3M+', label: 'Наймов в год', color: '#722ed1' },
 ];
 
 export default function StatsBlob() {
   const containerRef = useRef(null);
-  const [isHovered, setIsHovered] = useState(false);
+  const [hoveredStat, setHoveredStat] = useState<number | null>(null);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -21,192 +22,212 @@ export default function StatsBlob() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 50, damping: 20 });
-  const rotation = useTransform(smoothProgress, [0, 1], [0, 360]);
   
-  const blobScale = useTransform(smoothProgress, [0, 0.5, 1], [0.9, 1.05, 0.95]);
-  
-  const aiOpacity = useTransform(smoothProgress, [0.1, 0.25], [0, 1]);
-  const aiScale = useTransform(smoothProgress, [0.1, 0.25], [0.5, 1]);
-
-  const blobPaths = [
-    "M100,15 C150,10 185,40 190,85 C195,130 175,170 135,185 C95,200 45,180 25,140 C5,100 20,50 60,25 C85,10 75,17 100,15",
-    "M95,10 C145,0 190,35 195,90 C200,145 165,190 115,190 C65,190 15,150 10,95 C5,40 45,20 95,10",
-    "M105,12 C155,5 190,45 188,95 C186,145 150,190 100,188 C50,186 10,145 12,95 C14,45 55,18 105,12",
-  ];
-
-  const orbitRadius = 160;
+  const blobScale = useTransform(smoothProgress, [0, 0.5, 1], [0.8, 1.1, 0.9]);
+  const blobRotate = useTransform(smoothProgress, [0, 1], [0, 360]);
+  const mascotY = useTransform(smoothProgress, [0, 0.5, 1], [50, 0, -30]);
+  const mascotRotate = useTransform(smoothProgress, [0, 0.5, 1], [-10, 0, 10]);
 
   return (
     <section 
       ref={containerRef} 
-      className="relative py-8 overflow-hidden"
+      className="relative py-24 overflow-hidden"
       style={{ 
-        background: 'linear-gradient(180deg, #f0f7ff 0%, #e8f4ff 50%, #ffffff 100%)',
+        background: 'linear-gradient(180deg, #f5f9ff 0%, #e8f4ff 50%, #f0f7ff 100%)',
       }}
     >
-      {/* Simple background glow */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div 
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full"
-          style={{
-            background: 'radial-gradient(circle, rgba(24,144,255,0.1) 0%, transparent 70%)',
-          }}
-        />
+      {/* Animated background elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Floating circles */}
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: 100 + i * 50,
+              height: 100 + i * 50,
+              left: `${(i * 15) % 80}%`,
+              top: `${(i * 20) % 70}%`,
+              background: `radial-gradient(circle, rgba(24,144,255,${0.05 - i * 0.005}) 0%, transparent 70%)`,
+            }}
+            animate={{
+              x: [0, 30, 0],
+              y: [0, -20, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 10 + i * 2,
+              repeat: Infinity,
+              delay: i * 0.5,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
       </div>
 
       <Container className="relative z-10">
-        <div 
-          className="flex items-center justify-center" 
-          style={{ minHeight: '400px' }}
-        >
-          <div className="relative">
-            
-            {/* Blob container */}
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
+          {/* Left side - Stats */}
+          <motion.div 
+            className="flex-1 space-y-8"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <motion.div
-              className="relative cursor-pointer"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              style={{ scale: blobScale }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#1890ff]/10 rounded-full"
             >
-              {/* Soft glow behind blob */}
-              <div
-                className="absolute rounded-full pointer-events-none"
-                style={{
-                  width: 200,
-                  height: 200,
-                  left: '50%',
-                  top: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  background: 'radial-gradient(circle, rgba(24,144,255,0.25) 0%, transparent 70%)',
-                  filter: 'blur(30px)',
-                }}
-              />
+              <Sparkles size={16} className="text-[#1890ff]" />
+              <span className="text-sm font-medium text-[#1890ff]">Нам доверяют</span>
+            </motion.div>
 
-              {/* Outer ring - very subtle */}
-              <motion.div
-                className="absolute rounded-full pointer-events-none"
-                style={{
-                  width: 170,
-                  height: 170,
-                  left: '50%',
-                  top: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  border: '1px solid rgba(24,144,255,0.15)',
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-              />
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900"
+            >
+              Платформа, которой{' '}
+              <span className="text-[#1890ff]">доверяют тысячи</span>{' '}
+              компаний
+            </motion.h2>
 
-              {/* Clean blob */}
-              <motion.div
-                className="relative"
-                style={{ width: 150, height: 150 }}
-                animate={{ rotate: isHovered ? [0, 5, -3, 0] : 0 }}
-                transition={{ duration: 0.4 }}
-              >
-                <svg 
-                  viewBox="0 0 200 200" 
-                  className="w-full h-full overflow-visible"
-                  style={{ overflow: 'visible' }}
-                >
-                  <defs>
-                    <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#40a9ff" />
-                      <stop offset="100%" stopColor="#1890ff" />
-                    </linearGradient>
-                    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
-                      <feDropShadow dx="0" dy="8" stdDeviation="12" floodColor="#1890ff" floodOpacity="0.3"/>
-                    </filter>
-                  </defs>
-
-                  <motion.path
-                    fill="url(#blobGradient)"
-                    filter="url(#softShadow)"
-                    animate={{ d: blobPaths }}
-                    transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                  />
-                </svg>
-
-                {/* AI text */}
+            <div className="space-y-4">
+              {stats.map((stat, index) => (
                 <motion.div
-                  className="absolute inset-0 flex items-center justify-center"
-                  style={{ opacity: aiOpacity, scale: aiScale }}
+                  key={stat.label}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 + index * 0.1 }}
+                  onMouseEnter={() => setHoveredStat(index)}
+                  onMouseLeave={() => setHoveredStat(null)}
+                  whileHover={{ x: 10, scale: 1.02 }}
+                  className="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-lg cursor-pointer group"
+                  style={{
+                    boxShadow: hoveredStat === index 
+                      ? `0 20px 40px ${stat.color}20` 
+                      : '0 4px 20px rgba(0,0,0,0.05)',
+                  }}
                 >
-                  <span
-                    className="text-white font-black text-5xl tracking-tight"
-                    style={{ textShadow: '0 2px 15px rgba(0,0,0,0.3)' }}
-                  >
-                    AI
-                  </span>
-                </motion.div>
-
-                {/* Hover effect */}
-                {isHovered && [...Array(8)].map((_, i) => (
                   <motion.div
-                    key={`p-${i}`}
-                    className="absolute w-1.5 h-1.5 rounded-full bg-white pointer-events-none"
-                    style={{ left: '50%', top: '50%' }}
-                    initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
-                    animate={{
-                      x: Math.cos(i * 45 * Math.PI / 180) * 70,
-                      y: Math.sin(i * 45 * Math.PI / 180) * 70,
-                      scale: [0, 1, 0],
-                      opacity: [0, 0.8, 0],
-                    }}
-                    transition={{ duration: 0.7 }}
-                  />
-                ))}
+                    className="w-14 h-14 rounded-xl flex items-center justify-center"
+                    style={{ backgroundColor: `${stat.color}15` }}
+                    animate={hoveredStat === index ? { rotate: [0, -10, 10, 0] } : {}}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <stat.icon size={24} style={{ color: stat.color }} />
+                  </motion.div>
+                  <div>
+                    <motion.div 
+                      className="text-3xl font-bold text-gray-900"
+                      animate={hoveredStat === index ? { scale: [1, 1.1, 1] } : {}}
+                    >
+                      {stat.value}
+                    </motion.div>
+                    <div className="text-gray-500">{stat.label}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Right side - Blob with mascot */}
+          <motion.div 
+            className="flex-1 flex items-center justify-center relative"
+            style={{ minHeight: 400 }}
+          >
+            {/* Dynamic blob background */}
+            <motion.div
+              className="absolute"
+              style={{ 
+                scale: blobScale,
+                rotate: blobRotate,
+              }}
+            >
+              <svg width="400" height="400" viewBox="0 0 400 400">
+                <defs>
+                  <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#40a9ff" />
+                    <stop offset="50%" stopColor="#1890ff" />
+                    <stop offset="100%" stopColor="#0050b3" />
+                  </linearGradient>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="20" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                <motion.path
+                  d="M200,50 C280,50 350,100 370,180 C390,260 350,340 280,360 C210,380 130,360 80,300 C30,240 30,160 80,100 C130,40 160,50 200,50"
+                  fill="url(#blobGradient)"
+                  filter="url(#glow)"
+                  animate={{
+                    d: [
+                      "M200,50 C280,50 350,100 370,180 C390,260 350,340 280,360 C210,380 130,360 80,300 C30,240 30,160 80,100 C130,40 160,50 200,50",
+                      "M200,40 C290,60 360,110 375,190 C385,270 340,350 270,365 C200,380 120,355 70,290 C20,230 25,150 85,95 C145,35 150,45 200,40",
+                      "M200,50 C280,50 350,100 370,180 C390,260 350,340 280,360 C210,380 130,360 80,300 C30,240 30,160 80,100 C130,40 160,50 200,50",
+                    ],
+                  }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                  opacity={0.9}
+                />
+              </svg>
+            </motion.div>
+
+            {/* Mascot on top of blob */}
+            <motion.div
+              className="relative z-10"
+              style={{ y: mascotY, rotate: mascotRotate }}
+            >
+              <motion.div
+                animate={{
+                  y: [-5, 5, -5],
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <Mascot size={220} />
               </motion.div>
             </motion.div>
 
-            {/* Orbiting cards */}
-            {stats.map((stat) => (
-              <motion.div
-                key={stat.value}
-                className="absolute"
-                style={{ left: '50%', top: '50%' }}
-              >
-                <motion.div style={{ rotate: rotation }}>
-                  <div style={{ transform: `rotate(${stat.angle}deg) translateY(-${orbitRadius}px)` }}>
-                    <motion.div
-                      style={{ rotate: useTransform(rotation, (r) => -r - stat.angle) }}
-                    >
-                      <div
-                        className="rounded-2xl p-4 text-center bg-white"
-                        style={{
-                          minWidth: '110px',
-                          transform: 'translate(-50%, -50%)',
-                          boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
-                        }}
-                      >
-                        <div 
-                          className="w-10 h-10 mx-auto mb-2 rounded-xl flex items-center justify-center"
-                          style={{ background: 'linear-gradient(135deg, #e6f4ff 0%, #bae0ff 100%)' }}
-                        >
-                          <stat.icon className="text-[#1890ff]" size={20} />
-                        </div>
-                        <div className="text-lg font-bold text-gray-900">{stat.value}</div>
-                        <div className="text-xs text-gray-500">{stat.label}</div>
-                      </div>
-                    </motion.div>
-                  </div>
+            {/* Orbiting elements */}
+            {[0, 120, 240].map((angle, i) => {
+              const IconComponent = stats[i]?.icon;
+              return (
+                <motion.div
+                  key={i}
+                  className="absolute w-12 h-12 bg-white rounded-xl shadow-lg flex items-center justify-center"
+                  animate={{
+                    rotate: 360,
+                  }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: "linear",
+                    delay: i * 0.5,
+                  }}
+                  style={{
+                    transformOrigin: '200px 200px',
+                    rotate: angle,
+                  }}
+                >
+                  <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear", delay: i * 0.5 }}
+                  >
+                    {IconComponent && <IconComponent size={20} className="text-[#1890ff]" />}
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            ))}
-
-            {/* Orbit path */}
-            <div 
-              className="absolute rounded-full border border-dashed pointer-events-none"
-              style={{
-                width: orbitRadius * 2,
-                height: orbitRadius * 2,
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
-                borderColor: 'rgba(24,144,255,0.1)',
-              }}
-            />
-          </div>
+              );
+            })}
+          </motion.div>
         </div>
       </Container>
     </section>
