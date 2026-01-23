@@ -6,6 +6,7 @@ import StatsBlob from '@/components/sections/StatsBlob';
 import Features from '@/components/sections/Features';
 import ProductShowcase from '@/components/sections/ProductShowcase';
 import Pipeline from '@/components/sections/Pipeline';
+import API from '@/components/sections/API';
 import Enterprise from '@/components/sections/Enterprise';
 import Security from '@/components/sections/Security';
 import CTA from '@/components/sections/CTA';
@@ -21,6 +22,7 @@ export default function Home() {
         <ProductShowcase />
         <Features />
         <Pipeline />
+        <API />
         <Enterprise />
         <Security />
         <CTA />
