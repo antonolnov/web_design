@@ -137,7 +137,7 @@ export default function AnalyticsSection() {
                 </div>
 
                 {/* Mini chart visualization */}
-                <div className="space-y-3 mb-6">
+                <div className="space-y-3">
                   {[
                     { label: 'Отклики', value: 1247, percent: 100 },
                     { label: 'Скрининг', value: 834, percent: 67 },
@@ -162,19 +162,18 @@ export default function AnalyticsSection() {
                   ))}
                 </div>
 
+                {/* Mascot - inside the right panel below the chart */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ delay: 0.7, type: 'spring' }}
+                  className="flex justify-center mt-4"
+                >
+                  <Mascot size={160} variant="03" showSpeechBubble speechText="Отличные метрики! 📊" />
+                </motion.div>
               </motion.div>
             </div>
           </div>
-          
-          {/* Mascot - centered below the content */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.7 }}
-            className="flex justify-center mt-8"
-          >
-            <Mascot size={200} variant="03" showSpeechBubble speechText="Отличные метрики! 📊" />
-          </motion.div>
         </ContentCard>
       </Container>
     </section>
