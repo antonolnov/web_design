@@ -61,97 +61,141 @@ export default function FixedBackground() {
         }}
       />
 
-      {/* Floating mascots with parallax - using all variants */}
+      {/* Floating mascots with parallax - shuffled and mixed */}
+      {/* mascot_04 on background - at multiple positions */}
       <motion.div
-        className="absolute right-[8%] top-[10%] hidden lg:block"
+        className="absolute left-[3%] top-[15%] hidden lg:block"
         style={{ y: y1 }}
       >
-        <img src={`${basePath}/workhere_mascot_01_transparent.svg`} alt="" className="w-28 h-28 opacity-35" />
+        <img src={`${basePath}/workhere_mascot_04_transparent.svg`} alt="" className="w-32 h-32 opacity-20" />
       </motion.div>
 
       <motion.div
-        className="absolute left-[5%] top-[25%] hidden lg:block"
+        className="absolute right-[5%] top-[35%] hidden xl:block"
         style={{ y: y2 }}
       >
-        <img src={`${basePath}/workhere_mascot_02_transparent.svg`} alt="" className="w-24 h-24 opacity-30" />
+        <img src={`${basePath}/workhere_mascot_04_transparent.svg`} alt="" className="w-28 h-28 opacity-18" />
       </motion.div>
 
       <motion.div
-        className="absolute right-[15%] top-[40%] hidden xl:block"
+        className="absolute left-[8%] top-[65%] hidden lg:block"
         style={{ y: y3 }}
       >
-        <img src={`${basePath}/workhere_mascot_03_transparent.svg`} alt="" className="w-20 h-20 opacity-25" />
+        <img src={`${basePath}/workhere_mascot_04_transparent.svg`} alt="" className="w-24 h-24 opacity-15" />
+      </motion.div>
+
+      {/* Other mascots shuffled across the page */}
+      <motion.div
+        className="absolute right-[12%] top-[8%] hidden lg:block"
+        style={{ y: y2 }}
+      >
+        <img src={`${basePath}/workhere_mascot_02_transparent.svg`} alt="" className="w-28 h-28 opacity-25" />
       </motion.div>
 
       <motion.div
-        className="absolute left-[12%] top-[55%] hidden lg:block"
+        className="absolute left-[15%] top-[45%] hidden xl:block"
         style={{ y: y4 }}
       >
-        <img src={`${basePath}/workhere_mascot_04_transparent.svg`} alt="" className="w-26 h-26 opacity-30" />
+        <img src={`${basePath}/workhere_mascot_06_transparent.svg`} alt="" className="w-26 h-26 opacity-22" />
       </motion.div>
 
       <motion.div
-        className="absolute right-[5%] top-[65%] hidden xl:block"
+        className="absolute right-[8%] top-[55%] hidden lg:block"
         style={{ y: y1 }}
       >
-        <img src={`${basePath}/workhere_mascot_05_transparent.svg`} alt="" className="w-22 h-22 opacity-25" />
+        <img src={`${basePath}/workhere_mascot_03_transparent.svg`} alt="" className="w-24 h-24 opacity-20" />
       </motion.div>
 
       <motion.div
-        className="absolute left-[8%] top-[75%] hidden lg:block"
+        className="absolute left-[5%] top-[80%] hidden xl:block"
         style={{ y: y2 }}
       >
-        <img src={`${basePath}/workhere_mascot_06_transparent.svg`} alt="" className="w-24 h-24 opacity-30" />
+        <img src={`${basePath}/workhere_mascot_05_transparent.svg`} alt="" className="w-28 h-28 opacity-22" />
       </motion.div>
 
       <motion.div
-        className="absolute right-[20%] top-[85%] hidden xl:block"
+        className="absolute right-[18%] top-[75%] hidden lg:block"
         style={{ y: y3 }}
       >
-        <img src={`${basePath}/workhere_mascot_07_transparent.svg`} alt="" className="w-20 h-20 opacity-25" />
+        <img src={`${basePath}/workhere_mascot_07_transparent.svg`} alt="" className="w-22 h-22 opacity-18" />
       </motion.div>
 
       <motion.div
-        className="absolute left-[15%] top-[95%] hidden lg:block"
+        className="absolute left-[12%] top-[92%] hidden lg:block"
         style={{ y: y4 }}
       >
-        <img src={`${basePath}/workhere_mascot_08_transparent.svg`} alt="" className="w-22 h-22 opacity-28" />
+        <img src={`${basePath}/workhere_mascot_08_transparent.svg`} alt="" className="w-26 h-26 opacity-20" />
       </motion.div>
 
-      {/* Floating paws with parallax rotation */}
+      {/* More paws with parallax - doubled amount */}
       <motion.div
-        className="absolute left-[20%] top-[15%] hidden lg:block"
+        className="absolute left-[18%] top-[10%] hidden lg:block"
         style={{ y: y1, rotate: rotate1 }}
       >
-        <Paws size={90} opacity={0.12} animate={false} />
+        <Paws size={100} opacity={0.15} animate={false} />
       </motion.div>
 
       <motion.div
-        className="absolute right-[25%] top-[30%] hidden lg:block"
+        className="absolute right-[22%] top-[18%] hidden lg:block"
         style={{ y: y2, rotate: rotate2 }}
       >
-        <Paws size={70} opacity={0.1} flip animate={false} />
+        <Paws size={80} opacity={0.12} flip animate={false} />
       </motion.div>
 
       <motion.div
-        className="absolute left-[30%] top-[50%] hidden xl:block"
+        className="absolute left-[35%] top-[28%] hidden xl:block"
         style={{ y: y3, rotate: rotate1 }}
       >
-        <Paws size={100} opacity={0.08} animate={false} />
+        <Paws size={70} opacity={0.10} animate={false} />
       </motion.div>
 
       <motion.div
-        className="absolute right-[10%] top-[70%] hidden lg:block"
+        className="absolute right-[30%] top-[42%] hidden lg:block"
         style={{ y: y1, rotate: rotate2 }}
       >
-        <Paws size={60} opacity={0.12} flip animate={false} />
+        <Paws size={90} opacity={0.14} flip animate={false} />
       </motion.div>
 
       <motion.div
-        className="absolute left-[25%] top-[90%] hidden lg:block"
+        className="absolute left-[25%] top-[52%] hidden xl:block"
         style={{ y: y2, rotate: rotate1 }}
       >
-        <Paws size={80} opacity={0.1} animate={false} />
+        <Paws size={110} opacity={0.10} animate={false} />
+      </motion.div>
+
+      <motion.div
+        className="absolute right-[15%] top-[62%] hidden lg:block"
+        style={{ y: y3, rotate: rotate2 }}
+      >
+        <Paws size={65} opacity={0.15} flip animate={false} />
+      </motion.div>
+
+      <motion.div
+        className="absolute left-[30%] top-[72%] hidden lg:block"
+        style={{ y: y4, rotate: rotate1 }}
+      >
+        <Paws size={85} opacity={0.12} animate={false} />
+      </motion.div>
+
+      <motion.div
+        className="absolute right-[28%] top-[82%] hidden xl:block"
+        style={{ y: y1, rotate: rotate2 }}
+      >
+        <Paws size={75} opacity={0.13} flip animate={false} />
+      </motion.div>
+
+      <motion.div
+        className="absolute left-[22%] top-[88%] hidden lg:block"
+        style={{ y: y2, rotate: rotate1 }}
+      >
+        <Paws size={95} opacity={0.11} animate={false} />
+      </motion.div>
+
+      <motion.div
+        className="absolute right-[35%] top-[95%] hidden lg:block"
+        style={{ y: y3, rotate: rotate2 }}
+      >
+        <Paws size={60} opacity={0.14} flip animate={false} />
       </motion.div>
 
       {/* Decorative dots */}

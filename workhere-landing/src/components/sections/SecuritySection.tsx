@@ -135,7 +135,7 @@ export default function SecuritySection() {
                   transition={{ delay: 0.6 }}
                   className="flex justify-center"
                 >
-                  <Mascot size={200} variant="01" />
+                  <Mascot size={200} variant="06" />
                 </motion.div>
               </div>
             </div>

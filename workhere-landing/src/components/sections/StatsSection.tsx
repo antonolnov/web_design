@@ -75,14 +75,14 @@ export default function StatsSection() {
               ))}
             </div>
 
-            {/* Mascot - astronaut cat, larger */}
+            {/* Mascot - larger, positioned right */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ delay: 0.6 }}
               className="flex justify-end mt-4 mr-2"
             >
-              <Mascot size={180} variant="01" />
+              <Mascot size={180} variant="02" />
             </motion.div>
           </div>
         </ContentCard>

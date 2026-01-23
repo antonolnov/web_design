@@ -162,13 +162,19 @@ export default function AnalyticsSection() {
                   ))}
                 </div>
 
-                {/* Mascot - astronaut cat with speech bubble, positioned to the right */}
-                <div className="flex justify-end -mt-4 -mr-2">
-                  <Mascot size={180} variant="01" showSpeechBubble speechText="Отличные метрики! 📊" />
-                </div>
               </motion.div>
             </div>
           </div>
+          
+          {/* Mascot - centered below the content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.7 }}
+            className="flex justify-center mt-8"
+          >
+            <Mascot size={200} variant="03" showSpeechBubble speechText="Отличные метрики! 📊" />
+          </motion.div>
         </ContentCard>
       </Container>
     </section>

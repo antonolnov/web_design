@@ -16,7 +16,8 @@ export default function CTASection() {
     <section id="demo" className="py-16 px-4 pb-24">
       <Container>
         <ContentCard variant="gradient">
-          <div ref={ref} className="grid lg:grid-cols-2 gap-10 items-center">
+          <div ref={ref} className="relative">
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
             {/* Left content */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -55,11 +56,6 @@ export default function CTASection() {
                     <span className="text-gray-700 font-medium">{item}</span>
                   </motion.div>
                 ))}
-              </div>
-
-              {/* Mascot - with speech bubble */}
-              <div className="hidden lg:block -mb-4">
-                <Mascot size={200} variant="01" showSpeechBubble speechText="Ждём вас! 🎉" />
               </div>
             </motion.div>
 
@@ -121,6 +117,17 @@ export default function CTASection() {
                   </p>
                 </div>
               </form>
+            </motion.div>
+            </div>
+            
+            {/* Mascot - positioned to the right of the card, not covering content */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 0.5, type: 'spring' }}
+              className="hidden xl:block absolute -right-16 top-1/2 -translate-y-1/2"
+            >
+              <Mascot size={200} variant="02" showSpeechBubble speechText="Ждём вас! 🎉" />
             </motion.div>
           </div>
         </ContentCard>
