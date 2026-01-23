@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Генератор PDF коммерческого предложения WorkHere
-BRUTALIST / CONSTRUCTIVIST STYLE
+ORGANIC FLUID STYLE - сложные формы, blobs, волны
 """
 
 from weasyprint import HTML, CSS
@@ -31,170 +31,278 @@ def generate_pdf():
             }
             
             body {
-                font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
-                color: #000;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                color: #1a1a2e;
                 font-size: 10pt;
-                line-height: 1.4;
+                line-height: 1.5;
             }
             
             /* ============================================= */
-            /* СТРАНИЦА 1: BRUTALIST COVER */
+            /* СТРАНИЦА 1: ORGANIC COVER */
             /* ============================================= */
             .cover {
                 height: 297mm;
-                background: #000;
+                background: linear-gradient(180deg, #e3f2fd 0%, #bbdefb 50%, #e3f2fd 100%);
                 position: relative;
                 overflow: hidden;
                 page-break-after: always;
             }
             
-            /* Диагональный блок */
-            .cover-diagonal {
+            /* Большой blob сверху справа */
+            .blob-1 {
                 position: absolute;
-                top: -100px;
+                top: -150px;
                 right: -100px;
                 width: 500px;
-                height: 800px;
-                background: #2196F3;
-                transform: rotate(15deg);
+                height: 500px;
+                background: linear-gradient(135deg, #2196F3 0%, #1976D2 50%, #0d47a1 100%);
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
             }
             
-            /* Горизонтальные полосы */
-            .cover-stripe {
+            /* Blob поменьше */
+            .blob-2 {
                 position: absolute;
+                top: 100px;
+                right: 50px;
+                width: 200px;
+                height: 200px;
+                background: linear-gradient(135deg, #64b5f6 0%, #42a5f5 100%);
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                opacity: 0.7;
+            }
+            
+            /* Blob снизу слева */
+            .blob-3 {
+                position: absolute;
+                bottom: -100px;
+                left: -150px;
+                width: 450px;
+                height: 450px;
+                background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+                border-radius: 70% 30% 50% 50% / 50% 50% 30% 70%;
+            }
+            
+            /* Маленькие декоративные круги */
+            .circle-1 {
+                position: absolute;
+                top: 200px;
+                left: 80px;
+                width: 60px;
+                height: 60px;
+                background: rgba(33, 150, 243, 0.3);
+                border-radius: 50%;
+            }
+            
+            .circle-2 {
+                position: absolute;
+                top: 350px;
+                left: 150px;
+                width: 30px;
+                height: 30px;
+                background: rgba(33, 150, 243, 0.5);
+                border-radius: 50%;
+            }
+            
+            .circle-3 {
+                position: absolute;
+                bottom: 200px;
+                right: 200px;
+                width: 80px;
+                height: 80px;
+                border: 3px solid rgba(255, 255, 255, 0.5);
+                border-radius: 50%;
+            }
+            
+            .circle-4 {
+                position: absolute;
+                top: 450px;
+                right: 350px;
+                width: 120px;
+                height: 120px;
+                border: 2px solid rgba(33, 150, 243, 0.3);
+                border-radius: 50%;
+            }
+            
+            /* Волнистая линия */
+            .wave-line {
+                position: absolute;
+                bottom: 300px;
                 left: 0;
                 right: 0;
-                height: 8px;
-                background: #fff;
-            }
-            
-            .cover-stripe-1 { top: 25%; }
-            .cover-stripe-2 { top: 50%; }
-            .cover-stripe-3 { top: 75%; }
-            
-            /* Огромный текст */
-            .cover-huge {
-                position: absolute;
-                bottom: -40px;
-                left: 40px;
-                font-size: 180pt;
-                font-weight: 900;
-                color: rgba(255,255,255,0.08);
-                letter-spacing: -15px;
-                line-height: 0.8;
+                height: 100px;
+                background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 100'%3E%3Cpath d='M0,50 Q150,0 300,50 T600,50 T900,50 T1200,50' fill='none' stroke='rgba(33,150,243,0.2)' stroke-width='2'/%3E%3C/svg%3E");
+                background-size: 100% 100%;
             }
             
             /* Логотип */
             .cover-logo {
                 position: absolute;
-                top: 60px;
-                left: 50px;
-                display: flex;
+                top: 80px;
+                left: 60px;
+                z-index: 10;
+            }
+            
+            .cover-logo-container {
+                display: inline-flex;
+                background: white;
+                border-radius: 20px;
+                padding: 15px 25px;
+                box-shadow: 0 20px 60px rgba(33, 150, 243, 0.3);
             }
             
             .cover-logo-work {
-                background: #2196F3;
-                color: #000;
-                font-size: 28pt;
-                font-weight: 900;
-                padding: 15px 20px;
+                background: linear-gradient(135deg, #2196F3, #1976D2);
+                color: white;
+                font-size: 32pt;
+                font-weight: 700;
+                padding: 10px 18px;
+                border-radius: 12px;
             }
             
             .cover-logo-here {
-                background: #fff;
-                color: #000;
-                font-size: 28pt;
-                font-weight: 900;
-                padding: 15px 20px;
+                color: #1a1a2e;
+                font-size: 32pt;
+                font-weight: 700;
+                padding: 10px 18px;
             }
             
-            /* Главный текст */
-            .cover-main {
+            /* Главный контент */
+            .cover-content {
                 position: absolute;
-                top: 200px;
-                left: 50px;
-                max-width: 450px;
+                top: 280px;
+                left: 60px;
+                max-width: 420px;
+                z-index: 10;
+            }
+            
+            .cover-badge {
+                display: inline-block;
+                background: white;
+                color: #2196F3;
+                font-size: 9pt;
+                font-weight: 600;
+                padding: 8px 20px;
+                border-radius: 50px;
+                margin-bottom: 25px;
+                box-shadow: 0 5px 20px rgba(33, 150, 243, 0.2);
             }
             
             .cover-title {
-                font-size: 11pt;
-                font-weight: 900;
-                color: #2196F3;
-                text-transform: uppercase;
-                letter-spacing: 5px;
-                margin-bottom: 30px;
+                font-size: 38pt;
+                font-weight: 700;
+                color: #1a1a2e;
+                line-height: 1.1;
+                margin-bottom: 25px;
             }
             
-            .cover-headline {
-                font-size: 48pt;
-                font-weight: 900;
-                color: #fff;
-                line-height: 0.95;
-                margin-bottom: 30px;
-                text-transform: uppercase;
+            .cover-title span {
+                color: #2196F3;
             }
             
             .cover-desc {
-                font-family: Arial, sans-serif;
-                font-size: 12pt;
-                font-weight: 400;
-                color: rgba(255,255,255,0.7);
-                line-height: 1.6;
-                max-width: 380px;
+                font-size: 13pt;
+                color: #4a5568;
+                line-height: 1.7;
+                margin-bottom: 40px;
             }
             
-            /* Блоки внизу */
-            .cover-blocks {
-                position: absolute;
-                bottom: 50px;
-                left: 50px;
+            /* Карточки-фичи */
+            .cover-features {
                 display: flex;
-                gap: 3px;
+                gap: 15px;
             }
             
-            .cover-block {
-                width: 100px;
-                height: 100px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
+            .cover-feature {
+                background: white;
+                border-radius: 16px;
+                padding: 20px;
+                width: 120px;
                 text-align: center;
+                box-shadow: 0 10px 40px rgba(33, 150, 243, 0.15);
             }
             
-            .cover-block:nth-child(1) { background: #2196F3; }
-            .cover-block:nth-child(2) { background: #fff; }
-            .cover-block:nth-child(3) { background: #2196F3; }
-            .cover-block:nth-child(4) { background: #fff; }
-            
-            .cover-block-value {
-                font-size: 24pt;
-                font-weight: 900;
-                color: #000;
+            .cover-feature-icon {
+                font-size: 28pt;
+                margin-bottom: 10px;
             }
             
-            .cover-block-label {
-                font-size: 7pt;
-                font-weight: 700;
-                color: #000;
-                text-transform: uppercase;
-                letter-spacing: 1px;
+            .cover-feature-text {
+                font-size: 9pt;
+                font-weight: 600;
+                color: #1a1a2e;
+            }
+            
+            /* Нижний текст на blob */
+            .cover-bottom-text {
+                position: absolute;
+                bottom: 80px;
+                left: 100px;
+                color: white;
+                z-index: 10;
+            }
+            
+            .cover-bottom-text h3 {
+                font-size: 14pt;
+                font-weight: 300;
+                opacity: 0.9;
+                margin-bottom: 5px;
+            }
+            
+            .cover-bottom-text p {
+                font-size: 10pt;
+                opacity: 0.7;
             }
             
             /* ============================================= */
-            /* СТРАНИЦА 2: BRUTALIST CONTENT */
+            /* СТРАНИЦА 2: ORGANIC CONTENT */
             /* ============================================= */
             .page {
                 height: 297mm;
-                background: #fff;
+                background: #fafcff;
                 position: relative;
                 overflow: hidden;
             }
             
-            /* Чёрная полоса сверху */
-            .page-top-bar {
-                background: #000;
-                padding: 15px 40px;
+            /* Декоративные blobs на странице */
+            .page-blob-1 {
+                position: absolute;
+                top: -80px;
+                right: -80px;
+                width: 250px;
+                height: 250px;
+                background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(25, 118, 210, 0.05));
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            }
+            
+            .page-blob-2 {
+                position: absolute;
+                bottom: -100px;
+                left: -100px;
+                width: 300px;
+                height: 300px;
+                background: linear-gradient(135deg, rgba(33, 150, 243, 0.08), rgba(25, 118, 210, 0.03));
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            }
+            
+            /* Волнистый header */
+            .page-header {
+                background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+                padding: 25px 40px 60px;
+                position: relative;
+            }
+            
+            .page-header::after {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                right: 0;
+                height: 50px;
+                background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 50'%3E%3Cpath d='M0,0 L0,30 Q300,50 600,30 T1200,30 L1200,0 Z' fill='%23fafcff'/%3E%3C/svg%3E");
+                background-size: 100% 100%;
+            }
+            
+            .page-header-content {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -202,461 +310,617 @@ def generate_pdf():
             
             .page-logo {
                 display: flex;
+                align-items: center;
             }
             
             .page-logo-work {
-                background: #2196F3;
-                color: #000;
-                font-size: 12pt;
-                font-weight: 900;
-                padding: 5px 10px;
+                background: white;
+                color: #2196F3;
+                font-size: 14pt;
+                font-weight: 700;
+                padding: 6px 12px;
+                border-radius: 8px;
             }
             
             .page-logo-here {
-                color: #fff;
-                font-size: 12pt;
-                font-weight: 900;
-                padding: 5px 10px;
+                color: white;
+                font-size: 14pt;
+                font-weight: 700;
+                padding: 6px 10px;
             }
             
             .page-title {
-                color: #fff;
-                font-size: 9pt;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 3px;
+                color: white;
+                font-size: 11pt;
+                font-weight: 500;
             }
             
             /* Контент */
             .content {
-                padding: 30px 40px;
+                padding: 20px 40px 30px;
+                position: relative;
+                z-index: 10;
             }
             
-            /* Секция с жирным заголовком */
-            .brutal-section {
+            /* Intro с волнистой рамкой */
+            .intro-wave {
+                background: white;
+                border-radius: 24px;
+                padding: 25px 30px;
                 margin-bottom: 20px;
+                box-shadow: 0 10px 40px rgba(33, 150, 243, 0.1);
+                position: relative;
+                border: 2px solid rgba(33, 150, 243, 0.1);
             }
             
-            .brutal-header {
-                display: flex;
-                align-items: stretch;
-                margin-bottom: 15px;
+            .intro-wave::before {
+                content: '';
+                position: absolute;
+                top: -3px;
+                left: 30px;
+                right: 30px;
+                height: 6px;
+                background: linear-gradient(90deg, #2196F3, #64b5f6, #2196F3);
+                border-radius: 3px;
             }
             
-            .brutal-number {
-                background: #000;
-                color: #fff;
-                font-size: 24pt;
-                font-weight: 900;
-                padding: 10px 20px;
-                display: flex;
-                align-items: center;
-            }
-            
-            .brutal-title {
-                background: #2196F3;
-                color: #000;
-                font-size: 14pt;
-                font-weight: 900;
-                padding: 10px 20px;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                display: flex;
-                align-items: center;
-                flex: 1;
-            }
-            
-            /* Сетка аудитории */
-            .audience-brutal {
-                display: flex;
-                gap: 3px;
-                margin-bottom: 20px;
-            }
-            
-            .audience-brutal-item {
-                flex: 1;
-                background: #f0f0f0;
-                padding: 20px;
-                border-left: 5px solid #000;
-            }
-            
-            .audience-brutal-item h4 {
+            .intro-wave p {
                 font-size: 11pt;
-                font-weight: 900;
-                text-transform: uppercase;
-                margin-bottom: 8px;
+                color: #333;
+                line-height: 1.7;
             }
             
-            .audience-brutal-item p {
-                font-family: Arial, sans-serif;
+            .intro-wave strong {
+                color: #2196F3;
+            }
+            
+            /* Секции с blob-иконками */
+            .section-blob {
+                margin-bottom: 18px;
+            }
+            
+            .section-blob-header {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 12px;
+            }
+            
+            .section-blob-icon {
+                width: 45px;
+                height: 45px;
+                background: linear-gradient(135deg, #2196F3, #1976D2);
+                border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 18pt;
+                flex-shrink: 0;
+            }
+            
+            .section-blob-title {
+                font-size: 14pt;
+                font-weight: 700;
+                color: #1a1a2e;
+            }
+            
+            /* Карточки аудитории - organic */
+            .audience-organic {
+                display: flex;
+                gap: 12px;
+                margin-bottom: 18px;
+            }
+            
+            .audience-card-organic {
+                flex: 1;
+                background: white;
+                border-radius: 20px;
+                padding: 18px;
+                box-shadow: 0 5px 25px rgba(33, 150, 243, 0.08);
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .audience-card-organic::before {
+                content: '';
+                position: absolute;
+                top: -20px;
+                right: -20px;
+                width: 80px;
+                height: 80px;
+                background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), transparent);
+                border-radius: 50%;
+            }
+            
+            .audience-card-organic h4 {
+                font-size: 11pt;
+                font-weight: 700;
+                color: #2196F3;
+                margin-bottom: 6px;
+            }
+            
+            .audience-card-organic p {
                 font-size: 9pt;
-                font-weight: 400;
-                color: #444;
+                color: #64748b;
                 line-height: 1.5;
             }
             
-            /* Проблемы - жёсткая таблица */
-            .problems-brutal {
-                width: 100%;
-                border-collapse: collapse;
-                margin-bottom: 20px;
+            /* Проблемы → Решения с волнами */
+            .problems-organic {
+                background: white;
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 5px 25px rgba(33, 150, 243, 0.08);
+                margin-bottom: 18px;
             }
             
-            .problems-brutal th {
-                background: #000;
-                color: #fff;
-                font-size: 9pt;
-                font-weight: 900;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                padding: 12px 15px;
-                text-align: left;
-            }
-            
-            .problems-brutal td {
-                padding: 10px 15px;
-                font-family: Arial, sans-serif;
-                font-size: 9pt;
-                border-bottom: 2px solid #000;
-            }
-            
-            .problems-brutal .problem {
-                background: #ffebee;
-                color: #b71c1c;
-                font-weight: 700;
-            }
-            
-            .problems-brutal .solution {
-                background: #e8f5e9;
-                color: #1b5e20;
-                font-weight: 700;
-            }
-            
-            /* Функционал - блоки */
-            .features-brutal {
+            .problems-organic-header {
+                background: linear-gradient(90deg, #2196F3, #42a5f5);
+                padding: 12px 20px;
                 display: flex;
-                flex-wrap: wrap;
-                gap: 3px;
-                margin-bottom: 20px;
-            }
-            
-            .feature-brutal {
-                width: calc(25% - 3px);
-                background: #000;
-                color: #fff;
-                padding: 15px;
-            }
-            
-            .feature-brutal h5 {
-                font-size: 10pt;
-                font-weight: 900;
-                text-transform: uppercase;
-                margin-bottom: 10px;
-                color: #2196F3;
-            }
-            
-            .feature-brutal ul {
-                list-style: none;
-            }
-            
-            .feature-brutal li {
-                font-family: Arial, sans-serif;
-                font-size: 8pt;
-                font-weight: 400;
-                padding: 3px 0;
-                color: rgba(255,255,255,0.8);
-            }
-            
-            .feature-brutal li::before {
-                content: '► ';
-                color: #2196F3;
-            }
-            
-            /* ИИ блок */
-            .ai-brutal {
-                background: #2196F3;
-                padding: 20px 25px;
-                margin-bottom: 20px;
-                display: flex;
-                align-items: center;
                 gap: 20px;
             }
             
-            .ai-brutal-badge {
-                background: #000;
-                color: #fff;
-                font-size: 10pt;
-                font-weight: 900;
-                padding: 15px 20px;
-                text-transform: uppercase;
+            .problems-organic-header span {
+                color: white;
+                font-size: 9pt;
+                font-weight: 600;
+                flex: 1;
             }
             
-            .ai-brutal-content h3 {
-                font-size: 14pt;
-                font-weight: 900;
-                color: #000;
-                text-transform: uppercase;
+            .problems-organic-row {
+                display: flex;
+                border-bottom: 1px solid #f0f4f8;
+            }
+            
+            .problems-organic-row:last-child {
+                border-bottom: none;
+            }
+            
+            .problems-organic-cell {
+                flex: 1;
+                padding: 10px 20px;
+                font-size: 9pt;
+            }
+            
+            .problems-organic-cell.problem {
+                color: #64748b;
+            }
+            
+            .problems-organic-cell.solution {
+                color: #2196F3;
+                font-weight: 600;
+                position: relative;
+                padding-left: 35px;
+            }
+            
+            .problems-organic-cell.solution::before {
+                content: '✓';
+                position: absolute;
+                left: 20px;
+                color: #2196F3;
+            }
+            
+            /* Функционал - blob-карточки */
+            .features-organic {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-bottom: 18px;
+            }
+            
+            .feature-organic {
+                width: calc(25% - 8px);
+                background: white;
+                border-radius: 16px;
+                padding: 15px;
+                box-shadow: 0 5px 20px rgba(33, 150, 243, 0.06);
+                position: relative;
+            }
+            
+            .feature-organic::before {
+                content: '';
+                position: absolute;
+                bottom: -5px;
+                left: 10px;
+                right: 10px;
+                height: 10px;
+                background: linear-gradient(90deg, rgba(33, 150, 243, 0.1), rgba(33, 150, 243, 0.05));
+                border-radius: 0 0 16px 16px;
+                filter: blur(5px);
+            }
+            
+            .feature-organic h5 {
+                font-size: 9pt;
+                font-weight: 700;
+                color: #2196F3;
+                margin-bottom: 8px;
+            }
+            
+            .feature-organic ul {
+                list-style: none;
+            }
+            
+            .feature-organic li {
+                font-size: 8pt;
+                color: #64748b;
+                padding: 2px 0;
+            }
+            
+            .feature-organic li::before {
+                content: '◦ ';
+                color: #2196F3;
+            }
+            
+            /* ИИ блок - градиентный blob */
+            .ai-organic {
+                background: linear-gradient(135deg, #2196F3 0%, #1976D2 50%, #1565C0 100%);
+                border-radius: 24px;
+                padding: 22px 28px;
+                margin-bottom: 18px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .ai-organic::before {
+                content: '';
+                position: absolute;
+                top: -50px;
+                right: -50px;
+                width: 200px;
+                height: 200px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+            }
+            
+            .ai-organic::after {
+                content: '';
+                position: absolute;
+                bottom: -30px;
+                left: 100px;
+                width: 100px;
+                height: 100px;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 50%;
+            }
+            
+            .ai-organic-icon {
+                width: 55px;
+                height: 55px;
+                background: white;
+                border-radius: 50% 50% 50% 30%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24pt;
+                flex-shrink: 0;
+                position: relative;
+                z-index: 1;
+            }
+            
+            .ai-organic-content {
+                position: relative;
+                z-index: 1;
+            }
+            
+            .ai-organic-content h3 {
+                color: white;
+                font-size: 13pt;
+                font-weight: 700;
                 margin-bottom: 5px;
             }
             
-            .ai-brutal-content p {
-                font-family: Arial, sans-serif;
+            .ai-organic-content p {
+                color: rgba(255, 255, 255, 0.9);
                 font-size: 9pt;
-                color: rgba(0,0,0,0.8);
                 line-height: 1.5;
             }
             
-            /* Интеграции */
-            .integrations-brutal {
+            /* Интеграции - пилюли */
+            .integrations-organic {
                 display: flex;
-                gap: 3px;
-                margin-bottom: 20px;
+                gap: 10px;
+                flex-wrap: wrap;
+                margin-bottom: 18px;
             }
             
-            .int-brutal {
-                flex: 1;
-                background: #f5f5f5;
-                padding: 15px;
-                text-align: center;
-                border-top: 4px solid #000;
-            }
-            
-            .int-brutal strong {
-                display: block;
-                font-size: 10pt;
-                font-weight: 900;
-                text-transform: uppercase;
-                margin-bottom: 5px;
-            }
-            
-            .int-brutal span {
-                font-family: Arial, sans-serif;
-                font-size: 8pt;
-                color: #666;
-            }
-            
-            /* Цена */
-            .price-brutal {
+            .int-organic {
+                background: white;
+                border-radius: 50px;
+                padding: 10px 20px;
+                box-shadow: 0 3px 15px rgba(33, 150, 243, 0.08);
                 display: flex;
+                align-items: center;
+                gap: 8px;
             }
             
-            .price-brutal-left {
-                flex: 1;
-                background: #000;
-                padding: 25px 30px;
-                color: #fff;
+            .int-organic-dot {
+                width: 10px;
+                height: 10px;
+                background: linear-gradient(135deg, #2196F3, #64b5f6);
+                border-radius: 50%;
             }
             
-            .price-brutal-label {
+            .int-organic strong {
                 font-size: 9pt;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                color: #2196F3;
-                margin-bottom: 10px;
+                color: #1a1a2e;
             }
             
-            .price-brutal-amount {
-                font-size: 48pt;
-                font-weight: 900;
+            .int-organic span {
+                font-size: 8pt;
+                color: #94a3b8;
+            }
+            
+            /* Цена - organic card */
+            .price-organic {
+                display: flex;
+                gap: 15px;
+            }
+            
+            .price-card-organic {
+                flex: 1;
+                background: white;
+                border-radius: 24px;
+                padding: 25px;
+                text-align: center;
+                box-shadow: 0 10px 40px rgba(33, 150, 243, 0.12);
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .price-card-organic::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 5px;
+                background: linear-gradient(90deg, #2196F3, #64b5f6, #2196F3);
+            }
+            
+            .price-label-organic {
+                font-size: 9pt;
+                color: #94a3b8;
+                margin-bottom: 8px;
+            }
+            
+            .price-value-organic {
+                font-size: 36pt;
+                font-weight: 800;
+                color: #2196F3;
                 line-height: 1;
             }
             
-            .price-brutal-currency {
-                font-size: 24pt;
+            .price-currency-organic {
+                font-size: 16pt;
+                color: #1a1a2e;
             }
             
-            .price-brutal-period {
-                font-family: Arial, sans-serif;
+            .price-period-organic {
                 font-size: 10pt;
-                font-weight: 400;
-                color: rgba(255,255,255,0.6);
+                color: #94a3b8;
                 margin-top: 5px;
             }
             
-            .price-brutal-right {
+            .cta-card-organic {
                 flex: 1;
-                background: #2196F3;
-                padding: 25px 30px;
+                background: linear-gradient(135deg, #2196F3, #1976D2);
+                border-radius: 24px;
+                padding: 25px;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
             }
             
-            .price-brutal-right h3 {
-                font-size: 18pt;
-                font-weight: 900;
-                color: #000;
-                text-transform: uppercase;
+            .cta-card-organic::before {
+                content: '';
+                position: absolute;
+                top: -30px;
+                right: -30px;
+                width: 100px;
+                height: 100px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+            }
+            
+            .cta-card-organic h3 {
+                color: white;
+                font-size: 15pt;
+                font-weight: 700;
                 margin-bottom: 5px;
+                position: relative;
             }
             
-            .price-brutal-right p {
-                font-family: Arial, sans-serif;
+            .cta-card-organic p {
+                color: rgba(255, 255, 255, 0.9);
                 font-size: 10pt;
-                color: rgba(0,0,0,0.8);
+                position: relative;
             }
         </style>
     </head>
     <body>
-        <!-- ===== СТРАНИЦА 1: BRUTALIST COVER ===== -->
+        <!-- ===== СТРАНИЦА 1: ORGANIC COVER ===== -->
         <div class="cover">
-            <div class="cover-diagonal"></div>
-            <div class="cover-stripe cover-stripe-1"></div>
-            <div class="cover-stripe cover-stripe-2"></div>
-            <div class="cover-stripe cover-stripe-3"></div>
-            <div class="cover-huge">WH</div>
+            <!-- Blobs -->
+            <div class="blob-1"></div>
+            <div class="blob-2"></div>
+            <div class="blob-3"></div>
             
+            <!-- Circles -->
+            <div class="circle-1"></div>
+            <div class="circle-2"></div>
+            <div class="circle-3"></div>
+            <div class="circle-4"></div>
+            
+            <!-- Wave -->
+            <div class="wave-line"></div>
+            
+            <!-- Logo -->
             <div class="cover-logo">
-                <span class="cover-logo-work">WORK</span>
-                <span class="cover-logo-here">HERE</span>
+                <div class="cover-logo-container">
+                    <span class="cover-logo-work">Work</span>
+                    <span class="cover-logo-here">Here</span>
+                </div>
             </div>
             
-            <div class="cover-main">
-                <div class="cover-title">Коммерческое предложение</div>
-                <h1 class="cover-headline">ATS/CRM для подбора персонала</h1>
+            <!-- Content -->
+            <div class="cover-content">
+                <div class="cover-badge">Коммерческое предложение</div>
+                <h1 class="cover-title">ATS/CRM <span>нового поколения</span></h1>
                 <p class="cover-desc">
                     Единое пространство для вакансий, кандидатов и коммуникаций. 
-                    Автоматизация рутины. Прозрачная аналитика. ИИ-поиск.
+                    Автоматизация, аналитика и ИИ-поиск в одной системе.
                 </p>
+                <div class="cover-features">
+                    <div class="cover-feature">
+                        <div class="cover-feature-icon">⚡</div>
+                        <div class="cover-feature-text">Быстрее в 5×</div>
+                    </div>
+                    <div class="cover-feature">
+                        <div class="cover-feature-icon">🔗</div>
+                        <div class="cover-feature-text">Интеграции</div>
+                    </div>
+                    <div class="cover-feature">
+                        <div class="cover-feature-icon">🧠</div>
+                        <div class="cover-feature-text">ИИ-поиск</div>
+                    </div>
+                </div>
             </div>
             
-            <div class="cover-blocks">
-                <div class="cover-block">
-                    <div class="cover-block-value">5×</div>
-                    <div class="cover-block-label">Быстрее</div>
-                </div>
-                <div class="cover-block">
-                    <div class="cover-block-value">0</div>
-                    <div class="cover-block-label">Дублей</div>
-                </div>
-                <div class="cover-block">
-                    <div class="cover-block-value">∞</div>
-                    <div class="cover-block-label">Связей</div>
-                </div>
-                <div class="cover-block">
-                    <div class="cover-block-value">AI</div>
-                    <div class="cover-block-label">Поиск</div>
-                </div>
+            <!-- Bottom text -->
+            <div class="cover-bottom-text">
+                <h3>Ускорьте подбор персонала</h3>
+                <p>От 20 000 ₽ в год</p>
             </div>
         </div>
         
-        <!-- ===== СТРАНИЦА 2: BRUTALIST CONTENT ===== -->
+        <!-- ===== СТРАНИЦА 2: ORGANIC CONTENT ===== -->
         <div class="page">
-            <div class="page-top-bar">
-                <div class="page-logo">
-                    <span class="page-logo-work">WORK</span>
-                    <span class="page-logo-here">HERE</span>
+            <!-- Decorative blobs -->
+            <div class="page-blob-1"></div>
+            <div class="page-blob-2"></div>
+            
+            <!-- Header with wave -->
+            <div class="page-header">
+                <div class="page-header-content">
+                    <div class="page-logo">
+                        <span class="page-logo-work">Work</span>
+                        <span class="page-logo-here">Here</span>
+                    </div>
+                    <span class="page-title">Возможности системы</span>
                 </div>
-                <span class="page-title">Возможности системы</span>
             </div>
             
             <div class="content">
+                <!-- Intro -->
+                <div class="intro-wave">
+                    <p><strong>WorkHere</strong> — единое пространство для вакансий, кандидатов и коммуникаций. Ускоряет закрытие позиций за счёт автоматизации рутины, единой базы и аналитики воронки.</p>
+                </div>
+                
                 <!-- Аудитория -->
-                <div class="brutal-section">
-                    <div class="brutal-header">
-                        <div class="brutal-number">01</div>
-                        <div class="brutal-title">Для кого</div>
+                <div class="section-blob">
+                    <div class="section-blob-header">
+                        <div class="section-blob-icon">👥</div>
+                        <div class="section-blob-title">Для кого</div>
                     </div>
-                    <div class="audience-brutal">
-                        <div class="audience-brutal-item">
-                            <h4>HR-директора</h4>
-                            <p>Прозрачность воронки, контроль качества, аналитика подбора</p>
-                        </div>
-                        <div class="audience-brutal-item">
-                            <h4>Рекрутеры</h4>
-                            <p>Быстрый поиск, единая база, автоматизация рутины</p>
-                        </div>
-                        <div class="audience-brutal-item">
-                            <h4>HR-универсалы</h4>
-                            <p>Интеграция с 1С, передача данных о сотрудниках</p>
-                        </div>
+                </div>
+                
+                <div class="audience-organic">
+                    <div class="audience-card-organic">
+                        <h4>HR-директора</h4>
+                        <p>Прозрачность воронки, контроль качества, аналитика</p>
+                    </div>
+                    <div class="audience-card-organic">
+                        <h4>Рекрутеры</h4>
+                        <p>Быстрый поиск, единая база, автоматизация</p>
+                    </div>
+                    <div class="audience-card-organic">
+                        <h4>HR-универсалы</h4>
+                        <p>Интеграция с 1С, передача данных</p>
                     </div>
                 </div>
                 
                 <!-- Проблемы -->
-                <div class="brutal-section">
-                    <div class="brutal-header">
-                        <div class="brutal-number">02</div>
-                        <div class="brutal-title">Проблемы → Решения</div>
+                <div class="problems-organic">
+                    <div class="problems-organic-header">
+                        <span>Проблема</span>
+                        <span>Решение WorkHere</span>
                     </div>
-                    <table class="problems-brutal">
-                        <tr>
-                            <th width="50%">Было</th>
-                            <th>Стало</th>
-                        </tr>
-                        <tr>
-                            <td class="problem">Данные в почте и таблицах</td>
-                            <td class="solution">Единая база кандидатов</td>
-                        </tr>
-                        <tr>
-                            <td class="problem">Нет контроля этапов</td>
-                            <td class="solution">Воронка с аналитикой</td>
-                        </tr>
-                        <tr>
-                            <td class="problem">Много рутины</td>
-                            <td class="solution">Автоматизация</td>
-                        </tr>
-                        <tr>
-                            <td class="problem">Дубли кандидатов</td>
-                            <td class="solution">Дедупликация</td>
-                        </tr>
-                    </table>
+                    <div class="problems-organic-row">
+                        <div class="problems-organic-cell problem">Данные в почте и таблицах</div>
+                        <div class="problems-organic-cell solution">Единая база кандидатов</div>
+                    </div>
+                    <div class="problems-organic-row">
+                        <div class="problems-organic-cell problem">Нет контроля этапов</div>
+                        <div class="problems-organic-cell solution">Воронка с аналитикой</div>
+                    </div>
+                    <div class="problems-organic-row">
+                        <div class="problems-organic-cell problem">Дубли кандидатов</div>
+                        <div class="problems-organic-cell solution">Автодедупликация</div>
+                    </div>
                 </div>
                 
                 <!-- Функционал -->
-                <div class="brutal-section">
-                    <div class="brutal-header">
-                        <div class="brutal-number">03</div>
-                        <div class="brutal-title">Функционал</div>
+                <div class="section-blob">
+                    <div class="section-blob-header">
+                        <div class="section-blob-icon">⚡</div>
+                        <div class="section-blob-title">Функционал</div>
                     </div>
-                    <div class="features-brutal">
-                        <div class="feature-brutal">
-                            <h5>Подбор</h5>
-                            <ul><li>Воронка</li><li>Карточки</li><li>Задачи</li></ul>
-                        </div>
-                        <div class="feature-brutal">
-                            <h5>Контроль</h5>
-                            <ul><li>История</li><li>Согласования</li><li>Команда</li></ul>
-                        </div>
-                        <div class="feature-brutal">
-                            <h5>Аналитика</h5>
-                            <ul><li>Конверсия</li><li>Скорость</li><li>Источники</li></ul>
-                        </div>
-                        <div class="feature-brutal">
-                            <h5>Качество</h5>
-                            <ul><li>Дедупликация</li><li>Объединение</li><li>Чистота</li></ul>
-                        </div>
+                </div>
+                
+                <div class="features-organic">
+                    <div class="feature-organic">
+                        <h5>Подбор</h5>
+                        <ul><li>Воронка/канбан</li><li>Карточки</li><li>Напоминания</li></ul>
+                    </div>
+                    <div class="feature-organic">
+                        <h5>Прозрачность</h5>
+                        <ul><li>История</li><li>Согласования</li><li>Команда</li></ul>
+                    </div>
+                    <div class="feature-organic">
+                        <h5>Аналитика</h5>
+                        <ul><li>Конверсия</li><li>Скорость</li><li>Источники</li></ul>
+                    </div>
+                    <div class="feature-organic">
+                        <h5>Качество</h5>
+                        <ul><li>Дедупликация</li><li>Объединение</li><li>Чистота</li></ul>
                     </div>
                 </div>
                 
                 <!-- ИИ -->
-                <div class="ai-brutal">
-                    <div class="ai-brutal-badge">🧠 AI</div>
-                    <div class="ai-brutal-content">
+                <div class="ai-organic">
+                    <div class="ai-organic-icon">🧠</div>
+                    <div class="ai-organic-content">
                         <h3>ИИ-поиск кандидатов</h3>
-                        <p>Интеллектуальный поиск по базе и работным сайтам. Находит по смыслу, не по ключевым словам.</p>
+                        <p>Интеллектуальный поиск по базе и работным сайтам. Находит по смыслу, а не только по ключевым словам.</p>
                     </div>
                 </div>
                 
                 <!-- Интеграции -->
-                <div class="integrations-brutal">
-                    <div class="int-brutal"><strong>Job-сайты</strong><span>автоимпорт</span></div>
-                    <div class="int-brutal"><strong>Мессенджеры</strong><span>история</span></div>
-                    <div class="int-brutal"><strong>1С</strong><span>обмен</span></div>
-                    <div class="int-brutal"><strong>API</strong><span>любые</span></div>
+                <div class="integrations-organic">
+                    <div class="int-organic"><div class="int-organic-dot"></div><strong>Джоб-сайты</strong><span>автоимпорт</span></div>
+                    <div class="int-organic"><div class="int-organic-dot"></div><strong>Мессенджеры</strong><span>история</span></div>
+                    <div class="int-organic"><div class="int-organic-dot"></div><strong>1С</strong><span>обмен</span></div>
+                    <div class="int-organic"><div class="int-organic-dot"></div><strong>API</strong><span>любые системы</span></div>
                 </div>
                 
                 <!-- Цена -->
-                <div class="price-brutal">
-                    <div class="price-brutal-left">
-                        <div class="price-brutal-label">Лицензия</div>
-                        <div class="price-brutal-amount">20 000 <span class="price-brutal-currency">₽</span></div>
-                        <div class="price-brutal-period">в год</div>
+                <div class="price-organic">
+                    <div class="price-card-organic">
+                        <div class="price-label-organic">Базовая лицензия</div>
+                        <div class="price-value-organic">20 000 <span class="price-currency-organic">₽</span></div>
+                        <div class="price-period-organic">в год</div>
                     </div>
-                    <div class="price-brutal-right">
-                        <h3>Начать</h3>
-                        <p>Свяжитесь для демо</p>
+                    <div class="cta-card-organic">
+                        <h3>Начните сегодня</h3>
+                        <p>Свяжитесь для демонстрации</p>
                     </div>
                 </div>
             </div>
