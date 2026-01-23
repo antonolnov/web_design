@@ -107,12 +107,13 @@ def generate_pdf():
             }
             
             .cover-logo-work {
-                background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+                background: linear-gradient(135deg, #1890ff 0%, #40a9ff 100%);
                 color: white;
                 font-size: 26pt;
                 font-weight: 700;
                 padding: 8px 14px;
                 border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(24, 144, 255, 0.4);
             }
             
             .cover-logo-here {
@@ -145,9 +146,9 @@ def generate_pdf():
             .cover-eyebrow-dot {
                 width: 8px;
                 height: 8px;
-                background: #2196F3;
+                background: #1890ff;
                 border-radius: 50%;
-                box-shadow: 0 0 10px #2196F3;
+                box-shadow: 0 0 10px #1890ff;
             }
             
             .cover-eyebrow span {
@@ -167,7 +168,7 @@ def generate_pdf():
             }
             
             .cover-title-accent {
-                background: linear-gradient(135deg, #2196F3, #64b5f6);
+                background: linear-gradient(135deg, #1890ff, #64b5f6);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -201,7 +202,7 @@ def generate_pdf():
             .cover-pill-value {
                 font-size: 26pt;
                 font-weight: 700;
-                background: linear-gradient(135deg, #2196F3, #64b5f6);
+                background: linear-gradient(135deg, #1890ff, #64b5f6);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -298,7 +299,7 @@ def generate_pdf():
             }
             
             .page-logo-work {
-                background: linear-gradient(135deg, #2196F3, #1976D2);
+                background: linear-gradient(135deg, #1890ff, #40a9ff);
                 color: white;
                 font-size: 12pt;
                 font-weight: 700;
@@ -330,7 +331,7 @@ def generate_pdf():
             .intro {
                 background: rgba(255, 255, 255, 0.03);
                 border: 1px solid rgba(255, 255, 255, 0.08);
-                border-left: 3px solid #2196F3;
+                border-left: 3px solid #1890ff;
                 border-radius: 12px;
                 padding: 16px 20px;
                 margin-bottom: 16px;
@@ -357,7 +358,7 @@ def generate_pdf():
             .section-icon {
                 width: 30px;
                 height: 30px;
-                background: linear-gradient(135deg, #2196F3, #1976D2);
+                background: linear-gradient(135deg, #1890ff, #1976D2);
                 border-radius: 8px;
                 display: flex;
                 align-items: center;
@@ -394,7 +395,7 @@ def generate_pdf():
                 left: 0;
                 right: 0;
                 height: 2px;
-                background: linear-gradient(90deg, #2196F3, #64b5f6);
+                background: linear-gradient(90deg, #1890ff, #64b5f6);
                 border-radius: 12px 12px 0 0;
             }
             
@@ -457,7 +458,7 @@ def generate_pdf():
             }
             
             .problem-arrow {
-                color: #2196F3;
+                color: #1890ff;
                 font-weight: bold;
                 padding: 0 10px;
             }
@@ -489,7 +490,7 @@ def generate_pdf():
             .feature-item h5 {
                 font-size: 9pt;
                 font-weight: 700;
-                color: #2196F3;
+                color: #1890ff;
                 margin-bottom: 3px;
             }
             
@@ -526,7 +527,7 @@ def generate_pdf():
             .ai-icon {
                 width: 48px;
                 height: 48px;
-                background: linear-gradient(135deg, #2196F3, #1976D2);
+                background: linear-gradient(135deg, #1890ff, #1976D2);
                 border-radius: 12px;
                 display: flex;
                 align-items: center;
@@ -632,7 +633,7 @@ def generate_pdf():
                 left: 0;
                 right: 0;
                 height: 3px;
-                background: linear-gradient(90deg, #2196F3, #64b5f6);
+                background: linear-gradient(90deg, #1890ff, #64b5f6);
                 border-radius: 16px 16px 0 0;
             }
             
@@ -645,7 +646,7 @@ def generate_pdf():
             .price-value {
                 font-size: 34pt;
                 font-weight: 700;
-                background: linear-gradient(135deg, #2196F3, #64b5f6);
+                background: linear-gradient(135deg, #1890ff, #64b5f6);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -665,7 +666,7 @@ def generate_pdf():
             
             .cta-card {
                 flex: 1;
-                background: linear-gradient(135deg, #2196F3, #1976D2);
+                background: linear-gradient(135deg, #1890ff, #1976D2);
                 border-radius: 16px;
                 padding: 22px;
                 display: flex;
@@ -701,6 +702,29 @@ def generate_pdf():
                 font-size: 9pt;
                 position: relative;
             }
+            
+            /* Footer */
+            .page-footer {
+                position: absolute;
+                bottom: 25px;
+                left: 40px;
+                right: 40px;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                padding-top: 15px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .page-footer-left {
+                font-size: 9pt;
+                color: rgba(255, 255, 255, 0.4);
+            }
+            
+            .page-footer-right {
+                font-size: 9pt;
+                color: rgba(255, 255, 255, 0.4);
+            }
         </style>
     </head>
     <body>
@@ -710,12 +734,12 @@ def generate_pdf():
             <svg class="cover-svg" viewBox="0 0 595 842" preserveAspectRatio="xMidYMid slice">
                 <defs>
                     <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#2196F3;stop-opacity:0.3"/>
+                        <stop offset="0%" style="stop-color:#1890ff;stop-opacity:0.3"/>
                         <stop offset="100%" style="stop-color:#1565C0;stop-opacity:0.1"/>
                     </linearGradient>
                     <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="100%">
                         <stop offset="0%" style="stop-color:#64b5f6;stop-opacity:0.2"/>
-                        <stop offset="100%" style="stop-color:#2196F3;stop-opacity:0.05"/>
+                        <stop offset="100%" style="stop-color:#1890ff;stop-opacity:0.05"/>
                     </linearGradient>
                 </defs>
                 
@@ -788,7 +812,7 @@ def generate_pdf():
             
             <!-- Bottom -->
             <div class="cover-bottom">
-                <div class="cover-bottom-left">© WorkHere 2025</div>
+                <div class="cover-bottom-left">© WorkHere 2026</div>
                 <div class="cover-bottom-right">
                     <div class="cover-price">от 20 000 ₽ / год</div>
                     <div class="cover-price-note">базовая лицензия</div>
@@ -802,7 +826,7 @@ def generate_pdf():
             <svg class="page-svg" viewBox="0 0 595 842" preserveAspectRatio="xMidYMid slice">
                 <defs>
                     <linearGradient id="pg1" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#2196F3;stop-opacity:0.08"/>
+                        <stop offset="0%" style="stop-color:#1890ff;stop-opacity:0.08"/>
                         <stop offset="100%" style="stop-color:#1976D2;stop-opacity:0.03"/>
                     </linearGradient>
                 </defs>
@@ -944,6 +968,12 @@ def generate_pdf():
                         <p>Свяжитесь для демонстрации</p>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="page-footer">
+                <div class="page-footer-left">© WorkHere 2026</div>
+                <div class="page-footer-right">workhere.ru</div>
             </div>
         </div>
     </body>
