@@ -104,7 +104,7 @@ export default function AIBadge() {
             }}
             animate={{ opacity: [0, 0.8, 0], scaleY: [0.3, 1, 0.3] }}
             transition={{
-              duration: 0.6 + Math.random() * 0.3,
+              duration: 0.6 + (i * 0.04),
               repeat: Infinity,
               delay: i * 0.1,
               repeatDelay: 0.5,
@@ -294,14 +294,15 @@ export default function AIBadge() {
             {/* Particle explosion */}
             {[...Array(40)].map((_, i) => {
               const angle = (i * 9) * Math.PI / 180;
-              const distance = 120 + Math.random() * 150;
+              const distance = 120 + (i % 10) * 15;
+              const size = 2 + (i % 3);
               return (
                 <motion.div
                   key={`particle-${i}`}
                   className="absolute rounded-full pointer-events-none"
                   style={{
-                    width: 2 + Math.random() * 3,
-                    height: 2 + Math.random() * 3,
+                    width: size,
+                    height: size,
                     background: `radial-gradient(circle, ${i % 3 === 0 ? '#fff' : '#40a9ff'} 0%, transparent 100%)`,
                   }}
                   initial={{ x: 0, y: 0, scale: 0, opacity: 0 }}
@@ -311,7 +312,7 @@ export default function AIBadge() {
                     scale: [0, 1.5, 0],
                     opacity: [0, 0.8, 0],
                   }}
-                  transition={{ duration: 2 + Math.random() * 0.5, delay: 0.1 + Math.random() * 0.3 }}
+                  transition={{ duration: 2 + (i % 5) * 0.1, delay: 0.1 + (i % 8) * 0.04 }}
                 />
               );
             })}
