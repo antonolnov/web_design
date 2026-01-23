@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Генератор PDF коммерческого предложения WorkHere
-INSANE DESIGN EDITION
+EDITORIAL / MAGAZINE STYLE
 """
 
 from weasyprint import HTML, CSS
@@ -31,919 +31,645 @@ def generate_pdf():
             }
             
             body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-                color: #1a1a2e;
-                font-size: 9pt;
-                line-height: 1.4;
+                font-family: 'Georgia', 'Times New Roman', serif;
+                color: #0a0a0a;
+                font-size: 10pt;
+                line-height: 1.5;
             }
             
             /* ============================================= */
-            /* СТРАНИЦА 1: БЕЗУМНЫЙ ТИТУЛ */
+            /* СТРАНИЦА 1: EDITORIAL COVER */
             /* ============================================= */
             .cover {
                 height: 297mm;
-                background: #0a0a1a;
+                background: #fafafa;
                 position: relative;
                 overflow: hidden;
                 page-break-after: always;
             }
             
-            /* Гигантские диагональные полосы */
-            .cover-stripe {
-                position: absolute;
-                width: 400%;
-                height: 120px;
-                transform: rotate(-35deg);
-                transform-origin: center;
-            }
-            
-            .cover-stripe-1 {
-                top: -50px;
-                left: -100%;
-                background: linear-gradient(90deg, #2196F3 0%, #00bcd4 50%, #2196F3 100%);
-                opacity: 0.9;
-            }
-            
-            .cover-stripe-2 {
-                top: 100px;
-                left: -120%;
-                background: linear-gradient(90deg, #1976D2 0%, #0d47a1 50%, #1976D2 100%);
-                opacity: 0.6;
-            }
-            
-            .cover-stripe-3 {
-                bottom: 150px;
-                left: -80%;
-                background: linear-gradient(90deg, #00bcd4 0%, #2196F3 50%, #00bcd4 100%);
-                opacity: 0.4;
-            }
-            
-            .cover-stripe-4 {
-                bottom: -20px;
-                left: -150%;
-                background: linear-gradient(90deg, #2196F3 0%, #1976D2 100%);
-                opacity: 0.7;
-            }
-            
-            /* Декоративные круги */
-            .cover-circle {
-                position: absolute;
-                border-radius: 50%;
-                border: 3px solid rgba(33, 150, 243, 0.3);
-            }
-            
-            .cover-circle-1 {
-                width: 600px;
-                height: 600px;
-                top: -200px;
-                right: -200px;
-            }
-            
-            .cover-circle-2 {
-                width: 400px;
-                height: 400px;
-                bottom: -100px;
-                left: -100px;
-                border-color: rgba(0, 188, 212, 0.3);
-            }
-            
-            .cover-circle-3 {
-                width: 200px;
-                height: 200px;
-                top: 40%;
-                left: 15%;
-                border-width: 2px;
-                border-color: rgba(255, 255, 255, 0.1);
-            }
-            
-            /* Точечная сетка */
-            .cover-dots {
+            /* Вертикальная линия слева */
+            .cover-line-left {
                 position: absolute;
                 top: 0;
-                left: 0;
-                right: 0;
                 bottom: 0;
-                background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
-                background-size: 30px 30px;
+                left: 60px;
+                width: 1px;
+                background: #0a0a0a;
             }
             
-            /* Главный контент обложки */
-            .cover-content {
+            /* Горизонтальная линия */
+            .cover-line-top {
                 position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 10;
-                text-align: center;
-            }
-            
-            /* Огромный логотип */
-            .mega-logo {
-                display: inline-flex;
-                margin-bottom: 60px;
-                position: relative;
-            }
-            
-            .mega-logo::before {
-                content: '';
-                position: absolute;
-                inset: -20px -40px;
-                background: rgba(33, 150, 243, 0.15);
-                border-radius: 20px;
-                transform: rotate(-2deg);
-            }
-            
-            .mega-logo::after {
-                content: '';
-                position: absolute;
-                inset: -10px -30px;
-                background: rgba(0, 188, 212, 0.1);
-                border-radius: 20px;
-                transform: rotate(1deg);
-            }
-            
-            .mega-logo-work {
-                position: relative;
-                z-index: 1;
-                background: linear-gradient(135deg, #2196F3 0%, #00bcd4 100%);
-                color: white;
-                font-size: 72pt;
-                font-weight: 800;
-                padding: 20px 35px;
-                border-radius: 16px;
-                letter-spacing: -2px;
-                box-shadow: 0 20px 60px rgba(33, 150, 243, 0.5);
-            }
-            
-            .mega-logo-here {
-                position: relative;
-                z-index: 1;
-                color: white;
-                font-size: 72pt;
-                font-weight: 800;
-                padding: 20px 35px;
-                letter-spacing: -2px;
-            }
-            
-            .cover-title {
-                color: white;
-                font-size: 18pt;
-                font-weight: 300;
-                letter-spacing: 12px;
-                text-transform: uppercase;
-                margin-bottom: 30px;
-                opacity: 0.9;
-            }
-            
-            .cover-subtitle {
-                color: rgba(255,255,255,0.7);
-                font-size: 13pt;
-                max-width: 400px;
-                margin: 0 auto;
-                line-height: 1.6;
-            }
-            
-            /* Нижняя панель */
-            .cover-bottom {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                padding: 30px 50px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
-            }
-            
-            .cover-tag {
-                background: rgba(255,255,255,0.1);
-                border: 1px solid rgba(255,255,255,0.2);
-                padding: 10px 24px;
-                border-radius: 50px;
-                color: white;
-                font-size: 10pt;
-                font-weight: 500;
-            }
-            
-            /* ============================================= */
-            /* СТРАНИЦА 2: КОНТЕНТ С БЕЗУМНОЙ ВЕРСТКОЙ */
-            /* ============================================= */
-            .page {
-                height: 297mm;
-                background: #f0f4f8;
-                position: relative;
-                overflow: hidden;
-            }
-            
-            /* Декоративный элемент сверху */
-            .page-deco-top {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 180px;
-                background: linear-gradient(135deg, #1a1a2e 0%, #2d3748 100%);
-                clip-path: polygon(0 0, 100% 0, 100% 60%, 0 100%);
-            }
-            
-            .page-deco-accent {
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 300px;
-                height: 180px;
-                background: linear-gradient(135deg, #2196F3 0%, #00bcd4 100%);
-                clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 60%);
-            }
-            
-            /* Мини-лого в углу */
-            .floating-logo {
-                position: absolute;
-                top: 25px;
-                left: 40px;
-                z-index: 10;
-                display: flex;
-                align-items: center;
-            }
-            
-            .floating-logo-work {
-                background: linear-gradient(135deg, #2196F3, #00bcd4);
-                color: white;
-                font-size: 14pt;
-                font-weight: 700;
-                padding: 6px 12px;
-                border-radius: 6px;
-            }
-            
-            .floating-logo-here {
-                color: white;
-                font-size: 14pt;
-                font-weight: 700;
-                padding: 6px 10px;
-            }
-            
-            /* Главный заголовок страницы */
-            .page-headline {
-                position: absolute;
-                top: 55px;
-                right: 50px;
-                text-align: right;
-                z-index: 10;
-            }
-            
-            .page-headline h2 {
-                color: white;
-                font-size: 24pt;
-                font-weight: 800;
-                letter-spacing: -1px;
-            }
-            
-            .page-headline p {
-                color: rgba(255,255,255,0.8);
-                font-size: 10pt;
-                margin-top: 5px;
-            }
-            
-            /* Основной контент */
-            .content-area {
-                position: absolute;
-                top: 140px;
-                left: 30px;
-                right: 30px;
-                bottom: 30px;
-            }
-            
-            /* Карточки со скосами */
-            .skew-card {
-                background: white;
-                border-radius: 16px;
-                position: relative;
-                overflow: hidden;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-                margin-bottom: 14px;
-            }
-            
-            .skew-card::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 8px;
-                height: 100%;
-                background: linear-gradient(180deg, #2196F3, #00bcd4);
-            }
-            
-            .skew-card-header {
-                background: linear-gradient(90deg, rgba(33,150,243,0.08), transparent);
-                padding: 14px 20px 14px 24px;
-                border-bottom: 1px solid #e2e8f0;
-                display: flex;
-                align-items: center;
-                gap: 12px;
-            }
-            
-            .skew-card-icon {
-                width: 36px;
-                height: 36px;
-                background: linear-gradient(135deg, #2196F3, #00bcd4);
-                border-radius: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                font-size: 16pt;
-                flex-shrink: 0;
-            }
-            
-            .skew-card-title {
-                font-size: 13pt;
-                font-weight: 700;
-                color: #1a1a2e;
-            }
-            
-            .skew-card-body {
-                padding: 16px 20px 16px 24px;
-            }
-            
-            /* Intro block - особый дизайн */
-            .intro-block {
-                background: linear-gradient(135deg, #1a1a2e 0%, #2d3748 100%);
-                border-radius: 16px;
-                padding: 20px 28px;
-                margin-bottom: 14px;
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .intro-block::before {
-                content: '';
-                position: absolute;
-                top: -50%;
-                right: -20%;
-                width: 200px;
-                height: 200px;
-                background: linear-gradient(135deg, #2196F3, #00bcd4);
-                border-radius: 50%;
-                opacity: 0.3;
-            }
-            
-            .intro-block p {
-                color: white;
-                font-size: 11pt;
-                line-height: 1.6;
-                position: relative;
-                z-index: 1;
-            }
-            
-            .intro-block strong {
-                color: #4dd0e1;
-            }
-            
-            /* Аудитория - горизонтальные карточки */
-            .audience-row {
-                display: flex;
-                gap: 12px;
-                margin-bottom: 14px;
-            }
-            
-            .audience-item {
-                flex: 1;
-                background: white;
-                border-radius: 14px;
-                padding: 16px;
-                position: relative;
-                overflow: hidden;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            }
-            
-            .audience-item::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 4px;
-                background: linear-gradient(90deg, #2196F3, #00bcd4);
-            }
-            
-            .audience-item:nth-child(2)::before {
-                background: linear-gradient(90deg, #00bcd4, #26c6da);
-            }
-            
-            .audience-item:nth-child(3)::before {
-                background: linear-gradient(90deg, #26c6da, #4dd0e1);
-            }
-            
-            .audience-item h4 {
-                font-size: 10pt;
-                font-weight: 700;
-                color: #1a1a2e;
-                margin-bottom: 4px;
-            }
-            
-            .audience-item p {
-                font-size: 8pt;
-                color: #64748b;
-                line-height: 1.4;
-            }
-            
-            /* Проблемы - креативный формат */
-            .problems-flow {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-            
-            .problem-item {
-                background: #fef2f2;
-                border-radius: 8px;
-                padding: 8px 14px;
-                font-size: 8pt;
-                color: #991b1b;
-                position: relative;
-            }
-            
-            .problem-item::after {
-                content: '→';
-                margin-left: 8px;
-                color: #2196F3;
-                font-weight: bold;
-            }
-            
-            .solution-item {
-                background: linear-gradient(135deg, #ecfdf5, #d1fae5);
-                border-radius: 8px;
-                padding: 8px 14px;
-                font-size: 8pt;
-                color: #065f46;
-                font-weight: 600;
-            }
-            
-            /* Функционал - геометрическая сетка */
-            .features-hex {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-            
-            .hex-item {
-                width: calc(25% - 8px);
-                background: white;
-                border-radius: 12px;
-                padding: 14px;
-                position: relative;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            }
-            
-            .hex-item::before {
-                content: '';
-                position: absolute;
-                top: 12px;
-                left: 12px;
-                width: 24px;
-                height: 24px;
-                background: linear-gradient(135deg, #2196F3, #00bcd4);
-                border-radius: 6px;
-                opacity: 0.15;
-            }
-            
-            .hex-item h5 {
-                font-size: 9pt;
-                font-weight: 700;
-                color: #1a1a2e;
-                margin-bottom: 6px;
-                padding-left: 0;
-            }
-            
-            .hex-item ul {
-                list-style: none;
-                padding: 0;
-            }
-            
-            .hex-item li {
-                font-size: 7.5pt;
-                color: #4a5568;
-                padding: 2px 0;
-                padding-left: 12px;
-                position: relative;
-            }
-            
-            .hex-item li::before {
-                content: '◆';
-                position: absolute;
-                left: 0;
-                color: #00bcd4;
-                font-size: 5pt;
-                top: 3px;
-            }
-            
-            /* ИИ блок - футуристичный */
-            .ai-futuristic {
-                background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 100%);
-                border-radius: 16px;
-                padding: 20px 24px;
-                margin-bottom: 14px;
-                position: relative;
-                overflow: hidden;
-            }
-            
-            .ai-futuristic::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: 
-                    radial-gradient(circle at 20% 50%, rgba(33, 150, 243, 0.2), transparent 40%),
-                    radial-gradient(circle at 80% 50%, rgba(0, 188, 212, 0.2), transparent 40%);
-            }
-            
-            .ai-futuristic::after {
-                content: '';
-                position: absolute;
-                top: 0;
+                top: 80px;
                 left: 0;
                 right: 0;
                 height: 1px;
-                background: linear-gradient(90deg, transparent, #2196F3, #00bcd4, transparent);
+                background: #0a0a0a;
             }
             
-            .ai-content {
-                position: relative;
-                z-index: 1;
+            /* Акцентный блок */
+            .cover-accent {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 35%;
+                height: 100%;
+                background: #2196F3;
+            }
+            
+            /* Текст на акценте */
+            .cover-accent-text {
+                position: absolute;
+                top: 100px;
+                right: 40px;
+                writing-mode: vertical-rl;
+                text-orientation: mixed;
+                color: rgba(255,255,255,0.3);
+                font-size: 120pt;
+                font-weight: 100;
+                letter-spacing: -5px;
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            }
+            
+            /* Номер издания */
+            .cover-issue {
+                position: absolute;
+                top: 30px;
+                left: 80px;
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 9pt;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+            }
+            
+            /* Главный заголовок */
+            .cover-main {
+                position: absolute;
+                top: 180px;
+                left: 80px;
+                max-width: 55%;
+            }
+            
+            .cover-logo {
                 display: flex;
-                align-items: center;
-                gap: 20px;
+                align-items: baseline;
+                margin-bottom: 60px;
             }
             
-            .ai-icon-box {
-                width: 50px;
-                height: 50px;
-                background: linear-gradient(135deg, #2196F3, #00bcd4);
-                border-radius: 12px;
+            .cover-logo-work {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 72pt;
+                font-weight: 800;
+                letter-spacing: -4px;
+                color: #0a0a0a;
+            }
+            
+            .cover-logo-here {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 72pt;
+                font-weight: 200;
+                letter-spacing: -4px;
+                color: #0a0a0a;
+            }
+            
+            .cover-tagline {
+                font-size: 14pt;
+                font-style: italic;
+                color: #555;
+                margin-bottom: 40px;
+                max-width: 350px;
+                line-height: 1.6;
+            }
+            
+            .cover-description {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 11pt;
+                color: #333;
+                line-height: 1.8;
+                max-width: 380px;
+            }
+            
+            /* Нижняя часть */
+            .cover-bottom {
+                position: absolute;
+                bottom: 60px;
+                left: 80px;
+                right: 40%;
+            }
+            
+            .cover-stats {
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 24pt;
-                flex-shrink: 0;
+                gap: 50px;
             }
             
-            .ai-text h3 {
+            .cover-stat {
+                text-align: left;
+            }
+            
+            .cover-stat-value {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 42pt;
+                font-weight: 800;
+                color: #0a0a0a;
+                line-height: 1;
+            }
+            
+            .cover-stat-label {
+                font-size: 9pt;
+                color: #777;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-top: 8px;
+            }
+            
+            /* Год */
+            .cover-year {
+                position: absolute;
+                bottom: 60px;
+                right: 50px;
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 14pt;
                 color: white;
-                font-size: 12pt;
-                font-weight: 700;
-                margin-bottom: 6px;
+                font-weight: 600;
             }
             
-            .ai-text p {
-                color: rgba(255,255,255,0.8);
-                font-size: 8.5pt;
+            /* ============================================= */
+            /* СТРАНИЦА 2: EDITORIAL CONTENT */
+            /* ============================================= */
+            .page {
+                height: 297mm;
+                background: white;
+                position: relative;
+                padding: 50px 50px 50px 80px;
+            }
+            
+            /* Боковая линия */
+            .page-sidebar {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 60px;
+                width: 1px;
+                background: #e0e0e0;
+            }
+            
+            /* Номер страницы */
+            .page-number {
+                position: absolute;
+                bottom: 40px;
+                left: 30px;
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 10pt;
+                color: #999;
+            }
+            
+            /* Заголовок страницы */
+            .page-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                margin-bottom: 30px;
+                padding-bottom: 15px;
+                border-bottom: 2px solid #0a0a0a;
+            }
+            
+            .page-title {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 9pt;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                color: #555;
+            }
+            
+            .page-logo {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 11pt;
+                font-weight: 700;
+            }
+            
+            /* Двухколоночная сетка */
+            .grid-2 {
+                display: flex;
+                gap: 40px;
+                margin-bottom: 25px;
+            }
+            
+            .col-left {
+                width: 38%;
+            }
+            
+            .col-right {
+                width: 62%;
+            }
+            
+            /* Секция */
+            .section {
+                margin-bottom: 25px;
+            }
+            
+            .section-number {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 48pt;
+                font-weight: 800;
+                color: #2196F3;
+                line-height: 0.9;
+                margin-bottom: 5px;
+            }
+            
+            .section-title {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 11pt;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                margin-bottom: 12px;
+                color: #0a0a0a;
+            }
+            
+            .section-text {
+                font-size: 10pt;
+                line-height: 1.7;
+                color: #333;
+            }
+            
+            /* Цитата */
+            .quote-block {
+                background: #f5f5f5;
+                padding: 25px 30px;
+                margin-bottom: 25px;
+                border-left: 4px solid #2196F3;
+            }
+            
+            .quote-text {
+                font-size: 13pt;
+                font-style: italic;
+                line-height: 1.6;
+                color: #0a0a0a;
+            }
+            
+            /* Список с номерами */
+            .numbered-list {
+                list-style: none;
+            }
+            
+            .numbered-list li {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 12px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid #eee;
+            }
+            
+            .numbered-list li:last-child {
+                border-bottom: none;
+            }
+            
+            .list-num {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 18pt;
+                font-weight: 800;
+                color: #2196F3;
+                min-width: 35px;
+            }
+            
+            .list-content h4 {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 10pt;
+                font-weight: 700;
+                margin-bottom: 3px;
+            }
+            
+            .list-content p {
+                font-size: 9pt;
+                color: #666;
                 line-height: 1.5;
             }
             
-            .ai-features {
+            /* Функции в колонках */
+            .features-columns {
                 display: flex;
-                gap: 16px;
-                margin-left: auto;
+                gap: 25px;
             }
             
-            .ai-feature {
-                text-align: center;
+            .feature-col {
+                flex: 1;
             }
             
-            .ai-feature-value {
-                color: #4dd0e1;
-                font-size: 14pt;
-                font-weight: 800;
-            }
-            
-            .ai-feature-label {
-                color: rgba(255,255,255,0.6);
-                font-size: 7pt;
+            .feature-col h4 {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 9pt;
+                font-weight: 700;
                 text-transform: uppercase;
-                letter-spacing: 0.5px;
+                letter-spacing: 1px;
+                margin-bottom: 10px;
+                padding-bottom: 8px;
+                border-bottom: 2px solid #0a0a0a;
             }
             
-            /* Интеграции - пилюли */
-            .integrations-bar {
-                display: flex;
-                gap: 8px;
-                flex-wrap: wrap;
-                margin-bottom: 14px;
+            .feature-col ul {
+                list-style: none;
             }
             
-            .int-pill {
-                background: white;
-                border-radius: 50px;
-                padding: 8px 18px;
-                font-size: 8.5pt;
-                font-weight: 600;
-                color: #1a1a2e;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-                border: 1px solid #e2e8f0;
-                display: flex;
-                align-items: center;
-                gap: 6px;
-            }
-            
-            .int-pill::before {
-                content: '';
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, #2196F3, #00bcd4);
-            }
-            
-            .int-pill span {
-                color: #64748b;
-                font-weight: 400;
-            }
-            
-            /* Нижняя секция - цена + CTA */
-            .bottom-duo {
-                display: flex;
-                gap: 16px;
-            }
-            
-            .price-block {
-                flex: 1;
-                background: white;
-                border-radius: 16px;
-                padding: 24px;
-                text-align: center;
+            .feature-col li {
+                font-size: 9pt;
+                color: #444;
+                padding: 5px 0;
+                padding-left: 15px;
                 position: relative;
-                overflow: hidden;
-                box-shadow: 0 10px 40px rgba(33, 150, 243, 0.15);
             }
             
-            .price-block::before {
-                content: '';
+            .feature-col li::before {
+                content: '—';
                 position: absolute;
-                top: 0;
                 left: 0;
-                right: 0;
-                height: 4px;
-                background: linear-gradient(90deg, #2196F3, #00bcd4);
+                color: #2196F3;
             }
             
-            .price-label {
-                font-size: 9pt;
-                color: #64748b;
-                margin-bottom: 8px;
-            }
-            
-            .price-value {
-                font-size: 36pt;
-                font-weight: 800;
-                background: linear-gradient(135deg, #2196F3, #00bcd4);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-            
-            .price-currency {
-                font-size: 16pt;
-                color: #1a1a2e;
-            }
-            
-            .price-period {
-                font-size: 9pt;
-                color: #64748b;
-                margin-top: 4px;
-            }
-            
-            .cta-block {
-                flex: 1;
-                background: linear-gradient(135deg, #2196F3, #00bcd4);
-                border-radius: 16px;
-                padding: 24px;
+            /* ИИ блок - журнальный */
+            .ai-editorial {
+                background: #0a0a0a;
+                padding: 25px 30px;
+                margin-bottom: 20px;
                 display: flex;
-                flex-direction: column;
-                justify-content: center;
-                text-align: center;
-                position: relative;
-                overflow: hidden;
+                gap: 30px;
+                align-items: center;
             }
             
-            .cta-block::before {
-                content: '';
-                position: absolute;
-                top: -50%;
-                right: -30%;
-                width: 150px;
-                height: 150px;
-                background: rgba(255,255,255,0.1);
-                border-radius: 50%;
+            .ai-editorial-icon {
+                font-size: 36pt;
+                flex-shrink: 0;
             }
             
-            .cta-block h3 {
+            .ai-editorial-content h3 {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
                 color: white;
                 font-size: 14pt;
                 font-weight: 700;
-                margin-bottom: 6px;
-                position: relative;
+                margin-bottom: 8px;
             }
             
-            .cta-block p {
-                color: rgba(255,255,255,0.9);
+            .ai-editorial-content p {
+                color: rgba(255,255,255,0.7);
                 font-size: 9pt;
-                position: relative;
+                line-height: 1.6;
             }
             
-            /* Декоративные элементы на странице */
-            .page-circle-1 {
-                position: absolute;
-                bottom: 100px;
-                right: -50px;
-                width: 200px;
-                height: 200px;
-                border: 2px solid rgba(33, 150, 243, 0.1);
-                border-radius: 50%;
+            /* Интеграции минималистично */
+            .integrations-minimal {
+                display: flex;
+                gap: 20px;
+                margin-bottom: 20px;
             }
             
-            .page-circle-2 {
-                position: absolute;
-                bottom: 60px;
-                right: -30px;
-                width: 120px;
-                height: 120px;
-                border: 2px solid rgba(0, 188, 212, 0.1);
-                border-radius: 50%;
+            .int-item {
+                flex: 1;
+                text-align: center;
+                padding: 15px;
+                border: 1px solid #ddd;
+            }
+            
+            .int-item strong {
+                display: block;
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 9pt;
+                margin-bottom: 4px;
+            }
+            
+            .int-item span {
+                font-size: 8pt;
+                color: #888;
+            }
+            
+            /* Цена - журнальный стиль */
+            .price-editorial {
+                display: flex;
+                border: 2px solid #0a0a0a;
+            }
+            
+            .price-left {
+                flex: 1;
+                padding: 25px 30px;
+                background: white;
+            }
+            
+            .price-label {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 9pt;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                color: #555;
+                margin-bottom: 10px;
+            }
+            
+            .price-amount {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                font-size: 42pt;
+                font-weight: 800;
+                color: #0a0a0a;
+                line-height: 1;
+            }
+            
+            .price-currency {
+                font-size: 18pt;
+                font-weight: 400;
+            }
+            
+            .price-period {
+                font-size: 10pt;
+                color: #777;
+                margin-top: 5px;
+            }
+            
+            .price-right {
+                flex: 1;
+                padding: 25px 30px;
+                background: #2196F3;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .price-right h3 {
+                font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+                color: white;
+                font-size: 14pt;
+                font-weight: 700;
+                margin-bottom: 5px;
+            }
+            
+            .price-right p {
+                color: rgba(255,255,255,0.9);
+                font-size: 10pt;
             }
         </style>
     </head>
     <body>
-        <!-- ===== СТРАНИЦА 1: ТИТУЛ ===== -->
+        <!-- ===== СТРАНИЦА 1: EDITORIAL COVER ===== -->
         <div class="cover">
-            <!-- Декоративные полосы -->
-            <div class="cover-stripe cover-stripe-1"></div>
-            <div class="cover-stripe cover-stripe-2"></div>
-            <div class="cover-stripe cover-stripe-3"></div>
-            <div class="cover-stripe cover-stripe-4"></div>
+            <div class="cover-line-left"></div>
+            <div class="cover-line-top"></div>
+            <div class="cover-accent"></div>
+            <div class="cover-accent-text">ATS</div>
             
-            <!-- Круги -->
-            <div class="cover-circle cover-circle-1"></div>
-            <div class="cover-circle cover-circle-2"></div>
-            <div class="cover-circle cover-circle-3"></div>
+            <div class="cover-issue">Коммерческое предложение</div>
             
-            <!-- Точки -->
-            <div class="cover-dots"></div>
-            
-            <!-- Контент -->
-            <div class="cover-content">
-                <div class="mega-logo">
-                    <div class="mega-logo-work">Work</div>
-                    <div class="mega-logo-here">Here</div>
+            <div class="cover-main">
+                <div class="cover-logo">
+                    <span class="cover-logo-work">Work</span>
+                    <span class="cover-logo-here">Here</span>
                 </div>
-                <div class="cover-title">Коммерческое предложение</div>
-                <p class="cover-subtitle">ATS/CRM-система нового поколения для управления подбором персонала</p>
+                
+                <p class="cover-tagline">
+                    «Единое пространство для вакансий, кандидатов и коммуникаций»
+                </p>
+                
+                <p class="cover-description">
+                    ATS/CRM-система нового поколения, которая ускоряет закрытие вакансий 
+                    за счёт автоматизации рутины, единой базы кандидатов и прозрачной 
+                    аналитики воронки подбора.
+                </p>
             </div>
             
-            <!-- Нижняя панель -->
             <div class="cover-bottom">
-                <div class="cover-tag">⚡ Автоматизация</div>
-                <div class="cover-tag">📊 Аналитика</div>
-                <div class="cover-tag">🔗 Интеграции</div>
-                <div class="cover-tag">🧠 ИИ-поиск</div>
+                <div class="cover-stats">
+                    <div class="cover-stat">
+                        <div class="cover-stat-value">5×</div>
+                        <div class="cover-stat-label">Быстрее поиск</div>
+                    </div>
+                    <div class="cover-stat">
+                        <div class="cover-stat-value">0</div>
+                        <div class="cover-stat-label">Дублей</div>
+                    </div>
+                    <div class="cover-stat">
+                        <div class="cover-stat-value">∞</div>
+                        <div class="cover-stat-label">Интеграций</div>
+                    </div>
+                </div>
             </div>
+            
+            <div class="cover-year">2025</div>
         </div>
         
-        <!-- ===== СТРАНИЦА 2: КОНТЕНТ ===== -->
+        <!-- ===== СТРАНИЦА 2: EDITORIAL CONTENT ===== -->
         <div class="page">
-            <!-- Декор -->
-            <div class="page-deco-top"></div>
-            <div class="page-deco-accent"></div>
-            <div class="page-circle-1"></div>
-            <div class="page-circle-2"></div>
+            <div class="page-sidebar"></div>
+            <div class="page-number">02</div>
             
-            <!-- Лого -->
-            <div class="floating-logo">
-                <div class="floating-logo-work">Work</div>
-                <div class="floating-logo-here">Here</div>
+            <div class="page-header">
+                <span class="page-title">Возможности системы</span>
+                <span class="page-logo">WorkHere</span>
             </div>
             
-            <!-- Заголовок -->
-            <div class="page-headline">
-                <h2>Всё для подбора</h2>
-                <p>в одной системе</p>
+            <div class="grid-2">
+                <div class="col-left">
+                    <div class="section">
+                        <div class="section-number">01</div>
+                        <div class="section-title">Для кого</div>
+                        <ul class="numbered-list">
+                            <li>
+                                <span class="list-num">A</span>
+                                <div class="list-content">
+                                    <h4>HR-директора</h4>
+                                    <p>Прозрачность воронки и аналитика</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="list-num">B</span>
+                                <div class="list-content">
+                                    <h4>Рекрутеры</h4>
+                                    <p>Единая база и автоматизация</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="list-num">C</span>
+                                <div class="list-content">
+                                    <h4>HR-универсалы</h4>
+                                    <p>Интеграция с 1С и передача данных</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-right">
+                    <div class="quote-block">
+                        <p class="quote-text">
+                            WorkHere решает главную боль рекрутинга — хаос данных. 
+                            Кандидаты больше не теряются в почте и таблицах, 
+                            а конверсия воронки видна в реальном времени.
+                        </p>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-number">02</div>
+                        <div class="section-title">Функционал</div>
+                        <div class="features-columns">
+                            <div class="feature-col">
+                                <h4>Подбор</h4>
+                                <ul>
+                                    <li>Воронка / канбан</li>
+                                    <li>Карточка кандидата</li>
+                                    <li>Задачи и напоминания</li>
+                                </ul>
+                            </div>
+                            <div class="feature-col">
+                                <h4>Прозрачность</h4>
+                                <ul>
+                                    <li>История действий</li>
+                                    <li>Согласования</li>
+                                    <li>Командная работа</li>
+                                </ul>
+                            </div>
+                            <div class="feature-col">
+                                <h4>Аналитика</h4>
+                                <ul>
+                                    <li>Конверсия этапов</li>
+                                    <li>Скорость закрытия</li>
+                                    <li>Источники</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <!-- Контент -->
-            <div class="content-area">
-                <!-- Intro -->
-                <div class="intro-block">
-                    <p><strong>WorkHere</strong> — единое пространство для вакансий, кандидатов и коммуникаций. Ускоряет закрытие позиций за счёт автоматизации рутины, единой базы и прозрачной аналитики воронки.</p>
+            <div class="ai-editorial">
+                <div class="ai-editorial-icon">🧠</div>
+                <div class="ai-editorial-content">
+                    <h3>ИИ-поиск кандидатов</h3>
+                    <p>Интеллектуальный поиск по вашей базе и работным сайтам. Находит кандидатов по смыслу, а не только по ключевым словам. Умное ранжирование экономит часы работы рекрутера.</p>
                 </div>
-                
-                <!-- Аудитория -->
-                <div class="audience-row">
-                    <div class="audience-item">
-                        <h4>👔 HR-директора</h4>
-                        <p>Прозрачность воронки, контроль качества, аналитика</p>
-                    </div>
-                    <div class="audience-item">
-                        <h4>🎯 Рекрутеры</h4>
-                        <p>Быстрый поиск, единая база, автоматизация рутины</p>
-                    </div>
-                    <div class="audience-item">
-                        <h4>🔄 HR-универсалы</h4>
-                        <p>Интеграция с 1С, передача данных о сотрудниках</p>
-                    </div>
+            </div>
+            
+            <div class="integrations-minimal">
+                <div class="int-item">
+                    <strong>Джоб-сайты</strong>
+                    <span>автоимпорт откликов</span>
                 </div>
-                
-                <!-- Проблемы и решения -->
-                <div class="skew-card">
-                    <div class="skew-card-header">
-                        <div class="skew-card-icon">🎯</div>
-                        <div class="skew-card-title">Проблемы → Решения</div>
-                    </div>
-                    <div class="skew-card-body">
-                        <div class="problems-flow">
-                            <div class="problem-item">Данные в почте/таблицах</div>
-                            <div class="solution-item">Единая база</div>
-                            <div class="problem-item">Нет контроля этапов</div>
-                            <div class="solution-item">Воронка + аналитика</div>
-                            <div class="problem-item">Рутина</div>
-                            <div class="solution-item">Автоматизация</div>
-                            <div class="problem-item">Дубли</div>
-                            <div class="solution-item">Дедупликация</div>
-                            <div class="problem-item">Долгий поиск</div>
-                            <div class="solution-item">ИИ-поиск</div>
-                        </div>
-                    </div>
+                <div class="int-item">
+                    <strong>Мессенджеры</strong>
+                    <span>история переписки</span>
                 </div>
-                
-                <!-- Функционал -->
-                <div class="skew-card">
-                    <div class="skew-card-header">
-                        <div class="skew-card-icon">⚡</div>
-                        <div class="skew-card-title">Ключевой функционал</div>
-                    </div>
-                    <div class="skew-card-body">
-                        <div class="features-hex">
-                            <div class="hex-item">
-                                <h5>Подбор</h5>
-                                <ul><li>Воронка/канбан</li><li>Карточки</li><li>Задачи</li></ul>
-                            </div>
-                            <div class="hex-item">
-                                <h5>Прозрачность</h5>
-                                <ul><li>История</li><li>Согласования</li><li>Команда</li></ul>
-                            </div>
-                            <div class="hex-item">
-                                <h5>Аналитика</h5>
-                                <ul><li>Конверсия</li><li>Скорость</li><li>Источники</li></ul>
-                            </div>
-                            <div class="hex-item">
-                                <h5>Качество</h5>
-                                <ul><li>Дедупликация</li><li>Объединение</li><li>Чистая база</li></ul>
-                            </div>
-                        </div>
-                    </div>
+                <div class="int-item">
+                    <strong>1С</strong>
+                    <span>обмен данными</span>
                 </div>
-                
-                <!-- ИИ -->
-                <div class="ai-futuristic">
-                    <div class="ai-content">
-                        <div class="ai-icon-box">🧠</div>
-                        <div class="ai-text">
-                            <h3>ИИ-поиск кандидатов</h3>
-                            <p>Интеллектуальный поиск по базе и работным сайтам. Находит по смыслу, не только по ключевым словам.</p>
-                        </div>
-                        <div class="ai-features">
-                            <div class="ai-feature">
-                                <div class="ai-feature-value">5×</div>
-                                <div class="ai-feature-label">быстрее</div>
-                            </div>
-                            <div class="ai-feature">
-                                <div class="ai-feature-value">∞</div>
-                                <div class="ai-feature-label">база</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="int-item">
+                    <strong>API</strong>
+                    <span>любые системы</span>
                 </div>
-                
-                <!-- Интеграции -->
-                <div class="integrations-bar">
-                    <div class="int-pill">Джоб-сайты <span>автоимпорт</span></div>
-                    <div class="int-pill">Мессенджеры <span>история</span></div>
-                    <div class="int-pill">1С <span>обмен данными</span></div>
-                    <div class="int-pill">API <span>любые системы</span></div>
+            </div>
+            
+            <div class="price-editorial">
+                <div class="price-left">
+                    <div class="price-label">Базовая лицензия</div>
+                    <div class="price-amount">20 000 <span class="price-currency">₽</span></div>
+                    <div class="price-period">в год</div>
                 </div>
-                
-                <!-- Цена + CTA -->
-                <div class="bottom-duo">
-                    <div class="price-block">
-                        <div class="price-label">Базовая лицензия</div>
-                        <div class="price-value">20 000</div>
-                        <span class="price-currency">₽</span>
-                        <div class="price-period">в год</div>
-                    </div>
-                    <div class="cta-block">
-                        <h3>Готовы ускорить подбор?</h3>
-                        <p>Свяжитесь для демонстрации системы</p>
-                    </div>
+                <div class="price-right">
+                    <h3>Начните сегодня</h3>
+                    <p>Свяжитесь для демонстрации системы</p>
                 </div>
             </div>
         </div>
