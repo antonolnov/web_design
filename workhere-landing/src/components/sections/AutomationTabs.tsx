@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { Zap, Mail, FileText, Bot, Workflow, Calendar, CheckCircle, Send } from 'lucide-react';
 import Container from '../ui/Container';
 import ContentCard from '../ui/ContentCard';
+import Mascot from '../ui/Mascot';
 
 const tabs = [
   {
@@ -139,25 +140,26 @@ export default function AutomationTabs() {
                 </div>
 
                 {/* Right - Visual */}
-                <div className="bg-gradient-to-br from-[#22c55e]/5 to-[#22c55e]/10 rounded-2xl p-6 flex items-center justify-center">
+                <div className="bg-gradient-to-br from-[#22c55e]/5 to-[#22c55e]/10 rounded-2xl p-6 flex flex-col items-center justify-center">
                   <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: 'spring', stiffness: 200 }}
-                    className="text-center"
+                    className="text-center mb-4"
                   >
                     <div className="relative">
-                      <current.icon size={80} className="text-[#22c55e]/30 mx-auto" />
+                      <current.icon size={60} className="text-[#22c55e]/30 mx-auto" />
                       <motion.div
                         className="absolute inset-0 flex items-center justify-center"
                         animate={{ scale: [1, 1.1, 1] }}
                         transition={{ duration: 2, repeat: Infinity }}
                       >
-                        <Zap size={40} className="text-[#22c55e]" />
+                        <Zap size={30} className="text-[#22c55e]" />
                       </motion.div>
                     </div>
-                    <p className="text-gray-500 mt-4">{current.description}</p>
+                    <p className="text-gray-500 mt-2">{current.description}</p>
                   </motion.div>
+                  <Mascot size={110} variant="02" showSpeechBubble speechText="Автоматизируем! ⚡" />
                 </div>
               </motion.div>
             </AnimatePresence>

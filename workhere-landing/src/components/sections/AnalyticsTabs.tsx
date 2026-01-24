@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { BarChart3, TrendingUp, PieChart, Calendar, Clock, Target, Users, Zap } from 'lucide-react';
 import Container from '../ui/Container';
 import ContentCard from '../ui/ContentCard';
+import Mascot from '../ui/Mascot';
 
 const tabs = [
   {
@@ -176,16 +177,17 @@ export default function AnalyticsTabs() {
                 </div>
 
                 {/* Right - Visual */}
-                <div className="bg-gradient-to-br from-[#1890ff]/5 to-[#1890ff]/10 rounded-2xl p-6 flex items-center justify-center">
+                <div className="bg-gradient-to-br from-[#1890ff]/5 to-[#1890ff]/10 rounded-2xl p-6 flex flex-col items-center justify-center">
                   <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: 'spring', stiffness: 200 }}
                     className="text-center"
                   >
-                    <current.icon size={80} className="text-[#1890ff]/30 mx-auto mb-4" />
-                    <p className="text-gray-500">{current.description}</p>
+                    <current.icon size={60} className="text-[#1890ff]/30 mx-auto mb-4" />
+                    <p className="text-gray-500 mb-4">{current.description}</p>
                   </motion.div>
+                  <Mascot size={120} variant="03" showSpeechBubble speechText="Отличные метрики! 📊" />
                 </div>
               </motion.div>
             </AnimatePresence>

@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { Send, CheckCircle } from 'lucide-react';
 import Container from '../ui/Container';
 import ContentCard from '../ui/ContentCard';
+import Mascot from '../ui/Mascot';
 
 export default function CTASimple() {
   const ref = useRef(null);
@@ -87,6 +88,16 @@ export default function CTASimple() {
                   <span>{item}</span>
                 </div>
               ))}
+            </motion.div>
+
+            {/* Mascot */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 0.6, type: 'spring' }}
+              className="flex justify-center mt-8"
+            >
+              <Mascot size={140} variant="08" showSpeechBubble speechText="Ждём вас! 🎉" />
             </motion.div>
           </div>
         </ContentCard>

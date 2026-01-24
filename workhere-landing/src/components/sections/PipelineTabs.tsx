@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { GitBranch, Users, Briefcase, Target, Layers, Clock, BarChart } from 'lucide-react';
 import Container from '../ui/Container';
 import ContentCard from '../ui/ContentCard';
+import Mascot from '../ui/Mascot';
 
 const tabs = [
   {
@@ -228,8 +229,11 @@ export default function PipelineTabs() {
                 </div>
 
                 {/* Right - Visual */}
-                <div className="bg-gradient-to-br from-[#f97316]/5 to-[#f97316]/10 rounded-2xl p-6 flex items-center justify-center min-h-[250px]">
-                  {funnelVisuals[current.content.visual as keyof typeof funnelVisuals]}
+                <div className="bg-gradient-to-br from-[#f97316]/5 to-[#f97316]/10 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[250px]">
+                  <div className="mb-4">
+                    {funnelVisuals[current.content.visual as keyof typeof funnelVisuals]}
+                  </div>
+                  <Mascot size={100} variant="04" showSpeechBubble speechText="Воронка готова! 🎯" />
                 </div>
               </motion.div>
             </AnimatePresence>

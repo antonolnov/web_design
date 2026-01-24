@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { Building2, Users, Headphones, Cog, Award, Clock, CheckCircle } from 'lucide-react';
 import Container from '../ui/Container';
 import ContentCard from '../ui/ContentCard';
+import Mascot from '../ui/Mascot';
 
 const tabs = [
   {
@@ -139,25 +140,26 @@ export default function EnterpriseTabs() {
                 </div>
 
                 {/* Right - Visual */}
-                <div className="bg-gradient-to-br from-[#722ed1]/10 to-[#722ed1]/20 rounded-2xl p-6 flex items-center justify-center">
+                <div className="bg-gradient-to-br from-[#722ed1]/10 to-[#722ed1]/20 rounded-2xl p-6 flex flex-col items-center justify-center">
                   <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: 'spring', stiffness: 200 }}
-                    className="text-center"
+                    className="text-center mb-4"
                   >
                     <div className="relative">
-                      <Building2 size={80} className="text-[#722ed1]/30 mx-auto" />
+                      <Building2 size={60} className="text-[#722ed1]/30 mx-auto" />
                       <motion.div
                         className="absolute inset-0 flex items-center justify-center"
                         animate={{ scale: [1, 1.1, 1] }}
                         transition={{ duration: 2, repeat: Infinity }}
                       >
-                        <current.icon size={40} className="text-[#a78bfa]" />
+                        <current.icon size={30} className="text-[#a78bfa]" />
                       </motion.div>
                     </div>
-                    <p className="text-white/60 mt-4">{current.description}</p>
+                    <p className="text-white/60 mt-2">{current.description}</p>
                   </motion.div>
+                  <Mascot size={100} variant="05" showSpeechBubble speechText="Enterprise! 🏢" />
                 </div>
               </motion.div>
             </AnimatePresence>

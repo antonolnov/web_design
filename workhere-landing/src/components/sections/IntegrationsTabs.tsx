@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import { Globe, MessageSquare, Database, Code2, Webhook, FileJson } from 'lucide-react';
 import Container from '../ui/Container';
 import ContentCard from '../ui/ContentCard';
+import Mascot from '../ui/Mascot';
 
 const tabs = [
   {
@@ -144,7 +145,7 @@ export default function IntegrationsTabs() {
 
                 {/* Right - Logos grid */}
                 <div className="bg-gradient-to-br from-[#8b5cf6]/5 to-[#8b5cf6]/10 rounded-2xl p-6">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4 mb-4">
                     {current.content.logos.map((logo, i) => (
                       <motion.div
                         key={logo}
@@ -156,6 +157,9 @@ export default function IntegrationsTabs() {
                         <div className="text-lg font-semibold text-gray-700">{logo}</div>
                       </motion.div>
                     ))}
+                  </div>
+                  <div className="flex justify-center">
+                    <Mascot size={100} variant="07" showSpeechBubble speechText="Всё подключено! 🔗" />
                   </div>
                 </div>
               </motion.div>
