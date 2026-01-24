@@ -34,10 +34,9 @@ export default function HeroSimple() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
             >
-              Нанимайте
-              <span className="text-[#1890ff]"> быстрее</span>
-              <br />
-              и эффективнее
+              Лучшая
+              <span className="text-[#1890ff]"> ATS </span>
+              система России
             </motion.h1>
 
             {/* Subtitle */}
