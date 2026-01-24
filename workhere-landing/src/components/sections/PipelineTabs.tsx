@@ -11,15 +11,15 @@ const tabs = [
   {
     id: 'custom',
     icon: GitBranch,
-    title: 'Кастомные воронки',
-    description: 'Любое количество воронок',
+    title: 'Кастомные процессы',
+    description: 'Любое количество потоков',
     content: {
-      heading: 'Бесконечное количество воронок',
+      heading: 'Гибкие процессы под каждый продукт',
       points: [
-        'Создавайте воронки под каждый тип найма',
-        'Настраивайте этапы и переходы',
-        'Дублируйте успешные шаблоны',
-        'Архивируйте неактивные',
+        'Создавайте потоки под каждую команду',
+        'Настраивайте этапы и правила',
+        'Клонируйте успешные шаблоны',
+        'Архивируйте устаревшие процессы',
       ],
       visual: 'funnels',
     },
@@ -27,15 +27,15 @@ const tabs = [
   {
     id: 'mass',
     icon: Users,
-    title: 'Массовый найм',
-    description: 'Для большого потока',
+    title: 'Командные потоки',
+    description: 'Для большого объёма задач',
     content: {
-      heading: 'Воронка для массового найма',
+      heading: 'Стандартизированные командные потоки',
       points: [
         'Упрощённые этапы для скорости',
-        'Автоматический скрининг',
-        'Групповые интервью',
-        'Быстрый оффер',
+        'Автоматическая маршрутизация',
+        'Параллельные этапы согласования',
+        'Быстрое завершение задач',
       ],
       visual: 'mass',
     },
@@ -43,15 +43,15 @@ const tabs = [
   {
     id: 'executive',
     icon: Briefcase,
-    title: 'Точечный найм',
-    description: 'Для топ-позиций',
+    title: 'Проектные этапы',
+    description: 'Для сложных проектов',
     content: {
-      heading: 'Воронка для ключевых позиций',
+      heading: 'Процессы для ключевых проектов',
       points: [
-        'Многоуровневый отбор',
-        'Глубокая оценка компетенций',
-        'Согласование с руководством',
-        'Расширенная проверка',
+        'Многоуровневые согласования',
+        'Контроль рисков и зависимостей',
+        'Совместная работа стейкхолдеров',
+        'Прозрачные контрольные точки',
       ],
       visual: 'executive',
     },
@@ -60,14 +60,14 @@ const tabs = [
     id: 'stats',
     icon: BarChart,
     title: 'Статистика',
-    description: 'Аналитика по воронкам',
+    description: 'Аналитика по процессам',
     content: {
-      heading: 'Статистика по каждой воронке',
+      heading: 'Статистика по каждому процессу',
       points: [
-        'Конверсия на каждом этапе',
-        'Среднее время в этапе',
-        'Сравнение эффективности',
-        'Узкие места процесса',
+        'Конверсия и завершение этапов',
+        'Среднее время прохождения',
+        'Сравнение эффективности команд',
+        'Узкие места и SLA',
       ],
       visual: 'stats',
     },
@@ -105,7 +105,7 @@ const funnelVisuals = {
   ),
   mass: (
     <div className="space-y-2">
-      {['Отклик', 'Скрининг', 'Интервью', 'Оффер'].map((stage, i) => (
+      {['Запрос', 'Квалификация', 'Демо', 'Запуск'].map((stage, i) => (
         <motion.div
           key={stage}
           initial={{ width: 0 }}
@@ -120,7 +120,7 @@ const funnelVisuals = {
   ),
   executive: (
     <div className="space-y-2">
-      {['Поиск', 'Первичный отбор', 'Глубокое интервью', 'Кейс', 'Руководство', 'Оффер'].map((stage, i) => (
+      {['Discovery', 'Дизайн', 'Разработка', 'Тесты', 'Запуск', 'Ретро'].map((stage, i) => (
         <motion.div
           key={stage}
           initial={{ x: -50, opacity: 0 }}
@@ -139,10 +139,10 @@ const funnelVisuals = {
   stats: (
     <div className="grid grid-cols-2 gap-3">
       {[
-        { label: 'Конверсия', value: '12%' },
-        { label: 'Время найма', value: '14 дн' },
-        { label: 'Кандидатов', value: '234' },
-        { label: 'Офферов', value: '28' },
+        { label: 'Конверсия', value: '62%' },
+        { label: 'Цикл', value: '14 дн' },
+        { label: 'Задач', value: '234' },
+        { label: 'Запусков', value: '28' },
       ].map((stat, i) => (
         <motion.div
           key={stat.label}
@@ -233,7 +233,7 @@ export default function PipelineTabs() {
                   <div className="mb-4">
                     {funnelVisuals[current.content.visual as keyof typeof funnelVisuals]}
                   </div>
-                  <Mascot size={100} variant="04" showSpeechBubble speechText="Воронка готова! 🎯" />
+                  <Mascot size={100} variant="04" showSpeechBubble speechText="Процесс готов! 🎯" />
                 </div>
               </motion.div>
             </AnimatePresence>

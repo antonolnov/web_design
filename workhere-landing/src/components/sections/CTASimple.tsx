@@ -38,7 +38,7 @@ export default function CTASimple() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-white/80 text-lg mb-8"
             >
-              Оставьте заявку и мы покажем, как WorkHere может улучшить ваш найм
+              Оставьте заявку и мы покажем, как CloudFlow ускоряет процессы вашей команды
             </motion.p>
 
             {submitted ? (
