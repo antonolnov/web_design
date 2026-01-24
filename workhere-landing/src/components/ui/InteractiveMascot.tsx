@@ -10,7 +10,7 @@ interface InteractiveMascotProps {
 }
 
 // BasePath для GitHub Pages
-const basePath = '/web_design/workhere-landing';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 const mascotImages: Record<string, string> = {
   default: `${basePath}/mascot.svg`,
@@ -30,13 +30,13 @@ const mascotImages: Record<string, string> = {
 const activePhrases = [
   '✨ AI Power! ✨',
   '🚀 Поехали!',
-  '💫 Магия найма!',
+  '💫 Магия процессов!',
   '🔥 Вжух!',
   '⚡ Супер-сила!',
   '🌟 Автоматизация!',
   '🎯 В точку!',
   '💪 Мощь AI!',
-  '🧠 Умный найм!',
+  '🧠 Умные решения!',
   '✨ Вау-эффект!',
   '🎉 Круто же!',
   '💎 Топ!',
@@ -345,7 +345,7 @@ export default function InteractiveMascot({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={mascotImages[variant] || mascotImages.default}
-          alt="WorkHere Mascot - Click me!"
+          alt="CloudFlow Mascot - Click me!"
           className="w-full h-full object-contain drop-shadow-2xl"
           width={size}
           height={size}

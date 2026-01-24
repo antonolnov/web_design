@@ -103,7 +103,7 @@ export default function Mascot({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={mascotImages[variant] || mascotImages.default}
-          alt="WorkHere Mascot"
+          alt="CloudFlow Mascot"
           className="w-full h-full object-contain"
           width={size}
           height={size}

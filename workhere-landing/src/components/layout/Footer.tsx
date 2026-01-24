@@ -8,21 +8,21 @@ const footerLinks = {
   product: {
     title: 'Продукт',
     links: [
-      { label: 'База кандидатов', href: '#features' },
-      { label: 'Воронка подбора', href: '#funnel' },
+      { label: 'Автоматизация', href: '#automation' },
+      { label: 'Процессы', href: '#pipeline' },
       { label: 'Аналитика', href: '#analytics' },
       { label: 'Интеграции', href: '#integrations' },
-      { label: 'API', href: '#integrations' },
+      { label: 'Enterprise', href: '#enterprise' },
     ],
   },
   features: {
     title: 'Возможности',
     links: [
-      { label: 'Поиск кандидатов', href: '#features' },
-      { label: 'Коммуникации', href: '#features' },
-      { label: 'Автоматизация', href: '#features' },
-      { label: 'Отчёты', href: '#analytics' },
+      { label: 'Командные воркфлоу', href: '#pipeline' },
+      { label: 'Дашборды', href: '#analytics' },
+      { label: 'API и webhooks', href: '#integrations' },
       { label: 'Безопасность', href: '#security' },
+      { label: 'SLA 99.9%', href: '#enterprise' },
     ],
   },
   company: {
@@ -54,32 +54,32 @@ export default function Footer() {
           <div className="col-span-2">
             <a href="#" className="inline-flex items-center mb-6">
               <span className="text-2xl font-bold">
-                <span className="bg-[#1890ff] text-white px-2 py-1 rounded-l-[8px]">Work</span>
-                <span className="text-white px-1">Here</span>
+                <span className="bg-[#1890ff] text-white px-2 py-1 rounded-l-[8px]">Cloud</span>
+                <span className="text-white px-1">Flow</span>
               </span>
             </a>
             <p className="text-gray-400 mb-6 max-w-xs">
-              Единая ATS-платформа для управления наймом. 
-              Кандидаты, воронки, аналитика — всё в одном месте.
+              Универсальная SaaS-платформа для управления процессами и ростом.
+              Автоматизация, аналитика и интеграции — всё в одном месте.
             </p>
             <div className="space-y-3">
               <a
-                href="mailto:hello@workhere.ru"
+                href="mailto:hello@cloudflow.app"
                 className="flex items-center gap-3 text-gray-400 hover:text-[#1890ff] transition-colors"
               >
                 <Mail size={18} />
-                <span>hello@workhere.ru</span>
+                <span>hello@cloudflow.app</span>
               </a>
               <a
-                href="tel:+78001234567"
+                href="tel:+78005553535"
                 className="flex items-center gap-3 text-gray-400 hover:text-[#1890ff] transition-colors"
               >
                 <Phone size={18} />
-                <span>8 800 123-45-67</span>
+                <span>8 800 555-35-35</span>
               </a>
               <div className="flex items-center gap-3 text-gray-400">
                 <MapPin size={18} />
-                <span>Москва, Россия</span>
+                <span>Санкт-Петербург, Россия</span>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h4 className="text-xl font-bold mb-2">Будьте в курсе обновлений</h4>
-              <p className="text-gray-400">Новости продукта и лучшие практики рекрутинга</p>
+              <p className="text-gray-400">Новости продукта и лучшие практики управления процессами</p>
             </div>
             <div className="flex gap-3 w-full md:w-auto">
               <input
@@ -137,12 +137,12 @@ export default function Footer() {
         {/* Bottom */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t border-gray-800">
           <p className="text-gray-500 text-sm mb-4 md:mb-0" suppressHydrationWarning>
-            © {new Date().getFullYear()} WorkHere. Все права защищены.
+            © {new Date().getFullYear()} CloudFlow. Все права защищены.
           </p>
           <div className="flex items-center gap-2 text-gray-500 text-sm">
             <span>Сделано с</span>
             <span className="text-[#1890ff]">♥</span>
-            <span>для HR-команд</span>
+            <span>для современных команд</span>
           </div>
         </div>
       </Container>

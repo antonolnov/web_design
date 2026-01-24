@@ -8,7 +8,7 @@ import MagneticButton from '../ui/MagneticButton';
 
 const navLinks = [
   { href: '#automation', label: 'Автоматизация' },
-  { href: '#pipeline', label: 'Воронки' },
+  { href: '#pipeline', label: 'Процессы' },
   { href: '#analytics', label: 'Аналитика' },
   { href: '#integrations', label: 'Интеграции' },
   { href: '#security', label: 'Безопасность' },
@@ -48,8 +48,8 @@ export default function Header() {
             whileTap={{ scale: 0.98 }}
           >
             <span className="text-2xl font-bold">
-              <span className="bg-[#1890ff] text-white px-2 py-1 rounded-l-[8px]">Work</span>
-              <span className="text-gray-900 px-1">Here</span>
+              <span className="bg-[#1890ff] text-white px-2 py-1 rounded-l-[8px]">Cloud</span>
+              <span className="text-gray-900 px-1">Flow</span>
             </span>
           </motion.a>
 

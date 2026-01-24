@@ -25,16 +25,16 @@ export default function Home() {
 
           {/* Automation Section */}
           <SectionTitleScreen 
-            title="Автоматизация" 
-            subtitle="Избавьтесь от рутины и сфокусируйтесь на главном"
+            title="Автоматизация процессов" 
+            subtitle="Сценарии, уведомления и AI‑помощники для ежедневных задач"
             color="green"
           />
           <AutomationTabs />
 
           {/* Pipeline Section */}
           <SectionTitleScreen 
-            title="Воронки подбора" 
-            subtitle="Любое количество воронок под каждый тип найма"
+            title="Гибкие рабочие потоки" 
+            subtitle="Проектируйте процессы под команды, клиентов и продукты"
             color="orange"
           />
           <PipelineTabs />
@@ -42,15 +42,15 @@ export default function Home() {
           {/* Analytics Section */}
           <SectionTitleScreen 
             title="Аналитика" 
-            subtitle="Принимайте решения на основе данных"
+            subtitle="Единая картина по показателям и эффективности команд"
             color="blue"
           />
           <AnalyticsTabs />
 
           {/* Integrations Section */}
           <SectionTitleScreen 
-            title="Интеграции" 
-            subtitle="Подключайте любые сервисы и источники"
+            title="Интеграции и API" 
+            subtitle="Подключайте любимые сервисы и данные"
             color="purple"
           />
           <IntegrationsTabs />
@@ -58,7 +58,7 @@ export default function Home() {
           {/* Enterprise Section */}
           <SectionTitleScreen 
             title="Enterprise" 
-            subtitle="Для крупных компаний с особыми требованиями"
+            subtitle="Масштаб, SLA и поддержка для крупных команд"
             color="purple"
           />
           <EnterpriseTabs />
@@ -66,7 +66,7 @@ export default function Home() {
           {/* Security Section */}
           <SectionTitleScreen 
             title="Безопасность" 
-            subtitle="Защита данных на всех уровнях"
+            subtitle="Полный контроль доступа и защита данных"
             color="blue"
           />
           <SecurityTabs />

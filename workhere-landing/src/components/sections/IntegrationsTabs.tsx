@@ -9,31 +9,31 @@ import Mascot from '../ui/Mascot';
 
 const tabs = [
   {
-    id: 'jobsites',
+    id: 'collaboration',
     icon: Globe,
-    title: 'Job-сайты',
-    description: 'Интеграция с площадками',
+    title: 'Коллаборация',
+    description: 'Командные сервисы',
     content: {
-      heading: 'Публикация вакансий в один клик',
+      heading: 'Свяжите командные инструменты',
       points: [
-        'HH.ru — автоматический постинг',
-        'Avito Работа — синхронизация откликов',
-        'SuperJob — парсинг резюме',
-        'Работа.ру — двусторонняя интеграция',
+        'Slack — уведомления и каналы',
+        'Microsoft Teams — обсуждения',
+        'Jira — синхронизация задач',
+        'Notion — единая база знаний',
       ],
-      logos: ['HH.ru', 'Avito', 'SuperJob', 'Работа.ру'],
+      logos: ['Slack', 'Teams', 'Jira', 'Notion'],
     },
   },
   {
     id: 'messengers',
     icon: MessageSquare,
     title: 'Мессенджеры',
-    description: 'Коммуникации с кандидатами',
+    description: 'Коммуникации с клиентами',
     content: {
-      heading: 'Все каналы связи в одном месте',
+      heading: 'Все каналы общения в одном месте',
       points: [
-        'Telegram — чат-бот для кандидатов',
-        'WhatsApp Business — массовые рассылки',
+        'Telegram — поддержка и боты',
+        'WhatsApp Business — диалоги',
         'Email — шаблоны и автоматизация',
         'SMS — уведомления о статусе',
       ],
@@ -41,19 +41,19 @@ const tabs = [
     },
   },
   {
-    id: 'erp',
+    id: 'payments',
     icon: Database,
-    title: 'ERP/CRM',
-    description: 'Корпоративные системы',
+    title: 'Платежи',
+    description: 'Биллинг и финансы',
     content: {
-      heading: 'Интеграция с вашей инфраструктурой',
+      heading: 'Платежные и финансовые сервисы',
       points: [
-        '1C — синхронизация сотрудников',
-        'SAP SuccessFactors — HR-данные',
-        'Битрикс24 — CRM интеграция',
-        'Microsoft 365 — календари и почта',
+        'Stripe — подписки и инвойсы',
+        'ЮKassa — платежи в РФ',
+        'CloudPayments — карты и Apple Pay',
+        'Webhook-и на статусы оплат',
       ],
-      logos: ['1C', 'SAP', 'Битрикс24', 'MS 365'],
+      logos: ['Stripe', 'ЮKassa', 'CloudPayments', 'Webhook'],
     },
   },
   {

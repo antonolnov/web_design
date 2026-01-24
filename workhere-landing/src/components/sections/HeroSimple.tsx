@@ -24,7 +24,7 @@ export default function HeroSimple() {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#1890ff]/10 border border-[#1890ff]/20 text-[#1890ff] text-sm font-medium mb-6"
             >
               <Sparkles size={16} />
-              <span>ATS нового поколения с AI</span>
+              <span>Сила AI для SaaS-команд</span>
             </motion.div>
 
             {/* Heading */}
@@ -34,9 +34,9 @@ export default function HeroSimple() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
             >
-              Лучшая
-              <span className="text-[#1890ff]"> ATS </span>
-              система России
+              Единая
+              <span className="text-[#1890ff]"> SaaS </span>
+              платформа для роста
             </motion.h1>
 
             {/* Subtitle */}
@@ -46,7 +46,7 @@ export default function HeroSimple() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg md:text-xl text-gray-600 mb-6 max-w-xl"
             >
-              WorkHere — современная система для управления наймом с искусственным интеллектом
+              CloudFlow — современная платформа для автоматизации процессов, аналитики и масштабирования.
             </motion.p>
 
             {/* Features list */}
@@ -56,7 +56,7 @@ export default function HeroSimple() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8"
             >
-              {['AI-скоринг', 'Автоматизация', 'Аналитика'].map((feature) => (
+              {['Автоматизация', 'Интеграции', 'Аналитика'].map((feature) => (
                 <div key={feature} className="flex items-center gap-2 text-gray-700">
                   <CheckCircle size={18} className="text-[#22c55e]" />
                   <span>{feature}</span>
@@ -82,7 +82,7 @@ export default function HeroSimple() {
                 href="#automation"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-gray-700 font-semibold text-lg rounded-2xl border border-gray-200 hover:border-[#1890ff] hover:text-[#1890ff] transition-all"
               >
-                Узнать больше
+                Смотреть возможности
               </a>
             </motion.div>
 
@@ -94,10 +94,10 @@ export default function HeroSimple() {
               className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 pt-8 border-t border-gray-200"
             >
               {[
-                { value: 'AI', label: 'Умный найм' },
-                { value: '2000+', label: 'Компаний' },
-                { value: '3x', label: 'Быстрее' },
-                { value: '∞', label: 'Воронок' },
+                { value: '99.9%', label: 'Uptime' },
+                { value: '120+', label: 'Интеграций' },
+                { value: '3x', label: 'Быстрее запуск' },
+                { value: '∞', label: 'Процессов' },
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}
