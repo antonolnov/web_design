@@ -160,8 +160,8 @@ export default function HeroHuntflow() {
             >
               {[
                 { value: '2500+', label: 'компаний' },
-                { value: '1M+', label: 'кандидатов' },
-                { value: '99.9%', label: 'uptime' },
+                { value: 'AI', label: 'искусственный интеллект' },
+                { value: '100K+', label: 'закрытых позиций' },
               ].map((stat, i) => (
                 <motion.div
                   key={stat.label}

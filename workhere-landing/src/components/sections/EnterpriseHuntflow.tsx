@@ -133,15 +133,15 @@ export default function EnterpriseHuntflow() {
           </motion.div>
         </div>
 
-        {/* Mascot */}
+        {/* Mascot - positioned on the right side */}
         <motion.div
-          className="absolute -bottom-4 left-8 hidden xl:block"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          className="absolute bottom-8 right-8 hidden xl:block"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.8 }}
         >
-          <Mascot variant="08" size={100} phrase="Enterprise! 🏢" />
+          <Mascot variant="08" size={90} phrase="Enterprise! 🏢" />
         </motion.div>
       </motion.div>
     </section>

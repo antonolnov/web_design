@@ -2,8 +2,118 @@
 
 import { useState, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { GitBranch, Users, MessageSquare, Search, Globe, Phone, Code, BarChart3, TrendingUp } from 'lucide-react';
+import { GitBranch, Users, MessageSquare, Search, Globe, Phone, Code, BarChart3, TrendingUp, ChevronDown } from 'lucide-react';
 import Mascot from '@/components/ui/Mascot';
+
+// Title screen colors for each section
+const titleScreenStyles = {
+  automation: {
+    bg: 'linear-gradient(135deg, #0891b2 0%, #06b6d4 30%, #22d3ee 70%, #67e8f9 100%)',
+    text: 'white',
+  },
+  integrations: {
+    bg: 'linear-gradient(135deg, #059669 0%, #10b981 30%, #34d399 70%, #6ee7b7 100%)',
+    text: 'white',
+  },
+  analytics: {
+    bg: 'linear-gradient(135deg, #7c3aed 0%, #8b5cf6 30%, #a78bfa 70%, #c4b5fd 100%)',
+    text: 'white',
+  },
+};
+
+// Full-screen title component
+function FeatureTitleScreen({ title, sectionId }: { title: string; sectionId: string }) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 0.5, 1], [100, 0, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.8, 1, 1, 0.9]);
+
+  const style = titleScreenStyles[sectionId as keyof typeof titleScreenStyles] || titleScreenStyles.automation;
+
+  return (
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      style={{ background: style.bg }}
+    >
+      {/* Animated background shapes */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full opacity-20"
+            style={{
+              width: 100 + i * 50,
+              height: 100 + i * 50,
+              left: `${10 + (i * 12) % 80}%`,
+              top: `${15 + (i * 11) % 70}%`,
+              background: 'rgba(255,255,255,0.3)',
+            }}
+            animate={{
+              y: [0, -30, 0],
+              x: [0, 20, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 6 + i,
+              repeat: Infinity,
+              delay: i * 0.5,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Main title */}
+      <motion.div
+        className="relative z-10 text-center px-6"
+        style={{ y, opacity, scale }}
+      >
+        <motion.h2
+          className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black leading-none"
+          style={{ color: style.text }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, type: 'spring' }}
+        >
+          {title}
+        </motion.h2>
+        
+        {/* Decorative line */}
+        <motion.div
+          className="mt-8 mx-auto h-1 rounded-full bg-white/50"
+          initial={{ width: 0 }}
+          whileInView={{ width: 200 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+        />
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.8 }}
+      >
+        <span className="text-white/70 text-sm font-medium">Листайте вниз</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        >
+          <ChevronDown className="w-6 h-6 text-white/70" />
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
 
 // Feature sections data
 const featureSections = [
@@ -123,14 +233,6 @@ const featureSections = [
 function FeatureSection({ section, index }: { section: typeof featureSections[0]; index: number }) {
   const [activeTab, setActiveTab] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'start center'],
-  });
-
-  const badgeScale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
-  const badgeOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
   const currentTab = section.tabs[activeTab];
   const IconComponent = currentTab.icon;
@@ -138,27 +240,8 @@ function FeatureSection({ section, index }: { section: typeof featureSections[0]
   return (
     <section 
       ref={sectionRef}
-      id={section.id} 
-      className="relative py-32 overflow-hidden"
+      className="relative py-24 overflow-hidden"
     >
-      {/* Sticky Badge Container */}
-      <div className="sticky top-20 z-10 mb-12">
-        <motion.div
-          className="flex justify-center"
-          style={{ scale: badgeScale, opacity: badgeOpacity }}
-        >
-          <motion.div
-            className={`px-6 py-3 rounded-2xl ${section.badgeColor} font-semibold text-lg shadow-lg backdrop-blur-sm`}
-            initial={{ y: -20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-          >
-            {section.badge}
-          </motion.div>
-        </motion.div>
-      </div>
-
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left side - Info */}
@@ -308,9 +391,14 @@ function FeatureSection({ section, index }: { section: typeof featureSections[0]
 
 export default function FeaturesHuntflow() {
   return (
-    <div className="bg-white">
+    <div className="bg-white" id="features">
       {featureSections.map((section, index) => (
-        <FeatureSection key={section.id} section={section} index={index} />
+        <div key={section.id}>
+          {/* Full-screen title screen */}
+          <FeatureTitleScreen title={section.badge} sectionId={section.id} />
+          {/* Feature content section */}
+          <FeatureSection section={section} index={index} />
+        </div>
       ))}
     </div>
   );
