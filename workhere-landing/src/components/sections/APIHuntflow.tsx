@@ -4,17 +4,63 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FileText, Send, FolderOpen, FileSpreadsheet, Code, Webhook, Database, Plug, Cpu } from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
+import Mascot from '@/components/ui/Mascot';
 
 const apiFeatures = [
-  { icon: FileText, title: 'Интерактивная документация', description: 'Полная документация с примерами' },
-  { icon: Send, title: 'Передавайте заявки из интранета', description: 'Автоматический импорт' },
-  { icon: FolderOpen, title: 'Отправляйте финалистов в HR-систему', description: 'Бесшовная интеграция' },
-  { icon: FileSpreadsheet, title: 'Передавайте отклики с карьерного сайта', description: 'Сбор откликов' },
-  { icon: Code, title: 'Разрабатывайте индивидуальные отчеты', description: 'Кастомная аналитика' },
-  { icon: Webhook, title: 'Webhooks для событий', description: 'Real-time уведомления' },
-  { icon: Database, title: 'Синхронизация данных', description: 'Двусторонний обмен' },
-  { icon: Plug, title: 'Готовые коннекторы', description: 'Популярные интеграции' },
-  { icon: Cpu, title: 'Sandbox для тестов', description: 'Безопасная разработка' },
+  { 
+    icon: FileText, 
+    title: 'Интерактивная документация', 
+    description: 'Полная документация с примерами кода',
+    size: 'large', // 2x2
+  },
+  { 
+    icon: Send, 
+    title: 'Передавайте заявки из интранета', 
+    description: 'Автоматический импорт заявок',
+    size: 'medium', // 2x1
+  },
+  { 
+    icon: FolderOpen, 
+    title: 'Отправляйте финалистов в HR-систему', 
+    description: 'Бесшовная интеграция',
+    size: 'small',
+  },
+  { 
+    icon: FileSpreadsheet, 
+    title: 'Передавайте отклики с карьерного сайта', 
+    description: 'Сбор откликов',
+    size: 'medium',
+  },
+  { 
+    icon: Code, 
+    title: 'Разрабатывайте индивидуальные отчеты', 
+    description: 'Кастомная аналитика',
+    size: 'small',
+  },
+  { 
+    icon: Webhook, 
+    title: 'Webhooks для событий', 
+    description: 'Real-time уведомления',
+    size: 'small',
+  },
+  { 
+    icon: Database, 
+    title: 'Синхронизация данных', 
+    description: 'Двусторонний обмен',
+    size: 'small',
+  },
+  { 
+    icon: Plug, 
+    title: 'Готовые коннекторы', 
+    description: 'Популярные интеграции',
+    size: 'small',
+  },
+  { 
+    icon: Cpu, 
+    title: 'Sandbox для тестов', 
+    description: 'Безопасная разработка',
+    size: 'small',
+  },
 ];
 
 export default function APIHuntflow() {
@@ -84,8 +130,7 @@ export default function APIHuntflow() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            Мы сделали все для легкого встраивания WorkHere в экосистему вашей компании. 
-            Разработайте все необходимые интеграции
+            Мы сделали все для легкого встраивания WorkHere в экосистему вашей компании
           </motion.p>
           <motion.a
             href="#api-docs"
@@ -102,36 +147,76 @@ export default function APIHuntflow() {
           </motion.a>
         </div>
 
-        {/* API Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Bento Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {apiFeatures.map((feature, index) => {
             const IconComponent = feature.icon;
-            // Alternate animation direction based on position
-            const fromLeft = index % 3 === 0;
-            const fromRight = index % 3 === 2;
-            const initialX = fromLeft ? -50 : fromRight ? 50 : 0;
+            const isLarge = feature.size === 'large';
+            const isMedium = feature.size === 'medium';
+            
+            // Calculate animation direction
+            const fromLeft = index % 4 < 2;
+            const initialX = fromLeft ? -50 : 50;
             
             return (
               <motion.div
                 key={feature.title}
-                className="relative p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/15 transition-all group"
+                className={`
+                  relative p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 
+                  hover:bg-white/15 transition-all group overflow-hidden
+                  ${isLarge ? 'col-span-2 row-span-2' : ''}
+                  ${isMedium ? 'col-span-2' : ''}
+                `}
                 initial={{ opacity: 0, x: initialX, y: 30 }}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05, duration: 0.5 }}
                 whileHover={{ y: -5, scale: 1.02 }}
               >
+                {/* Background decoration for large card */}
+                {isLarge && (
+                  <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                    <svg className="absolute -right-10 -bottom-10 w-48 h-48 opacity-20" viewBox="0 0 100 100">
+                      <circle cx="50" cy="50" r="40" fill="none" stroke="white" strokeWidth="0.5" />
+                      <circle cx="50" cy="50" r="30" fill="none" stroke="white" strokeWidth="0.5" />
+                      <circle cx="50" cy="50" r="20" fill="none" stroke="white" strokeWidth="0.5" />
+                    </svg>
+                  </div>
+                )}
+
                 {/* Icon */}
                 <motion.div
-                  className="w-12 h-12 rounded-xl bg-purple-500/30 flex items-center justify-center mb-4 group-hover:bg-purple-500/50 transition-colors"
+                  className={`
+                    rounded-xl bg-purple-500/30 flex items-center justify-center mb-4 
+                    group-hover:bg-purple-500/50 transition-colors
+                    ${isLarge ? 'w-16 h-16' : 'w-12 h-12'}
+                  `}
                   whileHover={{ rotate: [0, -10, 10, 0] }}
                   transition={{ duration: 0.5 }}
                 >
-                  <IconComponent className="w-6 h-6 text-purple-200" />
+                  <IconComponent className={`text-purple-200 ${isLarge ? 'w-8 h-8' : 'w-6 h-6'}`} />
                 </motion.div>
 
-                <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
-                <p className="text-purple-200 text-sm">{feature.description}</p>
+                <h3 className={`font-semibold text-white mb-2 ${isLarge ? 'text-xl' : 'text-base'}`}>
+                  {feature.title}
+                </h3>
+                <p className={`text-purple-200 ${isLarge ? 'text-base' : 'text-sm'}`}>
+                  {feature.description}
+                </p>
+
+                {/* Code snippet for large card */}
+                {isLarge && (
+                  <motion.div
+                    className="mt-6 p-4 rounded-lg bg-black/30 font-mono text-sm text-green-300"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <div className="text-purple-300">GET /api/v1/candidates</div>
+                    <div className="text-gray-400 mt-1">Authorization: Bearer ...</div>
+                  </motion.div>
+                )}
 
                 {/* Hover glow effect */}
                 <motion.div
@@ -144,6 +229,17 @@ export default function APIHuntflow() {
             );
           })}
         </div>
+
+        {/* Mascot */}
+        <motion.div
+          className="absolute -bottom-8 -right-8 hidden xl:block"
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.8 }}
+        >
+          <Mascot variant="06" size={120} phrase="API мощь! 💪" />
+        </motion.div>
       </motion.div>
     </section>
   );

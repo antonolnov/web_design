@@ -3,6 +3,7 @@ import Footer from '@/components/layout/Footer';
 import FloatingCTA from '@/components/ui/FloatingCTA';
 
 import HeroHuntflow from '@/components/sections/HeroHuntflow';
+import InterfaceSection from '@/components/sections/InterfaceSection';
 import ClientsHuntflow from '@/components/sections/ClientsHuntflow';
 import AISection from '@/components/sections/AISection';
 import FeaturesHuntflow from '@/components/sections/FeaturesHuntflow';
@@ -21,6 +22,9 @@ export default function Home() {
       <main>
         {/* Hero with mascot and AI */}
         <HeroHuntflow />
+        
+        {/* Interface screenshot section */}
+        <InterfaceSection />
         
         {/* Trusted by clients */}
         <ClientsHuntflow />

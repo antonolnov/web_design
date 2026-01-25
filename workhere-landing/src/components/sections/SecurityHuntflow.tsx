@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Server, Award, Shield, FileCheck } from 'lucide-react';
+import Mascot from '@/components/ui/Mascot';
 
 const securityFeatures = [
   {
@@ -121,6 +122,17 @@ export default function SecurityHuntflow() {
               {badge}
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Mascot */}
+        <motion.div
+          className="absolute bottom-16 -right-4 hidden xl:block"
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6 }}
+        >
+          <Mascot variant="04" size={110} phrase="Безопасно! 🔒" />
         </motion.div>
       </motion.div>
     </section>

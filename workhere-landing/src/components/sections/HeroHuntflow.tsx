@@ -3,9 +3,6 @@
 import { motion } from 'framer-motion';
 import InteractiveMascot from '@/components/ui/InteractiveMascot';
 
-// BasePath для GitHub Pages
-const basePath = '/web_design/workhere-landing';
-
 export default function HeroHuntflow() {
   return (
     <section className="relative min-h-screen pt-20 pb-12 overflow-hidden bg-gradient-to-b from-white via-white to-gray-50">
@@ -206,34 +203,6 @@ export default function HeroHuntflow() {
             {/* Interactive Mascot */}
             <InteractiveMascot size={350} variant="01" />
 
-            {/* Product screenshot floating behind/beside mascot */}
-            <motion.div
-              className="absolute -right-10 top-1/2 -translate-y-1/2 hidden xl:block"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8 }}
-            >
-              <motion.div
-                className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200"
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ width: 280 }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={`${basePath}/interface-screenshot.png`}
-                  alt="WorkHere Interface"
-                  className="w-full h-auto"
-                />
-                {/* Shine effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  initial={{ x: '-100%' }}
-                  animate={{ x: '200%' }}
-                  transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
-                />
-              </motion.div>
-            </motion.div>
           </motion.div>
         </div>
 

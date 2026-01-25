@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Mascot from '@/components/ui/Mascot';
 
 const testimonials = [
   {
@@ -156,6 +157,17 @@ export default function TestimonialsHuntflow() {
               <ChevronRight className="w-6 h-6 text-gray-600" />
             </button>
           </div>
+
+          {/* Mascot */}
+          <motion.div
+            className="absolute -bottom-8 right-0 hidden xl:block"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5, type: 'spring' }}
+          >
+            <Mascot variant="01" size={90} phrase="Круто! ⭐" />
+          </motion.div>
         </div>
       </div>
     </section>

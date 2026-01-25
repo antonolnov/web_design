@@ -141,19 +141,23 @@ function FeatureSection({ section, index }: { section: typeof featureSections[0]
       id={section.id} 
       className="relative py-32 overflow-hidden"
     >
-      {/* Badge - Huntflow style */}
-      <motion.div
-        className="flex justify-center mb-12"
-        style={{ scale: badgeScale, opacity: badgeOpacity }}
-      >
+      {/* Sticky Badge Container */}
+      <div className="sticky top-20 z-10 mb-12">
         <motion.div
-          className={`px-6 py-3 rounded-2xl ${section.badgeColor} font-semibold text-lg`}
-          animate={{ y: [0, -5, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          className="flex justify-center"
+          style={{ scale: badgeScale, opacity: badgeOpacity }}
         >
-          {section.badge}
+          <motion.div
+            className={`px-6 py-3 rounded-2xl ${section.badgeColor} font-semibold text-lg shadow-lg backdrop-blur-sm`}
+            initial={{ y: -20, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+          >
+            {section.badge}
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
 
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -188,23 +192,32 @@ function FeatureSection({ section, index }: { section: typeof featureSections[0]
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {/* Tabs */}
-            <div className="flex flex-wrap gap-2 mb-8">
-              {section.tabs.map((tab, i) => (
-                <motion.button
-                  key={tab.id}
-                  onClick={() => setActiveTab(i)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    activeTab === i
-                      ? 'bg-gray-900 text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {tab.label}
-                </motion.button>
-              ))}
+            {/* Tabs - Linear with underline */}
+            <div className="relative mb-8">
+              <div className="flex gap-1 overflow-x-auto scrollbar-hide">
+                {section.tabs.map((tab, i) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(i)}
+                    className={`relative px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors ${
+                      activeTab === i
+                        ? 'text-gray-900'
+                        : 'text-gray-500 hover:text-gray-700'
+                    }`}
+                  >
+                    {tab.label}
+                    {activeTab === i && (
+                      <motion.div
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 rounded-full"
+                        layoutId={`tab-underline-${section.id}`}
+                        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                ))}
+              </div>
+              {/* Bottom border */}
+              <div className="absolute bottom-0 left-0 right-0 h-px bg-gray-200" />
             </div>
 
             {/* Tab content */}
@@ -215,12 +228,47 @@ function FeatureSection({ section, index }: { section: typeof featureSections[0]
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="relative bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 border border-gray-100 shadow-sm min-h-[350px]"
+                className="relative bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 border border-gray-100 shadow-sm min-h-[400px] overflow-hidden"
               >
-                {/* Icon */}
-                <div className="w-14 h-14 rounded-2xl bg-[#1890ff]/10 flex items-center justify-center mb-6">
-                  <IconComponent className="w-7 h-7 text-[#1890ff]" />
+                {/* Background SVG decoration */}
+                <div className="absolute top-0 right-0 w-64 h-64 pointer-events-none opacity-10">
+                  <svg viewBox="0 0 200 200" className="w-full h-full">
+                    <defs>
+                      <linearGradient id={`grad-${section.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#1890ff" />
+                        <stop offset="100%" stopColor="#40a9ff" />
+                      </linearGradient>
+                    </defs>
+                    <circle cx="100" cy="100" r="80" fill={`url(#grad-${section.id})`} />
+                    <circle cx="150" cy="50" r="40" fill="#1890ff" opacity="0.5" />
+                    <circle cx="50" cy="150" r="30" fill="#40a9ff" opacity="0.3" />
+                  </svg>
                 </div>
+
+                {/* Floating shapes animation */}
+                <motion.div
+                  className="absolute top-8 right-8 w-3 h-3 rounded-full bg-[#1890ff]/30"
+                  animate={{ y: [0, -10, 0], x: [0, 5, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                <motion.div
+                  className="absolute top-20 right-16 w-2 h-2 rounded-full bg-[#16BF54]/40"
+                  animate={{ y: [0, 8, 0], x: [0, -4, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                />
+                <motion.div
+                  className="absolute bottom-24 right-12 w-4 h-4 rounded-full bg-[#1890ff]/20"
+                  animate={{ y: [0, -15, 0] }}
+                  transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                />
+
+                {/* Icon */}
+                <motion.div 
+                  className="w-16 h-16 rounded-2xl bg-[#1890ff]/10 flex items-center justify-center mb-6"
+                  whileHover={{ scale: 1.05, rotate: 5 }}
+                >
+                  <IconComponent className="w-8 h-8 text-[#1890ff]" />
+                </motion.div>
 
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">{currentTab.title}</h3>
                 <p className="text-gray-600 mb-6 leading-relaxed">{currentTab.description}</p>
@@ -230,22 +278,25 @@ function FeatureSection({ section, index }: { section: typeof featureSections[0]
                   {currentTab.features.map((feature, i) => (
                     <motion.span
                       key={feature}
-                      className="px-3 py-1.5 rounded-full bg-white border border-gray-200 text-sm text-gray-700"
+                      className="px-3 py-1.5 rounded-full bg-white border border-gray-200 text-sm text-gray-700 shadow-sm"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: i * 0.1 }}
+                      whileHover={{ scale: 1.05, backgroundColor: '#f0f9ff' }}
                     >
                       {feature}
                     </motion.span>
                   ))}
                 </div>
 
-                {/* Mascot in corner */}
-                {index === 1 && (
-                  <div className="absolute -bottom-4 -right-4 hidden lg:block">
-                    <Mascot variant="02" size={100} phrase="Интеграции!" />
-                  </div>
-                )}
+                {/* Mascot in corner - different for each section */}
+                <div className="absolute -bottom-2 -right-2 hidden lg:block">
+                  <Mascot 
+                    variant={index === 0 ? '02' : index === 1 ? '03' : '05'} 
+                    size={90} 
+                    phrase={index === 0 ? 'Быстро! ⚡' : index === 1 ? 'Интеграции! 🔗' : 'Аналитика! 📊'}
+                  />
+                </div>
               </motion.div>
             </AnimatePresence>
           </motion.div>

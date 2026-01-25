@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Building2, Users, Shield, Zap, BarChart3, Headphones } from 'lucide-react';
 import { ArrowRight } from 'lucide-react';
+import Mascot from '@/components/ui/Mascot';
 
 const enterpriseFeatures = [
   { icon: Building2, label: 'Организация работы больших команд' },
@@ -131,6 +132,17 @@ export default function EnterpriseHuntflow() {
             })}
           </motion.div>
         </div>
+
+        {/* Mascot */}
+        <motion.div
+          className="absolute -bottom-4 left-8 hidden xl:block"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.8 }}
+        >
+          <Mascot variant="08" size={100} phrase="Enterprise! 🏢" />
+        </motion.div>
       </motion.div>
     </section>
   );

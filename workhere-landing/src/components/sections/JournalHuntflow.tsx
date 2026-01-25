@@ -1,44 +1,69 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, Newspaper, Video, Headphones } from 'lucide-react';
+import { ArrowRight, BookOpen, Newspaper, Video, Headphones, FileText, Users } from 'lucide-react';
+import Mascot from '@/components/ui/Mascot';
 
 const articles = [
   {
     id: 1,
     category: 'Экспертиза',
     title: 'Как правильно считать срок закрытия позиции',
-    description: 'И почему это самая важная метрика',
+    description: 'И почему это самая важная метрика для HR',
     color: '#8B5CF6',
     bgColor: '#EDE9FE',
     icon: BookOpen,
+    size: 'large', // 2 columns
   },
   {
     id: 2,
     category: 'Руководства',
     title: 'Как руководителю контролировать работу рекрутеров',
-    description: 'Пошаговое руководство для HR-директора',
+    description: 'Пошаговое руководство',
     color: '#10B981',
     bgColor: '#D1FAE5',
     icon: Newspaper,
+    size: 'medium',
   },
   {
     id: 3,
     category: 'Интервью',
-    title: 'IT-рекрутеру нужны широкие, но поверхностные знания',
-    description: 'Разговор с ведущим IT-рекрутером',
+    title: 'IT-рекрутеру нужны широкие знания',
+    description: 'Разговор с экспертом',
     color: '#F59E0B',
     bgColor: '#FEF3C7',
     icon: Video,
+    size: 'small',
   },
   {
     id: 4,
     category: 'Подкаст',
-    title: '75 телеграм-каналов для размещения вакансий',
+    title: '75 телеграм-каналов для вакансий',
     description: 'Подборка лучших каналов',
     color: '#EF4444',
     bgColor: '#FEE2E2',
     icon: Headphones,
+    size: 'small',
+  },
+  {
+    id: 5,
+    category: 'Статьи',
+    title: '5 шагов по улучшению воронки подбора',
+    description: 'Практические советы',
+    color: '#3B82F6',
+    bgColor: '#DBEAFE',
+    icon: FileText,
+    size: 'medium',
+  },
+  {
+    id: 6,
+    category: 'Кейсы',
+    title: 'Как вовлечь заказчиков в автоматизацию',
+    description: 'Опыт крупных компаний',
+    color: '#EC4899',
+    bgColor: '#FCE7F3',
+    icon: Users,
+    size: 'small',
   },
 ];
 
@@ -94,14 +119,21 @@ export default function JournalHuntflow() {
           </motion.a>
         </div>
 
-        {/* Articles grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Bento Grid for articles */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {articles.map((article, index) => {
             const IconComponent = article.icon;
+            const isLarge = article.size === 'large';
+            const isMedium = article.size === 'medium';
+            
             return (
               <motion.article
                 key={article.id}
-                className="group rounded-3xl overflow-hidden cursor-pointer"
+                className={`
+                  group rounded-3xl overflow-hidden cursor-pointer
+                  ${isLarge ? 'col-span-2 row-span-2' : ''}
+                  ${isMedium ? 'col-span-2' : ''}
+                `}
                 style={{ backgroundColor: article.bgColor }}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -109,35 +141,49 @@ export default function JournalHuntflow() {
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -5 }}
               >
-                {/* Image area placeholder */}
+                {/* Image area with icon */}
                 <div 
-                  className="h-40 flex items-center justify-center"
-                  style={{ backgroundColor: `${article.color}20` }}
+                  className={`flex items-center justify-center relative overflow-hidden ${isLarge ? 'h-56' : 'h-32'}`}
+                  style={{ backgroundColor: `${article.color}15` }}
                 >
+                  {/* Decorative circles */}
                   <motion.div
-                    className="w-16 h-16 rounded-2xl flex items-center justify-center"
+                    className="absolute top-4 right-4 w-20 h-20 rounded-full opacity-20"
+                    style={{ backgroundColor: article.color }}
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 4, repeat: Infinity }}
+                  />
+                  <motion.div
+                    className="absolute bottom-4 left-4 w-12 h-12 rounded-full opacity-10"
+                    style={{ backgroundColor: article.color }}
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+                  />
+                  
+                  <motion.div
+                    className={`rounded-2xl flex items-center justify-center ${isLarge ? 'w-20 h-20' : 'w-14 h-14'}`}
                     style={{ backgroundColor: article.color }}
                     whileHover={{ scale: 1.1, rotate: 5 }}
                   >
-                    <IconComponent className="w-8 h-8 text-white" />
+                    <IconComponent className={`text-white ${isLarge ? 'w-10 h-10' : 'w-7 h-7'}`} />
                   </motion.div>
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
+                <div className={`${isLarge ? 'p-8' : 'p-5'}`}>
                   <span 
                     className="text-xs font-medium px-3 py-1 rounded-full"
                     style={{ backgroundColor: `${article.color}20`, color: article.color }}
                   >
                     {article.category}
                   </span>
-                  <h3 className="text-lg font-semibold text-gray-900 mt-4 mb-2 group-hover:text-[#1890ff] transition-colors">
+                  <h3 className={`font-semibold text-gray-900 mt-4 mb-2 group-hover:text-[#1890ff] transition-colors ${isLarge ? 'text-xl' : 'text-base'}`}>
                     {article.title}
                   </h3>
-                  <p className="text-sm text-gray-600">{article.description}</p>
+                  <p className={`text-gray-600 ${isLarge ? 'text-base' : 'text-sm'}`}>{article.description}</p>
 
                   <motion.span
-                    className="inline-flex items-center gap-2 mt-4 text-sm font-medium"
+                    className={`inline-flex items-center gap-2 mt-4 font-medium ${isLarge ? 'text-base' : 'text-sm'}`}
                     style={{ color: article.color }}
                   >
                     Читать
@@ -177,6 +223,17 @@ export default function JournalHuntflow() {
               </motion.button>
             </form>
           </div>
+        </motion.div>
+
+        {/* Mascot */}
+        <motion.div
+          className="absolute bottom-32 -left-4 hidden xl:block"
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6 }}
+        >
+          <Mascot variant="07" size={100} phrase="Читай! 📚" />
         </motion.div>
       </div>
     </section>
