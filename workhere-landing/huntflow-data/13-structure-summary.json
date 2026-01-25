@@ -1,0 +1,23 @@
+{
+  "title": "Система автоматизации рекрутмента — Хантфлоу",
+  "metaDescription": "Хантфлоу — система автоматизации рекрутмента, которая помогает закрывать вакансии в срок. C Хантфлоу подбор персонала становится быстрым и удобным.",
+  "sectionsCount": 22,
+  "structure": [
+    {
+      "index": 0,
+      "tagName": "DIV",
+      "className": "wrapper",
+      "id": "wrapper",
+      "height": 24969,
+      "firstHeading": "Закрывайте вакансии в срок"
+    },
+    {
+      "index": 1,
+      "tagName": "SECTION",
+      "className": "encyclopedia",
+      "id": "encyclopedia",
+      "height": 3080,
+      "firstHeading": "Журнал Хантфлоу"
+    }
+  ]
+}

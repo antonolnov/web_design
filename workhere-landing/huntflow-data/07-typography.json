@@ -1,0 +1,559 @@
+{
+  "fonts": [
+    "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+    "\"Times New Roman\"",
+    "hunt-kit-graphik, Arial, Helvetica, sans-serif"
+  ],
+  "textStyles": [
+    {
+      "tag": "H1",
+      "text": "Закрывайте вакансии в срок",
+      "fontSize": "76px",
+      "fontWeight": "700",
+      "lineHeight": "78.28px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-1.52px"
+    },
+    {
+      "tag": "H2",
+      "text": "Нам доверяют 2500+ компаний",
+      "fontSize": "22px",
+      "fontWeight": "500",
+      "lineHeight": "27.5px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(153, 153, 153)",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "H3",
+      "text": "С теми, кто создает сильные команды",
+      "fontSize": "54px",
+      "fontWeight": "600",
+      "lineHeight": "59.4px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(255, 255, 255)",
+      "letterSpacing": "-1.08px"
+    },
+    {
+      "tag": "H2",
+      "text": "\n                      Мы создали\n                      искусственный интеллект\n                    ",
+      "fontSize": "76px",
+      "fontWeight": "700",
+      "lineHeight": "77.52px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(172, 69, 90)",
+      "letterSpacing": "-1.52px"
+    },
+    {
+      "tag": "H2",
+      "text": "Ускорьте работу рекрутеров",
+      "fontSize": "76px",
+      "fontWeight": "700",
+      "lineHeight": "77.52px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-1.52px"
+    },
+    {
+      "tag": "H3",
+      "text": "Сохранение резюме с 20+ источников",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Публикация вакансий и сбор откликов",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Определение дубликатов резюме",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Почта, мессенджеры и SMS",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Назначение интервью",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H2",
+      "text": "Работайте в одной команде с заказчиками",
+      "fontSize": "76px",
+      "fontWeight": "700",
+      "lineHeight": "77.52px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-1.52px"
+    },
+    {
+      "tag": "H3",
+      "text": "Получение заявок от заказчиков",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Обратная связь по кандидатам",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Контроль сроков",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Доступ к статистике",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Оценка найма",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H2",
+      "text": "Найдите и исправьте узкие места в подборе",
+      "fontSize": "76px",
+      "fontWeight": "700",
+      "lineHeight": "77.52px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-1.52px"
+    },
+    {
+      "tag": "H3",
+      "text": "Анализ воронки кандидатов",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Отчет по сроку закрытия позиций",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Эффективность рекрутеров",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Скорость движения по воронке",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Аналитика писем",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H2",
+      "text": "«Ни разу не пожалели о своем решении»",
+      "fontSize": "32px",
+      "fontWeight": "600",
+      "lineHeight": "41.6px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.64px"
+    },
+    {
+      "tag": "H2",
+      "text": "«Хантфлоу дает большой объем функциональности»",
+      "fontSize": "32px",
+      "fontWeight": "600",
+      "lineHeight": "41.6px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.64px"
+    },
+    {
+      "tag": "H2",
+      "text": "«Процессы, на которые раньше тратили время, теперь автоматизированы»",
+      "fontSize": "32px",
+      "fontWeight": "600",
+      "lineHeight": "41.6px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.64px"
+    },
+    {
+      "tag": "H2",
+      "text": "«В Хантфлоу мне нравится все»",
+      "fontSize": "32px",
+      "fontWeight": "600",
+      "lineHeight": "41.6px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.64px"
+    },
+    {
+      "tag": "H2",
+      "text": "\n      \n    ",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "normal",
+      "fontFamily": "\"Times New Roman\"",
+      "color": "rgb(0, 0, 0)",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "H2",
+      "text": "Кейсы клиентов",
+      "fontSize": "76px",
+      "fontWeight": "700",
+      "lineHeight": "77.52px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-1.52px"
+    },
+    {
+      "tag": "H2",
+      "text": "Автоматизация рекрутмента в крупных компаниях",
+      "fontSize": "76px",
+      "fontWeight": "700",
+      "lineHeight": "77.52px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(255, 255, 255)",
+      "letterSpacing": "-1.52px"
+    },
+    {
+      "tag": "H2",
+      "text": "Выгода с Хантфлоу",
+      "fontSize": "76px",
+      "fontWeight": "700",
+      "lineHeight": "77.52px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-1.52px"
+    },
+    {
+      "tag": "H3",
+      "text": "Калькулятор экономии",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Готовая интеграция с AmoCRM для КА",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H2",
+      "text": "Суперсила API",
+      "fontSize": "76px",
+      "fontWeight": "700",
+      "lineHeight": "77.52px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(255, 255, 255)",
+      "letterSpacing": "-1.52px"
+    },
+    {
+      "tag": "H2",
+      "text": "Надежная работа и защита ваших данных",
+      "fontSize": "76px",
+      "fontWeight": "700",
+      "lineHeight": "77.52px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-1.52px"
+    },
+    {
+      "tag": "H3",
+      "text": "Инфраструктура — в России",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Вся необходимая аккредитация",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Регулярный аудит безопасности",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Соответствие 152-ФЗ",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H2",
+      "text": "Закажите персональное демо",
+      "fontSize": "76px",
+      "fontWeight": "700",
+      "lineHeight": "78.28px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-1.52px"
+    },
+    {
+      "tag": "H2",
+      "text": "Журнал Хантфлоу",
+      "fontSize": "76px",
+      "fontWeight": "700",
+      "lineHeight": "77.52px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(255, 255, 255)",
+      "letterSpacing": "-1.52px"
+    },
+    {
+      "tag": "H3",
+      "text": "Как правильно считать срок закрытия позиции",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "Как руководителю контролировать работу рекрутеров",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "IT-рекрутеру нужны широкие, но поверхностные знания",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(255, 255, 255)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "75 телеграм-каналов для размещения вакансий разработчиков",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "5 шагов по улучшению воронки подбора",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H3",
+      "text": "«Найм» или «наём» — как правильно?",
+      "fontSize": "26px",
+      "fontWeight": "700",
+      "lineHeight": "31.2px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.52px"
+    },
+    {
+      "tag": "H3",
+      "text": "Как вовлечь заказчиков в автоматизацию подбора",
+      "fontSize": "26px",
+      "fontWeight": "700",
+      "lineHeight": "31.2px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.52px"
+    },
+    {
+      "tag": "H3",
+      "text": "Подпишитесь на рассылку",
+      "fontSize": "40px",
+      "fontWeight": "700",
+      "lineHeight": "44px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(255, 255, 255)",
+      "letterSpacing": "-0.8px"
+    },
+    {
+      "tag": "H2",
+      "text": "Продукт",
+      "fontSize": "20px",
+      "fontWeight": "500",
+      "lineHeight": "31px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(255, 255, 255)",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "H2",
+      "text": "Преимущества",
+      "fontSize": "20px",
+      "fontWeight": "500",
+      "lineHeight": "31px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(255, 255, 255)",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "H2",
+      "text": "Как нанимать",
+      "fontSize": "20px",
+      "fontWeight": "500",
+      "lineHeight": "31px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(255, 255, 255)",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "H2",
+      "text": "Компания",
+      "fontSize": "20px",
+      "fontWeight": "500",
+      "lineHeight": "31px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(255, 255, 255)",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "H2",
+      "text": "Официальное",
+      "fontSize": "20px",
+      "fontWeight": "500",
+      "lineHeight": "31px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(255, 255, 255)",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "H2",
+      "text": "Социальные сети",
+      "fontSize": "20px",
+      "fontWeight": "500",
+      "lineHeight": "31px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(255, 255, 255)",
+      "letterSpacing": "normal"
+    },
+    {
+      "tag": "H1",
+      "text": "\n          Закажите персональное демо Хантфлоу\n        ",
+      "fontSize": "38px",
+      "fontWeight": "500",
+      "lineHeight": "43.32px",
+      "fontFamily": "_Graphik, system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", \"Liberation Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+      "color": "rgb(29, 29, 31)",
+      "letterSpacing": "-0.76px"
+    }
+  ]
+}

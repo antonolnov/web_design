@@ -1,0 +1,562 @@
+[
+  {
+    "index": 0,
+    "tagName": "HEADER",
+    "className": "header header--sticky",
+    "id": "header",
+    "position": {
+      "top": 0,
+      "height": 64
+    },
+    "innerHTML": "\n  <div class=\"header__inner\">\n    <a href=\"/\" class=\"header__logo\">\n      \n        \n          <div class=\"logo logo--ru\">\n\n  <svg role=\"img\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n    <title>Хантфлоу</title>\n\n    \n      <!-- Mobile -->\n      <g>\n        <!-- Sign (X) -->\n        <g>\n          \n            <path d=\"M16.475 0C7.374 0 0 7.02 0 15.68v.64C0 24.98 7.376 32 16.474 32h.001c9.098 0 16.474-7.02 16.474-15.68v-.64C32.95 7.02 25.574 0 16.475 0Z\" fill=\"#25CFE8\"></path>\n            <path d=\"M24.679 7.88h-3.702l-4.252 5.94h-.43L12.26 7.88H8.414l5.565 8.027L7.96 24.12h3.798l4.442-5.962h.43l4.394 5.962h3.965l-6.019-8.281L24.68 7.88Z\" fill=\"#FFFFFF\"></path>\n          \n        </g>\n        <!-- Text \"Хантфлоу\" -->\n        <path d=\"M50.615 9.34h-2.852l-3.277 4.722h-.33L41.044 9.34H38.08l4.289 6.383-4.638 6.53h2.926l3.423-4.741h.332l3.386 4.74h3.056l-4.639-6.585 4.4-6.327ZM69.574 16.614h-4.178v-3.542h-2.3v9.223h2.3v-3.56h4.178v3.56h2.3v-9.223h-2.3v3.542ZM55.816 20.316c-1.472 0-2.503-1.162-2.503-2.657 0-1.623 1.031-2.693 2.503-2.693 1.547 0 2.577 1.07 2.577 2.693 0 1.495-1.03 2.657-2.577 2.657Zm2.65-6.309h-.091c-.479-.627-1.454-1.199-2.834-1.199-2.596 0-4.602 2.158-4.602 4.87 0 2.656 2.006 4.796 4.602 4.796 1.38 0 2.355-.572 2.834-1.2h.092l.129.978h2.116V13.03h-2.116l-.13.977ZM125.835 13.072l-2.669 5.977h-.239l-2.945-5.977h-2.761l4.509 8.817-1.914 4.095h2.761l6.019-12.912h-2.761ZM112.128 20.322c-1.527 0-2.595-1.107-2.595-2.62 0-1.568 1.068-2.656 2.595-2.656 1.546 0 2.632 1.088 2.632 2.656 0 1.513-1.086 2.62-2.632 2.62Zm0-7.471c-2.834 0-4.932 2.158-4.932 4.87 0 2.656 2.098 4.796 4.932 4.796 2.89 0 5.006-2.14 5.006-4.796 0-2.712-2.116-4.87-5.006-4.87ZM97.383 17.794c-.036 1.734-.588 2.27-1.638 2.27h-.165v2.231c2.724.185 4.03-1.18 4.123-4.353l.073-2.748h3.424v7.101h2.3v-9.223h-8.006l-.11 4.723ZM89.653 20.192v-5.017c1.602 0 2.743.96 2.743 2.527 0 1.513-1.141 2.49-2.743 2.49Zm-2.3 0c-1.602 0-2.743-.977-2.743-2.49 0-1.568 1.141-2.527 2.743-2.527v5.017Zm2.3-7.157V9.383h",
+    "computedStyle": {
+      "backgroundColor": "rgb(255, 255, 255)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 1,
+    "tagName": "NAV",
+    "className": "navigation",
+    "id": "navigation",
+    "position": {
+      "top": 16,
+      "height": 32
+    },
+    "innerHTML": "\n  <ul class=\"navigation__list\" id=\"navigationList\">\n    \n      \n        <li class=\"is-dropdown\">\n          <span data-dropdown-control=\"collapsed\">\n            Преимущества<svg width=\"10\" height=\"10\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n              <path d=\"M1.5 3.25 5 6.75l3.5-3.5\" stroke=\"#000\" stroke-width=\"1.8\"></path>\n            </svg>\n          </span>\n          <ul data-dropdown-list=\"solutions\">\n            <li>\n              <a href=\"/features/reports\">\n                <dl>\n                  <dt>\n                    <svg role=\"img\">\n  <use xlink:href=\"/static/promo-static/landing-2021/src/images/blocks/navigation/icons.svg?f905fe6eb918371d21b960fa552b9f294601784145cda3c410d3ed61895d8b5e#icon-reports\"></use>\n</svg>\n\n                    Интерактивные отчеты\n                  </dt>\n                  <dd>16+&nbsp;готовых рекрутинговых<br> отчетов для ускорения подбора</dd>\n                </dl>\n              </a>\n            </li>\n            \n              <li>\n                <a href=\"/calc\">\n                  <dl>\n                    <dt>\n                      <svg role=\"img\">\n  <use xlink:href=\"/static/promo-static/landing-2021/src/images/blocks/navigation/icons.svg?f905fe6eb918371d21b960fa552b9f294601784145cda3c410d3ed61895d8b5e#icon-calc\"></use>\n</svg>\n\n                      Калькулятор экономии\n                    </dt>\n                    <dd>Рассчитайте, сколько времени<br> сэкономит вам Хантфлоу</dd>\n                  </dl>\n                </a>\n              </li>\n            \n            <li>\n              <a href=\"/industry/it\">\n                <dl>\n                  <dt>\n                    <svg role=\"img\">\n  <use xlink:href=\"/static/promo-static/landing-2021/src/images/blocks/navigation/icons.svg?f905fe6eb918371d21b960fa552b9f294601784145cda3c410d3ed61895d8b5e#icon-it\"></use>\n</svg>\n\n                    Для <span class=\"nowrap\">IT-компаний</span>\n                  </dt>\n                  <dd>Решение ключевых задач<br> <span class=\"n",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 2,
+    "tagName": "SECTION",
+    "className": "banner",
+    "id": "",
+    "position": {
+      "top": 64,
+      "height": 2550.71875
+    },
+    "innerHTML": "\n        \n          <!-- 🔥 -->\n        \n\n        \n\n        \n\n        \n\n        <div class=\"container\">\n          <div class=\"banner__info\" itemscope=\"\" itemtype=\"http://schema.org/Organization\">\n            \n              <div class=\"ai-icon ai-icon--ball\">\n                <div class=\"ai-scene\">\n                  <div class=\"ai-snow\" style=\"transform: translate3d(340px, 260px, 1px) rotate(-0.244979rad);\">\n                    <img src=\"/static/promo-static/landing-2021/src/files/components/ai-icon/ai-ball.png?3947b0706a63edebc19e616c38e79deaa19a1c632bb736461d0bc287f642eb5c\" alt=\"Новый Год с Хантфлоу!\" width=\"128\">\n                    <canvas id=\"ai-snow-canvas\" width=\"206\" height=\"206\"></canvas>\n                  </div>\n                  <svg class=\"ai-rope\" width=\"600\" height=\"350\">\n                    <path d=\"M300,0 C300,0 295.45475802810165,63.078519368279565 300,100 C305.83712823568237,147.41560920872348 340,260 340,260\" stroke-width=\"1\" stroke=\"#ccc\" fill=\"none\"></path>\n                  </svg>\n                </div>\n              </div>\n            \n            <h1 class=\"banner__title\" itemprop=\"description\">Закрывайте вакансии в&nbsp;срок</h1>\n            <p class=\"banner__text\" itemprop=\"name\">Хантфлоу&nbsp;— система автоматизации рекрутмента <a class=\"unstyled-link\" href=\"#we-are-the-champions\">№&nbsp;1* в&nbsp;России</a> <a href=\"#huntflowAi\" class=\"ai-link js-ai-link\"><span>с&nbsp;искусственным интеллектом</span></a>, которая помогает закрывать вакансии в&nbsp;срок</p>\n            <button class=\"banner__button button button--primary js-navigation-modal-close\" type=\"button\" data-modal=\"#demoRequestModal\">Оставить заявку на&nbsp;демо</button>\n          </div>\n\n          <div class=\"huntflow-block\">\n            <div class=\"container\">\n              <div id=\"huntflowBlockAnimation\" style=\"--progress: 0.0002;\">\n                <div class=\"huntflow-block__window-wrapper\">\n                  <div class=\"huntflow-block__window\" id=\"huntflowBlockWindow\">\n        ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "120px 0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 3,
+    "tagName": "SECTION",
+    "className": "clients-row",
+    "id": "",
+    "position": {
+      "top": 2053.330322265625,
+      "height": 149.53125
+    },
+    "innerHTML": "\n  <div class=\"container\">\n    <h2 class=\"clients-row__title\">Нам доверяют 2500+<br> компаний</h2>\n    <div id=\"VClientsLogotypes\"><div class=\"FHjn22l1iDS9akFPQQnM\"><div class=\"Hkd6DEd4kkueDF5ontOh\"><div class=\"CaOiXJe3PGk3fqu_YsD7\"><img src=\"https://huntflow.ru/static/promo-static/landing-2021/dist/de35653501fec42f6268.svg\" alt=\"komus\" class=\"eVG9lZlxVNThPeBcQm3Q\"></div><div class=\"CaOiXJe3PGk3fqu_YsD7\"><img src=\"https://huntflow.ru/static/promo-static/landing-2021/dist/a2f43904ecef62b75e3d.svg\" alt=\"avito\" class=\"eVG9lZlxVNThPeBcQm3Q\"></div><div class=\"CaOiXJe3PGk3fqu_YsD7\"><img src=\"https://huntflow.ru/static/promo-static/landing-2021/dist/cba48031a7a4a8eed63c.svg\" alt=\"interfax\" class=\"eVG9lZlxVNThPeBcQm3Q\"></div></div><div class=\"Hkd6DEd4kkueDF5ontOh\"><div class=\"CaOiXJe3PGk3fqu_YsD7\"><img src=\"https://huntflow.ru/static/promo-static/landing-2021/dist/8bf9e5509eb6eb6e325d.svg\" alt=\"aviasales\" class=\"eVG9lZlxVNThPeBcQm3Q\"></div><div class=\"CaOiXJe3PGk3fqu_YsD7\"><img src=\"https://huntflow.ru/static/promo-static/landing-2021/dist/2d7eea496c75880191e8.svg\" alt=\"cdek\" class=\"eVG9lZlxVNThPeBcQm3Q\"></div><div class=\"CaOiXJe3PGk3fqu_YsD7\"><img src=\"https://huntflow.ru/static/promo-static/landing-2021/dist/73c2e8630c0fd4f4fe8c.svg\" alt=\"modulbank\" class=\"eVG9lZlxVNThPeBcQm3Q\"></div></div><div class=\"Hkd6DEd4kkueDF5ontOh\"><div class=\"CaOiXJe3PGk3fqu_YsD7\"><img src=\"https://huntflow.ru/static/promo-static/landing-2021/dist/3b34a59d94af20df3f67.svg\" alt=\"samokat\" class=\"eVG9lZlxVNThPeBcQm3Q\"></div><div class=\"CaOiXJe3PGk3fqu_YsD7\"><img src=\"https://huntflow.ru/static/promo-static/landing-2021/dist/184b9373427e2628ac1d.svg\" alt=\"rbk_money\" class=\"eVG9lZlxVNThPeBcQm3Q\"></div><div class=\"CaOiXJe3PGk3fqu_YsD7\"><img src=\"https://huntflow.ru/static/promo-static/landing-2021/dist/3f74caa207f3ffb57948.svg\" alt=\"sports_ru\" class=\"eVG9lZlxVNThPeBcQm3Q\"></div></div><div class=\"Hkd6DEd4kkueDF5ontOh\"><div class=\"CaOiXJe3PGk3fqu_YsD7\"><img src=\"https://huntflow.ru/static/promo-static/la",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "60px 0px 0px"
+    }
+  },
+  {
+    "index": 4,
+    "tagName": "SECTION",
+    "className": "huntflow-ai",
+    "id": "huntflowAi",
+    "position": {
+      "top": 2614.71875,
+      "height": 3472.171875
+    },
+    "innerHTML": "\n          <div class=\"huntflow-ai__clouds\" id=\"huntflowAiClouds\" style=\"--progress: 0.0002;\">\n            <img src=\"/static/promo-static/landing-2021/src/images/pages/index/huntflow-ai/clouds.png?0b03bc92ca9c0f6903da2e30e2d57a84b0489686ab66490cf8ee49ff9128b834\" alt=\"Облака\">\n          </div>\n          <div class=\"huntflow-ai__inner\">\n            <div class=\"container\">\n              \n            <div class=\"huntflow-ai__texting js-huntflow-ai-texting\"><div class=\"line\" style=\"display: block; text-align: center; width: 100%;\"><span style=\"display: inline-block; position: relative; --progress: 0.0021;\">Представьте<br>будущее,</span></div><div class=\"line\" style=\"display: block; text-align: center; width: 100%;\"><span style=\"display: inline-block; position: relative; --progress: 0.0021;\">где вакансии</span></div><div class=\"line\" style=\"display: block; text-align: center; width: 100%;\"><span style=\"display: inline-block; position: relative; --progress: 0.0021;\">закрываются<br>быстрее</span></div><div class=\"line\" style=\"display: block; text-align: center; width: 100%;\"><span style=\"display: inline-block; position: relative; --progress: 0.0021;\">сами собой...</span></div></div></div>\n\n            <div class=\"huntflow-ai__whirling\" id=\"huntflowAiWhirling\" style=\"--progress: 0.0002;\">\n              <div>\n                <div id=\"huntflowAiWhirlingFrames\"><img src=\"/static/promo-static/landing-2021/src/images/pages/index/huntflow-ai/whirling/md/frame_0.webp?0aadae5435178154d3841ec1572cebc50dcab0175f911d16689bc4ccb692665b\" style=\"opacity: 1;\"><img src=\"/static/promo-static/landing-2021/src/images/pages/index/huntflow-ai/whirling/md/frame_1.webp?bbfd43f915e2f467093880a7a93ed8afa5f138d9964c26751927889f12df9293\" style=\"opacity: 0;\"><img src=\"/static/promo-static/landing-2021/src/images/pages/index/huntflow-ai/whirling/md/frame_2.webp?d4d888ad347bbf5e0556ea31415d934ed99a80113e05c7714e09c1275d108d8c\" style=\"opacity: 0;\"><img src=\"/static/promo-static/landing-2021/src/images/pag",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 5,
+    "tagName": "HEADER",
+    "className": "",
+    "id": "",
+    "position": {
+      "top": 4446.0625,
+      "height": 465.6435546875
+    },
+    "innerHTML": "\n                    <picture>\n                      <source type=\"image/webp\" srcset=\"/static/promo-static/landing-2021/src/images/pages/index/huntflow-ai/contents/ai-icon.webp?e1dfbd7105fc916dba000d53c5544ca07d784a4ae2b9079f5d4c4335b7590804,\n                                /static/promo-static/landing-2021/src/images/pages/index/huntflow-ai/contents/ai-icon@2x.webp?652994ba685d91bd3d8ff36d080f01982364887a1ad8d6f3e4e0ec17ba538dbb 2x\">\n                      <img src=\"/static/promo-static/landing-2021/src/images/pages/index/huntflow-ai/contents/ai-icon@2x.png?0a353dca21d76668291ef430e65b4631bfe4223a036c211a231a853a66c0dfb0\" width=\"60\" height=\"60\" alt=\"AI\" class=\"huntflow-ai-contents__icon\">\n                    </picture>\n                    <h2 class=\"huntflow-ai-contents__title\">\n                      Мы создали<br>\n                      искусственный интеллект<br>\n                      Хантфлоу AI\n                    </h2>\n                    <p class=\"huntflow-ai-contents__caption\">Он&nbsp;непрерывно анализирует работу рекрутера над вакансией и&nbsp;рекомендует подходящих кандидатов из&nbsp;вашей базы резюме</p>\n                  ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 6,
+    "tagName": "FOOTER",
+    "className": "",
+    "id": "",
+    "position": {
+      "top": 6148.40087890625,
+      "height": 314.0224609375
+    },
+    "innerHTML": "\n                    <p class=\"huntflow-ai-contents__text\">Искусственный интеллект Хантфлоу AI превращает накопленную базу резюме в&nbsp;активный источник «теплых» кандидатов</p>\n                    <button class=\"huntflow-ai-contents__action\" type=\"button\" data-modal=\"#demoRequestModal\">Оставить заявку на&nbsp;демо</button>\n                  ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 7,
+    "tagName": "SECTION",
+    "className": "key-features key-features--automation",
+    "id": "",
+    "position": {
+      "top": 6086.890625,
+      "height": 2323.40625
+    },
+    "innerHTML": "\n        <div class=\"key-features__badge js-key-features-badge\" style=\"--progress: 0.0002;\">\n          <div class=\"key-features__badge-inner\">\n            <div id=\"automation\" class=\"badge\" data-content=\"Автоматизация\"></div>\n          </div>\n        </div>\n\n        <div class=\"key-features__wrapper js-key-features-wrapper\" style=\"--progress: 0.0009779172419055993;\">\n          <div class=\"key-features__info\">\n            <div class=\"key-features__info-inner\">\n              <div class=\"container\">\n                <h2 class=\"key-features__title\">Ускорьте работу<br> рекрутеров</h2>\n                <p class=\"key-features__text\">Чтобы конкурировать за&nbsp;кандидатов, нужно действовать быстро. Хантфлоу автоматизирует всю рутину и&nbsp;фокусирует рекрутеров на&nbsp;действительно важных задачах</p>\n                <figure class=\"key-features__value\">\n                  <img src=\"/static/promo-static/landing-2021/src/images/pages/index/key-features/values/automation.svg?f5242167d3d3b00fa535eb0bc16ddd15e02b5fd3bf7d200e77799b0acc5c4541\" width=\"129\" height=\"110\" alt=\"Автоматизация\" class=\"key-features__value-img\">\n                  <figcaption class=\"key-features__value-caption\">часа рабочего времени<br> рекрутера экономит<br> Хантфлоу каждый день</figcaption>\n                </figure>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"key-features__slider\">\n            \n              <div class=\"key-features__tabs-outer\" id=\"tickets\">\n  <div class=\"key-features__tabs-inner\">\n    <ul class=\"key-features__tabs js-key-features-tabs\">\n      \n        \n        <li class=\"is-active\">Сохранение резюме<span style=\"left: 0px; width: 174px; transform: translateX(0px);\"></span></li>\n      \n        \n        <li>Публикация вакансий</li>\n      \n        \n        <li>Дубликаты</li>\n      \n        \n        <li>Почта и&nbsp;мессенджеры</li>\n      \n        \n        <li>Назначение интервью</li>\n      \n    </ul>\n  </div>\n</div>\n\n            \n\n            <div class=\"swi",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px 0px 180px"
+    }
+  },
+  {
+    "index": 8,
+    "tagName": "SECTION",
+    "className": "key-features key-features--customers",
+    "id": "",
+    "position": {
+      "top": 8590.296875,
+      "height": 2357.5
+    },
+    "innerHTML": "\n        <div class=\"key-features__badge js-key-features-badge\" style=\"--progress: 0.0002;\">\n          <div class=\"key-features__badge-inner\">\n            <div class=\"badge\" data-content=\"Работа с заказчиками\"></div>\n          </div>\n        </div>\n\n        <div class=\"key-features__wrapper js-key-features-wrapper\" style=\"--progress: 0.0009779172419055993;\">\n          <div class=\"key-features__info\">\n            <div class=\"key-features__info-inner\">\n              <div class=\"container\">\n                <h2 class=\"key-features__title\">Работайте в&nbsp;одной команде с&nbsp;заказчиками</h2>\n                <p class=\"key-features__text\">Ответственность за&nbsp;успешное закрытие вакансии лежит и&nbsp;на&nbsp;рекрутере, и&nbsp;на&nbsp;нанимающих менеджерах. Хантфлоу помогает выстроить процесс работы на&nbsp;всех этапах подбора и&nbsp;сделать работу рекрутмента прозрачной</p>\n                <figure class=\"key-features__value\">\n                  <img src=\"/static/promo-static/landing-2021/src/images/pages/index/key-features/values/customers.svg?26e0dc821bf6a8906f1c706c9ef391d10fbc3199501538a9e21794bbc3073116\" width=\"161\" height=\"110\" alt=\"Работа с заказчиками\" class=\"key-features__value-img\">\n                  <figcaption class=\"key-features__value-caption\">средняя<br> вовлеченность<br> заказчиков</figcaption>\n                </figure>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"key-features__slider\">\n            \n              <div class=\"key-features__tabs-outer\" id=\"tickets\">\n  <div class=\"key-features__tabs-inner\">\n    <ul class=\"key-features__tabs js-key-features-tabs\">\n      \n        \n        <li class=\"is-active\">Заявки на&nbsp;подбор<span style=\"left: 0px; width: 157px; transform: translateX(0px);\"></span></li>\n      \n        \n        <li>Обратная связь по&nbsp;кандидатам</li>\n      \n        \n        <li>Контроль сроков</li>\n      \n        \n        <li>Доступ к&nbsp;статистике</li>\n      \n        \n        <li>Оценка найма</li>\n ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "180px 0px"
+    }
+  },
+  {
+    "index": 9,
+    "tagName": "SECTION",
+    "className": "key-features key-features--analytics",
+    "id": "",
+    "position": {
+      "top": 11127.796875,
+      "height": 2324.40625
+    },
+    "innerHTML": "\n        <div class=\"key-features__badge js-key-features-badge\" style=\"--progress: 0.0002;\">\n          <div class=\"key-features__badge-inner\">\n            <div class=\"badge\" data-content=\"Аналитика\"></div>\n          </div>\n        </div>\n\n        <div class=\"key-features__wrapper js-key-features-wrapper\" style=\"--progress: 0.0009779172419055993;\">\n          <div class=\"key-features__info\">\n            <div class=\"key-features__info-inner\">\n              <div class=\"container\">\n                <h2 class=\"key-features__title\">Найдите и исправьте узкие места в&nbsp;подборе</h2>\n                <p class=\"key-features__text\">Нельзя улучшить процессы без точных метрик.&nbsp;16+&nbsp;готовых отчетов Хантфлоу позволяют найти и&nbsp;исправить проблемы с&nbsp;закрытием каждой вакансии и&nbsp;системно улучшить показатели подбора</p>\n                <figure class=\"key-features__value\">\n                  <img src=\"/static/promo-static/landing-2021/src/images/pages/index/key-features/values/analytics.svg?6b760a60c7ffb6b41ead328b5e3f9d0ef3c5d9fbd02ce52b9f57ccf7421e4bfe\" width=\"161\" height=\"111\" alt=\"Аналитика\" class=\"key-features__value-img\">\n                  <figcaption class=\"key-features__value-caption\">клиентов ускоряют<br> закрытие вакансий<br> на&nbsp;треть за&nbsp;квартал</figcaption>\n                </figure>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"key-features__slider\">\n            \n              <div class=\"key-features__tabs-outer\" id=\"tickets\">\n  <div class=\"key-features__tabs-inner\">\n    <ul class=\"key-features__tabs js-key-features-tabs\">\n      \n        \n        <li class=\"is-active\">Воронка<span style=\"left: 0px; width: 75px; transform: translateX(0px);\"></span></li>\n      \n        \n        <li>Срок закрытия позиции</li>\n      \n        \n        <li>Эффективность рекрутеров</li>\n      \n        \n        <li>Скорость воронки</li>\n      \n        \n        <li>Аналитика писем</li>\n      \n    </ul>\n  </div>\n</div>\n\n            \n\n   ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "180px 0px"
+    }
+  },
+  {
+    "index": 10,
+    "tagName": "SECTION",
+    "className": "customer-feedbacks",
+    "id": "",
+    "position": {
+      "top": 13632.203125,
+      "height": 621.46875
+    },
+    "innerHTML": "\n  <div class=\"customer-feedbacks__container\">\n    <div class=\"swiper swiper-backface-hidden swiper-fade swiper-initialized swiper-horizontal swiper-watch-progress\" id=\"customer-feedbacks-slider\">\n      \n        <div class=\"swiper-wrapper\">\n  \n    \n  \n    \n  \n    \n  \n    \n  \n<div class=\"swiper-slide swiper-slide-active swiper-slide-visible swiper-slide-fully-visible\" data-swiper-slide-index=\"0\" style=\"width: 1167px; opacity: 1; transform: translate3d(0px, 0px, 0px);\">\n      \n        \n\n\n\n<blockquote class=\"customer-feedback\">\n  <picture>\n    <source type=\"image/webp\" srcset=\"/static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/logos/ru/selectel.webp?065e9761f47ba5d96b85caa961a6533f344ffc0b090d37e9360c827e8afa52ea,\n                  /static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/logos/ru/selectel@2x.webp?977abdd7dcb53d145099aa9f82bc98333454c2a80a866354579830d59efc1eb0 2x\">\n    <img src=\"/static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/logos/ru/selectel@2x.png?99f4868e42aab7805edbedff1e7c3bbed4b73d983e14b191ec249a06a44d48e1\" alt=\"Логотип\" class=\"customer-feedback__logo\">\n  </picture>\n  <h2 class=\"customer-feedback__title\">«Ни&nbsp;разу не&nbsp;пожалели о&nbsp;своем решении»</h2>\n  <p class=\"customer-feedback__text\">Даже на&nbsp;старте Хантфлоу был удобнее наших стандартных инструментов. Мы&nbsp;понимали, что дальше станет еще лучше и&nbsp;комфортнее. С&nbsp;тех пор мы&nbsp;ни&nbsp;разу не&nbsp;пожалели о&nbsp;своем решении и&nbsp;очень рады, что когда-то обратили внимание на&nbsp;стенд Хантфлоу.</p>\n  <footer class=\"customer-feedback__footer\">\n    <picture>\n      <source type=\"image/webp\" srcset=\"/static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/selectel.webp?8c934bed7e278b09c85e99b969b51fe57e261b782188473e3ee1eb8120fdad27,\n                    /static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/selectel@2x.webp?a571c5d83cb153d1a75c9117f6e79a4b29cd",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "140px 0px"
+    }
+  },
+  {
+    "index": 11,
+    "tagName": "FOOTER",
+    "className": "customer-feedback__footer",
+    "id": "",
+    "position": {
+      "top": 14056.53125,
+      "height": 161.59375
+    },
+    "innerHTML": "\n    <picture>\n      <source type=\"image/webp\" srcset=\"/static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/selectel.webp?8c934bed7e278b09c85e99b969b51fe57e261b782188473e3ee1eb8120fdad27,\n                    /static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/selectel@2x.webp?a571c5d83cb153d1a75c9117f6e79a4b29cd9d02eb6e0a50de3be6a0f08b39eb 2x\">\n      <img src=\"/static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/selectel@2x.png?832c5494426eeee67409ca511f44ffd7c7a28fc02b469f1b09821d6031c979f6\" alt=\"Фотография\" class=\"customer-feedback__photo\">\n    </picture>\n    <cite class=\"customer-feedback__person\">\n      Анастасия Светличная\n      <span class=\"customer-feedback__post\">Руководитель отдела персонала, Selectel</span>\n    </cite>\n  ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px 153.328px"
+    }
+  },
+  {
+    "index": 12,
+    "tagName": "FOOTER",
+    "className": "customer-feedback__footer",
+    "id": "",
+    "position": {
+      "top": 14061.28125,
+      "height": 192.390625
+    },
+    "innerHTML": "\n    <picture>\n      <source type=\"image/webp\" srcset=\"/static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/kontur.webp?580a66e004f36bf5e2556e1de8a5500b7c0301d1ca544b30b5302e3bb140663f,\n                    /static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/kontur@2x.webp?2a132374fe62ad0c1d05339fb772a67e7465b4a46e00fe403fbc34ce33aca0a3 2x\">\n      <img src=\"/static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/kontur@2x.png?5c6c5404dc13b4fd3c11ce0084664d9c588aaf1ca113dc8052af89ee1dbfc302\" alt=\"Фотография\" class=\"customer-feedback__photo\">\n    </picture>\n    <cite class=\"customer-feedback__person\">\n      Надежда Лысцева\n      <span class=\"customer-feedback__post\">Руководитель группы <span class=\"nowrap\">HR-аналитики</span> и&nbsp;<span class=\"nowrap\">бизнес-процессов</span>, Контур</span>\n    </cite>\n  ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px 153.328px"
+    }
+  },
+  {
+    "index": 13,
+    "tagName": "FOOTER",
+    "className": "customer-feedback__footer",
+    "id": "",
+    "position": {
+      "top": 14057.171875,
+      "height": 161.59375
+    },
+    "innerHTML": "\n    <picture>\n      <source type=\"image/webp\" srcset=\"/static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/lanit.webp?ae135e0dd6f013367a2a3c61a37b19280234b701038e16aeee410f4a5105a1a4,\n                    /static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/lanit@2x.webp?5513bdd5d9c5f46881870173279c627e9d3211a52cc8c45dba61618cea50177e 2x\">\n      <img src=\"/static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/lanit@2x.png?37bbe66e095c9c9e1480a3874cd1e2480863f7dcfd970192e043799206b6ee0e\" alt=\"Фотография\" class=\"customer-feedback__photo\">\n    </picture>\n    <cite class=\"customer-feedback__person\">\n      Ирина Плешкова\n      <span class=\"customer-feedback__post\">Руководитель <span class=\"nowrap\">HR-проектов</span>, ГК Ланит</span>\n    </cite>\n  ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px 153.328px"
+    }
+  },
+  {
+    "index": 14,
+    "tagName": "FOOTER",
+    "className": "customer-feedback__footer",
+    "id": "",
+    "position": {
+      "top": 14076.671875,
+      "height": 161.59375
+    },
+    "innerHTML": "\n    <picture>\n      <source type=\"image/webp\" srcset=\"/static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/sportsru.webp?a1c600aa7546795d59b3481deb82b1741d199a1e20b913c07cb17caaac74a80c,\n                    /static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/sportsru@2x.webp?87fa8ff1b510129026bfad5b7c9a4143ce1b102de75befeb6f649a4d87e932a1 2x\">\n      <img src=\"/static/promo-static/landing-2021/src/images/blocks/customer-feedbacks/photos/ru/sportsru@2x.png?3be2457be53f6049a42f48b61464e5bfbe251d14cd9ee24608b3578c12013279\" alt=\"Фотография\" class=\"customer-feedback__photo\">\n    </picture>\n    <cite class=\"customer-feedback__person\">\n      Юлия Аверина\n      <span class=\"customer-feedback__post\">HRD, Sports.ru</span>\n    </cite>\n  ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px 153.328px"
+    }
+  },
+  {
+    "index": 15,
+    "tagName": "SECTION",
+    "className": "forum-results",
+    "id": "forum-results",
+    "position": {
+      "top": 14393.671875,
+      "height": 1762.078125
+    },
+    "innerHTML": "\n  <div class=\"container\">\n    <h2 class=\"forum-results__title\">\n      <img src=\"/static/promo-static/landing-2021/src/images/blocks/events/forum-2024/forum-results/logo.svg?04ee9454b02fd337d05d482cbf167090e05edcc591ad7dda2c94046ab75705db\" alt=\"НАЁМ\" class=\"forum-results__logo\">\n    </h2>\n    <p class=\"forum-results__text\">Каждый год мы&nbsp;проводим большой форум, чтобы вместе с&nbsp;тысячами эйчаров перевернуть представление о&nbsp;своей роли в&nbsp;компании и&nbsp;стать настоящими партнерами для бизнеса</p>\n    <div class=\"forum-results__participants\">\n      <img src=\"/static/promo-static/landing-2021/src/images/blocks/events/forum-2024/forum-results/participants.svg?18d028be06aef470714dcb581e37a364d9b54d8206fb0b52d4e83c93efe87120\" alt=\"2500+\">\n      <p>участников ежегодно</p>\n    </div>\n\n    <div class=\"forum-results__videos\">\n      <div>\n        <div data-modal=\"#results\" class=\"forum-results__video js-forum-results-video\"><picture><source type=\"image/webp\" media=\"(min-width: 861px)\" srcset=\"/static/promo-static/landing-2021/src/files/blocks/events/forum-2024/forum-results/videos/results-md.webp?a4905b8ebe8724398d3515d90a9ebcebcba59c76afb6742099486c4c5d38966e,\n                            /static/promo-static/landing-2021/src/files/blocks/events/forum-2024/forum-results/videos/results-md@2x.webp?cab9ba9aa28349b3a45816be0b929f7055174fd693db65ab7b85e1cd92f21bfc 2x\"> <source type=\"image/webp\" srcset=\"/static/promo-static/landing-2021/src/files/blocks/events/forum-2024/forum-results/videos/results-xs.webp?a95904ae3d101c5ca5bdaac8bfb1470bb21ec22bed6c14baa8e1f454709ff52d,\n                            /static/promo-static/landing-2021/src/files/blocks/events/forum-2024/forum-results/videos/results-xs@2x.webp?9c17481991292f496ac269dfd1cec73acd5c0fb789592bc87ab1d501c79e5c1d 2x\"> <img src=\"/static/promo-static/landing-2021/src/files/blocks/events/forum-2024/forum-results/videos/results-md@2x.jpg?4c6f517da236fc6eb20ecfd92219463f28b04b284024a81230daf91984957920\" alt=\"Как про",
+    "computedStyle": {
+      "backgroundColor": "rgb(255, 200, 207)",
+      "padding": "180px 0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 16,
+    "tagName": "SECTION",
+    "className": "customer-cases",
+    "id": "",
+    "position": {
+      "top": 16295.75,
+      "height": 1309.46875
+    },
+    "innerHTML": "\n  <div class=\"container\">\n    <div class=\"customer-cases__info\">\n      <h2 class=\"customer-cases__title\">Кейсы клиентов</h2>\n      <p class=\"customer-cases__text\">Клиенты рассказали о&nbsp;результатах, которых они достигли после внедрения Хантфлоу</p>\n      \n        \n\n<a class=\"button-external customer-cases__action\" href=\"/cases\" target=\"_blank\" data-event=\"button_cases\">\n  Все кейсы<svg width=\"9\" height=\"14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1 12.5 7 7 1 1.5\" stroke-width=\"2.5\"></path></svg>\n</a>\n\n      \n    </div>\n  </div>\n\n  <div class=\"customer-cases__container\">\n    <div class=\"customer-cases__container-inner\">\n      <div class=\"swiper swiper-creative swiper-3d swiper-initialized swiper-horizontal swiper-watch-progress\" id=\"customer-cases-slider\">\n        \n          <div class=\"swiper-wrapper\">\n  \n    \n      <div class=\"swiper-slide swiper-slide-active swiper-slide-visible swiper-slide-fully-visible\" style=\"width: 490px; z-index: 12; transform: translate3d(calc(0px), calc(0px), calc(0px)) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1); opacity: 1; margin-right: 20px;\">\n        \n          \n\n\n<div class=\"customer-case\">\n  <a class=\"customer-case__link\" href=\"/cases/eduson\" target=\"_blank\" data-event=\"case_eduson\">\n    <div class=\"customer-case__image-wrap\">\n      <img class=\"customer-case__image\" src=\"/static/promo-static/landing-2021/src/images/blocks/customer-cases/customers/eduson.svg?47099b4de242252eb5a1a619ccad0163390cc8ae7efeae0f8d3465dd3b886f14\" alt=\"Изображение\">\n    </div>\n    <div class=\"customer-case__info\">\n      <ul class=\"customer-case__tags\">\n        \n          <li data-tag=\"IT\"></li>\n        \n          <li data-tag=\"Образование\"></li>\n        \n      </ul>\n      <p class=\"customer-case__text\">Как в&nbsp;Eduson увеличили скорость найма на&nbsp;30%</p>\n      \n        \n\n<span class=\"button-external customer-case__button\">\n  Читать кейс<svg width=\"9\" height=\"14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1 12.",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "150px 0px 180px",
+      "margin": "140px 0px 200px"
+    }
+  },
+  {
+    "index": 17,
+    "tagName": "SECTION",
+    "className": "enterprise",
+    "id": "",
+    "position": {
+      "top": 17805.21875,
+      "height": 1414.40625
+    },
+    "innerHTML": "\n        <div class=\"container\">\n          <div class=\"enterprise__info\">\n            <header class=\"enterprise__header\">\n              <span class=\"enterprise__badge badge\">Хантфлоу Премьер</span>\n              <h2 class=\"enterprise__title\">Автоматизация рекрутмента в&nbsp;крупных компаниях</h2>\n            </header>\n            <p class=\"enterprise__text\">Готовое решение для трансформации, систематизации и&nbsp;масштабирования бизнес-процесса рекрутмента</p>\n            \n              \n                \n\n<a class=\"button-external enterprise__action button-external--inverted\" href=\"/premier\" target=\"_blank\" data-event=\"button_enterprise\">\n  Узнать подробнее<svg width=\"9\" height=\"14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1 12.5 7 7 1 1.5\" stroke-width=\"2.5\"></path></svg>\n</a>\n\n              \n            \n          </div>\n\n          <div class=\"enterprise__items\" id=\"enterpriseItems\" style=\"--progress: 0.0021;\">\n            <div class=\"enterprise__item\">\n              <div class=\"enterprise-item\">\n                <figure class=\"enterprise-item__inner\">\n                  <svg width=\"74\" height=\"74\" role=\"img\" class=\"enterprise-item__icon\">\n                    <use xlink:href=\"/static/promo-static/landing-2021/src/images/pages/index/enterprise/icons.svg?76b0f992b12a19a7f1aebbc32e1928ba59297821b82aa80d6a80b003ea3e1869#enterprise-item-icon-1\"></use>\n                  </svg>\n                  <figcaption class=\"enterprise-item__caption\">Организация работы больших команд</figcaption>\n                </figure>\n              </div>\n            </div>\n\n            <div class=\"enterprise__item\">\n              <div class=\"enterprise-item\">\n                <figure class=\"enterprise-item__inner\">\n                  <svg width=\"74\" height=\"74\" role=\"img\" class=\"enterprise-item__icon\">\n                    <use xlink:href=\"/static/promo-static/landing-2021/src/images/pages/index/enterprise/icons.svg?76b0f992b12a19a7f1aebbc32e1928ba59297821b82aa80d6a80b003ea3e1869#en",
+    "computedStyle": {
+      "backgroundColor": "rgb(0, 0, 0)",
+      "padding": "180px 0px 420px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 18,
+    "tagName": "HEADER",
+    "className": "enterprise__header",
+    "id": "",
+    "position": {
+      "top": 17985.21875,
+      "height": 306.546875
+    },
+    "innerHTML": "\n              <span class=\"enterprise__badge badge\">Хантфлоу Премьер</span>\n              <h2 class=\"enterprise__title\">Автоматизация рекрутмента в&nbsp;крупных компаниях</h2>\n            ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px 0px 24px"
+    }
+  },
+  {
+    "index": 19,
+    "tagName": "SECTION",
+    "className": "benefits",
+    "id": "",
+    "position": {
+      "top": 19369.625,
+      "height": 863.796875
+    },
+    "innerHTML": "\n          <div class=\"container\">\n            <div class=\"benefits__info\">\n              <h2 class=\"benefits__title\">Выгода с&nbsp;Хантфлоу</h2>\n              <p class=\"benefits__text\">Мы&nbsp;создали калькулятор расчета экономии на&nbsp;автоматизации ежедневной работы рекрутера. А&nbsp;еще&nbsp;подготовили специальные пакеты для&nbsp;крупных клиентов и&nbsp;кадровых агентств</p>\n            </div>\n\n            <div class=\"benefits__items\">\n              \n              <article class=\"benefits__item benefits__item--calculator js-benefits-item\" style=\"--progress: 0.0021;\">\n                  <a class=\"benefit benefit--calculator\" href=\"/calc\" target=\"_blank\" data-event=\"button_calc\">\n                      <h3 class=\"benefit__title\">Калькулятор<br> экономии</h3>\n                      <p class=\"benefit__text\">Рассчитайте, сколько времени рекрутеров и&nbsp;на&nbsp;какую сумму высвободит Хантфлоу</p>\n                      \n                        \n\n<span class=\"button-external benefit__button\">\n  Рассчитать экономию<svg width=\"9\" height=\"14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1 12.5 7 7 1 1.5\" stroke-width=\"2.5\"></path></svg>\n</span>\n\n                      \n                  </a>\n              </article>\n\n              <article class=\"benefits__item benefits__item--amocrm js-benefits-item\" style=\"--progress: 0.0021;\">\n                <a class=\"benefit benefit--amocrm\" href=\"/features/agency\" target=\"_blank\" data-event=\"button_amoka\">\n                  <h3 class=\"benefit__title\">Готовая интеграция с&nbsp;AmoCRM для&nbsp;КА</h3>\n                  <p class=\"benefit__text\">Решение для кадровых агентств, ведущих <span class=\"nowrap\">sale-часть</span> бизнеса в&nbsp;AmoCRM</p>\n                  \n                    \n\n<span class=\"button-external benefit__button\">\n  Узнать об&nbsp;интеграции<svg width=\"9\" height=\"14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1 12.5 7 7 1 1.5\" stroke-width=\"2.5\"></path></svg>\n</span>\n\n                  \n     ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "150px 0px 180px"
+    }
+  },
+  {
+    "index": 20,
+    "tagName": "SECTION",
+    "className": "api-superpower",
+    "id": "",
+    "position": {
+      "top": 20413.421875,
+      "height": 1929.984375
+    },
+    "innerHTML": "\n  <div class=\"container\">\n    <div class=\"api-superpower__info\">\n      <h2 class=\"api-superpower__title\">Суперсила API</h2>\n      <p class=\"api-superpower__text\">Мы&nbsp;сделали все для легкого встраивания Хантфлоу в&nbsp;экосистему вашей компании. Разработайте все необходимые интеграции</p>\n      \n        \n\n<a class=\"button-external api-superpower__action button-external--inverted\" href=\"/api\" target=\"_blank\" data-event=\"button_api\">\n  Портал для разработчиков<svg width=\"9\" height=\"14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1 12.5 7 7 1 1.5\" stroke-width=\"2.5\"></path></svg>\n</a>\n\n      \n    </div>\n\n    \n      <div class=\"api-superpower__items\">\n  \n    <div class=\"api-superpower__item js-api-superpower-item\" style=\"--progress: 0.0002;\">\n      \n        \n\n\n\n<div class=\"api-superpower-item api-superpower-item--col\">\n  \n    <figure class=\"api-superpower-item__block\">\n      <picture class=\"api-superpower-item__picture\">\n        <source type=\"image/webp\" srcset=\"/static/promo-static/landing-2021/src/images/blocks/api-superpower/ru/documentation.webp?a2ddf244f22b2c99fae7ab0f6e6bfce77e10743d64a12bfa91181696c2caf798,\n                      /static/promo-static/landing-2021/src/images/blocks/api-superpower/ru/documentation@2x.webp?f81d83f3615714e220c0ed2a1b4c718b1486a4879451c358c3a79a863a3b552c 2x\">\n        <img src=\"/static/promo-static/landing-2021/src/images/blocks/api-superpower/ru/documentation@2x.png?83a6e2dab51b9149ae3a80e74d1b04111f830dd0cdfcc8d006532fcaeca791e6\" alt=\"\" class=\"api-superpower-item__img\">\n      </picture>\n      <figcaption class=\"api-superpower-item__caption\">Интерактивная документация</figcaption>\n    </figure>\n  \n</div>\n\n      \n    </div>\n  \n    <div class=\"api-superpower__item js-api-superpower-item\" style=\"--progress: 0.0002;\">\n      \n        \n\n\n\n<div class=\"api-superpower-item api-superpower-item--col\">\n  \n    <p class=\"api-superpower-item__text\">Передавайте заявки из&nbsp;интранета</p>\n  \n</div>\n\n      \n    </div>\n  \n    <div cla",
+    "computedStyle": {
+      "backgroundColor": "rgb(57, 43, 156)",
+      "padding": "180px 0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 21,
+    "tagName": "SECTION",
+    "className": "data-safety data-safety--ru",
+    "id": "",
+    "position": {
+      "top": 22523.40625,
+      "height": 1518.15625
+    },
+    "innerHTML": "\n          <div class=\"container\">\n            <header class=\"data-safety__header\">\n              <span class=\"data-safety__badge badge\">Безопасность</span>\n              <h2 class=\"data-safety__title\">Надежная работа и&nbsp;защита ваших данных</h2>\n            </header>\n          </div>\n\n          <div class=\"data-safety__contents\">\n          <div class=\"container\">\n            <div class=\"data-safety__items\">\n              \n                <div class=\"data-safety__item js-data-safety-item\" style=\"--progress: 0.0021;\">\n                  <article class=\"data-safety-item\">\n                    <svg class=\"data-safety-item__icon\" width=\"64\" height=\"70\" role=\"img\" data-media=\"sm\">\n                      <use xlink:href=\"/static/promo-static/landing-2021/src/images/pages/index/data-safety/icons.svg?d6d1dd4f7bff3e63cdc64ed6177e3bff5c0472958d45a33be9effb51c7d4fe5e#data-safety-icon-1-sm\"></use>\n                    </svg>\n                    <svg class=\"data-safety-item__icon\" width=\"118\" height=\"130\" role=\"img\" data-media=\"md\">\n                      <use xlink:href=\"/static/promo-static/landing-2021/src/images/pages/index/data-safety/icons.svg?d6d1dd4f7bff3e63cdc64ed6177e3bff5c0472958d45a33be9effb51c7d4fe5e#data-safety-icon-1-md\"></use>\n                    </svg>\n                    <h3 class=\"data-safety-item__title\">Инфраструктура&nbsp;— в&nbsp;России</h3>\n                    <p class=\"data-safety-item__text\">Сервера Хантфлоу размещаются в&nbsp;<span class=\"nowrap\">дата-центрах</span> в&nbsp;<span class=\"nowrap\">Санкт-Петербурге</span> и&nbsp;Москве. Организовано географически распределенное непрерывное резервное копирование данных.</p>\n                  </article>\n                </div>\n\n                <div class=\"data-safety__item js-data-safety-item\" style=\"--progress: 0.0021;\">\n                  <article class=\"data-safety-item\">\n                    <svg class=\"data-safety-item__icon\" width=\"64\" height=\"70\" role=\"img\" data-media=\"sm\">\n                      <use xlink:",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "180px 0px"
+    }
+  },
+  {
+    "index": 22,
+    "tagName": "HEADER",
+    "className": "data-safety__header",
+    "id": "",
+    "position": {
+      "top": 22523.40625,
+      "height": 229.03125
+    },
+    "innerHTML": "\n              <span class=\"data-safety__badge badge\">Безопасность</span>\n              <h2 class=\"data-safety__title\">Надежная работа и&nbsp;защита ваших данных</h2>\n            ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px 0px 70px"
+    }
+  },
+  {
+    "index": 23,
+    "tagName": "SECTION",
+    "className": "demo-request",
+    "id": "",
+    "position": {
+      "top": 24241.5625,
+      "height": 590.984375
+    },
+    "innerHTML": "\n  <div class=\"container\">\n    <img class=\"demo-request__image\" src=\"/static/promo-static/landing-2021/src/images/blocks/demo-request/image.svg?a48c28e95d7cde6294f11f565c5561e5e9b8d90446ebe635186c534ba9146680\" alt=\"Закажите персональное демо\">\n    <h2 class=\"demo-request__title\">Закажите<br> персональное<br> демо</h2>\n    \n      <p class=\"demo-request__text\">Оставьте заявку&nbsp;— мы&nbsp;покажем, как Хантфлоу поможет улучшить ваш подбор</p>\n    \n    <button class=\"button button--primary\" type=\"button\" data-modal=\"#demoRequestModal\">Оставить заявку на&nbsp;демо</button>\n  </div>\n",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "200px 0px"
+    }
+  },
+  {
+    "index": 24,
+    "tagName": "SECTION",
+    "className": "encyclopedia",
+    "id": "encyclopedia",
+    "position": {
+      "top": 72,
+      "height": 3080.171875
+    },
+    "innerHTML": "\n        <div class=\"encyclopedia__wrapper\">\n          <div class=\"container\">\n            <div class=\"encyclopedia__info\">\n              <h2 class=\"encyclopedia__title\">Журнал Хантфлоу</h2>\n              <p class=\"encyclopedia__text\">Более 500 экспертных материалов обо всем, что связано с&nbsp;наймом&nbsp;— от&nbsp;<span class=\"nowrap\">HR-бренда</span> и&nbsp;инструментов сорсинга, до&nbsp;адаптации и&nbsp;оффбординга</p>\n              \n                \n\n<a class=\"button-external encyclopedia__action button-external--inverted\" href=\"https://huntflow.media/\" target=\"_blank\" data-event=\"button_blog\">\n  Экспертиза, подборки, кейсы<svg width=\"9\" height=\"14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1 12.5 7 7 1 1.5\" stroke-width=\"2.5\"></path></svg>\n</a>\n\n              \n            </div>\n\n            <div class=\"encyclopedia__items\">\n              \n                \n  <div class=\"encyclopedia__item\">\n    \n      <article class=\"encyclopedia-item encyclopedia-item--1 encyclopedia-item--landscape encyclopedia-item--purple\">\n  <a class=\"encyclopedia-item__link\" href=\"https://huntflow.media/time-to-fill/?utm_source=huntflow-homepage&amp;utm_medium=referal&amp;utm_campaign=time-to-fill\" target=\"_blank\">\n    <div class=\"encyclopedia-item__content\">\n      <span class=\"encyclopedia-item__category\">\n        <span class=\"encyclopedia-item__category-inner\">Экспертиза</span>\n      </span>\n      <h3 class=\"encyclopedia-item__title\">Как правильно считать срок закрытия позиции</h3>\n      <p class=\"encyclopedia-item__text\">И&nbsp;почему это самая важная метрика</p>\n\n      \n        \n\n<span class=\"button-external encyclopedia-item__button\">\n  Читать<svg width=\"9\" height=\"14\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M1 12.5 7 7 1 1.5\" stroke-width=\"2.5\"></path></svg>\n</span>\n\n      \n    </div>\n  </a>\n</article>\n\n    \n  </div>\n\n  <div class=\"encyclopedia__item\">\n    \n      <article class=\"encyclopedia-item encyclopedia-item--2 encyclopedia-item--square encyclop",
+    "computedStyle": {
+      "backgroundColor": "rgb(29, 29, 31)",
+      "padding": "180px 0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 25,
+    "tagName": "HEADER",
+    "className": "subscribe__header",
+    "id": "",
+    "position": {
+      "top": 3136.706298828125,
+      "height": 344.8125
+    },
+    "innerHTML": "\n        <h3 class=\"subscribe__title\">Подпишитесь на&nbsp;рассылку</h3>\n        <p class=\"subscribe__text\">Наши письма читают уже более 55&nbsp;000&nbsp;<span class=\"nowrap\">HR-специалистов</span></p>\n      ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 26,
+    "tagName": "FOOTER",
+    "className": "footer",
+    "id": "",
+    "position": {
+      "top": 25032.546875,
+      "height": 1295.09375
+    },
+    "innerHTML": "\n  <div class=\"container\">\n    <div class=\"footer__copyright\">\n      \n        <p>©&nbsp;ООО «Хантфлоу», 2015&nbsp;— 2026</p>\n      \n    </div>\n\n    <div class=\"footer__contents\">\n      \n        <section>\n          <h2>Продукт</h2>\n          <ul>\n            <li><a href=\"/newfeatures\">Что такое Хантфлоу</a></li>\n            <li><a href=\"/price\">Тарифы</a></li>\n            <li><a href=\"/start\">Внедрение</a></li>\n            \n              <li><a href=\"/security\">Безопасность</a></li>\n            \n            <li><a href=\"/api\">API</a></li>\n          </ul>\n        </section>\n\n        <section>\n          <h2>Преимущества</h2>\n          <ul>\n            <li><a href=\"/features/reports\">Интерактивные отчеты</a></li>\n            \n              <li><a href=\"/calc\">Экономия с&nbsp;Хантфлоу</a></li>\n            \n            <li><a href=\"/premier\">Для крупных клиентов</a></li>\n            <li><a href=\"/industry/it\">Для IT-компаний</a></li>\n            <li><a href=\"/features/agency\">Решение для&nbsp;КА с&nbsp;AmoCRM</a></li>\n          </ul>\n        </section>\n\n        <section>\n          <h2>Как нанимать</h2>\n          <ul>\n            <li><a href=\"https://huntflow.media/\">Журнал Хантфлоу</a></li>\n            <li><a href=\"/guides\">Руководства по&nbsp;подбору</a></li>\n            <li><a href=\"https://huntflow.media/formats/podcasts/\">Подкаст «Инсайт»</a></li>\n            <li><a href=\"/events\">Митапы и&nbsp;вебинары</a></li>\n            <li><a href=\"/emails\">Рассылка</a></li>\n          </ul>\n        </section>\n\n        <section>\n          <h2>Компания</h2>\n          <ul>\n            <li><a href=\"/about\">О&nbsp;компании</a></li>\n            \n              <li><a href=\"/career/\">Карьера в&nbsp;Хантфлоу</a></li>\n            \n            <li><a href=\"/brand\">Фирменный стиль</a></li>\n            <li><a href=\"/mediakit\">Медиакит</a></li>\n          </ul>\n        </section>\n      \n\n      <section>\n        <h2>Официальное</h2>\n        <ul>\n          <li><a href=\"/docs/terms\">Пользовательск",
+    "computedStyle": {
+      "backgroundColor": "rgb(29, 29, 31)",
+      "padding": "120px 0px 0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 27,
+    "tagName": "SECTION",
+    "className": "",
+    "id": "",
+    "position": {
+      "top": 25266.640625,
+      "height": 246
+    },
+    "innerHTML": "\n          <h2>Продукт</h2>\n          <ul>\n            <li><a href=\"/newfeatures\">Что такое Хантфлоу</a></li>\n            <li><a href=\"/price\">Тарифы</a></li>\n            <li><a href=\"/start\">Внедрение</a></li>\n            \n              <li><a href=\"/security\">Безопасность</a></li>\n            \n            <li><a href=\"/api\">API</a></li>\n          </ul>\n        ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 28,
+    "tagName": "SECTION",
+    "className": "",
+    "id": "",
+    "position": {
+      "top": 25266.640625,
+      "height": 246
+    },
+    "innerHTML": "\n          <h2>Преимущества</h2>\n          <ul>\n            <li><a href=\"/features/reports\">Интерактивные отчеты</a></li>\n            \n              <li><a href=\"/calc\">Экономия с&nbsp;Хантфлоу</a></li>\n            \n            <li><a href=\"/premier\">Для крупных клиентов</a></li>\n            <li><a href=\"/industry/it\">Для IT-компаний</a></li>\n            <li><a href=\"/features/agency\">Решение для&nbsp;КА с&nbsp;AmoCRM</a></li>\n          </ul>\n        ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 29,
+    "tagName": "SECTION",
+    "className": "",
+    "id": "",
+    "position": {
+      "top": 25266.640625,
+      "height": 246
+    },
+    "innerHTML": "\n          <h2>Как нанимать</h2>\n          <ul>\n            <li><a href=\"https://huntflow.media/\">Журнал Хантфлоу</a></li>\n            <li><a href=\"/guides\">Руководства по&nbsp;подбору</a></li>\n            <li><a href=\"https://huntflow.media/formats/podcasts/\">Подкаст «Инсайт»</a></li>\n            <li><a href=\"/events\">Митапы и&nbsp;вебинары</a></li>\n            <li><a href=\"/emails\">Рассылка</a></li>\n          </ul>\n        ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 30,
+    "tagName": "SECTION",
+    "className": "",
+    "id": "",
+    "position": {
+      "top": 25592.640625,
+      "height": 246
+    },
+    "innerHTML": "\n          <h2>Компания</h2>\n          <ul>\n            <li><a href=\"/about\">О&nbsp;компании</a></li>\n            \n              <li><a href=\"/career/\">Карьера в&nbsp;Хантфлоу</a></li>\n            \n            <li><a href=\"/brand\">Фирменный стиль</a></li>\n            <li><a href=\"/mediakit\">Медиакит</a></li>\n          </ul>\n        ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 31,
+    "tagName": "SECTION",
+    "className": "",
+    "id": "",
+    "position": {
+      "top": 25592.640625,
+      "height": 246
+    },
+    "innerHTML": "\n        <h2>Официальное</h2>\n        <ul>\n          <li><a href=\"/docs/terms\">Пользовательское соглашение</a></li>\n          <li><a href=\"/docs/privacy-policy\">Политика конфиденциальности</a></li>\n          \n            <li><a href=\"/docs/documents\">Документы</a></li>\n            <li><a href=\"/docs/gdpr\">Соблюдение GDPR</a></li>\n          \n          \n            <li><a href=\"/security-report\">Сообщить об&nbsp;уязвимости</a></li>\n          \n        </ul>\n      ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 32,
+    "tagName": "SECTION",
+    "className": "",
+    "id": "",
+    "position": {
+      "top": 25592.640625,
+      "height": 246
+    },
+    "innerHTML": "\n          <h2>Социальные сети</h2>\n          <ul>\n            <li><a href=\"https://t.me/+jw3MbIRCSMY2MjUy\" target=\"_blank\">Telegram</a></li>\n            <li><a href=\"https://vk.com/huntflow\" target=\"_blank\">VK</a></li>\n          </ul>\n        ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 33,
+    "tagName": "SECTION",
+    "className": "form-block js-form-block",
+    "id": "",
+    "position": {
+      "top": 0,
+      "height": 0
+    },
+    "innerHTML": "\n  <div class=\"container\">\n    <div class=\"form-block__column\">\n      <header class=\"form-block__header\">\n        <h1 class=\"form-block__title\">\n          <span>Закажите персональное демо Хантфлоу</span>\n        </h1>\n        \n      </header>\n      <form method=\"post\" data-persistent-key=\"demo-request-form\" data-persistent-excluded-fields=\"partner,event,referer\" action=\"/demo-request?lang=ru_RU\" data-step=\"1\" novalidate=\"novalidate\" class=\"form demo-request-form one-step\"><input label=\"referer\" type=\"hidden\" name=\"referer\" style=\"\"> <!----> <!----> <!----> <div class=\"step-2\"><div class=\"form__row\"><radio-switcher><div class=\"radio-switcher\"><label><input type=\"radio\" name=\"type\" value=\"internal\" style=\"\"> <span>Внутренний HR</span></label> <label><input type=\"radio\" name=\"type\" value=\"agency\" style=\"\"> <span>Кадровое агентство</span></label> <span class=\"radio-switcher__caret js-radio-switcher-caret\" style=\"left: 0px; width: 0px;\"></span></div></radio-switcher></div> <div class=\"form__row\"><input type=\"text\" name=\"company\" placeholder=\"Название компании\" minlength=\"2\" required=\"required\" class=\"input ym-record-keys\" style=\"\"></div> <div class=\"form__row\"><input type=\"text\" name=\"first_name\" placeholder=\"Ваше имя\" required=\"required\" class=\"input ym-record-keys\" style=\"\"></div> <div class=\"form__row\"><input type=\"text\" name=\"last_name\" placeholder=\"Ваша фамилия\" required=\"required\" class=\"input ym-record-keys\" style=\"\"></div> <div class=\"form__row\"><input type=\"email\" name=\"email\" placeholder=\"Ваша эл. почта\" required=\"required\" class=\"input ym-record-keys\" style=\"\"></div> <div class=\"form__row\"><input type=\"tel\" name=\"phone\" placeholder=\"Ваш телефон\" required=\"required\" class=\"input ym-record-keys\" style=\"\"></div> <div class=\"form__row\"><input type=\"text\" name=\"position\" placeholder=\"Ваша должность\" required=\"required\" class=\"input ym-record-keys\" style=\"\"></div> <div class=\"form__row\"><div class=\"select-wrapper\"><select name=\"recruiters_amount\" required=\"required\"",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px"
+    }
+  },
+  {
+    "index": 34,
+    "tagName": "HEADER",
+    "className": "form-block__header",
+    "id": "",
+    "position": {
+      "top": 0,
+      "height": 0
+    },
+    "innerHTML": "\n        <h1 class=\"form-block__title\">\n          <span>Закажите персональное демо Хантфлоу</span>\n        </h1>\n        \n      ",
+    "computedStyle": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "margin": "0px 0px 28px"
+    }
+  }
+]
