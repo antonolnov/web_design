@@ -1,60 +1,132 @@
 'use client';
 
+import { motion } from 'framer-motion';
+
+const footerLinks = {
+  product: {
+    title: 'Продукт',
+    links: [
+      { label: 'Что такое WorkHere', href: '#' },
+      { label: 'Тарифы', href: '#' },
+      { label: 'Внедрение', href: '#' },
+      { label: 'Безопасность', href: '#security' },
+      { label: 'API', href: '#api' },
+    ],
+  },
+  features: {
+    title: 'Возможности',
+    links: [
+      { label: 'Автоматизация', href: '#automation' },
+      { label: 'Интеграции', href: '#integrations' },
+      { label: 'Аналитика', href: '#analytics' },
+      { label: 'Для крупных клиентов', href: '#enterprise' },
+    ],
+  },
+  resources: {
+    title: 'Ресурсы',
+    links: [
+      { label: 'Журнал WorkHere', href: '#' },
+      { label: 'Руководства', href: '#' },
+      { label: 'Кейсы', href: '#cases' },
+      { label: 'Рассылка', href: '#' },
+    ],
+  },
+  company: {
+    title: 'Компания',
+    links: [
+      { label: 'О компании', href: '#' },
+      { label: 'Карьера', href: '#' },
+      { label: 'Контакты', href: '#' },
+    ],
+  },
+  legal: {
+    title: 'Официальное',
+    links: [
+      { label: 'Пользовательское соглашение', href: '#' },
+      { label: 'Политика конфиденциальности', href: '#' },
+      { label: 'Документы', href: '#' },
+    ],
+  },
+  social: {
+    title: 'Социальные сети',
+    links: [
+      { label: 'Telegram', href: '#' },
+      { label: 'VK', href: '#' },
+    ],
+  },
+};
+
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-gray-900 text-white py-16">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
-          {/* Logo & Description */}
-          <div className="md:col-span-1">
-            <span className="text-2xl font-bold">
-              Work<span className="text-[#8b8bf5]">Here</span>
+    <footer className="bg-[#1D1D1F] text-white pt-20 pb-10">
+      <div className="max-w-[1400px] mx-auto px-6">
+        {/* Copyright at top - Huntflow style */}
+        <motion.div
+          className="mb-12"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <p className="text-gray-400">© ООО «WorkHere», 2020 — {currentYear}</p>
+        </motion.div>
+
+        {/* Links grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
+          {Object.entries(footerLinks).map(([key, section], index) => (
+            <motion.div
+              key={key}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05 }}
+            >
+              <h2 className="text-white font-medium mb-4">{section.title}</h2>
+              <ul className="space-y-3">
+                {section.links.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="text-gray-400 hover:text-white transition-colors text-sm"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Bottom section */}
+        <motion.div
+          className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#1890ff] to-[#0d6edb] flex items-center justify-center">
+              <span className="text-white font-black text-xs">W</span>
+            </div>
+            <span className="text-lg font-bold">
+              Work<span className="text-[#1890ff]">Here</span>
             </span>
-            <p className="text-gray-400 mt-4">
-              Система для управления рекрутингом
-            </p>
           </div>
 
-          {/* Links */}
-          <div>
-            <h4 className="font-semibold mb-4">Продукт</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">Возможности</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Интеграции</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Цены</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">API</a></li>
-            </ul>
+          {/* Contact */}
+          <div className="text-gray-400 text-sm">
+            <a href="mailto:hello@workhere.ru" className="hover:text-white transition-colors">
+              hello@workhere.ru
+            </a>
+            <span className="mx-3">·</span>
+            <a href="tel:+78001234567" className="hover:text-white transition-colors">
+              8 800 123-45-67
+            </a>
           </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Компания</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">О нас</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Блог</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Карьера</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Контакты</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Поддержка</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition-colors">Справка</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Обучение</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Вебинары</a></li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom */}
-        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-400 text-sm">
-          <p>© 2024 WorkHere. Все права защищены.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-white transition-colors">Политика конфиденциальности</a>
-            <a href="#" className="hover:text-white transition-colors">Условия использования</a>
-          </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

@@ -1,0 +1,81 @@
+{
+  "animations": [
+    {
+      "name": "swiper-preloader-spin",
+      "keyframes": "@keyframes swiper-preloader-spin { \n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(1turn); }\n}"
+    },
+    {
+      "name": "modalFadeIn",
+      "keyframes": "@keyframes modalFadeIn { \n  0% { display: none; opacity: 0; }\n  1% { display: flex; opacity: 0; }\n  100% { display: flex; opacity: 1; }\n}"
+    },
+    {
+      "name": "modalFadeOut",
+      "keyframes": "@keyframes modalFadeOut { \n  0% { display: flex; opacity: 1; }\n  99% { display: flex; opacity: 0; }\n  100% { display: none; opacity: 0; }\n}"
+    },
+    {
+      "name": "spinner",
+      "keyframes": "@keyframes spinner { \n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(1turn); }\n}"
+    },
+    {
+      "name": "navigationListItemsShow",
+      "keyframes": "@keyframes navigationListItemsShow { \n  0% { opacity: 0; transform: translateY(20px); }\n  100% { opacity: 1; transform: translateY(0px); }\n}"
+    },
+    {
+      "name": "navigationListOpening",
+      "keyframes": "@keyframes navigationListOpening { \n  0% { opacity: 0; }\n  100% { opacity: 1; }\n}"
+    },
+    {
+      "name": "navigationListClosing",
+      "keyframes": "@keyframes navigationListClosing { \n  0% { opacity: 1; }\n  100% { opacity: 0; }\n}"
+    },
+    {
+      "name": "_spinner-animation_1aud0_1",
+      "keyframes": "@-webkit-keyframes _spinner-animation_1aud0_1 { \n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(1turn); }\n}"
+    },
+    {
+      "name": "_spinner-animation_1aud0_1",
+      "keyframes": "@keyframes _spinner-animation_1aud0_1 { \n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(1turn); }\n}"
+    },
+    {
+      "name": "_OMLJ4T2ENisqZYxuXct",
+      "keyframes": "@keyframes _OMLJ4T2ENisqZYxuXct { \n  0% { opacity: 0; transform: translateY(30px); }\n  100% { opacity: 1; transform: translateY(0px); }\n}"
+    },
+    {
+      "name": "Wd93caL40CHuKlLkBX0S",
+      "keyframes": "@keyframes Wd93caL40CHuKlLkBX0S { \n  0% { opacity: 0; }\n  100% { opacity: 1; }\n}"
+    },
+    {
+      "name": "I6Q864IJBM8ezRofFmxh",
+      "keyframes": "@keyframes I6Q864IJBM8ezRofFmxh { \n  0% { opacity: 1; }\n  100% { opacity: 0; }\n}"
+    },
+    {
+      "name": "RD5P0rQlO1YKOLf18vyf",
+      "keyframes": "@keyframes RD5P0rQlO1YKOLf18vyf { \n  0% { opacity: 0; transform: translateY(-50px); }\n  100% { opacity: 1; transform: translateY(0px); }\n}"
+    },
+    {
+      "name": "CdLVZO_VJHWCeCBTfWBQ",
+      "keyframes": "@keyframes CdLVZO_VJHWCeCBTfWBQ { \n  0% { opacity: 1; transform: translateY(0px); }\n  100% { opacity: 0; transform: translateY(-50px); }\n}"
+    },
+    {
+      "name": "QOG_WNVFa25eZilHCocM",
+      "keyframes": "@keyframes QOG_WNVFa25eZilHCocM { \n  0% { opacity: 0; transform: translateY(-20px); }\n  100% { opacity: 1; transform: translateY(0px); }\n}"
+    },
+    {
+      "name": "YmelvFCc_gHl_tF5yApe",
+      "keyframes": "@keyframes YmelvFCc_gHl_tF5yApe { \n  0% { opacity: 1; transform: translateY(0px); }\n  100% { opacity: 0; transform: translateY(-20px); }\n}"
+    },
+    {
+      "name": "ub87gemfA2SPX36CZJ83",
+      "keyframes": "@keyframes ub87gemfA2SPX36CZJ83 { \n  0% { opacity: 0; }\n  7% { opacity: 1; }\n  14% { opacity: 1; }\n  21% { opacity: 0; }\n  100% { opacity: 0; }\n}"
+    },
+    {
+      "name": "ItuhF5pkMVEpnimCZQ3w",
+      "keyframes": "@keyframes ItuhF5pkMVEpnimCZQ3w { \n  0% { opacity: 0; }\n  9.5% { opacity: 1; }\n  19% { opacity: 1; }\n  28.5% { opacity: 0; }\n  100% { opacity: 0; }\n}"
+    },
+    {
+      "name": "SlkS4ttPz9dc2PCLWzH0",
+      "keyframes": "@keyframes SlkS4ttPz9dc2PCLWzH0 { \n  0% { opacity: 0; }\n  12.5% { opacity: 1; }\n  25% { opacity: 1; }\n  37.5% { opacity: 0; }\n  100% { opacity: 0; }\n}"
+    }
+  ],
+  "animatedStyles": []
+}

@@ -9,6 +9,7 @@ interface MascotProps {
   variant?: 'default' | 'box' | 'plant' | '01' | '02' | '03' | '04' | '05' | '06' | '07' | '08';
   showSpeechBubble?: boolean;
   speechText?: string;
+  phrase?: string;
 }
 
 // BasePath для GitHub Pages
@@ -34,8 +35,11 @@ export default function Mascot({
   animate = true,
   variant = 'default',
   showSpeechBubble = false,
-  speechText = 'Привет!'
+  speechText = 'Привет!',
+  phrase
 }: MascotProps) {
+  const displayText = phrase || speechText;
+  const showBubble = showSpeechBubble || !!phrase;
   return (
     <motion.div
       className={`relative ${className}`}
@@ -45,7 +49,7 @@ export default function Mascot({
       transition={{ duration: 0.5 }}
     >
       {/* Animated Speech Bubble - positioned above mascot, not covering other content */}
-      {showSpeechBubble && (
+      {showBubble && (
         <motion.div
           className="absolute -top-14 left-0 right-0 flex justify-center z-10 pointer-events-none"
           initial={{ scale: 0, opacity: 0, y: 10 }}
@@ -70,7 +74,7 @@ export default function Mascot({
               animate={{ scale: [1, 1.02, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              {speechText}
+              {displayText}
             </motion.span>
             
             {/* Sparkle */}
