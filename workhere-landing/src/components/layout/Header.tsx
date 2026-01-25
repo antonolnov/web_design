@@ -3,14 +3,12 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import Container from '../ui/Container';
-import MagneticButton from '../ui/MagneticButton';
 
 const navLinks = [
-  { href: '#automation', label: 'Возможности' },
-  { href: '#enterprise', label: 'Enterprise' },
-  { href: '#security', label: 'Безопасность' },
-  { href: '#demo', label: 'Демо' },
+  { href: '#features', label: 'Возможности' },
+  { href: '#product', label: 'Продукт' },
+  { href: '#testimonials', label: 'Отзывы' },
+  { href: '#faq', label: 'FAQ' },
 ];
 
 export default function Header() {
@@ -27,118 +25,97 @@ export default function Header() {
   }, []);
 
   return (
-    <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/90 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.06)]'
+          ? 'bg-white/95 backdrop-blur-sm shadow-sm'
           : 'bg-transparent'
       }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
     >
-      <Container>
+      <div className="max-w-7xl mx-auto px-6">
         <nav className="flex items-center justify-between h-20">
           {/* Logo */}
-          <motion.a
-            href="#"
-            className="flex items-center"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <span className="text-2xl font-bold">
-              <span className="bg-[#1890ff] text-white px-2 py-1 rounded-l-[8px]">Work</span>
-              <span className="text-gray-900 px-1">Here</span>
+          <a href="#" className="flex items-center">
+            <span className="text-2xl font-bold text-gray-900">
+              Work<span className="text-[#5b5fc7]">Here</span>
             </span>
-          </motion.a>
+          </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
-              <motion.a
+              <a
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-gray-600 hover:text-[#1890ff] font-medium rounded-full hover:bg-[#1890ff]/5 transition-all"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
               >
                 {link.label}
-              </motion.a>
+              </a>
             ))}
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden lg:flex items-center gap-3">
-            <motion.a
+          <div className="hidden lg:flex items-center gap-4">
+            <a
               href="#"
-              className="px-5 py-2.5 text-gray-600 hover:text-[#1890ff] font-semibold rounded-full hover:bg-[#1890ff]/5 transition-all"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
             >
-              Вход
-            </motion.a>
-            <MagneticButton
+              Войти
+            </a>
+            <a
               href="#demo"
-              className="px-6 py-2.5 bg-[#22c55e] text-white font-semibold rounded-full shadow-lg shadow-[#22c55e]/20 hover:bg-[#16a34a] transition-colors"
+              className="px-6 py-2.5 bg-[#5b5fc7] text-white font-semibold rounded-xl hover:bg-[#4a4eb3] transition-colors"
             >
-              Запросить демо
-            </MagneticButton>
+              Попробовать
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 text-gray-600 hover:text-[#1890ff] transition-colors"
+            className="lg:hidden p-2 text-gray-600 hover:text-gray-900"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Меню"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </nav>
-      </Container>
+      </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="lg:hidden bg-white border-t border-gray-100"
+            className="lg:hidden bg-white border-t"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
           >
-            <Container>
-              <div className="py-6 flex flex-col gap-2">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className="px-4 py-3 text-gray-600 hover:text-[#1890ff] hover:bg-[#1890ff]/5 font-medium rounded-[12px] transition-all"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.label}
-                  </a>
-                ))}
-                <div className="pt-4 border-t border-gray-100 mt-2 space-y-2">
-                  <a
-                    href="#"
-                    className="block w-full text-center px-6 py-3 text-gray-600 font-semibold rounded-full border border-gray-200"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Вход
-                  </a>
-                  <a
-                    href="#demo"
-                    className="block w-full text-center px-6 py-3 bg-[#22c55e] text-white font-semibold rounded-full"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Запросить демо
-                  </a>
-                </div>
+            <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-gray-600 hover:text-gray-900 font-medium py-2"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+              <div className="pt-4 border-t flex flex-col gap-3">
+                <a href="#" className="text-gray-600 font-medium py-2">
+                  Войти
+                </a>
+                <a
+                  href="#demo"
+                  className="w-full text-center px-6 py-3 bg-[#5b5fc7] text-white font-semibold rounded-xl"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Попробовать
+                </a>
               </div>
-            </Container>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }
