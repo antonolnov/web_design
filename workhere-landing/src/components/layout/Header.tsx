@@ -46,14 +46,13 @@ export default function Header() {
       <div className="max-w-[1400px] mx-auto px-6">
         <nav className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2">
-            {/* Logo icon */}
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#1890ff] to-[#0d6edb] flex items-center justify-center">
-              <span className="text-white font-black text-sm">W</span>
-            </div>
-            <span className="text-xl font-bold text-gray-900">
-              Work<span className="text-[#1890ff]">Here</span>
-            </span>
+          <a href="#" className="flex items-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src="/web_design/workhere-landing/Screenshot_3.png" 
+              alt="WorkHere" 
+              className="h-8 w-auto"
+            />
           </a>
 
           {/* Desktop Navigation */}
