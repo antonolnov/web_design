@@ -290,11 +290,11 @@ function FeatureSection({ section, index }: { section: typeof featureSections[0]
                 </div>
 
                 {/* Mascot in corner - different for each section */}
-                <div className="absolute -bottom-2 -right-2 hidden lg:block">
+                <div className="absolute bottom-4 right-4 hidden lg:block">
                   <Mascot 
                     variant={index === 0 ? '02' : index === 1 ? '03' : '05'} 
-                    size={90} 
-                    phrase={index === 0 ? 'Быстро! ⚡' : index === 1 ? 'Интеграции! 🔗' : 'Аналитика! 📊'}
+                    size={80} 
+                    phrase={index === 0 ? 'Быстро! ⚡' : index === 1 ? 'Интеграции!' : 'Аналитика! 📊'}
                   />
                 </div>
               </motion.div>
