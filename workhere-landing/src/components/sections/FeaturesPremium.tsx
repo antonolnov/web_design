@@ -1,23 +1,23 @@
 'use client';
 
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
 import { 
   Zap, Mail, FileText, Bot, 
   BarChart3, TrendingUp, PieChart, Users,
   Globe, MessageSquare, Database, Code2,
-  GitBranch, Briefcase, Target,
-  CheckCircle
+  GitBranch, Briefcase, Target, CheckCircle
 } from 'lucide-react';
 import Container from '../ui/Container';
+import SectionTitleScreen from '../ui/SectionTitleScreen';
 import Mascot from '../ui/Mascot';
 
-interface FeatureCategory {
+interface FeatureBlock {
   id: string;
   title: string;
   subtitle: string;
   color: string;
-  icon: typeof Zap;
+  titleScreenColor: 'blue' | 'purple' | 'teal' | 'orange' | 'green';
   mascotVariant: '01' | '02' | '03' | '04' | '05' | '06' | '07' | '08';
   mascotSpeech: string;
   features: {
@@ -27,209 +27,231 @@ interface FeatureCategory {
   }[];
 }
 
-const categories: FeatureCategory[] = [
+const blocks: FeatureBlock[] = [
   {
     id: 'automation',
     title: 'Автоматизация',
-    subtitle: 'Избавьтесь от рутины',
+    subtitle: 'Избавьтесь от рутины и сфокусируйтесь на главном',
     color: '#22c55e',
-    icon: Zap,
+    titleScreenColor: 'green',
     mascotVariant: '02',
     mascotSpeech: 'Автоматизируем! ⚡',
     features: [
-      { icon: Bot, title: 'AI-скоринг', description: 'Автоматическая оценка кандидатов' },
-      { icon: Mail, title: 'Email-автоматизация', description: 'Цепочки писем и шаблоны' },
-      { icon: FileText, title: 'Парсинг резюме', description: 'Распознавание любых форматов' },
-      { icon: Zap, title: 'Воркфлоу', description: 'Автоматические сценарии' },
+      { icon: Bot, title: 'AI-скоринг кандидатов', description: 'Автоматическая оценка соответствия вакансии' },
+      { icon: Mail, title: 'Email-автоматизация', description: 'Цепочки писем с персонализацией' },
+      { icon: FileText, title: 'Парсинг резюме', description: 'Распознавание любых форматов документов' },
+      { icon: Zap, title: 'Триггерные воркфлоу', description: 'Автоматические действия по событиям' },
     ],
   },
   {
     id: 'analytics',
     title: 'Аналитика',
-    subtitle: 'Решения на основе данных',
+    subtitle: 'Принимайте решения на основе данных',
     color: '#1890ff',
-    icon: BarChart3,
+    titleScreenColor: 'blue',
     mascotVariant: '03',
     mascotSpeech: 'Отличные метрики! 📊',
     features: [
-      { icon: BarChart3, title: 'Дашборды', description: 'Метрики в реальном времени' },
-      { icon: PieChart, title: 'Отчёты', description: 'Кастомные отчёты и экспорт' },
-      { icon: TrendingUp, title: 'Воронка', description: 'Анализ конверсии по этапам' },
-      { icon: Users, title: 'Команда', description: 'Эффективность рекрутеров' },
+      { icon: BarChart3, title: 'Дашборды реального времени', description: 'Все ключевые метрики на одном экране' },
+      { icon: PieChart, title: 'Кастомные отчёты', description: 'Конструктор отчётов с экспортом' },
+      { icon: TrendingUp, title: 'Анализ воронки', description: 'Конверсия и узкие места процесса' },
+      { icon: Users, title: 'Метрики команды', description: 'Эффективность каждого рекрутера' },
     ],
   },
   {
     id: 'integrations',
     title: 'Интеграции',
-    subtitle: 'Все сервисы в одном месте',
+    subtitle: 'Подключайте любые сервисы и источники',
     color: '#8b5cf6',
-    icon: Globe,
+    titleScreenColor: 'purple',
     mascotVariant: '07',
     mascotSpeech: 'Всё подключено! 🔗',
     features: [
-      { icon: Globe, title: 'Job-сайты', description: 'HH, Avito, SuperJob и др.' },
-      { icon: MessageSquare, title: 'Мессенджеры', description: 'Telegram, WhatsApp, Email' },
-      { icon: Database, title: 'ERP/CRM', description: '1C, SAP, Битрикс24' },
-      { icon: Code2, title: 'API', description: 'Открытый REST API' },
+      { icon: Globe, title: 'Job-сайты', description: 'HH.ru, Avito, SuperJob, Работа.ру' },
+      { icon: MessageSquare, title: 'Мессенджеры', description: 'Telegram, WhatsApp, Email, SMS' },
+      { icon: Database, title: 'Корпоративные системы', description: '1C, SAP, Битрикс24, MS 365' },
+      { icon: Code2, title: 'Открытый API', description: 'REST API, Webhooks, SDK' },
     ],
   },
   {
     id: 'pipeline',
-    title: 'Воронки',
-    subtitle: 'Любое количество воронок',
+    title: 'Воронки подбора',
+    subtitle: 'Любое количество воронок под каждый тип найма',
     color: '#f97316',
-    icon: GitBranch,
+    titleScreenColor: 'orange',
     mascotVariant: '04',
     mascotSpeech: 'Воронка готова! 🎯',
     features: [
-      { icon: GitBranch, title: 'Кастомные воронки', description: 'Создавайте под каждый тип найма' },
+      { icon: GitBranch, title: 'Бесконечные воронки', description: 'Создавайте под каждый тип найма' },
       { icon: Users, title: 'Массовый найм', description: 'Упрощённые этапы для скорости' },
-      { icon: Briefcase, title: 'Точечный найм', description: 'Многоуровневый отбор' },
-      { icon: Target, title: 'Статистика', description: 'Аналитика по каждой воронке' },
+      { icon: Briefcase, title: 'Точечный найм', description: 'Многоуровневый отбор топов' },
+      { icon: Target, title: 'Аналитика воронок', description: 'Статистика по каждой воронке' },
     ],
   },
 ];
 
-function FeatureCard({ feature, index, color, isInView }: { 
-  feature: FeatureCategory['features'][0]; 
-  index: number; 
-  color: string;
-  isInView: boolean;
-}) {
-  // Different entry animations for each card
-  const getEntryAnimation = (i: number) => {
-    const animations = [
-      { x: -100, y: -50, rotate: -15 },
-      { x: 100, y: -30, rotate: 10 },
-      { x: -80, y: 50, rotate: 12 },
-      { x: 100, y: 30, rotate: -8 },
-    ];
-    return animations[i % animations.length];
-  };
-
-  const entry = getEntryAnimation(index);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, ...entry }}
-      animate={isInView ? { opacity: 1, x: 0, y: 0, rotate: 0 } : {}}
-      transition={{ 
-        delay: 0.2 + index * 0.15,
-        duration: 0.6,
-        type: 'spring',
-        stiffness: 100,
-        damping: 15,
-      }}
-      whileHover={{ 
-        scale: 1.05, 
-        y: -8,
-        boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-      }}
-      className="group relative bg-white rounded-2xl p-6 shadow-lg border border-gray-100 overflow-hidden"
-    >
-      {/* Hover gradient */}
-      <motion.div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        style={{ 
-          background: `linear-gradient(135deg, ${color}08 0%, ${color}15 100%)` 
-        }}
-      />
-
-      {/* Content */}
-      <div className="relative z-10">
-        <motion.div 
-          className="w-14 h-14 rounded-xl flex items-center justify-center mb-4"
-          style={{ backgroundColor: `${color}15` }}
-          whileHover={{ scale: 1.1, rotate: 5 }}
-        >
-          <feature.icon size={28} style={{ color }} />
-        </motion.div>
-
-        <h4 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-800">
-          {feature.title}
-        </h4>
-        <p className="text-gray-600">
-          {feature.description}
-        </p>
-      </div>
-
-      {/* Corner accent */}
-      <motion.div
-        className="absolute -top-10 -right-10 w-20 h-20 rounded-full opacity-20"
-        style={{ backgroundColor: color }}
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 3, repeat: Infinity }}
-      />
-    </motion.div>
-  );
-}
-
-function CategorySection({ category, index }: { category: FeatureCategory; index: number }) {
+function FeatureSection({ block, index }: { block: FeatureBlock; index: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
+  // Alternate layout - left/right
+  const isReversed = index % 2 === 1;
+
   return (
-    <section ref={ref} id={category.id} className="py-16">
-      <Container>
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-12"
-        >
-          <div className="flex items-center gap-4">
-            <motion.div 
-              className="w-16 h-16 rounded-2xl flex items-center justify-center"
-              style={{ backgroundColor: `${category.color}15` }}
-              whileHover={{ scale: 1.1, rotate: -5 }}
-            >
-              <category.icon size={32} style={{ color: category.color }} />
-            </motion.div>
-            <div>
-              <h3 className="text-3xl font-bold text-gray-900">{category.title}</h3>
-              <p className="text-gray-600">{category.subtitle}</p>
+    <>
+      {/* Section title screen */}
+      <SectionTitleScreen
+        title={block.title}
+        subtitle={block.subtitle}
+        color={block.titleScreenColor}
+      />
+
+      {/* Content */}
+      <section ref={ref} id={block.id} className="py-20">
+        <Container>
+          <div className={`flex flex-col ${isReversed ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 lg:gap-20 items-center`}>
+            
+            {/* Left/Right - Features list */}
+            <div className="flex-1 space-y-6">
+              {block.features.map((feature, i) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ 
+                    opacity: 0, 
+                    x: isReversed ? 50 : -50,
+                    y: 20,
+                  }}
+                  animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
+                  transition={{ 
+                    delay: 0.1 + i * 0.15,
+                    duration: 0.6,
+                    type: 'spring',
+                    stiffness: 100,
+                  }}
+                  whileHover={{ x: isReversed ? -10 : 10 }}
+                  className="group flex items-start gap-5 cursor-default"
+                >
+                  {/* Icon with animated background */}
+                  <motion.div 
+                    className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center relative overflow-hidden"
+                    style={{ backgroundColor: `${block.color}15` }}
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                  >
+                    <feature.icon size={26} style={{ color: block.color }} className="relative z-10" />
+                    
+                    {/* Pulse effect on hover */}
+                    <motion.div
+                      className="absolute inset-0 rounded-2xl"
+                      style={{ backgroundColor: block.color }}
+                      initial={{ scale: 0, opacity: 0 }}
+                      whileHover={{ scale: 1.5, opacity: 0 }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </motion.div>
+
+                  {/* Text */}
+                  <div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-gray-700 transition-colors">
+                      {feature.title}
+                    </h4>
+                    <p className="text-gray-600 leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+
+              {/* CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.6 }}
+                className="pt-4"
+              >
+                <a
+                  href="#demo"
+                  className="inline-flex items-center gap-2 font-medium transition-colors"
+                  style={{ color: block.color }}
+                >
+                  <span>Узнать подробнее</span>
+                  <motion.span
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    →
+                  </motion.span>
+                </a>
+              </motion.div>
             </div>
+
+            {/* Right/Left - Visual with mascot */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="flex-1 flex justify-center"
+            >
+              <div className="relative">
+                {/* Decorative blob */}
+                <motion.div
+                  className="absolute inset-0 rounded-[60px] -z-10"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${block.color}10 0%, ${block.color}05 100%)`,
+                    transform: 'scale(1.5)',
+                  }}
+                  animate={{ 
+                    borderRadius: ['60px', '80px', '60px'],
+                    rotate: [0, 5, 0],
+                  }}
+                  transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+                />
+
+                {/* Floating particles */}
+                {[...Array(5)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-3 h-3 rounded-full"
+                    style={{ 
+                      backgroundColor: block.color,
+                      opacity: 0.3,
+                      left: `${20 + i * 15}%`,
+                      top: `${10 + (i % 3) * 30}%`,
+                    }}
+                    animate={{ 
+                      y: [-10, 10, -10],
+                      x: [-5, 5, -5],
+                      scale: [1, 1.2, 1],
+                    }}
+                    transition={{ 
+                      duration: 3 + i * 0.5,
+                      repeat: Infinity,
+                      delay: i * 0.3,
+                    }}
+                  />
+                ))}
+
+                {/* Mascot */}
+                <Mascot 
+                  size={280} 
+                  variant={block.mascotVariant} 
+                  showSpeechBubble 
+                  speechText={block.mascotSpeech}
+                />
+              </div>
+            </motion.div>
           </div>
-
-          {/* Mascot */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ delay: 0.3, type: 'spring' }}
-            className="hidden lg:block"
-          >
-            <Mascot 
-              size={100} 
-              variant={category.mascotVariant} 
-              showSpeechBubble 
-              speechText={category.mascotSpeech} 
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* Feature cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {category.features.map((feature, i) => (
-            <FeatureCard 
-              key={feature.title} 
-              feature={feature} 
-              index={i} 
-              color={category.color}
-              isInView={isInView}
-            />
-          ))}
-        </div>
-      </Container>
-    </section>
+        </Container>
+      </section>
+    </>
   );
 }
 
 export default function FeaturesPremium() {
   return (
-    <div className="py-10">
-      {categories.map((category, i) => (
-        <CategorySection key={category.id} category={category} index={i} />
+    <>
+      {blocks.map((block, i) => (
+        <FeatureSection key={block.id} block={block} index={i} />
       ))}
-    </div>
+    </>
   );
 }

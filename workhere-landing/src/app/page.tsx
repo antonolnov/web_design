@@ -6,8 +6,8 @@ import FloatingCTA from '@/components/ui/FloatingCTA';
 import HeroSimple from '@/components/sections/HeroSimple';
 import InterfaceShowcase from '@/components/sections/InterfaceShowcase';
 import TrustedBy from '@/components/sections/TrustedBy';
-import SectionTitleScreen from '@/components/ui/SectionTitleScreen';
 import FeaturesPremium from '@/components/sections/FeaturesPremium';
+import SectionTitleScreen from '@/components/ui/SectionTitleScreen';
 import EnterpriseTabs from '@/components/sections/EnterpriseTabs';
 import SecurityTabs from '@/components/sections/SecurityTabs';
 import Testimonials from '@/components/sections/Testimonials';
@@ -32,17 +32,10 @@ export default function Home() {
           {/* Trusted By */}
           <TrustedBy />
 
-          {/* Features Section Title */}
-          <SectionTitleScreen 
-            title="Возможности" 
-            subtitle="Всё для эффективного найма в одной системе"
-            color="blue"
-          />
-
-          {/* Premium Features */}
+          {/* Features with built-in section titles */}
           <FeaturesPremium />
 
-          {/* Enterprise Section Title */}
+          {/* Enterprise */}
           <SectionTitleScreen 
             title="Enterprise" 
             subtitle="Для крупных компаний с особыми требованиями"
@@ -50,7 +43,7 @@ export default function Home() {
           />
           <EnterpriseTabs />
 
-          {/* Security Section Title */}
+          {/* Security */}
           <SectionTitleScreen 
             title="Безопасность" 
             subtitle="Защита данных на всех уровнях"
