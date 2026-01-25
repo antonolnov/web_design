@@ -180,7 +180,7 @@ export default function InteractiveMascot({
                   exit={{ opacity: 0, y: -10 }}
                   className="text-[#1890ff]"
                 >
-                  Нажми на меня! 👆
+                  Привет! Нажми на меня 👆😊
                 </motion.span>
               ) : clickCount > 0 ? (
                 <motion.span
@@ -198,7 +198,7 @@ export default function InteractiveMascot({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                 >
-                  Привет! 👋
+                  Привет! Нажми на меня 👋
                 </motion.span>
               )}
             </AnimatePresence>

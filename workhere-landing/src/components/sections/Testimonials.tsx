@@ -1,194 +1,199 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { Star, Quote } from 'lucide-react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import Container from '../ui/Container';
-import SectionTitle from '../ui/SectionTitle';
+import ContentCard from '../ui/ContentCard';
 
 const testimonials = [
   {
-    quote:
-      'WorkHere полностью изменил наш процесс найма. Время закрытия вакансий сократилось вдвое, а качество кандидатов заметно выросло.',
-    author: 'Мария Соколова',
-    position: 'HR Director',
-    company: 'TechCorp Russia',
+    id: 1,
+    name: 'Анна Смирнова',
+    role: 'HR Director',
+    company: 'ТехноГрупп',
+    avatar: '👩‍💼',
+    text: 'WorkHere полностью изменил наш подход к найму. Время закрытия вакансий сократилось в 2 раза, а качество кандидатов значительно выросло.',
     rating: 5,
-    avatar: 'МС',
-    avatarColor: '#1890ff',
   },
   {
-    quote:
-      'Наконец-то все рекрутеры работают в одной системе. Прозрачность процесса, единые стандарты, понятная аналитика.',
-    author: 'Алексей Петров',
-    position: 'Head of Talent Acquisition',
-    company: 'FinanceGroup',
+    id: 2,
+    name: 'Михаил Козлов',
+    role: 'Руководитель HR',
+    company: 'ФинансПро',
+    avatar: '👨‍💻',
+    text: 'Отличная система с удобным интерфейсом. Особенно нравится AI-скоринг — экономит огромное количество времени на первичном отборе.',
     rating: 5,
-    avatar: 'АП',
-    avatarColor: '#40a9ff',
   },
   {
-    quote:
-      'Интеграции с job-бордами и парсинг резюме — это то, что мы искали годами. Экономим часы каждый день на рутине.',
-    author: 'Елена Козлова',
-    position: 'Senior Recruiter',
-    company: 'RetailMax',
+    id: 3,
+    name: 'Елена Петрова',
+    role: 'Talent Acquisition Lead',
+    company: 'РетейлМаркет',
+    avatar: '👩‍🦰',
+    text: 'Перешли на WorkHere с конкурентов и не жалеем. Интеграции работают отлично, поддержка отвечает моментально.',
     rating: 5,
-    avatar: 'ЕК',
-    avatarColor: '#69c0ff',
   },
   {
-    quote:
-      'Поддержка отвечает моментально, а функционал постоянно развивается. Видно, что команда прислушивается к пользователям.',
-    author: 'Дмитрий Волков',
-    position: 'CEO',
-    company: 'StartupHub',
+    id: 4,
+    name: 'Дмитрий Волков',
+    role: 'CEO',
+    company: 'СтартапХаб',
+    avatar: '👨‍💼',
+    text: 'Для стартапа важно нанимать быстро и качественно. WorkHere помог нам вырасти с 10 до 100 человек за год без потери качества найма.',
     rating: 5,
-    avatar: 'ДВ',
-    avatarColor: '#91d5ff',
   },
   {
-    quote:
-      'Перешли с известной западной ATS. WorkHere оказался не хуже по функционалу, но гораздо удобнее для российского рынка.',
-    author: 'Анна Белова',
-    position: 'People Operations Manager',
-    company: 'MediaHolding',
+    id: 5,
+    name: 'Ольга Новикова',
+    role: 'Рекрутер',
+    company: 'ПроизводствоПлюс',
+    avatar: '👩',
+    text: 'Работаю с системой каждый день и получаю удовольствие. Всё интуитивно понятно, автоматизация рутины на высшем уровне.',
     rating: 5,
-    avatar: 'АБ',
-    avatarColor: '#1890ff',
   },
-  {
-    quote:
-      'Аналитика в WorkHere помогла нам понять узкие места воронки и оптимизировать процесс. ROI виден сразу.',
-    author: 'Игорь Новиков',
-    position: 'CHRO',
-    company: 'LogisticsPro',
-    rating: 5,
-    avatar: 'ИН',
-    avatarColor: '#40a9ff',
-  },
-];
-
-const logos = [
-  'TechCorp', 'FinanceGroup', 'RetailMax', 'StartupHub', 'MediaHolding', 'LogisticsPro',
-  'DataSolutions', 'CloudServices', 'DigitalAgency', 'E-Commerce'
 ];
 
 export default function Testimonials() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const next = () => {
+    setDirection(1);
+    setCurrent((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prev = () => {
+    setDirection(-1);
+    setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  // Auto-rotate
+  useEffect(() => {
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 300 : -300,
+      opacity: 0,
+      scale: 0.9,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 300 : -300,
+      opacity: 0,
+      scale: 0.9,
+    }),
+  };
+
   return (
-    <section className="py-24 bg-gray-50">
+    <section ref={ref} className="py-20 px-4">
       <Container>
-        <SectionTitle
-          badge="Отзывы"
-          title="Нам доверяют лидеры рынка"
-          subtitle="Более 2000 компаний используют WorkHere для эффективного найма."
-        />
-
-        {/* Testimonials Grid */}
         <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          className="text-center mb-12"
         >
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.author}
-              className="bg-white rounded-[20px] p-6 shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-gray-100 relative"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-              whileHover={{ y: -5, boxShadow: '0 12px 40px rgba(24, 144, 255, 0.1)' }}
-            >
-              <Quote className="absolute top-6 right-6 text-[#1890ff]/10" size={40} />
-              
-              {/* Rating */}
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star key={i} className="text-[#1890ff] fill-[#1890ff]" size={16} />
-                ))}
-              </div>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#22c55e]/10 text-[#22c55e] text-sm font-medium mb-4">
+            💬 Отзывы клиентов
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Что говорят о нас
+          </h2>
+          <p className="text-lg text-gray-600">
+            Более 2000 компаний уже выбрали WorkHere
+          </p>
+        </motion.div>
 
-              {/* Quote */}
-              <p className="text-gray-700 mb-6 leading-relaxed relative z-10">
-                &ldquo;{testimonial.quote}&rdquo;
-              </p>
+        <ContentCard variant="white" className="relative overflow-hidden">
+          <div className="min-h-[300px] flex items-center justify-center px-4 md:px-12">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={current}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
+                className="text-center max-w-3xl"
+              >
+                {/* Quote icon */}
+                <Quote size={40} className="text-[#1890ff]/20 mx-auto mb-6" />
+                
+                {/* Text */}
+                <p className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
+                  "{testimonials[current].text}"
+                </p>
 
-              {/* Author */}
-              <div className="flex items-center gap-4">
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold"
-                  style={{ backgroundColor: testimonial.avatarColor }}
-                >
-                  {testimonial.avatar}
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-900">{testimonial.author}</div>
-                  <div className="text-sm text-gray-500">
-                    {testimonial.position}, {testimonial.company}
+                {/* Author */}
+                <div className="flex items-center justify-center gap-4">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#1890ff]/20 to-[#8b5cf6]/20 flex items-center justify-center text-2xl">
+                    {testimonials[current].avatar}
+                  </div>
+                  <div className="text-left">
+                    <div className="font-bold text-gray-900">{testimonials[current].name}</div>
+                    <div className="text-gray-500 text-sm">
+                      {testimonials[current].role}, {testimonials[current].company}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
 
-        {/* Logos */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="text-gray-500 mb-8">Нам доверяют компании со всего мира</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-12">
-            {logos.map((logo, index) => (
-              <motion.div
-                key={logo}
-                className="text-gray-400 font-semibold text-lg hover:text-[#1890ff] transition-colors cursor-pointer"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.5 }}
-                whileHover={{ scale: 1.1 }}
-              >
-                {logo}
+                {/* Rating */}
+                <div className="flex justify-center gap-1 mt-4">
+                  {[...Array(testimonials[current].rating)].map((_, i) => (
+                    <span key={i} className="text-yellow-400 text-lg">★</span>
+                  ))}
+                </div>
               </motion.div>
-            ))}
+            </AnimatePresence>
           </div>
-        </motion.div>
 
-        {/* Stats */}
-        <motion.div
-          className="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-8"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          {[
-            { value: '2000+', label: 'Компаний' },
-            { value: '500K+', label: 'Кандидатов в базах' },
-            { value: '98%', label: 'Рекомендуют' },
-            { value: '4.9', label: 'Средняя оценка' },
-          ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              className="text-center"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
+          {/* Navigation */}
+          <div className="flex justify-center items-center gap-4 mt-6">
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={prev}
+              className="p-3 rounded-full bg-gray-100 hover:bg-[#1890ff]/10 text-gray-600 hover:text-[#1890ff] transition-colors"
             >
-              <div className="text-4xl lg:text-5xl font-bold text-[#1890ff] mb-2">
-                {stat.value}
-              </div>
-              <div className="text-gray-600">{stat.label}</div>
-            </motion.div>
-          ))}
-        </motion.div>
+              <ChevronLeft size={24} />
+            </motion.button>
+
+            {/* Dots */}
+            <div className="flex gap-2">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    setDirection(i > current ? 1 : -1);
+                    setCurrent(i);
+                  }}
+                  className={`w-2.5 h-2.5 rounded-full transition-all ${
+                    i === current ? 'bg-[#1890ff] w-8' : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={next}
+              className="p-3 rounded-full bg-gray-100 hover:bg-[#1890ff]/10 text-gray-600 hover:text-[#1890ff] transition-colors"
+            >
+              <ChevronRight size={24} />
+            </motion.button>
+          </div>
+        </ContentCard>
       </Container>
     </section>
   );

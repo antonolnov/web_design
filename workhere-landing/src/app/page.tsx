@@ -4,13 +4,16 @@ import Footer from '@/components/layout/Footer';
 import FloatingCTA from '@/components/ui/FloatingCTA';
 
 import HeroSimple from '@/components/sections/HeroSimple';
+import InterfaceShowcase from '@/components/sections/InterfaceShowcase';
+import TrustedBy from '@/components/sections/TrustedBy';
 import SectionTitleScreen from '@/components/ui/SectionTitleScreen';
-import AutomationTabs from '@/components/sections/AutomationTabs';
-import AnalyticsTabs from '@/components/sections/AnalyticsTabs';
-import IntegrationsTabs from '@/components/sections/IntegrationsTabs';
-import PipelineTabs from '@/components/sections/PipelineTabs';
+import FeaturesPremium from '@/components/sections/FeaturesPremium';
 import EnterpriseTabs from '@/components/sections/EnterpriseTabs';
 import SecurityTabs from '@/components/sections/SecurityTabs';
+import Testimonials from '@/components/sections/Testimonials';
+import Journal from '@/components/sections/Journal';
+import Webinars from '@/components/sections/Webinars';
+import FAQ from '@/components/sections/FAQ';
 import CTASimple from '@/components/sections/CTASimple';
 
 export default function Home() {
@@ -23,39 +26,23 @@ export default function Home() {
           {/* Hero */}
           <HeroSimple />
 
-          {/* Automation Section */}
-          <SectionTitleScreen 
-            title="Автоматизация" 
-            subtitle="Избавьтесь от рутины и сфокусируйтесь на главном"
-            color="green"
-          />
-          <AutomationTabs />
+          {/* Interface Screenshot */}
+          <InterfaceShowcase />
 
-          {/* Pipeline Section */}
-          <SectionTitleScreen 
-            title="Воронки подбора" 
-            subtitle="Любое количество воронок под каждый тип найма"
-            color="orange"
-          />
-          <PipelineTabs />
+          {/* Trusted By */}
+          <TrustedBy />
 
-          {/* Analytics Section */}
+          {/* Features Section Title */}
           <SectionTitleScreen 
-            title="Аналитика" 
-            subtitle="Принимайте решения на основе данных"
+            title="Возможности" 
+            subtitle="Всё для эффективного найма в одной системе"
             color="blue"
           />
-          <AnalyticsTabs />
 
-          {/* Integrations Section */}
-          <SectionTitleScreen 
-            title="Интеграции" 
-            subtitle="Подключайте любые сервисы и источники"
-            color="purple"
-          />
-          <IntegrationsTabs />
+          {/* Premium Features */}
+          <FeaturesPremium />
 
-          {/* Enterprise Section */}
+          {/* Enterprise Section Title */}
           <SectionTitleScreen 
             title="Enterprise" 
             subtitle="Для крупных компаний с особыми требованиями"
@@ -63,13 +50,25 @@ export default function Home() {
           />
           <EnterpriseTabs />
 
-          {/* Security Section */}
+          {/* Security Section Title */}
           <SectionTitleScreen 
             title="Безопасность" 
             subtitle="Защита данных на всех уровнях"
             color="blue"
           />
           <SecurityTabs />
+
+          {/* Testimonials */}
+          <Testimonials />
+
+          {/* Journal */}
+          <Journal />
+
+          {/* Webinars */}
+          <Webinars />
+
+          {/* FAQ */}
+          <FAQ />
 
           {/* CTA */}
           <CTASimple />

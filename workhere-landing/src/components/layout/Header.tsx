@@ -7,11 +7,10 @@ import Container from '../ui/Container';
 import MagneticButton from '../ui/MagneticButton';
 
 const navLinks = [
-  { href: '#automation', label: 'Автоматизация' },
-  { href: '#pipeline', label: 'Воронки' },
-  { href: '#analytics', label: 'Аналитика' },
-  { href: '#integrations', label: 'Интеграции' },
+  { href: '#automation', label: 'Возможности' },
+  { href: '#enterprise', label: 'Enterprise' },
   { href: '#security', label: 'Безопасность' },
+  { href: '#demo', label: 'Демо' },
 ];
 
 export default function Header() {

@@ -102,6 +102,23 @@ export default function SecurityTabs() {
               ))}
             </div>
 
+            {/* Compliance badges */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.3 }}
+              className="flex flex-wrap justify-center gap-4 mb-10"
+            >
+              <div className="flex items-center gap-2 px-4 py-2 bg-[#22c55e]/20 rounded-xl border border-[#22c55e]/30">
+                <CheckCircle size={18} className="text-[#22c55e]" />
+                <span className="text-white font-medium">Соответствует 152-ФЗ</span>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-[#1890ff]/20 rounded-xl border border-[#1890ff]/30">
+                <Shield size={18} className="text-[#1890ff]" />
+                <span className="text-white font-medium">Реестр отечественного ПО</span>
+              </div>
+            </motion.div>
+
             {/* Tab content */}
             <AnimatePresence mode="wait">
               <motion.div
