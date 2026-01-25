@@ -230,16 +230,17 @@ export default function APIHuntflow() {
           })}
         </div>
 
-        {/* Mascot */}
-        <motion.div
-          className="absolute -bottom-8 -right-8 hidden xl:block"
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.8 }}
-        >
-          <Mascot variant="06" size={120} phrase="API мощь! 💪" />
-        </motion.div>
+      </motion.div>
+
+      {/* Mascot - outside content container */}
+      <motion.div
+        className="absolute bottom-4 left-4 hidden xl:block z-20"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.8 }}
+      >
+        <Mascot variant="06" size={80} phrase="API! 💪" />
       </motion.div>
     </section>
   );

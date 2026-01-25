@@ -158,18 +158,19 @@ export default function TestimonialsHuntflow() {
             </button>
           </div>
 
-          {/* Mascot */}
-          <motion.div
-            className="absolute -bottom-8 right-0 hidden xl:block"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, type: 'spring' }}
-          >
-            <Mascot variant="01" size={90} phrase="Круто! ⭐" />
-          </motion.div>
         </div>
       </div>
+
+      {/* Mascot - outside content container */}
+      <motion.div
+        className="absolute bottom-4 left-4 hidden xl:block z-20"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.5 }}
+      >
+        <Mascot variant="01" size={80} phrase="Круто! ⭐" />
+      </motion.div>
     </section>
   );
 }

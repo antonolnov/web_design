@@ -225,17 +225,18 @@ export default function JournalHuntflow() {
           </div>
         </motion.div>
 
-        {/* Mascot */}
-        <motion.div
-          className="absolute bottom-32 -left-4 hidden xl:block"
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-        >
-          <Mascot variant="07" size={100} phrase="Читай! 📚" />
-        </motion.div>
       </div>
+
+      {/* Mascot - outside content container */}
+      <motion.div
+        className="absolute bottom-4 right-4 hidden xl:block z-20"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.6 }}
+      >
+        <Mascot variant="07" size={80} phrase="Читай! 📚" />
+      </motion.div>
     </section>
   );
 }
